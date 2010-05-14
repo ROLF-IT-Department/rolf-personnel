@@ -1,0 +1,68 @@
+/**
+ * Таблица стилей профайла сотрудника.
+ */
+
+.gridbox {
+	width: 100%;
+	height: 100%;
+}
+.gridbox-head {
+	padding-top: 4px;
+	border-bottom: 1px solid #CCCCCC;
+	height: 20px;
+	overflow: hidden;
+}
+.gridbox-body {
+	top: 25px;
+	width: 100%;
+	height: expression(this.parentNode.offsetHeight - 25 + 'px');
+}
+.gridbox-body table {
+	margin-bottom: 10px;
+	width: expression(this.parentNode.offsetWidth - 16 + 'px');
+}
+.gridbox-head-table {
+	line-height: 20px;
+	text-align: left;
+	font-size: 90%;
+	color: #444444;
+}
+.gridbox-head-table th,
+.gridbox-body-table td {
+	vertical-align: top;
+}
+.gridbox-body-table td {
+	padding-top: 5px;
+	padding-bottom: 8px;
+	border-bottom: 1px dashed #CCCCCC;
+}
+
+.training-field-num {
+	padding-left: 2px;
+	width: 28px;
+	text-align: center;
+	background-color: #F0F0F0;
+}
+.training-field-situation {
+	padding-left: 8px;
+}
+.training-field-objective {
+	padding-left: 16px;
+}
+.training-field-method {
+	padding-left: 16px;
+	width: 140px;
+}
+.training-field-responsible {
+	width: 120px;
+}
+.training-field-term {
+	width: 70px;
+}
+
+.training-field-method div {
+	padding-left: 8px;
+}
+.training-field-responsible div {
+	padding-left: 8px;
+}

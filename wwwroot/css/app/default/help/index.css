@@ -1,0 +1,26 @@
+/**
+ * Таблица стилей справочной страницы.
+ */
+ 
+a {
+	color: #0000FF;
+	text-decoration: none;
+}
+a:hover {
+	color: #FF6633;
+}
+div.caption {
+	padding: 20px 0 5px 20px;
+	font-size: 160%;
+	color: #666666;
+}
+ol.docs-list {
+	margin: 0;
+	padding-left: 25px;
+}
+ol.docs-list li {
+	padding-top: 8px;
+	font-size: 110%;
+	color: #666666;
+ 	list-style-position: inside;
+}

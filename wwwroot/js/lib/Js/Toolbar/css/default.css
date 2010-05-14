@@ -1,0 +1,22 @@
+
+.toolbar {
+	border-collapse: separate;
+	border-spacing: 0;
+	background-color: #CCCCCC;
+}
+.toolbarItem {
+	padding: 3px 4px 3px 2px;
+	cursor: pointer;
+}
+.toolbarItem div {
+	padding-left: 18px;
+	overflow: hidden;
+	white-space: nowrap;
+	background: url('../img/icon.gif') no-repeat left;
+	cursor: pointer;
+}
+.toolbarItemHover {
+	padding: 2px 3px 2px 1px;
+	border: 1px solid #666666;
+	background-color: #FFCC99;
+}

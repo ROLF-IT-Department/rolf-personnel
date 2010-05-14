@@ -1,0 +1,42 @@
+<?php error_reporting(E_ALL ^ E_NOTICE) // отмена вывода замечаний notice?>
+<!DOCTYPE html>
+<html>
+<head>
+	<title><?php echo $this->escape($this->title);  ?></title>
+	<meta http-equiv="content-type" content="text/html; charset=windows-1251" />
+	<style type="text/css">
+		@import url('<?php echo $this->baseUrl() ?>/css/app/index.css');
+		@import url('<?php echo $this->baseUrl() ?>/css/app/default/auth/index.css');
+	</style>
+	<script type="text/javascript">
+		var MESSAGE = '<?php echo addslashes($this->message) ?>';
+		
+		function init()
+		{
+			if (MESSAGE) {
+				alert(MESSAGE);
+			}
+		}
+		
+	</script>
+
+</head>
+
+
+<body onload="init()">
+
+<div class="header-logo"></div>
+	<form action="<?php echo $this->baseUrl() ?>/default/auth/index" method="post" target="_self">
+		<fieldset>
+			<legend>Авторизация</legend>
+			<label for="username">Логин</label>
+			<input id="username" name="username" type="text" />
+			<label for="password">Пароль</label>
+			<input id="password" name="password" type="password" />
+			<input id="submit" name="submit" type="submit" value="Войти" />
+		</fieldset>
+	</form>
+
+</body>
+</html>
+

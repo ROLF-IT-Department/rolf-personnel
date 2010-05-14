@@ -1,0 +1,66 @@
+/**
+ * “аблица стилей закладок по-умолчанию
+ */
+ 
+.tabs {
+	position: absolute;
+	top: 26px;
+	bottom: 10px;
+	left: 10px;
+	right: 10px;
+	width: expression(this.parentNode.offsetWidth - 20 + 'px');
+	height: expression(this.parentNode.offsetHeight - this.offsetTop - 10 + 'px');
+	overflow: hidden;
+}
+.tabs-items {
+	position: relative;
+	top: 1px;
+	left: 10px;
+	z-index: 1;
+}
+.tabs-item {
+	padding-right: 2px;
+}
+.tabs-item div {
+	margin-top: 2px;
+	padding: 0 8px 0 22px;
+	border: 1px solid #888888;
+	height: 32px;
+	line-height: 32px;
+	white-space: nowrap;
+	overflow: hidden;
+	background: #DDDDDD no-repeat 3px center;
+	cursor: pointer;
+}
+.tabs-item-hover {
+}
+.tabs-item-hover div {
+	margin-top: 1px;
+	border-top: 2px solid #ff9900;
+}
+.tabs-item-activated {
+}
+.tabs-item-activated div {
+	margin-top: 0;
+	border-top: 2px solid #ff9900;
+	border-bottom: none;
+	height: 34px;
+	line-height: 32px;
+	background: #FFFFFF no-repeat 3px 3px;
+}
+.tabs-body {
+	display: none;
+	position: absolute;
+	border: 1px solid #888888;
+	top: 36px;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	width: expression(this.parentNode.offsetWidth - 2 + 'px');
+	height: expression(this.parentNode.offsetHeight - this.offsetTop - 2 + 'px');
+	background-color: #FFFFFF;
+	z-index: 0;
+}
+.tabs-body-activated {
+	display: block;
+}

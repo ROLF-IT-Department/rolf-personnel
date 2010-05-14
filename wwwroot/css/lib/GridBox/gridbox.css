@@ -1,0 +1,54 @@
+
+.gridbox {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	overflow: hidden;
+}
+.gridbox-head {
+	position: absolute;
+	padding-right: 16px;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 3;	
+}
+.gridbox-body {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	overflow: scroll;
+	overflow-x: hidden;
+	z-index: 1;
+}
+.gridbox-foot {
+	position: absolute;
+	padding-right: 16px;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 2;
+}
+.gridbox table {
+	width: 100%;
+	table-layout: fixed;
+}
+
+/* For IE 6 */
+/*
+.gridbox {
+	width: expression('100%');
+	height: expression('100%');
+}
+.gridbox-body {
+	width: expression('100%');
+	height: expression('100%');
+}
+.gridbox-body table {
+	width: expression(this.parentNode.offsetWidth - 16 + 'px');
+}
+*/
