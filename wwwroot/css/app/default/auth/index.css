@@ -1,0 +1,35 @@
+/**
+ * Таблица стилей страницы авторизации.
+ */
+ 
+form {
+	margin-top: 18%;
+}
+fieldset {
+	margin: 0 auto;
+	width: 300px;
+	border: 1px solid #333333;
+}
+legend {
+	margin: 0 0 20px 5px;
+	font-size: 120%;
+	color: #000000;
+}
+label {
+	margin-left: 20px;
+	width: 80px;
+	float: left;
+	clear: both;
+	font-size: 120%;
+	font-weight: bold;
+	line-height: 150%;
+}
+input {
+	margin-bottom: 10px;
+	font-size: 120%;
+}
+#submit {
+	margin-left: 150px;
+	font-weight: bold;
+	font-size: 110%;
+}

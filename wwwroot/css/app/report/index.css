@@ -1,0 +1,24 @@
+/**
+ * Основная таблица стилей отчетов.
+ */
+
+.report {
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	overflow-y: scroll;
+}
+.report-table {
+	border-top: 1px solid #DDDDDD;
+	border-left: 1px solid #DDDDDD;
+}
+.report-table th,
+.report-table td {
+	padding: 0 4px;
+	border-right: 1px solid #DDDDDD;
+	border-bottom: 1px solid #DDDDDD;
+	white-space: nowrap;
+}
+.report-table th {
+	line-height: 150%;
+}

@@ -1,0 +1,17 @@
+/**
+ * Таблица стилей страницы персональной информации.
+ */
+
+table {
+	margin-top: 10px;
+	text-align: left;
+}
+th, td {
+	padding: 2px 0 2px 10px;
+}
+th {
+	font-size: 90%;
+}
+.redundant {
+	color: #FF0000;
+}

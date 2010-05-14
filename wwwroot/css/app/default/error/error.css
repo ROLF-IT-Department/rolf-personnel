@@ -1,0 +1,19 @@
+/**
+ * Таблица стилей страницы вывода ошибки (исключения).
+ */
+
+div.caption {
+	padding: 10px 20px;
+	border-top: 4px solid #444444;
+	height: 16pt;
+	font-size: 16pt;
+	font-family: Verdana, Tahoma, sans-serif;
+	text-align: right;
+	color: #FFFFFF;
+	background-color: #990000;
+}
+div.message {
+	padding: 10px;
+	white-space: pre;
+	line-height: 1.5;
+}

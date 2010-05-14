@@ -1,0 +1,88 @@
+<?php error_reporting(E_ALL ^ E_NOTICE) // отмена вывода замечаний notice?>
+<!DOCTYPE html>
+<html>
+<head>
+	<title><?php echo $this->escape($this->title) ?></title>
+	<meta http-equiv="content-type" content="text/html; charset=windows-1251" />
+	<style type="text/css">
+		@import url('<?php echo $this->baseUrl() ?>/css/app/print.css');
+		@import url('<?php echo $this->baseUrl() ?>/css/app/card/achievs/print.css');
+		
+	</style>
+	<script type="text/javascript">
+		
+		var BASE_URL  = '<?php echo $this->baseUrl() ?>';
+		
+	</script>
+</head>
+<body>
+	<table class="panel">
+		<tbody>
+			<tr>
+				<td class="panel-period">
+					<div><span>Период: <?php echo $this->card->period  ?></span></div>
+				</td>
+				<td class="panel-status">
+					<div class="panel-status<?php echo $this->status->id ?>">
+						<span title="Статус карточки"><?php echo $this->status->name ?></span>
+					</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<?php echo $this->achievsHeader($this->emp) ?>
+	<div class="caption">Бизнес-цели - Business objectives</div>
+	<?php echo $this->achievsPrintTasks($this->tasks, $this->ratings, $this->count_func, $this->rate_weights, $this->card, $this->ratings[$this->card->rtg_tasks_id], $this->status->id) ?>
+	<div class="caption caption-break">Компетенции - Competences</div>
+	<?php echo $this->achievsPrintCompetences($this->competences, $this->ratings, $this->rate_weights, $this->card->rtg_competens_id) ?>
+	<div class="caption caption-break">План развития - Development plan</div>
+	<?php echo $this->achievsPrintTrainings($this->trainings, $this->trainsGroupsMethods, $this->trainsRespons, $this->months, $this->status->id) ?>
+	<div class="caption caption-break">Итоговые рейтинги - Total ratings</div>
+	<table class="ratings">
+		<tbody>
+			<tr>
+				<td>Итоговый рейтинг бизнес-целей:</td>
+				<td class="ratings-field-value"><?php echo $this->ratings[$this->card->rtg_tasks_id] ?></td>
+				<td>Итоговый рейтинг компетенций:</td>
+				<td class="ratings-field-value"><?php echo $this->ratings[$this->card->rtg_competens_id] ?></td>
+				<th>Общий рейтинг:</th>
+				<th class="ratings-field-value"><?php echo $this->ratings[$this->card->rtg_total_id] ?></th>
+			</tr>
+		</tbody>
+	</table>
+	<div class="caption">Комментарии - Comments</div>
+	<table class="table comments">
+		<tbody>
+			<tr><th>Комментарий руководителя - Manager's comment</th></tr>
+			<tr><td><?php echo $this->card->mng_comment ?></td></tr>
+			
+			<!--<tr><?php //if ($this->count_func > 0) echo '<th>Комментарий функционального руководителя - Functional manager\'s comment</th>' ?></tr>
+			<tr><?php //if ($this->count_func > 0) echo '<td>' . $this->card->fnc_comment . '</td>' ?></tr>-->
+			
+			<tr><th>Рекомендации по развитию карьеры - Career Development Recommendations</th></tr>
+			<tr><td class="comments-field-flags">
+					<?php echo $this->achievsCareerFlags($this->card->career_flag_id, $this->careerFlags) ?>
+				</td>
+			</tr>
+			<tr><td><?php echo $this->card->career_recom ?></td></tr>
+			<tr><th>Карьерные ожидания сотрудника - Employee’s Career Expectations</th></tr>
+			<tr><td><?php echo $this->card->career_wait ?></td></tr>
+			
+		</tbody>
+	</table>
+	<div class="caption">Форма сотрудника - Employee form</div>
+	<?php echo $this->achievsPrintPersonal( $this->tasks, $this->personalTrainings, $this->personalCompetences, $this->ratings, $this->rate_weights, $this->card, $this->status->id) ?>
+	<div class="caption">Согласования - Approvals</div>
+	<div class="caption">&nbsp;</div>
+	<table class="approvals">
+		<tbody>
+			<tr>
+				<td class="approvals-margin">&nbsp;</td>
+				<td><?php echo $this->achievsTableApprovals($this->approvals, $this->card->status_id, $this->count_func) ?></td>
+				<td class="approvals-margin">&nbsp;</td>
+			</tr>
+		</tbody>
+	</table>
+	
+</body>
+</html>

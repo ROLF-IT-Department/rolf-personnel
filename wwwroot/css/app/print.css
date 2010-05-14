@@ -1,0 +1,27 @@
+/**
+ * Основная таблица стилей печатных страниц.
+ */
+
+html, body {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+body {
+	font-size: 10pt;
+	font-family: Tahoma, Arial, sans-serif;
+	color: #000000;
+	background-color: #FFFFFF;
+}
+table {
+	border: 0;
+	border-collapse: collapse;
+	font-size: 100%;
+}
+th, td, div {
+	margin: 0;
+	padding: 0;
+}
+img {
+	border: 0;
+}

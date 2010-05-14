@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title><?php echo $this->escape($this->title) ?></title>
+	<meta http-equiv="content-type" content="text/html; charset=windows-1251" />
+	<style type="text/css">
+		@import url('<?php echo $this->baseUrl() ?>/css/app/index.css');
+		@import url('<?php echo $this->baseUrl() ?>/css/app/report/index.css');
+	</style>
+</head>
+<body>
+	<div class="report">
+		<table class="report-table">
+			<thead>
+				<tr>
+					<th rowspan="2">#</th>
+					<th rowspan="2">ID</th>
+					<th rowspan="2">ФИО</th>
+					<th rowspan="2">Компания</th>
+					<th rowspan="2">Должность</th>
+					<th rowspan="2">Подразделение</th>
+					<th rowspan="2">Полный путь до подразделения</th>
+					<th rowspan="2">Руководители</th>
+					<th colspan="4">Оценка <?php echo $this->ratePeriod ?></th>
+					<th colspan="3">Планирование <?php echo $this->planPeriod ?></th>
+				</tr>
+				<tr>
+					<th>Руководитель</th>
+					<th>Сотрудник</th>
+					<th>Выш. руководитель</th>
+					<th>Рейтинг</th>
+					<th>Руководитель</th>
+					<th>Сотрудник</th>
+					<th>Выш. руководитель</th>
+				</tr>
+			</thead>
+			<tbody>
+			<?php foreach ($this->rows as $key => $row) { ?>
+				<tr>
+					<td><?php echo ++$key ?></td>
+					<td><?php echo $row['id'] ?></td>
+					<td><?php echo $row['fullname'] ?></td>
+					<td><?php echo $row['company'] ?></td>
+					<td><?php echo $row['appointment'] ?></td>
+					<td><?php echo $row['department'] ?></td>
+					<td><?php echo $row['department_path'] ?></td>
+					<td><?php echo $row['managers'] ?></td>
+					<td><?php echo $row['rate_mng_date'] ?></td>
+					<td><?php echo $row['rate_emp_date'] ?></td>
+					<td><?php echo $row['rate_hmg_date'] ?></td>
+					<td><?php echo $row['rtg_total'] ?></td>
+					<td><?php echo $row['plan_mng_date'] ?></td>
+					<td><?php echo $row['plan_emp_date'] ?></td>
+					<td><?php echo $row['plan_hmg_date'] ?></td>
+				</tr>
+			<?php } ?>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
