@@ -30,7 +30,7 @@ body {
 	width: 100%;
 	height: expression(document.body.offsetHeight - 253 + 'px');
 	overflow: scroll;
-	overflow-x: hidden;
+	/*overflow-x: hidden;*/
 }
 .notes-table {
 	width: 100%;
