@@ -57,7 +57,7 @@ class Zend_View_Helper_AchievsPrintPersonal
 		
     	
     	// вывод целей руководителя для оценки сотрудником
-    	if (($status_id == 'RTG') || ($status_id == 'CRG') || ($status_id == 'CLS'))
+    	if (($status_id == 'RTG') || ($status_id == 'CRG') || ($status_id == 'CLS') || ($status_id == 'CPN'))
     	{
 	    	$xhtml[] = '<div class="tasks-type">Бизнес-цели (руководитель) - <span class="translate_category_tasks">Business Objectives (manager)</span></div>
 					<table class="table">

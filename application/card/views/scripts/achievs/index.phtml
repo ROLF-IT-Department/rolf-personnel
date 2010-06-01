@@ -61,7 +61,8 @@
 		?>';
 		var Rate_Weights = Str_Weight.split(",");
 		
-		
+		var active_tab = '<?php echo $this->tab?>';
+
 	</script>
 	<script src="<?php echo $this->baseUrl() ?>/js/lib/Js.js" type="text/javascript"></script>
 	<script src="<?php echo $this->baseUrl() ?>/js/lib/Js/Toolbar.js" type="text/javascript"></script>
@@ -70,7 +71,7 @@
 	<script src="<?php echo $this->baseUrl() ?>/js/app/card/achievs/index/Card.js" type="text/javascript"></script>
 	<script src="<?php echo $this->baseUrl() ?>/js/app/card/achievs/index.js" type="text/javascript"></script>
 </head>
-<body onload="init()">
+<body onload="init();">
 
 	<form name="card" action="<?php echo $this->baseUrl() ?>/card/achievs/save" enctype="multipart/form-data" method="post">
 		<fieldset>
@@ -96,6 +97,7 @@
 			<input name="approvals[rate_emp_status]" type="hidden" value="<?php echo $this->card->rate_emp_status ?>" />
 			<input name="approvals[rate_hmg_status]" type="hidden" value="<?php echo $this->card->rate_hmg_status ?>" />
 			<input name="approvals[rate_fnc_status]" type="hidden" value="<?php echo $this->card->rate_fnc_status ?>" />
+			<input name="tab" type="hidden" value="<?php echo $this->tab?>" />
 			
 			<table class="panel">
 				<tbody>
@@ -217,9 +219,12 @@
 					</div>
 				</div>
 				<div class="tabs-body" id="tabs-body-personal">
-					<?php 
-						echo $this->achievsFormPersonal( $this->tasks, $this->personalTrainings, $this->personalCompetences, $this->ratings, $this->rate_weights, $this->userRole & $ROLE_FUNC_MANAGER, $this->card, $this->status->id) 
-					?>
+					<div class="top-half">
+						<?php echo $this->achievsFormPersonal( $this->tasks, $this->personalTrainings, $this->personalCompetences, $this->ratings, $this->rate_weights, $this->userRole & $ROLE_FUNC_MANAGER, $this->card, $this->status->id);?>
+					</div>
+					<div class="bottom-half">
+						<?php echo $this->achievsFormCompetences($this->competences, $this->ratings, $this->rate_weights, $this->card->rtg_competens_id, TRUE);?>
+					</div>
 				</div>
 				
 			</div>

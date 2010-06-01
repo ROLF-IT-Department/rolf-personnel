@@ -68,6 +68,8 @@ class Card_AchievsController extends Zend_Controller_Action
 		$view->careerFlags = $careerFlags->fetchNames();
 		$view->count_func = count($emp->getFuncManagers()->getCol('person_id'));
 		$view->emails = $this->_getEmails($card, $user);
+
+		$view->tab = (isset($_SESSION['tab'])) ? $_SESSION['tab'] : 'tasks';
 	}
 	
 	public function printAction()
@@ -80,6 +82,9 @@ class Card_AchievsController extends Zend_Controller_Action
 		$request = $this->getRequest();
 		$cardId  = $request->getPost('id', null);
 		
+		$tab = $request->getPost('tab', 'tasks');
+		$_SESSION['tab'] = $tab;
+
 		$cards = new Rp_Db_Table_Ach_Cards();
 		$card = $cards->find($cardId)->current();
 		

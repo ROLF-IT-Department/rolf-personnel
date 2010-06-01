@@ -181,7 +181,7 @@ class Zend_Config implements Countable, Iterator
      * @param string $name
      * @return boolean
      */
-    protected function __isset($name)
+    public function __isset($name)
     {
         return isset($this->_data[$name]);
     }
@@ -191,7 +191,7 @@ class Zend_Config implements Countable, Iterator
      *
      * @param string $name
      */
-    protected function __unset($name)
+    public function __unset($name)
     {
         if ($this->_allowModifications) {
             unset($this->_data[$name]);

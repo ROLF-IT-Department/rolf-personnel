@@ -15,7 +15,7 @@ class Zend_View_Helper_AchievsFormTasks
 		$this->view = $view;
     }
 	
-    public function achievsFormTasks(Zend_Db_Table_Rowset_Abstract $tasks, $have_func, array &$ratings, $rate_weights, $cardRtgTasksId, $userRole, $card, $cardRtgFuncId)
+    public function achievsFormTasks(Zend_Db_Table_Rowset_Abstract $tasks, $have_func, array $ratings, $rate_weights, $cardRtgTasksId, $userRole, $card, $cardRtgFuncId)
     {
     	$xhtml   = array();
     	$func_tasks = array();	// временный буфер для функциональных целей
@@ -171,7 +171,7 @@ class Zend_View_Helper_AchievsFormTasks
 
     }
     
-	private function _rowTask(Zend_Db_Table_Row_Abstract $task, array &$ratings, $func, $counter = null)
+	private function _rowTask(Zend_Db_Table_Row_Abstract $task, array $ratings, $func, $counter = null)
 	{	
 		
 		if ($func) $table = 'functasks';

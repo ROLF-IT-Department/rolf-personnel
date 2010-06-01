@@ -2,7 +2,7 @@
 
 class Zend_View_Helper_AchievsCareerFlags
 {	
-	public function achievsCareerFlags($value, array &$careerFlags)
+	public function achievsCareerFlags($value, array $careerFlags)
 	{
 		$xhtml = array();
 		

@@ -71,6 +71,12 @@ Js.TabPanelItem = function(id, bodyId, classNames)
 	
 	_tag.onclick = function(e)
 	{
+		var tab_re = new RegExp("tabs-item-");
+		if(document.card)
+		{
+			document.card.tab.value = this.id.replace(tab_re, '');
+		}
+
 		_this.activate();
 	}
 	

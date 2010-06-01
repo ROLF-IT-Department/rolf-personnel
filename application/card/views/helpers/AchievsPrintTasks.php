@@ -14,7 +14,7 @@ class Zend_View_Helper_AchievsPrintTasks
 		$this->view = $view;
     }
 	
-    public function achievsPrintTasks(Zend_Db_Table_Rowset_Abstract $tasks, array &$ratings, $have_func, $rate_weights, $card, $rtg, $status_id)
+    public function achievsPrintTasks(Zend_Db_Table_Rowset_Abstract $tasks, array $ratings, $have_func, $rate_weights, $card, $rtg, $status_id)
     {
     	$xhtml   = array();
     	$func_tasks = array();
@@ -175,7 +175,7 @@ class Zend_View_Helper_AchievsPrintTasks
     	return $ret;
     }
     
-	private function _rowTask(Zend_Db_Table_Row_Abstract $task, array &$ratings, $counter)
+	private function _rowTask(Zend_Db_Table_Row_Abstract $task, array $ratings, $counter)
 	{
 		
 		$class = '';

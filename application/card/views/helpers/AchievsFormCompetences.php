@@ -14,11 +14,11 @@ class Zend_View_Helper_AchievsFormCompetences
 		$this->view = $view;
     }
     
-    public function achievsFormCompetences(Rp_Db_Table_Rowset $competences, array &$ratings, $rate_weights, $cardRtgCompetensId)
+    public function achievsFormCompetences(Rp_Db_Table_Rowset $competences, array $ratings, $rate_weights, $cardRtgCompetensId, $in_person = FALSE)
     {
     	$competences = $competences->toArray();
-    	
-    	$xhtml  = array();
+
+		$xhtml  = array();
     	$stands = array();
     	$addits = array(); 
     	$xhtml[] = '
@@ -38,7 +38,9 @@ class Zend_View_Helper_AchievsFormCompetences
 			</div>
     		<div class="grid-body">
 		';
-    	
+
+		
+
     	$stands[] = '
     			<div class="compets-type">Корпоративные компетенции - <span class="translate_category_tasks">Corporate competences</span></div>
     			<table class="grid-body-table" id="standsCompets">
@@ -89,7 +91,7 @@ class Zend_View_Helper_AchievsFormCompetences
     	
     	return implode('', $xhtml);
     }
-    
+
     private function CalculateWeights($competences, $rate_weights)	// рассчет вычисляемого рейтинга
     {
     	$sum = 0;
@@ -114,7 +116,7 @@ class Zend_View_Helper_AchievsFormCompetences
     	return $ret;
     }
     
-    public function _rowCompetence(array $competence, array &$ratings)
+    public function _rowCompetence(array $competence, array $ratings)
     {
     	static $standsCounter = 0;
     	static $additsCounter = 0;

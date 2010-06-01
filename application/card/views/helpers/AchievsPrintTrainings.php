@@ -14,7 +14,7 @@ class Zend_View_Helper_AchievsPrintTrainings
 		$this->view = $view;
     }
     
-    public function achievsPrintTrainings(Zend_Db_Table_Rowset_Abstract $trainings,	array &$groupsMethods, array &$respons, array &$months, $status_id)
+    public function achievsPrintTrainings(Zend_Db_Table_Rowset_Abstract $trainings,	array $groupsMethods, array $respons, array $months, $status_id)
     {
     	$methods = array();
 		foreach ($groupsMethods as $item) {
@@ -63,7 +63,7 @@ class Zend_View_Helper_AchievsPrintTrainings
 	}
     
     private function _rowTraining(Zend_Db_Table_Row_Abstract $training,
-		array &$methods, array &$groupsMethods, array &$respons, array &$months)
+		array $methods, array $groupsMethods, array $respons, array $months)
 	{
 		static $counter = 0;
 		
