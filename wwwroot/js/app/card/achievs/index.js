@@ -160,8 +160,8 @@ function sendEmail()
 	
 	var subject = "Согласование карточки в системе Управление Достижениями";
 	
-	var bodytext = 'Уважаемые коллеги!%0A%0AИнформирую вас о том, что карточка сотрудника ' + employee_fio_value + ' выставлена на согласование.%0AОзнакомьтесь, пожалуйста, с внесенными данными и согласуйте их.%0A%0AСпасибо!';
-		
+	var bodytext = 'Уважаемые коллеги!%0A%0AИнформирую вас о том, что карточка сотрудника ' + employee_fio_value + ' выставлена на согласование.%0AОзнакомьтесь, пожалуйста, с внесенными данными и согласуйте их.%0A%0AСпасибо!%0A%0A%0A%0ADear colleagues,%0A%0APlease, be informed that performance management card of ' + employee_fio_value + ' is waiting for your approval.%0AAcquaint with information and submit it.%0A%0AThank you.';
+
 	parent.location.href="mailto:" + emails + "?subject=" + subject + "&body=" + bodytext;
 	
 }
