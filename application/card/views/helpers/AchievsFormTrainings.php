@@ -15,7 +15,7 @@ class Zend_View_Helper_AchievsFormTrainings
     }
     
     public function achievsFormTrainings(Zend_Db_Table_Rowset_Abstract $trainings,
-		array &$groupsMethods, array &$respons, array &$months, array &$groupsMethodsActual)
+		array $groupsMethods, array $respons, array $months, array $groupsMethodsActual)
     {
     	$methods = array();
 		foreach ($groupsMethods as $item) {
@@ -66,7 +66,7 @@ class Zend_View_Helper_AchievsFormTrainings
 	}
     
     private function _rowTraining(Zend_Db_Table_Row_Abstract $training,
-		array &$methods, array &$groupsMethods, array &$respons, array &$months, array $groupsMethodsActual)
+		array $methods, array $groupsMethods, array $respons, array $months, array $groupsMethodsActual)
 	{
 		static $counter = 0;
 		

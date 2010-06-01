@@ -16,10 +16,10 @@ class Zend_View_Helper_AchievsFormPersonal
     }
 	
     public function achievsFormPersonal(Zend_Db_Table_Rowset_Abstract $tasks, Zend_Db_Table_Rowset_Abstract $personalTrainings,
-     Zend_Db_Table_Rowset_Abstract $personalCompetences, array &$ratings, $rate_weights, $userRole, $card, $status_id)
+     Zend_Db_Table_Rowset_Abstract $personalCompetences, array $ratings, $rate_weights, $userRole, $card, $status_id)
     {
     	$personal = 1;
-    	
+
     	$xhtml   = array();
     	
     	$xhtml[] = '
@@ -40,7 +40,24 @@ class Zend_View_Helper_AchievsFormPersonal
 			</div>';
     	
     	$xhtml[] = '<div class="grid-body">';
-			  	
+
+		// вывод целей руководителя для оценки сотрудником
+    	if (($status_id == 'RTG') || ($status_id == 'CRG') || ($status_id == 'CLS') || ($status_id == 'CPN'))
+    	{
+	    	$xhtml[] = '<div class="tasks-type">Бизнес-цели (руководитель) - <span class="translate_category_tasks">Business Objectives (manager)</span></div>
+					<table class="grid-body-table" id="managertasks">
+						<tbody>';
+	    	$count = 0;
+
+	    	foreach ($tasks as $item) {
+	    		if ($item->is_personal != 1)
+	    			$xhtml[] = $this->_rowManagerTask($item, $ratings, ++$count);
+	    	}
+
+	    	$xhtml[] = '</tbody>
+					</table>';
+    	}
+
     	$xhtml[] = '<div class="tasks-type">Бизнес-цели (сотрудник) - <span class="translate_category_tasks">Business Objectives (employee)</span></div>
 				<table class="grid-body-table" id="personaltasks">
 					<tbody>';
@@ -58,22 +75,7 @@ class Zend_View_Helper_AchievsFormPersonal
 				</table>';
 		
     	
-    	// вывод целей руководителя для оценки сотрудником
-    	if (($status_id == 'RTG') || ($status_id == 'CRG') || ($status_id == 'CLS'))
-    	{
-	    	$xhtml[] = '<div class="tasks-type">Бизнес-цели (руководитель) - <span class="translate_category_tasks">Business Objectives (manager)</span></div>
-					<table class="grid-body-table" id="managertasks">
-						<tbody>';
-	    	$count = 0;
-	    	
-	    	foreach ($tasks as $item) {
-	    		if ($item->is_personal != 1)
-	    			$xhtml[] = $this->_rowManagerTask($item, $ratings, ++$count);
-	    	}
-	    	
-	    	$xhtml[] = '</tbody>
-					</table>';
-    	}
+    	
     	
     	
     	if (count($personalCompetences) > 0)
@@ -122,7 +124,7 @@ class Zend_View_Helper_AchievsFormPersonal
     	return implode('', $xhtml);
     }
 
-    private function getPersonalCompetences(Zend_Db_Table_Row_Abstract $personalCompetence, array &$ratings)
+    private function getPersonalCompetences(Zend_Db_Table_Row_Abstract $personalCompetence, array $ratings)
     {
     	if (empty($personalCompetence->id)) 
     	{
@@ -237,7 +239,7 @@ class Zend_View_Helper_AchievsFormPersonal
     	
     }
     
-	private function _rowTask(Zend_Db_Table_Row_Abstract $task, array &$ratings, $func, $counter = null)
+	private function _rowTask(Zend_Db_Table_Row_Abstract $task, array $ratings, $func, $counter = null)
 	{	
 		
 		if (empty($task->id)) {
@@ -309,7 +311,7 @@ class Zend_View_Helper_AchievsFormPersonal
 		';
 	}
 	
-	private function _rowManagerTask(Zend_Db_Table_Row_Abstract $task, array &$ratings, $counter = null)
+	private function _rowManagerTask(Zend_Db_Table_Row_Abstract $task, array $ratings, $counter = null)
 	{	
 		
 		$all_notes = new Rp_Db_Table_Ach_Tasks_Notes();

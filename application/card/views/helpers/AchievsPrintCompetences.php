@@ -14,7 +14,7 @@ class Zend_View_Helper_AchievsPrintCompetences
 		$this->view = $view;
     }
     
-    public function achievsPrintCompetences(Rp_Db_Table_Rowset $competences, array &$ratings, $rate_weights, $cardRtgCompetensId)
+    public function achievsPrintCompetences(Rp_Db_Table_Rowset $competences, array $ratings, $rate_weights, $cardRtgCompetensId)
     {
     	$competences = $competences->toArray();
     	
@@ -110,7 +110,7 @@ class Zend_View_Helper_AchievsPrintCompetences
     	return $ret;
     }
     
-    public function _rowCompetence(array $competence, array &$ratings)
+    public function _rowCompetence(array $competence, array $ratings)
     {
     	static $standsCounter = 0;
     	static $additsCounter = 0;

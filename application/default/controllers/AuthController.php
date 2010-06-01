@@ -33,7 +33,7 @@ class AuthController extends Zend_Controller_Action
 				$log = new Rp_Db_Table_Logon;
 				
 				// убираем вывод замечаний - ругается на $_SESSION['user_id']
-				error_reporting(E_ALL ^ E_NOTICE);	
+				error_reporting(E_ALL ^ E_NOTICE);
 						
 				if (!$_SESSION['user_id'])
 				{

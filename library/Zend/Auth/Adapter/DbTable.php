@@ -129,6 +129,7 @@ class Zend_Auth_Adapter_DbTable implements Zend_Auth_Adapter_Interface
         if (null !== $credentialTreatment) {
             $this->setCredentialTreatment($credentialTreatment);
         }
+		//exit(Zend_Debug::dump($this));
     }
 
     /**

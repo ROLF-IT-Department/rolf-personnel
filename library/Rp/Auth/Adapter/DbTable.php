@@ -72,7 +72,7 @@ class Rp_Auth_Adapter_DbTable extends Zend_Auth_Adapter_DbTable
 	public function authenticate()
     {
         $exception = null;
-
+		//exit(Zend_Debug::dump($this));
         if ($this->_tableName == '') {
             $exception = 'A table must be supplied for the Zend_Auth_Adapter_DbTable authentication adapter.';
         } elseif ($this->_identityColumn == '') {

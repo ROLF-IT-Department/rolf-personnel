@@ -357,7 +357,7 @@ class Zend_Controller_Action_Helper_Redirector extends Zend_Controller_Action_He
      * @param  array $params
      * @return void
      */
-    public function goto($action, $controller = null, $module = null, array $params = array())
+    public function _goto($action, $controller = null, $module = null, array $params = array())
     {
         $this->setGoto($action, $controller, $module, $params);
 
@@ -477,6 +477,6 @@ class Zend_Controller_Action_Helper_Redirector extends Zend_Controller_Action_He
      */
     public function direct($action, $controller = null, $module = null, array $params = array())
     {
-        $this->goto($action, $controller, $module, $params);
+        $this->_goto($action, $controller, $module, $params);
     }
 }
