@@ -22,7 +22,7 @@
 	left: 0;
 	right: 0;
 	overflow: scroll;
-	overflow-x: hidden;
+	/*overflow-x: hidden;*/
 	z-index: 1;
 }
 .gridbox-foot {
