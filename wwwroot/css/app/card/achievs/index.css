@@ -202,7 +202,7 @@ div.panel-statusCLS {
 	bottom: 37px;
 	width: 100%;
 	height: expression(this.parentNode.offsetHeight - 73 + 'px');
-	overflow-x: hidden;
+	/*overflow-x: hidden;*/
 	overflow: scroll;
 }
 
