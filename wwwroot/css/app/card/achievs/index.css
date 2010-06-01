@@ -214,8 +214,8 @@ div.panel-statusCLS {
 	background-color: #FFDDBB;
 }
 
-.top-half {position: absolute; top: 0!important; bottom:50%!important;width:100%;overflow: auto;}
-.bottom-half {position: absolute; top: 50%!important; bottom:0!important;width:100%;overflow: auto;}
+.top-half {position: absolute;display:block!important;width:100%!important;height:50%!important;float:left;bottom:50%}
+.bottom-half {position: absolute;display:block!important;width:100%!important;height:50%!important;float:left;top:50%}
 
 .grid-head-table {
 	width: 100%;
