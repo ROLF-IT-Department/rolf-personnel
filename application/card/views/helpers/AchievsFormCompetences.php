@@ -54,9 +54,9 @@ class Zend_View_Helper_AchievsFormCompetences
     	foreach ($competences as $item) {
     		if ((!$item['disabled']) && (!$item['is_personal'])) {
     			if ($item['additional']) {
-					$addits[] = $this->_rowCompetence($item, $ratings);
+					$addits[] = $this->_rowCompetence($item, $ratings, $in_person);
 				} else {
-					$stands[] = $this->_rowCompetence($item, $ratings);
+					$stands[] = $this->_rowCompetence($item, $ratings, $in_person);
 				}
     		}
     	}
@@ -99,7 +99,7 @@ class Zend_View_Helper_AchievsFormCompetences
     	foreach ($competences as $item) {
     		if ((!$item['disabled']) && ($item['rating_id']) && (!$item['is_personal'])) 
     			{
-    				$val = $rate_weights[$item['rating_id']][weight];		// вес рейтинга
+    				$val = $rate_weights[$item['rating_id']]['weight'];		// вес рейтинга
     				$sum += $val;
     				if ($val != 0)
     					$count++;
@@ -116,7 +116,7 @@ class Zend_View_Helper_AchievsFormCompetences
     	return $ret;
     }
     
-    public function _rowCompetence(array $competence, array $ratings)
+    public function _rowCompetence(array $competence, array $ratings, $in_person = FALSE)
     {
     	static $standsCounter = 0;
     	static $additsCounter = 0;
@@ -126,7 +126,9 @@ class Zend_View_Helper_AchievsFormCompetences
 		$competen = $competen->find($competence['id'])->current();
 		
 		$num  = $competence['additional'] ? ++$additsCounter : ++$standsCounter;
-		$name = 'competences[' . $competence['id'] . ']';
+		$name = ($in_person === TRUE)
+			?'competences_in_person[' . $competence['id'] . ']'
+			:'competences[' . $competence['id'] . ']';
 		$note1  = '<div style="display:none" onclick="openNotesCompetence(' . $competence['id'] . ')" title="Заметки">' . count($competen->fetchNotes()) . '</div>'; 
 
 		return '
