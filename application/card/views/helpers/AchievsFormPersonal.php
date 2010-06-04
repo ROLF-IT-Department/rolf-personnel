@@ -42,8 +42,8 @@ class Zend_View_Helper_AchievsFormPersonal
     	$xhtml[] = '<div class="grid-body">';
 
 		// вывод целей руководителя для оценки сотрудником
-    	if (($status_id == 'RTG') || ($status_id == 'CRG') || ($status_id == 'CLS') || ($status_id == 'CPN'))
-    	{
+//    	if (($status_id == 'RTG') || ($status_id == 'CRG') || ($status_id == 'CLS') || ($status_id == 'CPN'))
+//    	{
 	    	$xhtml[] = '<div class="tasks-type">Бизнес-цели (руководитель) - <span class="translate_category_tasks">Business Objectives (manager)</span></div>
 					<table class="grid-body-table" id="managertasks">
 						<tbody>';
@@ -56,7 +56,7 @@ class Zend_View_Helper_AchievsFormPersonal
 
 	    	$xhtml[] = '</tbody>
 					</table>';
-    	}
+//    	}
 
     	$xhtml[] = '<div class="tasks-type">Бизнес-цели (сотрудник) - <span class="translate_category_tasks">Business Objectives (employee)</span></div>
 				<table class="grid-body-table" id="personaltasks">

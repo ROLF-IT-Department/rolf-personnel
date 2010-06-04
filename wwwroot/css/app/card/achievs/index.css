@@ -214,8 +214,11 @@ div.panel-statusCLS {
 	background-color: #FFDDBB;
 }
 
-.top-half {position: absolute;display:block!important;width:100%!important;height:50%!important;float:left;bottom:50%}
-.bottom-half {position: absolute;display:block!important;width:100%!important;height:50%!important;float:left;top:50%}
+#tabs-body-personal {overflow: scroll}
+.half {display:block!important;width:100%!important;height:100%!important;float:left;}
+.half .grid-head {}
+.half .grid-body {position: inherit!important; top:inherit!important;bottom:inherit!important;height:inherit!important}
+.half .grid-footer {position: relative!important;bottom: inherit!important;}
 
 .grid-head-table {
 	width: 100%;

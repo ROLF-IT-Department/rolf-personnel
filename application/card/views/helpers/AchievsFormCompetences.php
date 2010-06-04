@@ -68,7 +68,10 @@ class Zend_View_Helper_AchievsFormCompetences
     				</tbody>
     			</table>
     	';
-    	
+
+		$name = ($in_person === TRUE)
+			? 'ratings_in_person[rtg_competens_id]'
+			: 'ratings_in_person[rtg_competens_id]';
     	$xhtml[] = implode('', $stands) . implode('', $addits);
     	$xhtml[] = '
 			</div>
@@ -80,7 +83,7 @@ class Zend_View_Helper_AchievsFormCompetences
 							<td class="field-rating tasks-field-rating-total"><div>'.$this->CalculateWeights($competences, $rate_weights).'</div></td>
 							<th class="compets-field-rating-total">Итоговый рейтинг:<br/>Total rating:</th>
 							<td class="field-rating compets-field-rating-total" id="fieldRatingCompets">
-								' . $this->view->formSelect('ratings[rtg_competens_id]', $cardRtgCompetensId, null, $ratings) . '
+								' . $this->view->formSelect($name, $cardRtgCompetensId, null, $ratings) . '
 								<div>' . $ratings[$cardRtgCompetensId] . '</div>
 							</td>
 						</tr>

@@ -3,7 +3,7 @@
 class Zend_View_Helper_ProfileTrainings
 {	
 	public function profileTrainings(Zend_Db_Table_Rowset_Abstract $trainings, 
-		array& $groupsMethods, array& $respons, array& $months)
+		array $groupsMethods, array $respons, array $months)
 	{
 		$xhtml   = array();
 		$xhtml[] = '
