@@ -121,8 +121,8 @@ class Zend_View_Helper_AchievsFormCompetences
     
     public function _rowCompetence(array $competence, array $ratings, $in_person = FALSE)
     {
-    	static $standsCounter = 0;
-    	static $additsCounter = 0;
+    	$standsCounter = 0;
+    	$additsCounter = 0;
     	
     	
     	$competen = new Rp_Db_Table_Ach_Cards_Competences();
