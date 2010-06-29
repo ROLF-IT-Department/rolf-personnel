@@ -68,6 +68,7 @@
 	<form name="competenceNotes" action="<?php echo $this->baseUrl() ?>/card/achievs-competence-notes/save" enctype="multipart/form-data" method="post">
 		<fieldset>
 			<input name="competence[id]" type="hidden" value="<?php echo $this->competence->id ?>" />
+			<input name="competence[is_personal]" type="hidden" value="<?php echo $this->is_personal ?>" />
 			<div class="task">
 				<div class="task-label">Компетенция</div>
 				<div class="task-description">
@@ -80,7 +81,7 @@
 				</div>
 			</div>
 			<div class="notes">
-				<?php echo $this->achievsCompetenceNotes($this->notes) ?>
+				<?php echo $this->achievsCompetenceNotes($this->notes, $this->is_personal) ?>
 			</div>
 			<div class="newnote">
 				<div class="newnote-label">Новая заметка &nbsp;&nbsp;<img alt="Добавить ссылку" src="<?php echo $this->baseUrl() ?>/img/achievs/card/hyperlink.bmp" onclick="AddHyperlink(event.clientX + document.documentElement.scrollLeft, event.clientY + document.documentElement.scrollTop);" style="cursor: hand;"></div>

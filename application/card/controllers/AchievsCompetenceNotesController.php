@@ -7,6 +7,7 @@ class Card_AchievsCompetenceNotesController extends Zend_Controller_Action
 		$request = $this->getRequest();
 		
 		$competId = $request->getParam('competid');
+		$is_personal = $request->getParam('is_personal', 0);
 		$competence = new Rp_Db_Table_Ach_Cards_Competences();
 		$competence = $competence->find($competId)->current();			// выбираем таблицу user_rp_cards_competences 
 		$comp = new Rp_Db_Table_Ach_Competences();
@@ -15,6 +16,7 @@ class Card_AchievsCompetenceNotesController extends Zend_Controller_Action
 		$view = $this->initView();
 		$view->title = Rp::getTitle('Заметки к компетенции #' . $competence->id);
 		$view->comp = $comp;
+		$view->is_personal = $is_personal;
 		$view->competence = $competence;
 		$view->notes = $competence->fetchNotes();
 	}
@@ -34,12 +36,17 @@ class Card_AchievsCompetenceNotesController extends Zend_Controller_Action
 		}
 		if (trim($newNote['text']) != '') {
 			$newNote['competence_id'] = $competence['id'];
+			$newNote['is_personal'] = $competence['is_personal'];
 			$newNote['author_id'] = Rp_User::getInstance()->person_id;
 			
 			$tableNotes->insert($newNote);
 		}
-		
-		$this->_redirect('/card/achievs-competence-notes/index/competid/' . $competence['id']);
+
+		$url = ($competence['is_personal'] == '1')
+			? '/card/achievs-competence-notes/index/competid/' . $competence['id'] . '/is_personal/1'
+			: '/card/achievs-competence-notes/index/competid/' . $competence['id'];
+
+		$this->_redirect($url);
 		
 	}
 

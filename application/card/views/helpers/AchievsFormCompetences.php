@@ -14,7 +14,7 @@ class Zend_View_Helper_AchievsFormCompetences
 		$this->view = $view;
     }
     
-    public function achievsFormCompetences(Rp_Db_Table_Rowset $competences, array $ratings, $rate_weights, $cardRtgCompetensId, $in_person = FALSE)
+    public function achievsFormCompetences(Rp_Db_Table_Rowset $competences, array $ratings, $rate_weights, $cardRtgCompetensId)
     {
     	$competences = $competences->toArray();
 
@@ -54,9 +54,9 @@ class Zend_View_Helper_AchievsFormCompetences
     	foreach ($competences as $item) {
     		if ((!$item['disabled']) && (!$item['is_personal'])) {
     			if ($item['additional']) {
-					$addits[] = $this->_rowCompetence($item, $ratings, $in_person);
+					$addits[] = $this->_rowCompetence($item, $ratings);
 				} else {
-					$stands[] = $this->_rowCompetence($item, $ratings, $in_person);
+					$stands[] = $this->_rowCompetence($item, $ratings);
 				}
     		}
     	}
@@ -69,9 +69,7 @@ class Zend_View_Helper_AchievsFormCompetences
     			</table>
     	';
 
-		$name = ($in_person === TRUE)
-			? 'ratings_in_person[rtg_competens_id]'
-			: 'ratings_in_person[rtg_competens_id]';
+		$name = 'ratings[rtg_competens_id]';
     	$xhtml[] = implode('', $stands) . implode('', $addits);
     	$xhtml[] = '
 			</div>
@@ -119,7 +117,7 @@ class Zend_View_Helper_AchievsFormCompetences
     	return $ret;
     }
     
-    public function _rowCompetence(array $competence, array $ratings, $in_person = FALSE)
+    public function _rowCompetence(array $competence, array $ratings)
     {
     	$standsCounter = 0;
     	$additsCounter = 0;
@@ -129,10 +127,9 @@ class Zend_View_Helper_AchievsFormCompetences
 		$competen = $competen->find($competence['id'])->current();
 		
 		$num  = $competence['additional'] ? ++$additsCounter : ++$standsCounter;
-		$name = ($in_person === TRUE)
-			?'competences_in_person[' . $competence['id'] . ']'
-			:'competences[' . $competence['id'] . ']';
-		$note1  = '<div style="display:none" onclick="openNotesCompetence(' . $competence['id'] . ')" title="Заметки">' . count($competen->fetchNotes()) . '</div>'; 
+		$name = 'competences[' . $competence['id'] . ']';
+		$kol = count($competen->fetchNotes($competen->id));
+		$note1  = '<div style="display:none" onclick="openNotesCompetence(' . $competence['id'] . ')" title="Заметки">' . $kol . '</div>';
 
 		return '
 			<tr>

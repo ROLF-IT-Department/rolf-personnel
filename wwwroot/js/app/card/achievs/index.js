@@ -357,9 +357,9 @@ function openNotes(taskId, is_personal)
 	Js.open(url, '', 400, 510);
 }
 
-function openNotesCompetence(competId)
+function openNotesCompetence(competId, is_personal)
 {
-	var url = BASE_URL + '/card/achievs-competence-notes/index/competid/' + competId;
+	var url = BASE_URL + '/card/achievs-competence-notes/index/competid/' + competId + '/is_personal/' + is_personal;
 	
 	Js.open(url, '', 400, 510);
 }

@@ -219,12 +219,19 @@
 					</div>
 				</div>
 				<div class="tabs-body" id="tabs-body-personal">
-					<div class="half">
-						<?php echo $this->achievsFormPersonal( $this->tasks, $this->personalTrainings, $this->personalCompetences, $this->ratings, $this->rate_weights, $this->userRole & $ROLE_FUNC_MANAGER, $this->card, $this->status->id);?>
-					</div>
-					<div class="half">
-						<?php echo $this->achievsFormCompetences($this->competences, $this->ratings, $this->rate_weights, $this->card->rtg_competens_id, TRUE);?>
-					</div>
+					<?php echo $this->achievsFormPersonal(
+						$this->tasks,
+						$this->personalTrainings,
+						$this->personalCompetences,
+						$this->ratings,
+						$this->rate_weights,
+						$this->userRole & $ROLE_FUNC_MANAGER,
+						$this->card,
+						$this->status->id,
+						// данные для компетенций
+						$this->competences
+						// $this->ratings, $this->rate_weights, $this->card->rtg_competens_id, TRUE
+						);?>
 				</div>
 				
 			</div>

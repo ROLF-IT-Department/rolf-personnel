@@ -28,23 +28,25 @@ var Card = new function()
 	
 	this.init = function(period)
 	{
-		_tasks         = document.getElementById('tasks');
-		_personaltasks = document.getElementById('personaltasks');
-		_managertasks = document.getElementById('managertasks');
-		_personalCompetence = document.getElementById('personalCompetence');
-		_personalTraining = document.getElementById('personalTraining');
-		_func_tasks    = document.getElementById('functasks');
-		_standsCompets = document.getElementById('standsCompets');
-		_additsCompets = document.getElementById('additsCompets');
-		_trains        = document.getElementById('trains');
-		_ratings       = document.getElementById('ratings');
-		_comments      = document.getElementById('comments');
-		_emp_comment   = document.getElementById('comment_employee');
-		_sum_rtg_tasks = document.getElementById('sum_tasks');
-		_rtg_tasks     = document.getElementById('ratings[rtg_tasks_id]');
-		_rtg_competens = document.getElementById('ratings[rtg_competens_id]');
-		_func_comment = document.getElementById('comments[fnc_comment]');
-		_func_div = document.getElementById('func_div');
+		_tasks                 = document.getElementById('tasks');
+		_personaltasks         = document.getElementById('personaltasks');
+		_managertasks          = document.getElementById('managertasks');
+		_personalCompetence    = document.getElementById('personalCompetence');
+		_personalTraining      = document.getElementById('personalTraining');
+		_func_tasks            = document.getElementById('functasks');
+		_standsCompets         = document.getElementById('standsCompets');
+		_personalStandsCompets = document.getElementById('personalStandsCompets');
+		_additsCompets         = document.getElementById('additsCompets');
+		_personalAdditsCompets = document.getElementById('personalAdditsCompets');
+		_trains                = document.getElementById('trains');
+		_ratings               = document.getElementById('ratings');
+		_comments              = document.getElementById('comments');
+		_emp_comment           = document.getElementById('comment_employee');
+		_sum_rtg_tasks         = document.getElementById('sum_tasks');
+		_rtg_tasks             = document.getElementById('ratings[rtg_tasks_id]');
+		_rtg_competens         = document.getElementById('ratings[rtg_competens_id]');
+		_func_comment          = document.getElementById('comments[fnc_comment]');
+		_func_div              = document.getElementById('func_div');
 		
 		ratio_mng = document.getElementById('ratio[ratio_mng]');
 		ratio_fnc = document.getElementById('ratio[ratio_fnc]');
@@ -58,16 +60,16 @@ var Card = new function()
 		lbl_fnc = document.getElementById('ratio_fnc');
 		
 		_fieldRatingTasks   = document.getElementById('fieldRatingTasks');
-		_fieldRatingFunc   = document.getElementById('fieldRatingFunc');
+		_fieldRatingFunc    = document.getElementById('fieldRatingFunc');
 		_fieldRatingCompets = document.getElementById('fieldRatingCompets');
 		_fieldRatingTotal   = document.getElementById('fieldRatingTotal');
 			
 		_getControl(_fieldRatingTasks).onchange   = _ratingTasksOnchange;
 		_getControl(_fieldRatingCompets).onchange = _ratingCompetsOnchange;
 		
-		_buttonAddTask = document.getElementById('buttonAddTask');
+		_buttonAddTask         = document.getElementById('buttonAddTask');
 		_buttonAddPersonalTask = document.getElementById('buttonAddPersonalTask');
-		_buttonAddTraining = document.getElementById('buttonAddTraining');
+		_buttonAddTraining     = document.getElementById('buttonAddTraining');
 		
 		_period = period;
 	}
@@ -317,6 +319,7 @@ var Card = new function()
 				cells[2].className += ' field-activated';	
 				cells[3].className += ' field-activated';
 				cells[5].className += ' field-activated';
+				cells[6].className += ' field-activated';
 				_getControl(cells[1]).readOnly = false;
 				_getControl(cells[2]).onclick  = this.calendar;
 				_getControl(cells[3]).readOnly = false;
@@ -330,8 +333,8 @@ var Card = new function()
 				break;
 			case '2':
 				cells[3].className += ' field-activated';
-				_getControl(cells[3]).readOnly = false;
 				cells[5].className += ' field-activated';
+				_getControl(cells[3]).readOnly = false;
 				_getControl(cells[5]).readOnly = false;
 				break;
 			default:
@@ -376,6 +379,45 @@ var Card = new function()
 		
 		
 	}
+
+	this.setRateTask2 = function(row)
+	{
+		var cells = row.cells;
+		//var status = _getControl(cells[0]).value;
+
+//		if (status != '0')
+//		{
+			cells[3].className += ' field-activated';
+			cells[4].className += ' field-activated';
+			_getControl(cells[3]).readOnly = false;
+			_getControl(cells[4]).readOnly = false;
+//		}
+		/*
+		switch (status) {
+			case '1':
+				cells[5].className += ' field-activated';
+				cells[6].className += ' field-activated';
+				_getControl(cells[5]).readOnly = false;
+				break;
+			default:
+				return;
+		}*/
+
+
+	}
+	this.setPlanTask2 = function(row)
+	{
+		var cells = row.cells;
+		cells[5].className += ' field-activated';
+		_getControl(cells[5]).readOnly = false;
+	}
+
+	this.setPlanTask3 = function(row)
+	{
+		var cells = row.cells;
+		cells[3].className += ' field-activated';
+		_getControl(cells[3]).readOnly = false;
+	}
 	 
 	// увеличиваем индекс cells на 1 (=4), так как добавляется столбец заметок к компетенциям
 	this.setPlanCompet = function(row)		
@@ -413,6 +455,10 @@ var Card = new function()
 		
 		cells[3].getElementsByTagName('textarea')[0].readOnly = false;
 		cells[4].getElementsByTagName('textarea')[0].readOnly = false;
+
+		this.setEditCompetenceNotes();
+		this.activateButtons();
+
 	}
 	
 	this.setRateTrain = function(row)
@@ -532,6 +578,24 @@ var Card = new function()
 				div.style.display = 'block';
 			}
 	}
+
+	this.setEditPersonalCompetenceNotes = function()
+	{
+		var rowsAdd = _personalAdditsCompets.rows;
+		var rowsSt = _personalStandsCompets.rows;
+		if (rowsSt.length)
+			for (var i = 0; i < rowsSt.length; i++)
+			{
+				div = rowsSt[i].cells[2].getElementsByTagName('div')[0];
+				div.style.display = 'block';
+			}
+		if (rowsAdd.length)
+			for (var i = 0; i < rowsAdd.length; i++)
+			{
+				div = rowsAdd[i].cells[2].getElementsByTagName('div')[0];
+				div.style.display = 'block';
+			}
+	}
 	
 	this.activateButtons = function()
 	{
@@ -575,12 +639,19 @@ var Card = new function()
 	// этап планирования для персональной части сотрудника
 	this.setModePersonalPlan = function()
 	{
-		
 		var rows = _personaltasks.rows;
-		
-			
+
 		for (var i = 0; i < rows.length; i++) {
 			this.setPlanTask(rows[i]);
+		}
+
+		if(_managertasks != null)
+		{
+			var rows = _managertasks.rows;
+
+			for (var i = 0; i < rows.length; i++) {
+				this.setPlanTask2(rows[i]);
+			}
 		}
 		
 		var rows = _personalCompetence.rows;
@@ -590,8 +661,19 @@ var Card = new function()
 		var rows = _personalTraining.rows;
 		rows[1].cells[1].className += ' field-activated';		
 		_getControl(rows[1].cells[1]).readOnly = false;
-		
-		
+
+		var rows = _personalStandsCompets.rows;
+		for (var i = 0; i < rows.length; i++) {
+			this.setPlanTask3(rows[i]);
+		}
+
+		var rows = _personalAdditsCompets.rows;
+		for (var i = 0; i < rows.length; i++) {
+			this.setPlanTask3(rows[i]);
+		}
+
+		this.setEditPersonalCompetenceNotes();
+
 		_buttonAddPersonalTask.onclick = Card.savePersonalTasks; 
 		_buttonAddPersonalTask.className += ' button-activated';
 
@@ -682,7 +764,17 @@ var Card = new function()
 		for (var i = 0; i < mrows.length; i++) {
 			this.setRateTask(mrows[i]);
 		}
-		
+
+		var rows = _personalStandsCompets.rows;
+		for (var i = 0; i < rows.length; i++) {
+			this.setRateTask2(rows[i]);
+		}
+
+		var rows = _personalAdditsCompets.rows;
+		for (var i = 0; i < rows.length; i++) {
+			this.setRateTask2(rows[i]);
+		}
+
 		var rows = _personalCompetence.rows;
 		rows[1].cells[1].className += ' field-activated';		
 		_getControl(rows[1].cells[1]).readOnly = false;
@@ -700,7 +792,7 @@ var Card = new function()
 		_getControl(rows[1].cells[1]).readOnly = false;
 		
 		
-
+		this.setEditPersonalCompetenceNotes();
 		
 
 	}
@@ -1143,7 +1235,7 @@ var Card = new function()
 		}
 		else
 			Card.addTask(); 
-		document.forms.card.submit();
+		//document.forms.card.submit();
 		
 	}
 	
@@ -1164,7 +1256,7 @@ var Card = new function()
 		}
 		else
 			Card.addFuncTask();
-		document.forms.card.submit();
+		//document.forms.card.submit();
 		
 	}
 	
@@ -1192,7 +1284,7 @@ var Card = new function()
 			
 			Card.addPersonalTask();
 		}
-		document.forms.card.submit();
+		//document.forms.card.submit();
 		
 	}
 	
