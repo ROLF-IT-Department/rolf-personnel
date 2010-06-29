@@ -14,7 +14,7 @@
  * @package    Rp_Db
  * @subpackage Rp_Db_Table
  */
-class Rp_Db_Table_Ach_Competences_Notes extends Rp_Db_Table_Abstract
+class Rp_Db_Table_Ach_Competences_Personal_Notes extends Rp_Db_Table_Abstract
 {
 	protected $_name = 'user_rp_ach_cards_competences_notes';
 	
@@ -26,8 +26,8 @@ class Rp_Db_Table_Ach_Competences_Notes extends Rp_Db_Table_Abstract
 		)
 	);
 
-	// заметки руководителя к компетенциям is_personal = 0
-	public function findNotes($competence_id)
+	// заметки сотрудника к компетенциям is_personal  is_personal = 1
+	public function findPersonalNotes($competence_id)
 	{
 		$db = $this->getAdapter();
 
@@ -39,7 +39,7 @@ class Rp_Db_Table_Ach_Competences_Notes extends Rp_Db_Table_Abstract
 			FROM
 				$this->_name
 			WHERE
-				(competence_id = $competence_id) AND (is_personal = 0)
+				(competence_id = $competence_id) AND (is_personal = 1)
 			ORDER BY
 				date_record ASC
 		";

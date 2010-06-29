@@ -188,7 +188,7 @@ div.panel-statusCLS {
 }
 
 .grid-head {
-	padding-right: 16px;
+	/*padding-right: 16px;*/
 	border-top: 1px solid #999999;
 	border-bottom: 1px solid #666666;
 	height: 31px;
@@ -214,11 +214,25 @@ div.panel-statusCLS {
 	background-color: #FFDDBB;
 }
 
-#tabs-body-personal {overflow: scroll}
-.half {display:block!important;width:100%!important;height:100%!important;float:left;}
-.half .grid-head {}
-.half .grid-body {position: inherit!important; top:inherit!important;bottom:inherit!important;height:inherit!important}
-.half .grid-footer {position: relative!important;bottom: inherit!important;}
+#tabs-body-personal .grid-head,
+#tabs-body-personal .grid-body,
+#tabs-body-personal .grid-footer {
+	display: block;
+	float: left;
+	width:100%;
+	height: auto!important;
+	top: auto;
+	bottom: auto;
+	position: relative;
+	overflow: auto!important;
+	overflow-x: hidden;}
+
+div#tabs-body-personal {
+	/*position: relative;*/
+	overflow: auto;
+	width: 100%;
+	height: 95%!important;
+}
 
 .grid-head-table {
 	width: 100%;
@@ -545,7 +559,7 @@ td.trains-field-method textarea {
 	border-right: 0;
 }
 .comments-table textarea {
-	height: 35px;
+	height: 100px;
 }
 .comments-table input {
 	margin-left: 4px;
@@ -684,15 +698,17 @@ td.ratings-field-total select {
 
 .personal-grid-body
 {
-
-	border-top: 1px solid #CCCCCC;
-
-	width: 100%;
+	display: block;
 	
-	overflow: scroll;
+	border-top: 1px solid #CCCCCC;
+	height: auto!important;
+	width: 100%;
+	position: relative;
+	overflow: hidden;
 	overflow-x: hidden;
 
 }
+
 
 .personal-grid-body-table
 {
@@ -748,4 +764,3 @@ td.ratings-field-total select {
 	font-size: 80%;
 	color: #666666;
 }
-

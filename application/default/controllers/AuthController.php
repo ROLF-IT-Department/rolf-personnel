@@ -58,7 +58,7 @@ class AuthController extends Zend_Controller_Action
 			} elseif ($result->getCode() != Zend_Auth_Result::FAILURE_IDENTITY_NOT_FOUND) {
 				$message = implode("\n", $result->getMessages());
 			} elseif ($authtype == Rp_Auth_Adapter_DbTable::AUTH_FORM) {
-				$message = 'Пользователь с указанным сочитанием логин/пароль не найден.';
+				$message = 'Пользователь с указанным сочетанием логин/пароль не найден.';
 			}
 		} catch (Exception $e) {
 			$message = $e->getMessage();

@@ -89,7 +89,6 @@ class Card_AchievsController extends Zend_Controller_Action
 		$card = $cards->find($cardId)->current();
 		
 		$card->insertTasks($request->getPost('newTasks', array()));
-		
 		$card->updateTasks($request->getPost('tasks', array()));
 		$card->insertCompetences($request->getPost('newCompetences', array()));
 		$card->updateCompetences($request->getPost('competences', array()));

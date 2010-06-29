@@ -93,21 +93,21 @@ class Zend_View_Helper_AchievsFormTasks
 					<tbody>';
 	    if ($have_func > 0)
 			$xhtml[] = '<tr height="60px">
-						<td colspan="3" style="border-bottom:1px #666666 solid" valign="top" >
-						<span class="translate_func_comment">Комментарии функционального руководителя - Functional Manager\'s comment</br></span>
-						
-						<textarea name="comments[fnc_comment]" id="comments[fnc_comment]" class="func_comment">' . $card->fnc_comment . '</textarea>
-						<div class="func_div" id="func_div">' . $card->fnc_comment . '</div>
-						</td>
-						<th class="tasks-field-rating-total" style="border-bottom:1px #666666 solid">Функциональный рейтинг:<br/>Functional rating:</th>
-						<td class="field-rating tasks-field-rating-total" id="fieldRatingFunc" style="border-bottom:1px #666666 solid">
-								' . $this->view->formSelect('ratings[rtg_func_id]', $cardRtgFuncId, null, $ratings) . '
-								<div>' . $ratings[$cardRtgFuncId] . '</div>
-						</td>
-						</tr>
-						<tr>';
+							<td colspan="3" style="border-bottom:1px #666666 solid" valign="top" >
+							<span class="translate_func_comment">Комментарии функционального руководителя - Functional Manager\'s comment</br></span>
+
+							<textarea name="comments[fnc_comment]" id="comments[fnc_comment]" class="func_comment">' . $card->fnc_comment . '</textarea>
+							<div class="func_div" id="func_div">' . $card->fnc_comment . '</div>
+							</td>
+							<th class="tasks-field-rating-total" style="border-bottom:1px #666666 solid">Функциональный рейтинг:<br/>Functional rating:</th>
+							<td class="field-rating tasks-field-rating-total" id="fieldRatingFunc" style="border-bottom:1px #666666 solid">
+									' . $this->view->formSelect('ratings[rtg_func_id]', $cardRtgFuncId, null, $ratings) . '
+									<div>' . $ratings[$cardRtgFuncId] . '</div>
+							</td>
+						</tr>';
 		
-		$xhtml[] = '		<td><div class="button" id="buttonAddTask">Добавить бизнес-цель<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add business objective</div></td>
+		$xhtml[] = '	<tr>
+							<td><div class="button" id="buttonAddTask">Добавить бизнес-цель<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add business objective</div></td>
 							<th class="tasks-field-rating-total">Вычисленный рейтинг:<br/>Calculated rating:</th>
 							<td class="field-rating tasks-field-rating-total"><div>'.$this->CalculateWeights($tasks, $rate_weights, $card).'</div>
 							<input id="sum_tasks" type="hidden" value="' . $this->CalculateWeights($tasks, $rate_weights, $card). '" /></td>
