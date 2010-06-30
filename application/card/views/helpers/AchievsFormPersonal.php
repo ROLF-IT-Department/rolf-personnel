@@ -107,7 +107,7 @@ class Zend_View_Helper_AchievsFormPersonal
 					<thead>
 						<tr>
 							<th class="compets-field-num">№</th>
-							<th class="compets-field-name">Компетенция<div>Competence</div></th>
+							<th class="compets-field-name"  style="width:63%">Компетенция<div>Competence</div></th>
 							<th class="compets-field-note">&nbsp;</th>
 							<th class="compets-field-result">Достижение по компетенции<div>Competence achievement</div></th>
 							<th class="compets-field-rating">Рейтинг<div>Rating</div></th>
@@ -232,7 +232,7 @@ class Zend_View_Helper_AchievsFormPersonal
 					<tr class="personal-competence-header">
 
 						<td class="tasks-field-note" style="border-right: 1px solid #999999"></td>
-						<td class="tasks-field-description">Ваши примеры по достижению компетенций<div>Your examples to reach competences</div></td>
+						<td class="tasks-field-description"  colspan="2">Ваши примеры по достижению компетенций<div>Your examples to reach competences</div></td>
 						<td class="tasks-field-num"></td>
 						<td class="tasks-field-term"></td>
 						<td class="tasks-field-weight"></td>
@@ -450,30 +450,6 @@ class Zend_View_Helper_AchievsFormPersonal
 			</tr>
 		';
 	}
-	
-//    private function CalculateWeights($competences, $rate_weights)	// рассчет вычисляемого рейтинга
-//    {
-//    	$sum = 0;
-//    	$count = 0;
-//    	foreach ($competences as $item) {
-//    		if ((!$item['disabled']) && ($item['rating_id']) && (!$item['is_personal']))
-//    			{
-//    				$val = $rate_weights[$item['rating_id']]['weight'];		// вес рейтинга
-//    				$sum += $val;
-//    				if ($val != 0)
-//    					$count++;
-//    			}
-//
-//    	}
-//    	$result = 0;
-//   		if ($count) $result = round($sum / $count);
-//   		$rate = new Rp_Db_Table_Ach_Ratings();
-//   		$name = $rate->fetchNameWeights();
-//   		$ret = null;
-//   		foreach ($name as $key=>$value)
-//   			if ($value[weight]==$result) $ret = $key;
-//    	return $ret;
-//    }
 
     public function _rowCompetence(array $competence, array $ratings, $in_person = FALSE)
     {
@@ -498,12 +474,9 @@ class Zend_View_Helper_AchievsFormPersonal
 				<td class="compets-field-num">
 					<div>' . $num . '</div>
 				</td>
-				<td class="compets-field-name">
+				<td class="compets-field-name"  style="width:63%">
 					<div>' . $competence['name'] . '<div>' . $competence['target'] . '</div></div>
 				</td>
-				<!--<td class="compets-field-description">
-					<textarea readonly="readonly">' . $competence['description'] .  $competence['english_description'] . '</textarea>
-				</td>-->
 				<td class="compets-field-note">
 					' . $note1 . '
 				</td>

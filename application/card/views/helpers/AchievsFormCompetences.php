@@ -129,7 +129,7 @@ class Zend_View_Helper_AchievsFormCompetences
 		$num  = $competence['additional'] ? ++$additsCounter : ++$standsCounter;
 		$name = 'competences[' . $competence['id'] . ']';
 		$kol = count($competen->fetchNotes($competen->id));
-		$note1  = '<div style="display:none" onclick="openNotesCompetence(' . $competence['id'] . ')" title="Заметки">' . $kol . '</div>';
+		$note1  = '<div style="display:none" onclick="openNotesCompetence(' . $competence['id'] . ', 0)" title="Заметки">' . $kol . '</div>';
 
 		return '
 			<tr>

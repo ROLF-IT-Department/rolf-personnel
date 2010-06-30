@@ -18,7 +18,7 @@ class Card_AchievsCompetenceNotesController extends Zend_Controller_Action
 		$view->comp = $comp;
 		$view->is_personal = $is_personal;
 		$view->competence = $competence;
-		$view->notes = $competence->fetchNotes();
+		$view->notes = $competence->fetchNotes($competence->id);
 	}
 	
 	public function saveAction()

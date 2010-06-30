@@ -10,10 +10,12 @@ class Card_View_Helper_AchievsCompetenceNotes
 			<table class="notes-table">
 				<tbody>
 		';
+		
 		$counter = 0;
 		foreach ($notes as $note) {
 			if($note->is_personal == $is_personal)
 			{
+				
 				if (empty($note->deleted)) {
 					$name = 'notes[' . $note->id . ']';
 					$xhtml[] = '
