@@ -214,26 +214,6 @@ div.panel-statusCLS {
 	background-color: #FFDDBB;
 }
 
-#tabs-body-personal .grid-head,
-#tabs-body-personal .grid-body,
-#tabs-body-personal .grid-footer {
-	display: block;
-	float: left;
-	width:100%;
-	height: auto!important;
-	top: auto;
-	bottom: auto;
-	position: relative;
-	overflow: auto!important;
-	overflow-x: hidden;}
-
-div#tabs-body-personal {
-	/*position: relative;*/
-	overflow: auto;
-	width: 100%;
-	height: 95%!important;
-}
-
 .grid-head-table {
 	width: 100%;
 	height: 100%;
@@ -765,7 +745,24 @@ td.ratings-field-total select {
 	color: #666666;
 }
 
-#tabs-body-personal {overflow-x:hidden;}
+#tabs-body-personal .grid-head,
+#tabs-body-personal .grid-body,
+#tabs-body-personal .grid-footer {
+	display: block;
+	float: left;
+	width:100%!important;
+	height: auto!important;
+	top: auto;
+	bottom: auto;
+	position: relative;
+	overflow: auto;
+	overflow-x: hidden;}
+
+#tabs-body-personal {
+	overflow: scroll;
+	overflow-x: hidden;
+	width: 100%;
+}
 #tabs-body-personal .grid-head {padding: 0!important;}
 #tabs-body-personal .compets-field-name {width:auto;white-space: normal}
 #tabs-body-personal .compets-field-result {width:40%}
@@ -773,4 +770,7 @@ td.ratings-field-total select {
 #tabs-body-tasks .grid-body {
 	overflow: scroll;
 	overflow-x: hidden
+}
+#tabs-body-personal .personal-grid-body {
+	overflow: hidden
 }
