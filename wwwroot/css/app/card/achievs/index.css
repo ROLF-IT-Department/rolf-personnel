@@ -188,7 +188,7 @@ div.panel-statusCLS {
 }
 
 .grid-head {
-	/*padding-right: 16px;*/
+	padding-right: 16px;
 	border-top: 1px solid #999999;
 	border-bottom: 1px solid #666666;
 	height: 31px;
@@ -704,7 +704,7 @@ td.ratings-field-total select {
 	height: auto!important;
 	width: 100%;
 	position: relative;
-	overflow: hidden;
+	overflow: scroll;
 	overflow-x: hidden;
 
 }
@@ -764,3 +764,9 @@ td.ratings-field-total select {
 	font-size: 80%;
 	color: #666666;
 }
+
+#tabs-body-personal .compets-field-num {width:20px!important;}
+#tabs-body-personal .compets-field-name {width:inherit;white-space: normal}
+#tabs-body-personal .compets-field-result {width:40%}
+#tabs-body-personal .tasks-field-result {width:40%}
+#tabs-body-tasks .grid-body {overflow: scroll}

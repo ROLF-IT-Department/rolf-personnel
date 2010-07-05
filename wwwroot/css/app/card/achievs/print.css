@@ -395,7 +395,7 @@ div.tasks-type {
 	width: 100%;
 	
 	overflow: scroll;
-	/*overflow-x: hidden;*/
+	overflow-x: hidden;
 
 }
 
