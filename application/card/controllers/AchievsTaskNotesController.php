@@ -7,7 +7,7 @@ class Card_AchievsTaskNotesController extends Zend_Controller_Action
 		$request = $this->getRequest();
 		
 		$taskId = $request->getParam('taskid');
-		$is_personal = $request->getParam('is_personal');
+		$is_personal = $request->getParam('is_personal', 0);
 		$tasks = new Rp_Db_Table_Ach_Tasks();
 		$task = $tasks->find($taskId)->current();
 		

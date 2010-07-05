@@ -12,13 +12,16 @@ class Card_AchievsCompetenceNotesController extends Zend_Controller_Action
 		$competence = $competence->find($competId)->current();			// выбираем таблицу user_rp_cards_competences 
 		$comp = new Rp_Db_Table_Ach_Competences();
 		$comp = $comp->find($competence->competence_id)->current();		// выбираем компетенцию из справочника компетенций
-		
+
+		$_notes = new Rp_Db_Table_Ach_Competences_Notes();
+		$notes = $_notes->findNotes($competence->id, $is_personal);
+	
 		$view = $this->initView();
 		$view->title = Rp::getTitle('Заметки к компетенции #' . $competence->id);
 		$view->comp = $comp;
 		$view->is_personal = $is_personal;
 		$view->competence = $competence;
-		$view->notes = $competence->fetchNotes($competence->id);
+		$view->notes = $notes;
 	}
 	
 	public function saveAction()

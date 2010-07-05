@@ -89,5 +89,5 @@ class Rp_Db_Table_Ach_Cards_Competences extends Rp_Db_Table_Abstract
 		
 		return $this->_createRowset($sql);
 	}
-	
+
 }

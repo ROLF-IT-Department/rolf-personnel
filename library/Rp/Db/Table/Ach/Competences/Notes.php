@@ -27,11 +27,12 @@ class Rp_Db_Table_Ach_Competences_Notes extends Rp_Db_Table_Abstract
 	);
 
 	// заметки руководителя к компетенциям is_personal = 0
-	public function findNotes($competence_id)
+	public function findNotes($competence_id, $is_personal = 0)
 	{
 		$db = $this->getAdapter();
 
 		$competence_id = $db->quote($competence_id);
+		$is_personal = $db->quote($is_personal);
 
 		$sql = "
 			SELECT
@@ -39,7 +40,7 @@ class Rp_Db_Table_Ach_Competences_Notes extends Rp_Db_Table_Abstract
 			FROM
 				$this->_name
 			WHERE
-				(competence_id = $competence_id) AND (is_personal = 0)
+				(competence_id = $competence_id) AND (is_personal = $is_personal)
 			ORDER BY
 				date_record ASC
 		";

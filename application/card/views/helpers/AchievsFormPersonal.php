@@ -107,7 +107,7 @@ class Zend_View_Helper_AchievsFormPersonal
 					<thead>
 						<tr>
 							<th class="compets-field-num">№</th>
-							<th class="compets-field-name"  style="width:63%">Компетенция<div>Competence</div></th>
+							<th class="compets-field-name">Компетенция<div>Competence</div></th>
 							<th class="compets-field-note">&nbsp;</th>
 							<th class="compets-field-result">Достижение по компетенции<div>Competence achievement</div></th>
 							<th class="compets-field-rating">Рейтинг<div>Rating</div></th>
@@ -232,7 +232,7 @@ class Zend_View_Helper_AchievsFormPersonal
 					<tr class="personal-competence-header">
 
 						<td class="tasks-field-note" style="border-right: 1px solid #999999"></td>
-						<td class="tasks-field-description"  colspan="2">Ваши примеры по достижению компетенций<div>Your examples to reach competences</div></td>
+						<td class="tasks-field-description">Ваши примеры по достижению компетенций<div>Your examples to reach competences</div></td>
 						<td class="tasks-field-num"></td>
 						<td class="tasks-field-term"></td>
 						<td class="tasks-field-weight"></td>
@@ -474,7 +474,7 @@ class Zend_View_Helper_AchievsFormPersonal
 				<td class="compets-field-num">
 					<div>' . $num . '</div>
 				</td>
-				<td class="compets-field-name"  style="width:63%">
+				<td class="compets-field-name">
 					<div>' . $competence['name'] . '<div>' . $competence['target'] . '</div></div>
 				</td>
 				<td class="compets-field-note">
