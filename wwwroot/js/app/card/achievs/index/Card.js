@@ -234,7 +234,8 @@ var Card = new function()
 		input.name = name + '[date_term]';
 				
 		_getControl(cells[2]).onclick = Card.calendar;
-		
+
+		_getControl(cells[6]).parentNode.className = _getControl(cells[6]).parentNode.className.replace(/\s*\bfield-activated\b/ig, '');
 		row.className = row.className.replace(/\s*\brow-pattern\b/ig, '');
 	}
 	
