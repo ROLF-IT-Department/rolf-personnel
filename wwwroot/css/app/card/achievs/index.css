@@ -765,8 +765,12 @@ td.ratings-field-total select {
 	color: #666666;
 }
 
-#tabs-body-personal .compets-field-num {width:20px!important;}
+
+#tabs-body-personal .grid-head {padding: 0!important;}
 #tabs-body-personal .compets-field-name {width:inherit;white-space: normal}
 #tabs-body-personal .compets-field-result {width:40%}
 #tabs-body-personal .tasks-field-result {width:40%}
-#tabs-body-tasks .grid-body {overflow: scroll}
+#tabs-body-tasks .grid-body {
+	overflow: scroll;
+	overflow-x: hidden
+}
