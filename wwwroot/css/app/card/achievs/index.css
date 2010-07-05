@@ -163,7 +163,7 @@ div.panel-statusCLS {
 	bottom: 0;
 	left: 0;
 	right: 0;
-	width: expression(this.parentNode.offsetWidth - 2 + 'px');
+	/*width: expression(this.parentNode.offsetWidth - 2 + 'px');*/
 	height: expression(this.parentNode.offsetHeight - this.offsetTop - 2 + 'px');
 	z-index: 0;
 	background-color: #FFFBF0;
@@ -257,7 +257,7 @@ div#tabs-body-personal {
 .grid-body-table {
 	border-bottom: 1px solid #999999;
 	width: 100%;
-	width: expression(this.parentNode.offsetWidth - 16 + 'px');
+	/*width: expression(this.parentNode.offsetWidth - 16 + 'px');*/
 	table-layout: fixed;
 	background-color: #FFFBF0;
 }
@@ -715,7 +715,7 @@ td.ratings-field-total select {
 	overflow: hidden;
 	border-bottom: 1px solid #999999;
 	width: 100%;
-	width: expression(this.parentNode.offsetWidth - 16 + 'px');
+	/*width: expression(this.parentNode.offsetWidth - 16 + 'px');*/
 	table-layout: fixed;
 	background-color: #FFFBF0;
 }
@@ -765,15 +765,12 @@ td.ratings-field-total select {
 	color: #666666;
 }
 
-#tabs-body-personal {overflow-x: hidden}
+#tabs-body-personal {overflow-x:hidden;}
 #tabs-body-personal .grid-head {padding: 0!important;}
-#tabs-body-personal .compets-field-name {width:inherit;white-space: normal}
+#tabs-body-personal .compets-field-name {width:auto;white-space: normal}
 #tabs-body-personal .compets-field-result {width:40%}
 #tabs-body-personal .tasks-field-result {width:40%}
 #tabs-body-tasks .grid-body {
 	overflow: scroll;
 	overflow-x: hidden
-}
-#tabs-body-personal .grid-body-table {
-	width: 100%;
 }
