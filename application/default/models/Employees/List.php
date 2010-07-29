@@ -29,7 +29,7 @@ class Employees_List
 	public function __construct($postIds, $periodFirst, $periodSecond, $fetchEmps = true, $fetchSubEmps = true, $func)
 	{
 		if (!empty($postIds)) {
-			$table = 'user_rp_tree_posts_employees';
+			$table = 'user_rp_tree_posts_employees_PM';
 			if ($fetchEmps) {
 				$this->rows = $this->_fetch('post_id', $postIds, $periodFirst, $periodSecond, $table);
 				$treePosts = new Rp_Db_View_TreePosts();
@@ -77,10 +77,10 @@ class Employees_List
 				ratings_second.name AS ratingSecond
 			FROM
 				$table posts_employees
-				INNER JOIN user_rp_employees employees
+				INNER JOIN user_rp_employees_PM employees
 					ON posts_employees.$keyName IN ($postIds) 
 						AND posts_employees.person_id = employees.person_id
-				INNER JOIN user_rp_persons persons
+				INNER JOIN user_rp_persons_PM persons
 					ON employees.person_id = persons.id
 				LEFT JOIN user_rp_departments departments
 					ON employees.department_id = departments.id

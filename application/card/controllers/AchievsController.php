@@ -80,6 +80,8 @@ class Card_AchievsController extends Zend_Controller_Action
 	public function saveAction()
 	{
 		$request = $this->getRequest();
+//		echo '<div style="height:100%;width:100%;display:block;overflow:auto"><pre>';
+//		exit(var_dump($request->getPost('tasks')));
 		$cardId  = $request->getPost('id', null);
 		
 		$tab = $request->getPost('tab', 'tasks');
@@ -87,9 +89,11 @@ class Card_AchievsController extends Zend_Controller_Action
 
 		$cards = new Rp_Db_Table_Ach_Cards();
 		$card = $cards->find($cardId)->current();
-		
+
 		$card->insertTasks($request->getPost('newTasks', array()));
+		$card->updateTasks($request->getPost('tasks_in_personal', array()));
 		$card->updateTasks($request->getPost('tasks', array()));
+		
 		$card->insertCompetences($request->getPost('newCompetences', array()));
 		$card->updateCompetences($request->getPost('competences', array()));
 		$card->insertTrainings($request->getPost('newTrainings', array()));

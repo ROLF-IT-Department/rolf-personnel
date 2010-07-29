@@ -59,7 +59,7 @@ class Rp_Auth_Adapter_DbTable extends Zend_Auth_Adapter_DbTable
 		$this->setIdentity($username);
 		$this->setCredential($password);
 		
-		parent::__construct(Rp::getDbAdapter(), 'user_rp_persons', $identityColumn, $credentialColumn);
+		parent::__construct(Rp::getDbAdapter(), 'user_rp_persons_PM', $identityColumn, $credentialColumn);
 	}
 	
 	/**

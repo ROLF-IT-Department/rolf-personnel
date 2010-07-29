@@ -16,7 +16,7 @@
  */
 class Rp_Db_View_TreePosts_Employees extends Rp_Db_View_Abstract
 {	
-	protected $_name = 'user_rp_tree_posts_employees';
+	protected $_name = 'user_rp_tree_posts_employees_PM';
 	
 	/**
 	 * Возвращает массив идентификаторов должностей, 

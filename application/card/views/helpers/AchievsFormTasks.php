@@ -174,9 +174,14 @@ class Zend_View_Helper_AchievsFormTasks
 	private function _rowTask(Zend_Db_Table_Row_Abstract $task, array $ratings, $func, $counter = null)
 	{	
 		
-		if ($func) $table = 'functasks';
-		else $table = 'tasks';
-		
+		if ($func)
+		{
+			$table = 'functasks';
+		}
+		else
+		{
+			$table = 'tasks';
+		}
 		
 		if (empty($task->id)) {
 			$num   = '*';
@@ -218,8 +223,8 @@ class Zend_View_Helper_AchievsFormTasks
 		return '
 			<tr class="' . $class . '">
 				<td class="tasks-field-num">
-					<div>' . $num . '</div>' . $toggle . '
 					<input name="' . $name . '[status]" type="hidden" value="' . $task->status . '" />
+					<div>' . $num . '</div>' . $toggle . '
 				</td>
 				<td class="tasks-field-description">
 					<textarea name="' . $name . '[description]" readonly="readonly">' . $task->description . '</textarea>

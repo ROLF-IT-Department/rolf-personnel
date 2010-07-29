@@ -355,7 +355,7 @@ class Zend_View_Helper_AchievsFormPersonal
 			}
 			
 			$note  = '<div style="display:none" onclick="openNotes(' . $task->id . ', 0)" title="Заметки" style:>' . $kol . '</div>';
-			$name  = 'tasks[' . $task->id . ']';
+			$name  = 'tasks_in_personal[' . $task->id . ']';
 			$weight = $task->weight;
 			$class = '';
 			$toggle = '';
@@ -409,7 +409,7 @@ class Zend_View_Helper_AchievsFormPersonal
 		$num   = $counter;
 		$term  = $task->date_term;
 		$note  = '<div style="display:none" onclick="openNotes(' . $task->id . ', 1)" title="Заметки" style:>' . $kol . '</div>';
-		$name  = 'tasks[' . $task->id . ']';
+		$name  = 'tasks_in_personal[' . $task->id . ']';
 		$class = '';
 		$toggle = '';
 		
