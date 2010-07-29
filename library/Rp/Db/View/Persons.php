@@ -16,7 +16,7 @@
  */
 class Rp_Db_View_Persons extends Rp_Db_View_Abstract
 {	
-	protected $_name = 'user_rp_persons';
+	protected $_name = 'user_rp_persons_PM';
 	
 	protected $_primary = 'id';
 	

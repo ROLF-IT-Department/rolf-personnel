@@ -35,10 +35,10 @@ class Report_IndexController extends Zend_Controller_Action
 				dbo.user_func_rp_department_path(employees.department_id, DEFAULT) AS department_path,
 				dbo.user_func_rp_tree_post_persons(posts_employees.post_pid, ', ', '; ') AS managers
 			FROM
-				user_rp_tree_posts_employees posts_employees
-				INNER JOIN user_rp_persons persons
+				user_rp_tree_posts_employees_PM posts_employees
+				INNER JOIN user_rp_persons_PM persons
 					ON posts_employees.person_id = persons.id
-				INNER JOIN user_rp_employees employees
+				INNER JOIN user_rp_employees_PM employees
 					ON persons.id = employees.person_id
 				LEFT JOIN user_rp_companies companies
 					ON employees.company_id = companies.id

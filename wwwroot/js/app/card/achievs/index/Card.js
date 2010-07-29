@@ -186,7 +186,8 @@ var Card = new function()
 	{
 		var row = node.parentNode.parentNode;
 		var toggle = _getControl(node.parentNode);
-		
+
+		//alert(toggle.value)
 		if (toggle.value == '0') {
 			
 			var table = document.getElementById(tableID);
@@ -318,17 +319,20 @@ var Card = new function()
 		
 		switch (status) {
 			case '':
+				//cells[0].className += ' field-activated';
 				cells[1].className += ' field-activated';
 				cells[2].className += ' field-activated';	
 				cells[3].className += ' field-activated';
 				cells[5].className += ' field-activated';
-				cells[6].className += ' field-activated';
+				//cells[6].className += ' field-activated';
 				_getControl(cells[1]).readOnly = false;
 				_getControl(cells[2]).onclick  = this.calendar;
 				_getControl(cells[3]).readOnly = false;
 				_getControl(cells[5]).readOnly = false;
 				break;
 			case '1':
+				cells[1].className += ' field-activated';
+				cells[2].className += ' field-activated';
 				cells[3].className += ' field-activated';
 				_getControl(cells[3]).readOnly = false;
 				cells[5].className += ' field-activated';
@@ -356,6 +360,58 @@ var Card = new function()
 		}*/
 		return;
 		
+	}
+
+	this.setPlanTaskPersonal = function(row)
+	{
+		var cells = row.cells;
+		var status = _getControl(cells[0]).value;
+
+		row.className += ' row-planning';
+
+		switch (status) {
+			case '':
+				//cells[0].className += ' field-activated';
+				cells[1].className += ' field-activated';
+				cells[2].className += ' field-activated';
+				cells[3].className += ' field-activated';
+				//cells[5].className += ' field-activated';
+				//cells[6].className += ' field-activated';
+				_getControl(cells[1]).readOnly = false;
+				_getControl(cells[2]).onclick  = this.calendar;
+				_getControl(cells[3]).readOnly = false;
+				//_getControl(cells[5]).readOnly = false;
+				break;
+			case '1':
+				cells[1].className += ' field-activated';
+				cells[2].className += ' field-activated';
+				cells[3].className += ' field-activated';
+				_getControl(cells[3]).readOnly = false;
+				cells[5].className += ' field-activated';
+				_getControl(cells[5]).readOnly = false;
+				break;
+			case '2':
+				cells[3].className += ' field-activated';
+				cells[5].className += ' field-activated';
+				_getControl(cells[3]).readOnly = false;
+				_getControl(cells[5]).readOnly = false;
+				break;
+			default:
+				return;
+		}
+		/*if (status != '0')
+		{
+			cells[1].className += ' field-activated';
+			cells[2].className += ' field-activated';
+			cells[3].className += ' field-activated';
+			_getControl(cells[1]).readOnly = false;
+			_getControl(cells[2]).onclick  = this.calendar;
+			_getControl(cells[3]).readOnly = false;
+			cells[5].className += ' field-activated';
+			_getControl(cells[5]).readOnly = false;
+		}*/
+		return;
+
 	}
 	
 	this.setRateTask = function(row)
@@ -645,7 +701,7 @@ var Card = new function()
 		var rows = _personaltasks.rows;
 
 		for (var i = 0; i < rows.length; i++) {
-			this.setPlanTask(rows[i]);
+			this.setPlanTaskPersonal(rows[i]);
 		}
 
 		if(_managertasks != null)
@@ -1136,9 +1192,9 @@ var Card = new function()
 	
 	this.save = function()
 	{
-		//_removeLastRow(_tasks);
-		//_removeLastRow(_func_tasks);
-		//_removeLastRow(_trains);
+//		_removeLastRow(_tasks);
+//		_removeLastRow(_func_tasks);
+//		_removeLastRow(_trains);
 		if (period > 2008)
 		{
 			if (_tasks) 

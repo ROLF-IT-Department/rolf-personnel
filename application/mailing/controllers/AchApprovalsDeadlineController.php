@@ -42,9 +42,9 @@ class Mailing_AchApprovalsDeadlineController extends Zend_Controller_Action
 				dbo.user_func_rp_tree_post_persons_emails(tree_posts_func.post_func_id, ',') AS func_emails
 			FROM
 				user_rp_ach_cards cards
-				INNER JOIN user_rp_persons persons
+				INNER JOIN user_rp_persons_PM persons
 					ON cards.person_id = persons.id
-				INNER JOIN user_rp_tree_posts_employees posts_employees
+				INNER JOIN user_rp_tree_posts_employees_PM posts_employees
 					ON cards.person_id = posts_employees.person_id
 				INNER JOIN user_rp_tree_posts tree_posts
 					ON posts_employees.post_pid = tree_posts.id
@@ -78,9 +78,9 @@ class Mailing_AchApprovalsDeadlineController extends Zend_Controller_Action
 				dbo.user_func_rp_tree_post_persons_emails(tree_posts_func.post_func_id, ',') AS func_emails
 			FROM
 				user_rp_ach_cards cards
-				INNER JOIN user_rp_persons persons
+				INNER JOIN user_rp_persons_PM persons
 					ON cards.person_id = persons.id
-				INNER JOIN user_rp_tree_posts_employees posts_employees
+				INNER JOIN user_rp_tree_posts_employees_PM posts_employees
 					ON cards.person_id = posts_employees.person_id
 				INNER JOIN user_rp_tree_posts tree_posts
 					ON posts_employees.post_pid = tree_posts.id
