@@ -203,20 +203,18 @@ class Card_AchievsController extends Zend_Controller_Action
 			foreach ($highMngsIds as $m) 
 			{
 				$hmail = $m->getPerson()->email;
-				if (strlen($hmail) > 3)
-					if (strpos($mail, $hmail) === false)		// оператор === , так как функция возвращает 0, если не находит
-						$mail = $mail . $hmail . '; ';
+
+				if (strlen($hmail) > 3 AND strpos($mail, $hmail) === false AND $hmail != 'NHAWKINS@ROLF.RU')		// оператор === , так как функция возвращает 0, если не находит
+					$mail = $mail . $hmail . '; ';
 			}
 			
 			foreach ($funcMngsIds as $m) 
 			{
 				$fmail = $m->getPerson()->email;
-				if (strlen($fmail) > 3)
-					if (strpos($mail, $fmail) === false)
-						$mail = $mail . $fmail . '; ';
-				
+				if (strlen($fmail) > 3 AND strpos($mail, $fmail) === false)
+					$mail = $mail . $fmail . '; ';
 			}
-		
+
 			$emp_email = $emp->getPerson()->email;		// добавляем в конце почту подчиненного
 			if (strlen($emp_email) > 3)
 				$mail = $mail . $emp_email;
