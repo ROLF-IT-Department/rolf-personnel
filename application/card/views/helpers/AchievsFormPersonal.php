@@ -46,7 +46,7 @@ class Zend_View_Helper_AchievsFormPersonal
     	$xhtml[] = '<div class="grid-body">';
 
 			// вывод целей руководителя для оценки сотрудником
-			if (($status_id == 'RTG') || ($status_id == 'CRG') || ($status_id == 'CLS') || ($status_id == 'PLN'))
+			if (($status_id == 'RTG') || ($status_id == 'CRG') || ($status_id == 'CLS') || ($status_id == 'PLN') || ($status_id == 'CPN'))
 			{
 				$xhtml[] = '<div class="tasks-type">Бизнес-цели (руководитель) - <span class="translate_category_tasks">Business Objectives (manager)</span></div>
 						<table class="grid-body-table" id="managertasks">
@@ -223,7 +223,7 @@ class Zend_View_Helper_AchievsFormPersonal
     	else 
     	{
     		$name =  'competences[' . $personalCompetence->id . ']';
-    		$note  = '<div style="display:none" id="competencePersonalNote" onclick="openNotesCompetence(' . $personalCompetence->id . ')" title="Заметки" style:>' . count($personalCompetence->fetchNotes()) . '</div>';
+    		$note  = '<div style="display:none" id="competencePersonalNote" onclick="openNotesCompetence(' . $personalCompetence->id . ', 1)" title="Заметки" style:>' . count($personalCompetence->fetchNotes()) . '</div>';
     	}
     	
     	$html = '
