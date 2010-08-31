@@ -763,7 +763,7 @@ td.ratings-field-total select {
 #tabs-body-personal {
 	overflow: scroll;
 	overflow-x: hidden;
-	width: 99%;
+	width: 98%;
 	padding-right: 16px!important;
 }
 #tabs-body-personal .grid-head {padding: 0!important;}
