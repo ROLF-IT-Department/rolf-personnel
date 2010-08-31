@@ -223,7 +223,7 @@ class Zend_View_Helper_AchievsFormPersonal
     	else 
     	{
     		$name =  'competences[' . $personalCompetence->id . ']';
-    		$note  = '<div style="display:none" id="competencePersonalNote" onclick="openNotesCompetence(' . $personalCompetence->id . ', 1)" title="Заметки" style:>' . count($personalCompetence->fetchNotes()) . '</div>';
+    		$note  = '<div style="display:none" id="competencePersonalNote" onclick="openNotesCompetence(' . $personalCompetence->id . ', 1)" title="Заметки" style:>' . count($personalCompetence->fetchNotes($personalCompetence->id, 1)) . '</div>';
     	}
     	
     	$html = '
@@ -247,7 +247,9 @@ class Zend_View_Helper_AchievsFormPersonal
 							<input name="' . $name . '[is_personal]" type="hidden" value="1" />
 						</td>
 						<td colspan="5">
-							<textarea name="' . $name . '[result]" readonly="readonly" >' . $personalCompetence->result . '</textarea>
+							<textarea name="' . $name . '[result]" readonly="readonly" >' . $personalCompetence->result . 
+							//Zend_debug::dump($personalCompetence).
+							'</textarea>
 						</td>
 
 						<td class="compets-field-rating" style="border-left: 1px solid #999999; border-right: 1px solid #999999">
