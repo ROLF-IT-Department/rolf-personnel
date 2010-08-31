@@ -413,7 +413,7 @@ class Zend_View_Helper_AchievsFormPersonal
 		$class = '';
 		$toggle = '';
 		
-		if ($task->status == '0') return;
+		//if ($task->status == '0') return;
 		
 		//{
 		//	$class = 'row-canceled';

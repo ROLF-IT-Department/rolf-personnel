@@ -186,7 +186,9 @@ div.panel-statusCLS {
 #tabs-item-personal div {
 	background-image: url('../../../../img/achievs/card/doc.gif');
 }
-
+#tabs-body-trains .grid-head {
+	padding-right: 0!important;
+}
 .grid-head {
 	padding-right: 16px;
 	border-top: 1px solid #999999;
