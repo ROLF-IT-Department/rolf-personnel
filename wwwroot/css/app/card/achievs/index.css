@@ -764,6 +764,7 @@ td.ratings-field-total select {
 	overflow: scroll;
 	overflow-x: hidden;
 	width: 100%;
+	padding-right: 16px!important;
 }
 #tabs-body-personal .grid-head {padding: 0!important;}
 #tabs-body-personal .compets-field-name {width:auto;white-space: normal}
