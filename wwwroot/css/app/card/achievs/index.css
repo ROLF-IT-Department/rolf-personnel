@@ -239,7 +239,7 @@ div.panel-statusCLS {
 .grid-body-table {
 	border-bottom: 1px solid #999999;
 	width: 100%;
-	/*width: expression(this.parentNode.offsetWidth - 16 + 'px');*/
+	width: expression(this.parentNode.offsetWidth - 16 + 'px');
 	table-layout: fixed;
 	background-color: #FFFBF0;
 }
