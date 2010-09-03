@@ -186,9 +186,9 @@ div.panel-statusCLS {
 #tabs-item-personal div {
 	background-image: url('../../../../img/achievs/card/doc.gif');
 }
-#tabs-body-trains .grid-head {
+/*#tabs-body-trains .grid-head {
 	padding-right: 0!important;
-}
+}*/
 .grid-head {
 	padding-right: 16px;
 	border-top: 1px solid #999999;
@@ -758,7 +758,8 @@ td.ratings-field-total select {
 	bottom: auto;
 	position: relative;
 	overflow: auto;
-	overflow-x: hidden;}
+	overflow-x: hidden;
+	padding: 0!important;}
 
 #tabs-body-personal {
 	overflow: scroll;
@@ -766,11 +767,13 @@ td.ratings-field-total select {
 	width: expression(this.parentNode.offsetWidth - 16 + 'px');
 	padding-right: 16px!important;
 }
-#tabs-body-personal .grid-head {padding: 0!important;}
+#tabs-body-personal .grid-head,
+#tabs-body-personal .grid-body-table {padding: 0!important;width:100%!important}
 #tabs-body-personal .compets-field-name {width:auto;white-space: normal}
 #tabs-body-personal .compets-field-result {width:40%}
 #tabs-body-personal .tasks-field-result {width:40%}
-#tabs-body-tasks .grid-body {
+#tabs-body-tasks .grid-body,
+#tabs-body-trains .grid-body{
 	overflow: scroll;
 	overflow-x: hidden
 }
