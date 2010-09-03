@@ -412,7 +412,7 @@ class Zend_View_Helper_AchievsFormPersonal
 		$term  = $task->date_term;
 		$note  = '<div style="display:none" onclick="openNotes(' . $task->id . ', 1)" title="Заметки" style:>' . $kol . '</div>';
 		$name  = 'tasks_in_personal[' . $task->id . ']';
-		$class = '';
+		$class = ($task->status == '0') ? 'row-canceled' : '';
 		$toggle = '';
 		
 		//if ($task->status == '0') return;
