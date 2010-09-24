@@ -34,25 +34,35 @@ class Achievs_ApprovalsModel
 		
 		$person = $card->getEmployee()->getPerson();
 		
-		if (array_search(null, $approvalsPersons) !== false) 
-		{		
+		if (array_search(NULL, $approvalsPersons) !== FALSE)
+		{	
 			$employee = $card->getEmployee();
 			if ($employee && $employee->isCurrent()) 
 			{
-				if (empty($approvalsPersons['rate_mng_id'])) {
+				if (empty($approvalsPersons['rate_mng_id']))
+				{
 					$mngsPersonIds = $employee->getManagers()->getCol('person_id');
-					if (count($mngsPersonIds) == 1) {
+					
+					if (count($mngsPersonIds) == 1)
+					{
 						$approvalsPersons['rate_mng_id'] = $mngsPersonIds[0];	
-					} elseif (count($mngsPersonIds) == 0) {
+					}
+					elseif (count($mngsPersonIds) == 0)
+					{
 						$approvalsPersons['rate_mng_id'] = $person->id;
 					}
-					if (empty($approvalsPersons['plan_mng_id'])) {
+
+					if (empty($approvalsPersons['plan_mng_id']))
+					{
 						$approvalsPersons['plan_mng_id'] = $approvalsPersons['rate_mng_id'];
 					}
 				}
-				if (empty($approvalsPersons['rate_hmg_id'])) {
+
+				if (empty($approvalsPersons['rate_hmg_id']))
+				{
 					$mngsPersonIds = $employee->getHighManagers()->getCol('person_id');
-					if (count($mngsPersonIds) == 1) {
+					if (count($mngsPersonIds) == 1)
+					{
 						$approvalsPersons['rate_hmg_id'] = $mngsPersonIds[0];	
 						
 						//////  Ограничение для Ника Хокинса. Чтобы он не был вышестоящим руководителем 
@@ -62,30 +72,40 @@ class Achievs_ApprovalsModel
 							$approvalsPersons['rate_hmg_id'] = $mngsPersonIds[0];	
 						}
 						
-					} elseif (count($mngsPersonIds) == 0) {
+					}
+					elseif (count($mngsPersonIds) == 0)
+					{
 						$approvalsPersons['rate_hmg_id'] = $person->id;
 					}
-					if (empty($approvalsPersons['plan_hmg_id'])) {
+
+					if (empty($approvalsPersons['plan_hmg_id']))
+					{
 						$approvalsPersons['plan_hmg_id'] = $approvalsPersons['rate_hmg_id'];
 					}
 					
 				}
 				
-				if (empty($approvalsPersons['rate_fnc_id'])) {
+				if (empty($approvalsPersons['rate_fnc_id']))
+				{
 					$fnc_mngsPersonIds = $employee->getFuncManagers()->getCol('person_id');
-					if (count($fnc_mngsPersonIds) == 1) {
+					if (count($fnc_mngsPersonIds) == 1)
+					{
 						$approvalsPersons['rate_fnc_id'] = $fnc_mngsPersonIds[0];	
-					} elseif (count($fnc_mngsPersonIds) == 0) {
+					}
+					elseif (count($fnc_mngsPersonIds) == 0)
+					{
 						$approvalsPersons['rate_fnc_id'] = $person->id;
-					} elseif (count($fnc_mngsPersonIds) > 1) {
+					}
+					elseif (count($fnc_mngsPersonIds) > 1)
+					{
 						$approvalsPersons['rate_fnc_id'] = '';
 					}
-					if (empty($approvalsPersons['plan_fnc_id'])) {
+					
+					if (empty($approvalsPersons['plan_fnc_id']))
+					{
 						$approvalsPersons['plan_fnc_id'] = $approvalsPersons['rate_fnc_id'];
 					}
-					
 				}
-				
 			}
 		}
 		
