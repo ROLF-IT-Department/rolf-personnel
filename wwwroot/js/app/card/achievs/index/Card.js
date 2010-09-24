@@ -418,23 +418,20 @@ var Card = new function()
 	{
 		var cells = row.cells;
 		var status = _getControl(cells[0]).value;
-		
-		if (status != '0')
-		{
-			cells[5].className += ' field-activated';
-			cells[6].className += ' field-activated';
-			_getControl(cells[5]).readOnly = false;
-		}
-		/*
+
 		switch (status) {
 			case '1':
 				cells[5].className += ' field-activated';
 				cells[6].className += ' field-activated';
 				_getControl(cells[5]).readOnly = false;
 				break;
+			case '2':
+				cells[5].className += ' field-activated';
+				_getControl(cells[5]).readOnly = false;
+				break;
 			default:
 				return;
-		}*/
+		}
 		
 		
 	}
@@ -442,25 +439,29 @@ var Card = new function()
 	this.setRateTask2 = function(row)
 	{
 		var cells = row.cells;
-		//var status = _getControl(cells[0]).value;
+		var status = _getControl(cells[0]).value;
 
 //		if (status != '0')
 //		{
-			cells[3].className += ' field-activated';
-			cells[4].className += ' field-activated';
-			_getControl(cells[3]).readOnly = false;
-			_getControl(cells[4]).readOnly = false;
+//			cells[3].className += ' field-activated';
+//			cells[4].className += ' field-activated';
+//			_getControl(cells[3]).readOnly = false;
+//			_getControl(cells[4]).readOnly = false;
 //		}
-		/*
+		
 		switch (status) {
 			case '1':
 				cells[5].className += ' field-activated';
 				cells[6].className += ' field-activated';
 				_getControl(cells[5]).readOnly = false;
 				break;
+			case '2':
+				cells[5].className += ' field-activated';
+				_getControl(cells[5]).readOnly = false;
+				break;
 			default:
 				return;
-		}*/
+		}
 
 
 	}
