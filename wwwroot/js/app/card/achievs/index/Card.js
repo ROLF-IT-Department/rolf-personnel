@@ -930,6 +930,10 @@ var Card = new function()
 		if (_tasks) 
 		{
 			var count = Card.countActiveObjectivesByStatus(_tasks);
+
+			// проверка на то, что активная цель не должна иметь вес = 0. Пока не активно
+//			var notZero = Card.checkZeroInActiveObjectivesByStatus(_tasks);
+
 			if (count > 7)
 			{
 				msg.push('- Ограничение по количеству целей не более 6 целей!');
@@ -940,6 +944,13 @@ var Card = new function()
 				msg.push('- Заполните <Срок> достижения всех бизнес-целей!');
 				emsg.push('- Fill <Timing> for all objectives!');
 			}
+
+			// проверка на то, что активная цель не должна иметь вес = 0. Пока не активно
+//			if(notZero == false) {
+//				msg.push('- Вес цели не может быть равен нулю! Пересчитайте соотношение весов!');
+//				emsg.push('- Weight must be more than 0! Count over the ratio of weights!');
+//			}
+			
 		}
 
 		
@@ -950,7 +961,7 @@ var Card = new function()
 				msg.push('- Не прописаны функциональные бизнес-цели!');
 				emsg.push('- Functional business objectives are not added!');
 			}
-			
+
 			var total_ratio = parseInt(ratio_mng.value, 10) + parseInt(ratio_fnc.value, 10);
 			this.checkRatio();
 			
@@ -1263,6 +1274,26 @@ var Card = new function()
 		
 		return count;
 		
+	}
+
+	this.checkZeroInActiveObjectivesByStatus = function (table)
+	{
+		var rows = table.rows;
+		var status;
+		//var count = rows.length;
+
+		for (var i = 0; i < rows.length; i++)
+		{
+			status = rows[i].cells[0].getElementsByTagName('input')[0];
+			weight = rows[i].cells[3].getElementsByTagName('textarea')[0];
+			if (status.value != '0'){
+				if(weight.value == '0') return false;
+				if(weight.value == '') return false;
+			}
+		}
+
+		return true;
+
 	}
 	
 	// проверяем заполнено ли поле Срок у бизнес целей
