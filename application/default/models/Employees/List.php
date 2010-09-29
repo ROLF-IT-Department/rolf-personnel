@@ -75,7 +75,7 @@ class Employees_List
 				statuses_second.name AS statusSecond,
 				ratings_first.name AS ratingFirst,
 				ratings_second.name AS ratingSecond,
-				endtest_date
+				employees.endtest_date
 			FROM
 				$table posts_employees
 				INNER JOIN user_rp_employees_PM employees
