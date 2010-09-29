@@ -15,8 +15,13 @@ class Zend_View_Helper_AchievsHeader
 		$managers = implode('<br />', $persons->fetchFullnames($managersIds));
 		
 		$is_integrate = "";
-		if ($emp->person_id >= 90000000) $is_integrate = "<span style='color: blue; font-size: 12px;'>(совместитель)</span>";
-		
+		if ($emp->person_id >= 90000000)
+			$is_integrate = "<span style='color: blue; font-size: 12px;'>(совместитель)</span>";
+
+		$is_testperiod = '';
+		if( $emp->endtest_date >= date('Y-m-d'))
+			$is_testperiod = '<span style="color: green; font-size: 12px;">&nbsp;(испытательный срок)</span>';
+
 		// если ID компании и ID отдела совпадают, то в поле отдел пишем знак '-', так как люди привязаны к юр. лицу напрямую
 		$dep_name = "-";
 		if ($emp->department_id != '-')
@@ -46,7 +51,7 @@ class Zend_View_Helper_AchievsHeader
 							<div>' . $dep_name . '</div></td>
 						<td class="header-field-name">Должность<div>Position</div></td>
 						<td class="header-field-value">
-							<div>' . current($appointments->fetchNames($emp->appointment_id)) . $is_integrate . '</div></td>
+							<div>' . current($appointments->fetchNames($emp->appointment_id)) . $is_integrate . $is_testperiod . '</div></td>
 					</tr>
 				</tbody>
 			</table>

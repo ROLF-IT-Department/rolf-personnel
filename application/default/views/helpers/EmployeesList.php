@@ -75,14 +75,19 @@ class Zend_View_Helper_EmployeesList
 		$statusFirst = isset($row['statusFirst']) ? $row['statusFirst'] : 'Новая';
 		$statusSecond = isset($row['statusSecond']) ? $row['statusSecond'] : 'Новая';
 		$is_integrate = "";
+		$is_testperiod = '';
 		if ( $row['id'] >= 90000000) 
 			$is_integrate = "<span style='color: blue; font-size: 10px;'>&nbsp;(совместитель)</span>";
+
+		if( $row['endtest_date'] >= date('Y-m-d'))
+			$is_testperiod = '<span style="color: green; font-size: 10px;">&nbsp;(испытательный срок)</span>';
+
 		return '
 			<tr>
 				<td class="field-id">' . $row['id'] . '</td>
 				<td class="field-name">' . $row['fullname'] . '</td>
 				<td class="field-depart">' . $row['department'] . '</td>
-				<td class="field-post">' . $row['appointment'] . $is_integrate . '</td>
+				<td class="field-post">' . $row['appointment'] . $is_integrate . $is_testperiod . '</td>
 				<td class="field-ach-status status' . $row['statusFirstId'] . '" 
 					title="' . $statusFirst . '"></td>
 				<td class="field-ach-rating">' . $row['ratingFirst'] . '</td>
