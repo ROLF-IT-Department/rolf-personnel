@@ -20,8 +20,13 @@ class Zend_View_Helper_ProfileHeader
 		$is_integrate = "";
 		if ($person->id >= 90000000) 
 			$is_integrate = "<span style='color: blue; font-size: 12px;'>(совместитель)</span>";
-		
+
+		$is_testperiod = '';
+		if( $person->endtest_date >= date('Y-m-d'))
+			$is_testperiod = '<span style="color: green; font-size: 12px;">&nbsp;(испытательный срок)</span>';
+
 		$xhtml .= $is_integrate;
+		$xhtml .= $is_testperiod;
 			
 		$xhtml .= '
 			</div>
