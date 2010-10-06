@@ -780,3 +780,12 @@ td.ratings-field-total select {
 #tabs-body-personal .personal-grid-body {
 	overflow: hidden
 }
+
+.row-not-saved .field-activated {
+	background-color: #DFEDFF;
+}
+
+.row-not-saved input, .row-not-saved textarea {
+	color: #0000E6;
+	font-weight: bold;
+}
