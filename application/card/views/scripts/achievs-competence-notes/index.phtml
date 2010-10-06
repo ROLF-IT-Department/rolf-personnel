@@ -1,0 +1,94 @@
+<!-- код страницы для отображения заметок -->
+<!DOCTYPE html>
+<html>
+<head>
+	<title><?php echo $this->escape($this->title) ?></title>
+	<meta http-equiv="content-type" content="text/html; charset=windows-1251" />
+	<style type="text/css">
+		@import url('<?php echo $this->baseUrl() ?>/css/app/index.css');
+		@import url('<?php echo $this->baseUrl() ?>/css/app/card/achievs-task-notes/index.css');
+	</style>
+	<script type="text/javascript">
+		var BASE_URL = '<?php echo $this->baseUrl() ?>';
+		
+				
+		function AddHyperlink(posX, posY)
+		{
+			var tip = document.getElementById('hyperlink_div');
+
+    		tip.style.left = posX - 100;
+    		tip.style.top = posY - 30;
+
+    		if (tip.style.display == "none")
+        		tip.style.display = "block";
+		}
+		
+		function copyPath(data)
+		{
+			var input = document.getElementById('addHyperlink_input');
+			input.value = data;
+
+		}
+		
+		function getHyperlink()
+		{
+			var input = document.getElementById('addHyperlink_input');
+			var text = input.value;
+			
+			var hyperlink = "<a href='" + text + "' target='_blank'>ссылка</a>";
+			
+			var textarea = document.getElementById('newNote[text]');
+			
+			if (text.length > 0)
+				textarea.value = textarea.value + hyperlink;
+			
+			input.value = "";
+				
+			var tip = document.getElementById('hyperlink_div');
+			tip.style.display = "none";
+			
+		}
+		
+		
+		
+		
+	</script>
+</head>
+<body>
+
+<div class="addHyperlink_div" id="hyperlink_div" style="display: none;">
+	<span class='caption_hyperlink'>Выберите файл:</span>
+	<input type="file" name="hyperlink_file" value="" onchange="copyPath(this.value)">
+	<br>
+	<span class='caption_hyperlink'>Для добавления ссылки нажмите кнопку:</span>
+	<input type="text" id="addHyperlink_input" class="addHyperlink_text" />
+	<input type="button" value="Добавить" onclick="getHyperlink()" />
+</div>
+
+	<form name="competenceNotes" action="<?php echo $this->baseUrl() ?>/card/achievs-competence-notes/save" enctype="multipart/form-data" method="post">
+		<fieldset>
+			<input name="competence[id]" type="hidden" value="<?php echo $this->competence->id ?>" />
+			<input name="competence[is_personal]" type="hidden" value="<?php echo $this->is_personal ?>" />
+			<div class="task">
+				<div class="task-label">Компетенция</div>
+				<div class="task-description">
+					<?php 
+							if ($this->competence->is_personal == null)  
+								echo '<b>' . nl2br($this->comp->name) . '</b><br/>' . nl2br($this->comp->target) . '<br/>' . nl2br($this->comp->description) . nl2br($this->comp->english_description);
+							else 
+								echo nl2br($this->competence->result);
+					 ?>
+				</div>
+			</div>
+			<div class="notes">
+				<?php echo $this->achievsCompetenceNotes($this->notes, $this->is_personal) ?>
+			</div>
+			<div class="newnote">
+				<div class="newnote-label">Новая заметка &nbsp;&nbsp;<img alt="Добавить ссылку" src="<?php echo $this->baseUrl() ?>/img/achievs/card/hyperlink.bmp" onclick="AddHyperlink(event.clientX + document.documentElement.scrollLeft, event.clientY + document.documentElement.scrollTop);" style="cursor: hand;"></div>
+				<div class="newnote-field-text"><textarea name="newNote[text]"></textarea></div>
+				<div class="newnote-submit"><input name="submit" type="submit" value="Сохранить" /></div>
+			</div>
+		</fieldset>
+	</form>
+</body>
+</html>

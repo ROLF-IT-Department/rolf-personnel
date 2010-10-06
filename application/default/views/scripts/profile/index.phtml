@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta http-equiv="content-type" content="text/html; charset=windows-1251" />
+	<style type="text/css">
+		@import url('<?php echo $this->baseUrl() ?>/js/lib/Js/TabPanel/css/default.css');
+		@import url('<?php echo $this->baseUrl() ?>/css/lib/GridBox/gridbox.css');
+		@import url('<?php echo $this->baseUrl() ?>/css/app/index.css');
+		@import url('<?php echo $this->baseUrl() ?>/css/app/default/profile/index.css');
+	</style>
+	<script type="text/javascript">
+		var BASE_URL  = '<?php echo $this->baseUrl() ?>';
+		var PERSON_ID = '<?php echo $this->person->id ?>';
+		
+	</script>
+	<script src="<?php echo $this->baseUrl() ?>/js/lib/Js.js" type="text/javascript"></script>
+	<script src="<?php echo $this->baseUrl() ?>/js/lib/Js/TabPanel.js" type="text/javascript"></script>
+	<script src="<?php echo $this->baseUrl() ?>/js/app/default/profile/index.js" type="text/javascript"></script>
+</head>
+<body onload="init()">
+	<?php echo $this->profileHeader($this->person, $this->baseUrl()) ?>
+	<div class="tabs">
+		<table class="tabs-items">
+			<tbody>
+				<tr>
+					<td class="tabs-item tabs-item-activated" id="tabsItemTasks">
+						<div>Бизнес-цели (<?php echo count($this->tasks) ?>)</div>
+					</td>
+					<td class="tabs-item" id="tabsItemTrainings">
+						<div>План развития (<?php echo count($this->trainings) ?>)</div>
+					</td>
+					<td class="tabs-item" id="tabsItemPersonal">
+						<div>Персональная информация</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="tabs-body tabs-body-activated" id="tabsBodyTasks">
+			<?php echo $this->profileTasks($this->tasks, $this->columnNotes, $this->count_func) ?>
+		</div>
+		<div class="tabs-body" id="tabsBodyTrainings">
+			<iframe name="trainings" src="<?php echo $this->baseUrl() ?>/default/empty"></iframe>
+		</div>
+		<div class="tabs-body" id="tabsBodyPersonal">
+			<iframe name="personal" src="<?php echo $this->baseUrl() ?>/default/empty"></iframe>
+		</div>
+	</div>
+</body>
+</html>

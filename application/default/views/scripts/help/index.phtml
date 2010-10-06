@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title><?php echo $this->escape($this->title) ?></title>
+	<meta http-equiv="content-type" content="text/html; charset=windows-1251" />
+	<style type="text/css">
+		@import url('<?php echo $this->baseUrl() ?>/css/app/index.css');
+		@import url('<?php echo $this->baseUrl() ?>/css/app/logo.css');
+		@import url('<?php echo $this->baseUrl() ?>/css/app/default/help/index.css');
+	</style>
+</head>
+<body>
+	<div class="logo"></div>
+	<div class="caption">Справочная информация</div>
+	<div class="docs">
+		<ol class="docs-list">
+			<li><a href="<?php echo $this->baseUrl() ?>/docs/Описание рейтингов.doc" target="_blank">Описание рейтингов</a></li>
+			<li><a href="<?php echo $this->baseUrl() ?>/docs/Что такое программа Управление достижениями.doc" target="_blank">Что такое программа «Управление достижениями»</a></li>
+			<li><a href="<?php echo $this->baseUrl() ?>/docs/Правила проведения обзорных встреч.doc" target="_blank">Правила проведения обзорных встреч</a></li>
+			<li><a href="<?php echo $this->baseUrl() ?>/docs/Правила заполнения личных карточек.doc" target="_blank">Правила заполнения личных карточек</a></li>
+			<li><a href="<?php echo $this->baseUrl() ?>/docs/Руководство по работе с Рольф-Персоналом.doc" target="_blank">Руководство по работе с «Рольф-Персоналом»</a></li>
+			<li><a href="<?php echo $this->baseUrl() ?>/docs/Ответы на вопросы.doc" target="_blank">Ответы на вопросы</a></li>
+			<li><a href="<?php echo $this->baseUrl() ?>/docs/FAQ.doc" target="_blank">FAQ по УД</a></li>
+			
+		</ol>
+	</div>
+</body>
+</html>

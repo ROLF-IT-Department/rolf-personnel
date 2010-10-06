@@ -1,0 +1,455 @@
+/**
+ * Таблица стилей печатной формы карточки достижений.
+ */
+
+@page {
+	size: landscape;
+}
+.panel {
+	width: 100%;
+}
+.panel-period {
+	padding-left: 10px;
+	width: 120px;
+	height: 25px;
+	background-color: #CCCCCC;
+}
+.panel-period div {
+	overflow: hidden;
+	white-space: nowrap;
+}
+.panel-period select {
+	margin: 0 2px;
+	vertical-align: middle;
+}
+
+.panel-status {
+	background-color: #CCCCCC;
+}
+.panel-status div {
+	margin-right: 10px;
+	padding-right: 20px;
+	font-weight: bold;
+	text-align: right;
+	background: no-repeat right;
+}
+div.panel-statusNEW {
+	background-image: url('../../../../img/achievs/status/NEW.gif');
+}
+div.panel-statusPLN {
+	background-image: url('../../../../img/achievs/status/PLN.gif');
+}
+div.panel-statusCPN {
+	background-image: url('../../../../img/achievs/status/CPN.gif');
+}
+div.panel-statusRTG {
+	background-image: url('../../../../img/achievs/status/RTG.gif');
+}
+div.panel-statusCRG {
+	background-image: url('../../../../img/achievs/status/CRG.gif');
+}
+div.panel-statusCLS {
+	background-image: url('../../../../img/achievs/status/CLS.gif');
+}
+
+.header {
+	width: 100%;
+	table-layout: fixed;
+	border-collapse: separate;
+	border-spacing: 5px;
+	background-color: #F0F0F0;
+}
+.header-field-name {
+	padding-left: 5px;
+	width: 95px;
+	height: 29px;
+	white-space: nowrap;
+	overflow: hidden;
+	font-size: 90%;
+	font-weight: bold;
+	font-family: Arial, sans-serif;
+}
+.header-field-name div {
+	font-size: 80%;
+	color: #666666;
+}
+.header-field-value {
+	border: 1px solid #999999;
+	height: 29px;
+	overflow: hidden;
+}
+.header-field-value div {
+	padding-left: 5px;
+	padding-top: 2px;
+	height: 100%;
+	line-height: 14px;
+	overflow: hidden;
+	overflow-y: auto;
+	background-color: #FFFFFF;
+}
+.header-field-empty {
+	width: 1px;
+}
+
+
+.caption {
+	padding: 6px 0 2px 8px;
+	border-top: 1px solid #666666;
+	height: 20px;
+	font-size: 10pt;
+	font-weight: bold;
+	font-family: Verdana, Tahoma, sans-serif;
+	background-color: #F0F0F0;
+}
+.caption-break {
+	page-break-before: always;
+	page-break-after: avoid;
+}
+.table {
+	border-top: 1px solid #999999;
+	border-left: 1px solid #999999;
+	width: 100%;
+	table-layout: fixed;
+}
+.table thead {
+	font-family: Arial, sans-serif;
+}
+.table th, .table td {
+	padding: 2px;
+	padding-left: 4px; 
+	border-right: 1px solid #999999;
+	border-bottom: 1px solid #999999;
+}
+.table th {
+	padding-top: 2px;
+	padding-bottom: 2px;
+	font-size: 90%;
+	text-align: left;
+	white-space: nowrap;
+	overflow: hidden;
+	background-color: #FFDDBB;
+}
+.table th div {
+	font-size: 80%;
+	color: #666666;
+}
+.table td {
+	height: 90px;
+	vertical-align: top;
+}
+.trainings td {
+	height: 110px;
+}
+.compets-type {
+	padding: 6px 0 2px 10px;
+	border-left: 1px solid #999999;
+	border-right: 1px solid #999999;
+	font-weight: bold;
+	color: #444444;
+}
+.row-canceled td {
+	background-color: #DDDDDD;
+}
+.row-canceled .tasks-field-description,
+.row-canceled .tasks-field-result,
+.row-canceled .trains-field-situation,
+.row-canceled .trains-field-objective,
+.row-canceled .trains-field-result {
+	background: url('../../../../img/achievs/card/cancel_stamp.gif') no-repeat center;
+}
+
+.tasks-field-num {
+	width: 20px;
+}
+.tasks-field-description {
+}
+.tasks-field-term {
+	width: 56px;
+}
+.tasks-field-weight {
+	width: 56px;
+}
+.tasks-field-note {
+	width: 20px;
+}
+.tasks-field-result {
+}
+.tasks-field-rating {
+	width: 56px;
+	text-align: center;
+}
+
+.compets-field-num {
+	width: 20px;
+}
+.compets-field-name {
+	width: 230px;
+}
+.compets-field-description {
+}
+.compets-field-result {
+	width: 30%;
+}
+.compets-field-rating {
+	width: 56px;
+	text-align: center;
+}
+td.compets-field-name {
+	font-weight: bold;
+	color: #333333;
+}
+td.compets-field-name div div {
+	padding-top: 4px;
+	font-size: 90%;
+	font-weight: normal;
+	color: #555555;
+}
+
+.trains-field-num {
+	width: 20px;
+}
+.trains-field-situation {
+}
+.trains-field-objective {
+}
+.trains-field-method {
+	width: 20%;
+}
+.trains-field-term {
+	width: 80px;
+}
+.trains-field-responsible {
+	width: 105px;
+}
+.trains-field-result {
+	width: 22%;
+}
+td.trains-field-method div,
+td.trains-field-responsible div {
+	border-bottom: 1px solid #CCCCCC;
+	width: 96%;
+	height: 36px;
+}
+td.trains-field-method div div {
+	border: 0;
+	width: 100%;
+	height: 18px;
+	text-indent: 8px;
+}
+
+.ratings {
+	border: 1px solid #999999;
+	width: 100%;
+}
+.ratings th,
+.ratings td {
+	padding: 8px 10px;
+	white-space: nowrap;
+}
+.ratings td.ratings-field-value {
+	padding-left: 0;
+	padding-right: 25px;
+	
+}
+.ratings th.ratings-field-value {
+	width: 100%;
+	text-align: left;
+	color: #CC0000;
+}
+
+.comments {
+	border-top: 1px solid #999999;
+}
+.comments th {
+	padding-left: 10px;
+	border-bottom: 0;
+	line-height: 18px;
+	text-align: left;
+}
+.comments td {
+	height: 70px;
+}
+.comments td.comments-field-flags {
+	padding-top: 1px;
+	border-bottom-style: dashed;
+	height: 20px;
+}
+.comments input {
+	margin-left: 4px;
+	vertical-align: -3px;
+}
+
+.approvals {
+	width: 100%;
+	background-color: #F0F0F0;
+}
+.approvals td.approvals-margin {
+	width: 50%;
+}
+.approvals-table {
+	margin-bottom: 10px;
+}
+.approvals-table th {
+	padding: 10px 40px 8px 0;
+}
+.approvals-table td {
+	height: 20px;
+	white-space: nowrap;
+}
+.approvals-field-name {
+}
+.approvals-field-status {
+	padding-right: 50px;
+}
+.approvals-field-date {
+	padding-right: 40px;
+}
+.approvals-field-role {
+	font-size: 80%;
+	font-style: italic;
+	vertical-align: top;
+	color: #666666;
+}
+.approvals-status {
+	background: url('../../../../img/achievs/card/ball_yellow.gif') no-repeat center;
+}
+.approvals-status1 {
+	background: url('../../../../img/achievs/card/apply.gif') no-repeat center;
+}
+.approvals-status0 {
+	background: url('../../../../img/achievs/card/delete.gif') no-repeat center;
+}
+.translate_category_tasks{
+	font-size:12px;
+}
+div.tasks-type {
+	padding: 6px 0 4px 10px;
+	border-right: 1px solid #999999;
+	border-bottom: 1px solid #999999;
+	font-weight: bold;
+	color: #444444;
+	background-color: #EEEEEE;
+}
+
+.translate_ratio{
+	position:relative;
+	color: #666666;
+	font-size: 11px;
+	white-space: nowrap;
+}
+
+.grid-footer {
+	position: relative;
+	border-top: 1px solid #666666;
+	border-bottom: 1px solid #666666;
+	bottom: 0;
+	width: 100%;
+	background-color: #FFDDBB;
+}
+.grid-footer-table {
+	width: 100%;
+	font-weight:bold;
+	font-size: 11px;
+}
+.grid-footer-table td {
+	height: 32px;
+}
+
+.translate_func_comment{
+	position:relative;
+	color: #000000;
+	text-indent: 10px;
+	font-weight:bold;
+	font-size: 11px;
+}
+
+.func_comment{
+	
+	width: 700px;
+	height: 32px;
+	margin: 5px;
+	padding: 5px;
+	overflow: auto;
+	overflow-x: hidden;
+	display: none; 
+}
+
+.func_div{
+	width:100%;
+	height:32px;
+	background-color:#FFFFFF;
+	font-weight: normal;
+	font-size: 13px;
+	margin:5px;
+	padding:5px;
+	border:1px #666666 inset;
+	overflow-y: scroll;
+	display: block;
+}
+
+.personal-grid-body
+{
+
+	border-top: 1px solid #CCCCCC;
+
+	width: 100%;
+	
+	overflow: scroll;
+	overflow-x: hidden;
+
+}
+
+.personal-grid-body-table
+{
+	overflow: hidden;
+	border-bottom: 1px solid #999999;
+	width: 100%;
+	width: expression(this.parentNode.offsetWidth - 16 + 'px');
+	table-layout: fixed;
+	background-color: #FFFBF0;
+}
+
+.personal-grid-body-table .field-activated {
+	background-color: #FFFFFF;
+}
+
+.personal-grid-body-table td
+{
+	padding-left: 4px;
+	white-space: nowrap;
+	overflow: hidden;
+	border-bottom: 1px solid #999999;
+	valign: top;
+}
+
+.personal-grid-body-table textarea 
+{
+	padding: 0;
+	border: 0;
+	width: 100%;
+	height: 98px;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	background: transparent;
+	cursor: default;
+
+}
+
+.personal-competence-header
+{
+	height: 31px;
+	background-color: #FFDDBB;
+	white-space: nowrap;
+	overflow: hidden;
+	font-size: 90%;
+	font-weight: bold;
+	table-layout: fixed;
+	font-family: Arial, sans-serif;
+	
+}
+
+.personal-competence-header div
+{
+	font-size: 80%;
+	color: #666666;
+}

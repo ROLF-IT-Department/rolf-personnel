@@ -1,0 +1,32 @@
+/**
+ * Основная таблица стилей.
+ */
+
+html, body {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	height: 100%;
+	overflow: hidden;
+}
+body, textarea, input, select {
+	font-size: 10pt;
+	font-family: Tahoma, Arial, sans-serif;
+	color: #000000;
+	background-color: #FFFFFF;
+}
+body, fieldset {
+	cursor: default;
+}
+table {
+	border: 0;
+	border-collapse: collapse;
+	font-size: 100%;
+}
+form, fieldset, textarea, div, th, td {
+	margin: 0;
+	padding: 0;
+}
+iframe, fieldset, img {
+	border: 0;
+}
