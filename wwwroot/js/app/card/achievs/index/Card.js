@@ -237,7 +237,7 @@ var Card = new function()
 		_getControl(cells[2]).onclick = Card.calendar;
 
 		_getControl(cells[6]).parentNode.className = _getControl(cells[6]).parentNode.className.replace(/\s*\bfield-activated\b/ig, '');
-		row.className = row.className.replace(/\s*\brow-pattern\b/ig, '');
+		row.className = row.className.replace(/\s*\brow-pattern\b/ig, 'row-not-saved');
 	}
 	
 	this.addPersonalTask = function()
@@ -263,7 +263,7 @@ var Card = new function()
 		_getControl(cells[2]).onclick = Card.calendar;
 
 		_getControl(cells[6]).parentNode.className = _getControl(cells[6]).parentNode.className.replace(/\s*\bfield-activated\b/ig, '');
-		row.className = row.className.replace(/\s*\brow-pattern\b/ig, '');
+		row.className = row.className.replace(/\s*\brow-pattern\b/ig, 'row-not-saved');
 	}
 	
 	this.addFuncTask = function()
@@ -288,7 +288,7 @@ var Card = new function()
 		_getControl(cells[2]).onclick = Card.calendar;
 
 		_getControl(cells[6]).parentNode.className = _getControl(cells[6]).parentNode.className.replace(/\s*\bfield-activated\b/ig, '');
-		row.className = row.className.replace(/\s*\brow-pattern\b/ig, '');
+		row.className = row.className.replace(/\s*\brow-pattern\b/ig, 'row-not-saved');
 	}
 	
 	this.addTrain = function()
@@ -307,7 +307,7 @@ var Card = new function()
 		cells[3].getElementsByTagName('textarea')[0].name = name + '[method_comment]';
 		cells[4].getElementsByTagName('textarea')[0].name = name + '[responsible_comment]';
 		
-		row.className = row.className.replace(/\s*\brow-pattern\b/ig, '');
+		row.className = row.className.replace(/\s*\brow-pattern\b/ig, 'row-not-saved');
 	}
 	
 	this.setPlanTask = function(row)
