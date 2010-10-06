@@ -863,6 +863,7 @@ var Card = new function()
 
 	}
 
+	// Калькуляция суммы весов
 	this.checkSumWeights = function(table) {
 		var rows = table.rows;
 		var cells = null;
@@ -876,8 +877,32 @@ var Card = new function()
 			value = parseInt(_getControl(cells[3]).value, 10);
 			if (status != '0')  sum += value;
 		}
-		if (sum == 100) return true;
-		return false;
+		
+		return sum;
+	}
+
+	// Калькуляция отличия суммы весов от 100%
+	this.weights_sum_diff = function(tasks_weight_sum) {
+		
+		var msg = [];
+		var diff = 0;
+		
+		if(tasks_weight_sum > 100)
+		{
+			diff = tasks_weight_sum - 100;
+			msg[0] = 'больше 100% на '+ diff + '%';
+			msg[1] = 'is more than 100% on '+ diff + '%';
+
+		}
+
+		if(tasks_weight_sum < 100)
+		{
+			diff = 100 - tasks_weight_sum;
+			msg[0] = 'меньше 100% на '+ diff + '%';
+			msg[1] = 'is less than 100% on '+ diff + '%';
+		}
+
+		return msg;
 	}
 	
 	this.checkWeightValue = function(value)
@@ -921,10 +946,14 @@ var Card = new function()
 			msg.push('- Не прописаны бизнес-цели!');
 			emsg.push('- Business objectives are not added!!');
 		}	
-		
-		if (!this.checkSumWeights(_tasks)){
-			msg.push('- Сумма весов бизнес-целей должна составлять 100%! Пересчитайте веса!');
-			emsg.push('- Total weight of business objectives shall amount to 100%! Count over the weights!');
+
+		// Сумма весов и отличие от 100% бизнес-целей
+		var tasks_weight_sum = this.checkSumWeights(_tasks);
+		var tasks_weight_sum_diff = this.weights_sum_diff(tasks_weight_sum);
+
+		if (tasks_weight_sum != '100'){
+			msg.push('- Сумма весов бизнес-целей должна составлять 100%! Сумма весов ' + tasks_weight_sum_diff[0] + '. Пересчитайте, пожалуйста, веса.');
+			emsg.push('- The sum of the weights of the business objectives should be 100%! At this moment the sum of the weights ' + tasks_weight_sum_diff[1] + '.  Recount the weights please.');
 		}
 
 		if (_tasks) 
@@ -932,7 +961,7 @@ var Card = new function()
 			var count = Card.countActiveObjectivesByStatus(_tasks);
 
 			// проверка на то, что активная цель не должна иметь вес = 0. Пока не активно
-//			var notZero = Card.checkZeroInActiveObjectivesByStatus(_tasks);
+			var notZero = Card.checkZeroInActiveObjectivesByStatus(_tasks);
 
 			if (count > 7)
 			{
@@ -946,10 +975,10 @@ var Card = new function()
 			}
 
 			// проверка на то, что активная цель не должна иметь вес = 0. Пока не активно
-//			if(notZero == false) {
-//				msg.push('- Вес цели не может быть равен нулю! Пересчитайте соотношение весов!');
-//				emsg.push('- Weight must be more than 0! Count over the ratio of weights!');
-//			}
+			if(notZero == false) {
+				msg.push('- Вес цели не может быть равен нулю! Пересчитайте, пожалуйста, веса.');
+				emsg.push('- Вusiness objective weight must be more than 0! Recount the weights please.');
+			}
 			
 		}
 
@@ -966,19 +995,26 @@ var Card = new function()
 			this.checkRatio();
 			
 			if (total_ratio != '100') {
-				msg.push('- Сумма соотношения весов должна составлять 100! Пересчитайте соотношение весов!');
-				emsg.push('- Total ratio of weights shall amount 100! Count over the ratio of weights!');
+				msg.push('- Сумма соотношения весов должна составлять 100! Пересчитайте, пожалуйста, веса.');
+				emsg.push('- The sum of the weights of the business objectives should be 100%! Recount the weights please.');
 			}
 				
-			
-			if (!this.checkSumWeights(_func_tasks) && count_func > 0){
-				msg.push('- Сумма весов функциональных бизнес-целей должна составлять 100%! Пересчитайте веса!');
-				emsg.push('- Total weight of functional business objectives shall amount to 100%! Count over the weights!');
+			// Сумма весов и отличие от 100% функциональныхбизнес-целей
+			var func_tasks_weight_sum = this.checkSumWeights(_func_tasks);
+			var func_tasks_weight_sum_diff = this.weights_sum_diff(func_tasks_weight_sum);
+
+			if (func_tasks_weight_sum != '100' && count_func > 0){
+				msg.push('- Сумма весов функциональных бизнес-целей должна составлять 100%! Сумма весов ' + func_tasks_weight_sum_diff[0] + '. Пересчитайте, пожалуйста, веса.');
+				emsg.push('- The sum of the weights of the functional business objectives should be 100%! At this moment the sum of the weights ' + func_tasks_weight_sum_diff[1] + '.  Recount the weights please.');
 			}
 			
 			if (_func_tasks) 
 			{
 				var count = Card.countActiveObjectivesByStatus(_func_tasks);
+
+				// проверка на то, что активная цель не должна иметь вес = 0. Пока не активно
+				var notZero = Card.checkZeroInActiveObjectivesByStatus(_func_tasks);
+
 				if (count > 7)
 				{
 					msg.push('- Ограничение по количеству целей не более 6 целей!');
@@ -988,6 +1024,12 @@ var Card = new function()
 				{
 					msg.push('- Заполните <Срок> достижения всех функциональных бизнес-целей!');
 					emsg.push('- Fill <Timing> for all functional objectives!');
+				}
+
+				// проверка на то, что активная цель не должна иметь вес = 0. Пока не активно
+				if(notZero == false) {
+					msg.push('- Вес функциональной цели не может быть равен нулю! Пересчитайте, пожалуйста, веса.');
+					emsg.push('- Functional business objective weight must be more than 0! Recount the weights please.');
 				}
 			}
 			
