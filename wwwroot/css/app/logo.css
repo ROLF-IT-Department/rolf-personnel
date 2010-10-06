@@ -1,0 +1,8 @@
+/**
+ * Header с логотипом.
+ */
+
+div.logo {
+	height: 50px;
+	background: #FFFFFF url('../../img/logo.gif') no-repeat 5px center;
+}

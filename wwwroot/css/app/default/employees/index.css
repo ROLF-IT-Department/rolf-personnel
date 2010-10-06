@@ -1,0 +1,123 @@
+/**
+ * Таблица стилей списка сотрудников.
+ */
+
+.gridbox {
+	width: 100%;
+	height: 52%;
+}
+.gridbox-head {
+	border-bottom: 1px solid #666666;
+	height: 22px;
+	overflow: hidden;
+	background-color: #DDDDDD;
+}
+.gridbox-body {
+	border-top: 1px solid #BBBBBB;
+	border-bottom: 1px solid #888888;
+	top: 23px;
+	width: 100%;
+	height: expression(this.parentNode.offsetHeight - 25 + 'px');
+}
+.gridbox-body table {
+	width: expression(this.parentNode.offsetWidth - 16 + 'px');
+}
+
+.list-head-table {
+	line-height: 22px;
+	text-align: left;
+}
+.list-body-table {
+	margin-bottom: 6px;
+	line-height: 18px;
+	cursor: pointer;
+}
+.list-head-table th,
+.list-body-table td {
+	text-indent: 8px;
+	overflow: hidden;
+	white-space: nowrap;
+}
+.list-head-table th {
+	font-weight: normal;
+}
+.list-title {
+	height: 22px;
+	line-height: 22px;
+	text-indent: 28px;
+	overflow: hidden;
+	white-space: nowrap;
+	color: #333333;
+	background: #F0F0F0 url('../../../../img/default/user.gif') no-repeat 8px 2px;
+}
+.list-title-subemps {
+	border-top: 1px solid #BBBBBB;
+	background-image: url('../../../../img/default/users.gif');
+}
+.list-message {
+	margin-top: 4px;
+	line-height: 18px;
+	text-align: center;
+	font-size: 80%;
+	color: #333333;
+}
+.list-row-hover {
+	background-color: #F0F0F0;
+}
+.list-row-selected {
+	background-color: #FFCC99;
+}
+.field-id {
+	display: none;
+}
+.field-name {
+	width: 25%;
+}
+.field-depart {
+}
+.field-post {
+}
+th.field-ach {
+	width: 56px;
+	text-indent: 0;
+	text-align: center;
+}
+td.field-ach-status {
+	width: 26px;
+	background-image: url('../../../../img/achievs/status/NEW.gif');
+	background-repeat: no-repeat;
+	background-position: right;
+}
+td.field-ach-rating {
+	width: 30px;
+	text-indent: 0;
+	text-align: center;
+}
+td.statusPLN {
+	background-image: url('../../../../img/achievs/status/PLN.gif');
+}
+td.statusCPN {
+	background-image: url('../../../../img/achievs/status/CPN.gif');
+}
+td.statusRTG {
+	background-image: url('../../../../img/achievs/status/RTG.gif');
+}
+td.statusCRG {
+	background-image: url('../../../../img/achievs/status/CRG.gif');
+}
+td.statusCLS {
+	background-image: url('../../../../img/achievs/status/CLS.gif');
+}
+
+.profile {
+	position: absolute;
+	border-top: 2px solid #BBBBBB;
+	top: 52%;
+	bottom: 0;
+	width: 100%;
+	height: expression(this.parentNode.offsetHeight - this.offsetTop - 2 + 'px');
+}
+.profile iframe {
+	width: 100%;
+	height: 100%;
+}
