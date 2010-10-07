@@ -913,10 +913,11 @@ var Card = new function()
 	}
 
 	// ѕроверка на заполненность необходимых полей в новом плане развити€
-	this.checkTrainsDataFill = function(trains)
+	this.checkTrainsDataFill = function(trains, card_action)
 	{
 		var rows = trains.rows;
 		var cells = null;
+		var msg = [];
 
 		if(rows.length > 1)
 		{
@@ -925,17 +926,39 @@ var Card = new function()
 				cells = rows[i].cells;
 
 				status = rows[i].className;
-				
-				if (status == 'row-not-saved')
+
+				// ѕроверка нового плана
+				if(card_action == 'new')
 				{
-					for (var j = 0; j < cells.length-1; j++)
+					if (status == 'row-not-saved')
 					{
-						if(j != 0 || j!= 6)
+						for (var j = 0; j < cells.length-1; j++)
 						{
-							var content = _getControl(cells[i]).value;
+							if(j != 0 && j != 6)
+							{
+								var content = _getControl(cells[j]).value;
+								if(content == '')
+								{
+									return 'не заполнено одно из об€зательных полей в новом плане развити€!';
+								}
+							}
+
+						}
+					}
+				}
+
+				// Ётап оценки
+				if(card_action == 'approve')
+				{
+					for (var k = 0; k < cells.length-1; k++)
+					{
+						if(k != 0)
+						{
+							var content = _getControl(cells[k]).value;
 							if(content == '')
 							{
-								return 'не заполнено одно из об€зательных полей в новом плане развити€!';
+								msg[0] = '- Ќе заполнена информаци€ о достижении цели у плана развити€! «аполните, пожалуйста, соответствующее поле.';
+								msg[1] = '- Not filled the information about achieving the objective of a development plan! Fill in required field please.';
 							}
 						}
 
@@ -944,7 +967,7 @@ var Card = new function()
 			}
 		}
 
-		return;
+		return msg;
 	}
 	
 	this.checkRatio = function()
@@ -1067,8 +1090,6 @@ var Card = new function()
 					emsg.push('- Functional business objective weight must be more than 0! Recount the weights please.');
 				}
 			}
-			
-			
 		}
 			
 		if (msg.length > 0) {
@@ -1193,7 +1214,17 @@ var Card = new function()
 			msg.push('- Ќе выставлен общий рейтинг!');
 			emsg.push('- Common rating is not set out!');
 		}
-		
+
+		if(_trains)
+		{
+			// ѕроверка заполненности данных в на этапе оценки развити€
+			var trains_data_fill = this.checkTrainsDataFill(_trains, 'approve');
+			if(trains_data_fill)
+			{
+				msg.push(trains_data_fill[0]);
+				emsg.push(trains_data_fill[1]);
+			}
+		}
 		
 		if (!_getControl(row_comment[1].cells[0]).value)
 		{
@@ -1284,7 +1315,8 @@ var Card = new function()
 		
 		return true;
 	}
-	
+
+	// ‘ункци€ сохранени€ изменений карточки
 	this.save = function()
 	{
 //		_removeLastRow(_tasks);
@@ -1326,8 +1358,8 @@ var Card = new function()
 			if(_trains)
 			{
 				// ѕроверка заполненности данных в новом плане развити€
-				var trains_data_fill = Card.checkTrainsDataFill(_trains);
-				if(trains_data_fill)
+				var trains_data_fill = Card.checkTrainsDataFill(_trains, 'new');
+				if(trains_data_fill.length > 0)
 				{
 					alert(trains_data_fill);
 					return;
