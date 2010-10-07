@@ -911,6 +911,41 @@ var Card = new function()
 		if (value > 100) return 1;
 		if (value < 0) return -1;
 	}
+
+	// Проверка на заполненность необходимых полей в новом плане развития
+	this.checkTrainsDataFill = function(trains)
+	{
+		var rows = trains.rows;
+		var cells = null;
+
+		if(rows.length > 1)
+		{
+			for (var i = 0; i < rows.length-1; i++)
+			{
+				cells = rows[i].cells;
+
+				status = rows[i].className;
+				
+				if (status == 'row-not-saved')
+				{
+					for (var j = 0; j < cells.length-1; j++)
+					{
+						if(j != 0 || j!= 6)
+						{
+							var content = _getControl(cells[i]).value;
+							if(content == '')
+							{
+								return 'не заполнено одно из обязательных полей в новом плане развития!';
+							}
+						}
+
+					}
+				}
+			}
+		}
+
+		return;
+	}
 	
 	this.checkRatio = function()
 	{
@@ -1284,6 +1319,17 @@ var Card = new function()
 				if (Card.checkCorrectDateTerm(_func_tasks) < 0)
 				{
 					alert("Внимание! Заполните <Срок> достижения всех функциональных бизнес-целей!");
+					return;
+				}
+			}
+
+			if(_trains)
+			{
+				// Проверка заполненности данных в новом плане развития
+				var trains_data_fill = Card.checkTrainsDataFill(_trains);
+				if(trains_data_fill)
+				{
+					alert(trains_data_fill);
 					return;
 				}
 			}
