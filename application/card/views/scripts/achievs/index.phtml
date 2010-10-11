@@ -12,12 +12,12 @@
 	</style>
 	<script type="text/javascript">
 		var BASE_URL          = '<?php echo $this->baseUrl() ?>';
-		
-		/*function logoff() 
+
+		/*function logoff()
 		{
 
 			var url = BASE_URL + '/default/logoff/index/';
-			
+
 	        if(!this.http){
 	            this.http = new (window.XMLHttpRequest||ActiveXObject)("Msxml2.XMLHTTP");
 	            this.working = false;
@@ -28,22 +28,22 @@
 	            this.http.send(null);
 	        }
 		}*/
-		
+
 		var ROLE_VIEWER       = 0;
-		var ROLE_EMPLOYEE     = 1;			
+		var ROLE_EMPLOYEE     = 1;
 		var ROLE_MANAGER      = 2;
 		var ROLE_HIGH_MANAGER = 4;
 		var ROLE_FUNC_MANAGER = 8;
 		<?php $ROLE_FUNC_MANAGER = 8?>
 		var USER_ROLE         = <?php echo $this->userRole ?>;
 		var count_func 		  = <?php echo $this->count_func ?>;
-		
+
 		var emails = '<?php echo $this->emails ?>';
 		//alert(mails);
 		/*var dadat = '<?php //echo date() ?>';
 		alert(dadat);*/
-		
-		var Str_Rate = '<?php 
+
+		var Str_Rate = '<?php
 			$rat = array();
 			$rates = $this->rate_name_weights;
 			foreach ($rates as $key=>$value)
@@ -51,8 +51,8 @@
 			echo implode("," , $rat);
 		?>';
 		var Rate_Names = Str_Rate.split(",");
-		
-		var Str_Weight = '<?php 
+
+		var Str_Weight = '<?php
 			$rat = array();
 			$rates = $this->rate_name_weights;
 			foreach ($rates as $key=>$value)
@@ -60,7 +60,9 @@
 			echo implode("," , $rat);
 		?>';
 		var Rate_Weights = Str_Weight.split(",");
-		
+
+		var previous_bad_rates = '<?php echo $this->previous_bad_rates?>';			
+
 		var active_tab = '<?php echo $this->tab?>';
 
 	</script>
@@ -79,26 +81,26 @@
 			<input name="userId" type="hidden" value="<?php echo $this->user->getPersonId() ?>" />
 			<input name="person_id" type="hidden" value="<?php echo $this->card->person_id ?>" />
 			<input name="status_id" type="hidden" value="<?php echo $this->card->status_id ?>" />
-			
+
 			<input name="approvals[plan_mng_id]" type="hidden" value="<?php echo $this->card->plan_mng_id ?>" />
 			<input name="approvals[plan_hmg_id]" type="hidden" value="<?php echo $this->card->plan_hmg_id ?>" />
 			<input name="approvals[plan_fnc_id]" type="hidden" value="<?php echo $this->card->plan_fnc_id ?>" />
-			
+
 			<input name="approvals[plan_mng_status]" type="hidden" value="<?php echo $this->card->plan_mng_status ?>" />
 			<input name="approvals[plan_emp_status]" type="hidden" value="<?php echo $this->card->plan_emp_status ?>" />
 			<input name="approvals[plan_hmg_status]" type="hidden" value="<?php echo $this->card->plan_hmg_status ?>" />
 			<input name="approvals[plan_fnc_status]" type="hidden" value="<?php echo $this->card->plan_fnc_status ?>" />
-			
+
 			<input name="approvals[rate_mng_id]" type="hidden" value="<?php echo $this->card->rate_mng_id ?>" />
 			<input name="approvals[rate_hmg_id]" type="hidden" value="<?php echo $this->card->rate_hmg_id ?>" />
 			<input name="approvals[rate_fnc_id]" type="hidden" value="<?php echo $this->card->rate_fnc_id ?>" />
-			
+
 			<input name="approvals[rate_mng_status]" type="hidden" value="<?php echo $this->card->rate_mng_status ?>" />
 			<input name="approvals[rate_emp_status]" type="hidden" value="<?php echo $this->card->rate_emp_status ?>" />
 			<input name="approvals[rate_hmg_status]" type="hidden" value="<?php echo $this->card->rate_hmg_status ?>" />
 			<input name="approvals[rate_fnc_status]" type="hidden" value="<?php echo $this->card->rate_fnc_status ?>" />
 			<input name="tab" type="hidden" value="<?php echo $this->tab?>" />
-			
+
 			<table class="panel">
 				<tbody>
 					<tr>
@@ -108,7 +110,7 @@
 								<?php echo $this->formSelect('period', $this->card->period, null, $this->periods) ?>
 								<br><span class="translate_menu">Period:</span>
 							</div>
-							
+
 						</td>
 						<td class="panel-toolbar" id="toolbarBox"></td>
 						<td class="panel-status">
@@ -133,8 +135,8 @@
 					</tbody>
 				</table>
 				<div class="tabs-body tabs-body-activated" id="tabs-body-tasks">
-					<?php 
-						echo $this->achievsFormTasks($this->tasks, $this->count_func, $this->ratings, $this->rate_weights, $this->card->rtg_tasks_id, $this->userRole & $ROLE_FUNC_MANAGER, $this->card, $this->card->rtg_func_id) 
+					<?php
+						echo $this->achievsFormTasks($this->tasks, $this->count_func, $this->ratings, $this->rate_weights, $this->card->rtg_tasks_id, $this->userRole & $ROLE_FUNC_MANAGER, $this->card, $this->card->rtg_func_id)
 					?>
 				</div>
 				<div class="tabs-body" id="tabs-body-compets">
@@ -171,15 +173,15 @@
 										<textarea name="comments[mng_comment]" readonly><?php echo $this->card->mng_comment ?></textarea>
 									</td>
 								</tr>
-								
-								
+
+
 								<!--<tr><?php //if ($this->count_func > 0) echo '<th>Комментарий функционального руководителя - <span class="translate_category_tasks">Functional manager\'s comment</span></th>' ?></tr>
 								<tr><?php /*if ($this->count_func > 0) echo '
 									<td>
 										<textarea name="comments[fnc_comment]" readonly>' . $this->card->fnc_comment . '</textarea>
 									</td>'*/?>
 								</tr>-->
-								
+
 								<tr><th>Рекомендации по развитию карьеры - <span class="translate_category_tasks">Career Development Recommendations</span></th></tr>
 								<tr>
 									<td class="comments-field-flags">
@@ -191,14 +193,14 @@
 										<textarea name="comments[career_recom]" readonly><?php echo $this->card->career_recom ?></textarea>
 									</td>
 								</tr>
-								
+
 								<tr><th>Карьерные ожидания сотрудника - <span class="translate_category_tasks">Employee’s Career Expectations</span></th></tr>
 								<tr>
 									<td>
 										<textarea name="comments[career_wait]" readonly><?php echo $this->card->career_wait ?></textarea>
 									</td>
 								</tr>
-								
+
 								<!--<tr><th>Комментарий сотрудника - <span class="translate_category_tasks">Employee comment</span></th></tr>
 								<tr>
 									<td>
@@ -233,7 +235,7 @@
 						// $this->ratings, $this->rate_weights, $this->card->rtg_competens_id, TRUE
 						);?>
 				</div>
-				
+
 			</div>
 		</fieldset>
 	</form>

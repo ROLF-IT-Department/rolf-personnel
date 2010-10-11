@@ -18,13 +18,24 @@ class Card_AchievsController extends Zend_Controller_Action
 		$id = $request->getParam('id', null);
 		if ($id !== null) {
 			$card = $cards->find($id)->current();
+
 			if (empty($card)) {
 				throw new Exception('Карточка достижений с указанным идентификатором не найдена.');
 			}
-		} else {
+
+			// предыдущая карточка
+			$last_year = date('Y') - 1;
+			$previous_card = $cards->findByPersonIdAndPeriod($card->person_id, $last_year);
+		}
+		else
+		{
 			$personId = $request->getParam('personid', null);
 			$period = $request->getParam('period', date('Y'));
 			$card = $cards->findByPersonIdAndPeriod($personId, $period);
+
+			// предыдущая карточка
+			$last_year = date('Y') - 1;
+			$previous_card = $cards->findByPersonIdAndPeriod($personId, $last_year);
 		}
 
 		$user = Rp_User::getInstance();
@@ -41,6 +52,30 @@ class Card_AchievsController extends Zend_Controller_Action
 		$trainsGroupsMethods = new Rp_Db_Table_Ach_Trainings_GroupsMethods();
 		$trainsRespons = new Rp_Db_Table_Ach_Trainings_Respons();
 		$careerFlags = new Rp_Db_Table_Ach_Cards_CareerFlags();
+
+		// Проверка оценок целей и компетенций предыдущей карточки на наличие оценок C или D
+		$tasks_bad_rates = FALSE;
+		$competence_bad_rates = FALSE;
+		foreach($previous_card->fetchTasks() as $task)
+		{
+			if($task->rating_id == 5 OR $task->rating_id == 6)
+				$tasks_bad_rates = TRUE;
+		}
+
+		foreach($previous_card->fetchCompetences() as $competence)
+		{
+			if($competence->rating_id == 5 OR $competence->rating_id == 6)
+				$competence_bad_rates = TRUE;
+		}
+
+		if($tasks_bad_rates === TRUE OR $competence_bad_rates === TRUE)
+		{
+			$previous_bad_rates = 'yes';
+		}
+		else
+		{
+			$previous_bad_rates = 'no';
+		}
 
 		$view = $this->initView();
 		$view->title = Rp::getTitle(array($person->fullname, "Карточка достижений {$card->period}"));
@@ -70,6 +105,7 @@ class Card_AchievsController extends Zend_Controller_Action
 		$view->emails = $this->_getEmails($card, $user);
 
 		$view->tab = (isset($_SESSION['tab'])) ? $_SESSION['tab'] : 'tasks';
+		$view->previous_bad_rates = $previous_bad_rates;
 	}
 
 	public function printAction()
