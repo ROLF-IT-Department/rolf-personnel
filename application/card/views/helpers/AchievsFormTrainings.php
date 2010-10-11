@@ -1,19 +1,19 @@
 <?php
 
 class Zend_View_Helper_AchievsFormTrainings
-{		
+{
 	/**
 	 * Объект представления.
-	 * 
+	 *
      * @var Zend_View_Interface
      */
     public $view;
-	
+
 	public function setView(Zend_View_Interface $view)
     {
 		$this->view = $view;
     }
-    
+
     public function achievsFormTrainings(Zend_Db_Table_Rowset_Abstract $trainings,
 		array $groupsMethods, array $respons, array $months, array $groupsMethodsActual)
     {
@@ -21,7 +21,7 @@ class Zend_View_Helper_AchievsFormTrainings
 		foreach ($groupsMethods as $item) {
 			$methods += $item;
 		}
-		
+
 		$xhtml   = array();
 		$xhtml[] = '
 			<div class="grid-head">
@@ -61,22 +61,22 @@ class Zend_View_Helper_AchievsFormTrainings
 				</table>
 			</div>
 		';
-		
+
 		return implode('', $xhtml);
 	}
-    
+
     private function _rowTraining(Zend_Db_Table_Row_Abstract $training,
 		array $methods, array $groupsMethods, array $respons, array $months, array $groupsMethodsActual)
 	{
 		static $counter = 0;
-		
+
 		if (empty($training->id)) {
 			$num   = '*';
 			$name  = 'trainingPattern';
 			$class = 'row-pattern';
-			
+
 			$toggle = '<div class="toggle-cancel-train" onclick="Card.removeRow(this)">&nbsp;</div>';
-			
+
 			end($months);
 			$training->method_id = key($methods);
 			$training->month_term_id = key($months);
@@ -85,10 +85,10 @@ class Zend_View_Helper_AchievsFormTrainings
 			$num   = ++$counter;
 			$name  = 'trainings[' . $training->id . ']';
 			$class = '';
-			
+
 			$toggle = '';
 		}
-		
+
 		$groupMethodsName = '';
 		foreach ($groupsMethods as $groupName => $items) {
 			if (array_key_exists($training->method_id, $items)) {
