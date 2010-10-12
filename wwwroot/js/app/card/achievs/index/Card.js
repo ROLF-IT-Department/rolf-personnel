@@ -1015,15 +1015,14 @@ var Card = new function()
 			emsg.push('- The sum of the weights of the business objectives should be 100%! At this moment the sum of the weights ' + tasks_weight_sum_diff[1] + '.  Recount the weights please.');
 		}
 
-		// Рекомендация по созданию плана развития ввиду того, что в предыдущем периоде по компетенциям или целям были
-		// оценки C или D, а в текущем периоде не задано плана развития
-		// todo: проиписать нормальные сообщения.
+		/*
+		 * Рекомендация по созданию плана развития ввиду того, что в предыдущем периоде по компетенциям или целям были
+		 * оценки C или D, а в текущем периоде не задано плана развития
+		 */
 		if(previous_bad_rates == 'yes' && _trains.rows.length == 1)
 		{
-			msg.push('- Внимание! По результатам предыдущего периода по целям и/или компетенциям сотрудника были '
-			+ 'обнаружены оценки C или D, а в текущей карточке отсутствуют рекомендованные тренинги. Рекомендуется задать '
-			+ 'сотруднику соответствующие тренинги.');
-			emsg.push('- фывафыва фываф ывафыв афыва');
+			msg.push('- Необходимо заполнить план развития сотрудника на текущий год с учетом того, что в прошлом году у сотрудника есть оценки C или D в целях или компетенциях.');
+			emsg.push('- Due to the employees business tasks or competences in the previous card period have C or D rates, you must fill the development plan for the employee for the current year.');
 		}
 
 		if (_tasks)
