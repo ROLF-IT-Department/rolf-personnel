@@ -11,7 +11,7 @@ Js.TabPanel = function()
 		body          : 'tabs-body',
 		bodyActivated : 'tabs-body-activated'
 	};
-	
+
 	this.addTab = function(id, bodyId)
 	{
 		var bookmark = new Js.TabPanelItem(id, bodyId, _classNames);
@@ -21,19 +21,33 @@ Js.TabPanel = function()
 			bookmark.activate();
 		}
 	}
-	
+	/**
+	 * Выделение определённой закладки
+	 * @param id
+	 * @param bodyId
+	 */
+	this.focus = function(id, bodyId)
+	{
+		var bookmark = new Js.TabPanelItem(id, bodyId, _classNames);
+		_items[id] = bookmark;
+		bookmark.setTabPanel(this);
+		if (_itemActivated.id != id) {
+			bookmark.activate();
+		}
+	}
+
 	this.addTabs = function(items)
 	{
 		for (var id in items) {
 			this.addTab(id, items[id]);
 		}
 	}
-	
+
 	this.getTab = function(id)
 	{
 		return _items[id];
 	}
-	
+
 	this.onactivateHandler = function(item)
 	{
 		if (_itemActivated) {
@@ -41,14 +55,14 @@ Js.TabPanel = function()
 		}
 		_itemActivated = item;
 	}
-	
+
 	this.ondeactivateHandler = function(item)
 	{
 		if (_itemActivated == item) {
 			_itemActivated = null;
 		}
 	}
-	
+
 	this.setClassNames = function(classNames)
 	{
 		for (var key in classNames) {
@@ -62,13 +76,13 @@ Js.TabPanelItem = function(id, bodyId, classNames)
 	this.id = id;
 	this.activated = null;
 	this.disabled = null;
-	
+
 	var _this = this;
 	var _panel = null;
 	var _tag = Js.get(id);
 	var _body = Js.get(bodyId);
 	var _classNames = classNames;
-	
+
 	_tag.onclick = function(e)
 	{
 		var tab_re = new RegExp("tabs-item-");
@@ -79,18 +93,29 @@ Js.TabPanelItem = function(id, bodyId, classNames)
 
 		_this.activate();
 	}
-	
+
+	_tag.focus = function(e)
+	{
+		var tab_re = new RegExp("tabs-item-");
+		if(document.card)
+		{
+			document.card.tab.value = this.id.replace(tab_re, '');
+		}
+
+		_this.activate();
+	}
+
 	_tag.onmouseover = function()
 	{
 		this.className += ' ' + _classNames.itemHover;
 	}
-	
+
 	_tag.onmouseout = function()
 	{
 		var re = new RegExp("\\s*\\b" + _classNames.itemHover + "\\b", "ig");
 		this.className = this.className.replace(re, '');
 	}
-	
+
 	this.setTabPanel = function(panel)
 	{
 		if (panel.getTab(this.id) == this) {
@@ -98,7 +123,7 @@ Js.TabPanelItem = function(id, bodyId, classNames)
 		}
 		return false;
 	}
-	
+
 	this.activate = function()
 	{
 		if (this.activated) {
@@ -111,7 +136,7 @@ Js.TabPanelItem = function(id, bodyId, classNames)
 			_panel.onactivateHandler(this);
 		}
 	}
-	
+
 	this.deactivate = function()
 	{
 		if (!this.activated) {
