@@ -1022,7 +1022,7 @@ var Card = new function()
 		if(previous_bad_rates == 'yes' && _trains.rows.length == 1)
 		{
 			msg.push('- Ќеобходимо заполнить план развити€ сотрудника на текущий год с учетом того, что в прошлом году у сотрудника есть оценки C или D в цел€х или компетенци€х.');
-			emsg.push('- Due to the employees business tasks or competences in the previous card period have C or D rates, you must fill the development plan for the employee for the current year.');
+			emsg.push('- Due to the employees business tasks or competences in the previous year have C or D rates, you must fill the development plan for the employee for the current year.');
 		}
 
 		if (_tasks)
