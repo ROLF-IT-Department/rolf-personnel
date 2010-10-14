@@ -1417,8 +1417,8 @@ var Card = new function()
 		{
 			row_class = rows[i].className;
 			weight = rows[i].cells[3].getElementsByTagName('textarea')[0];
-			if (row_class != 'row-pattern row-planning'){
-				if(weight.value != 100) return false;
+			if (row_class != 'row-pattern row-planning' && row_class != 'row-canceled row-planning'){
+				if(weight.value == 0) return false;
 			}
 		}
 
