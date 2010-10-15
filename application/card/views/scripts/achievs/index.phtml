@@ -34,8 +34,12 @@
 		var ROLE_MANAGER      = 2;
 		var ROLE_HIGH_MANAGER = 4;
 		var ROLE_FUNC_MANAGER = 8;
+		var ROLE_VIEWER_USER  = <?php echo (!empty($this->user_viewed_posts)) ? '1000' : '9'?>;
+
 		<?php $ROLE_FUNC_MANAGER = 8?>
+
 		var USER_ROLE         = <?php echo $this->userRole ?>;
+
 		var count_func 		  = <?php echo $this->count_func ?>;
 
 		var emails = '<?php echo $this->emails ?>';
