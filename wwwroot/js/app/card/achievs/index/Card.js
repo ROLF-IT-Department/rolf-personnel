@@ -617,6 +617,8 @@ var Card = new function()
 
 	this.setEditFuncNotes = function()
 	{
+		if(_func_tasks == null) return;
+
 		var rows = _func_tasks.rows;
 		var div = null;
 		for (var i = 0; i < rows.length; i++) {
@@ -760,6 +762,7 @@ var Card = new function()
 
 	this.setModePlanFuncMng = function()
 	{
+		if (_func_tasks == null) return;
 
 		var rows = _func_tasks.rows;
 		for (var i = 0; i < rows.length; i++) {
@@ -806,8 +809,9 @@ var Card = new function()
 
 	this.setModeRateFuncMng = function()
 	{
-		var rows = _func_tasks.rows;
+		if (_func_tasks == null) return;
 
+		var rows = _func_tasks.rows;
 		for (var i = 0; i < rows.length; i++) {
 			this.setRateTask(rows[i]);
 		}
@@ -1046,7 +1050,7 @@ var Card = new function()
 			// проверка на то, что активная цель не должна иметь вес = 0. Пока не активно
 			if(notZero == false) {
 				msg.push('- Вес цели не может быть равен нулю! Пересчитайте, пожалуйста, веса.');
-				emsg.push('- Вusiness objective weight must be more than 0! Recount the weights please.');
+				emsg.push('- Business objective weight must be more than 0! Recount the weights please.');
 			}
 
 		}
