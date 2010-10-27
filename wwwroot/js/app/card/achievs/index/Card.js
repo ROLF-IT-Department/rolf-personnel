@@ -923,7 +923,7 @@ var Card = new function()
 				msg.push('- Ограничение по количеству целей не более 6 целей!');
 				emsg.push('- There is a limit of 6 active objectives!');
 			}
-			if(Card.checkCorrectDateTerm(_tasks) < 0) {
+			if(Card.checkCorrectDateTerm(_tasks) == false) {
 				msg.push('- Заполните <Срок> достижения всех бизнес-целей!');
 				emsg.push('- Fill <Timing> for all objectives!');
 			}
@@ -972,7 +972,7 @@ var Card = new function()
 					msg.push('- Ограничение по количеству целей не более 6 целей!');
 					emsg.push('- There is a limit of 6 active objectives!');
 				}
-				if(Card.checkCorrectDateTerm(_func_tasks) < 0) {
+				if(Card.checkCorrectDateTerm(_func_tasks) == false) {
 					msg.push('- Заполните <Срок> достижения всех функциональных бизнес-целей!');
 					emsg.push('- Fill <Timing> for all functional objectives!');
 				}
@@ -1199,7 +1199,7 @@ var Card = new function()
 					alert("Внимание! Ограничение по количеству целей не более 6 целей!");
 					return;
 				}
-				if(Card.checkCorrectDateTerm(_tasks) < 0) {
+				if(Card.checkCorrectDateTerm(_tasks) == false) {
 					alert("Внимание! Заполните <Срок> достижения всех бизнес-целей!");
 					return;
 				}
@@ -1210,7 +1210,7 @@ var Card = new function()
 					alert("Внимание! Ограничение по количеству целей не более 6 целей!");
 					return;
 				}
-				if(Card.checkCorrectDateTerm(_func_tasks) < 0) {
+				if(Card.checkCorrectDateTerm(_func_tasks) == false) {
 					alert("Внимание! Заполните <Срок> достижения всех функциональных бизнес-целей!");
 					return;
 				}
@@ -1289,10 +1289,13 @@ var Card = new function()
 				continue;
 			}
 			if(term.value == '') {
-				return -1;
+				return false;
+			}
+			if(term.value == '[дата]') {
+				return false;
 			}
 		}
-		return 0;
+		return true;
 	}
 	this.saveTasks = function()
 	{
