@@ -121,10 +121,10 @@ function init()
 	Toolbar.addItem({text: 'ѕечатна€ форма<br><span class="translate_toolbar">Print</span>', onclick: toolbarItemPrint}).addClassName('toolbar-item-print');
 
 	// ≈сли карточку просматривает HR сотрудник, то фигачим кнопки создани€ и блокировки/разблокировки карточки
-	if (ROLE_VIEWER_USER == 1000) {
-		Toolbar.addItem({text: '—оздать карточку<br><span class="translate_toolbar">Create new</span>', onclick: toolbarItemCreateNewCard}).addClassName('toolbar-item-new-card');
-		Toolbar.addItem({text: 'Ѕлокировать/–азблокировать<br><span class="translate_toolbar">Block/Unbloc</span>', onclick: toolbarItemBlockUnblockCard}).addClassName('toolbar-item-block-unblock');
-	}
+//	if (ROLE_VIEWER_USER == 1000) {
+//		Toolbar.addItem({text: '—оздать карточку<br><span class="translate_toolbar">Create new</span>', onclick: toolbarItemCreateNewCard}).addClassName('toolbar-item-new-card');
+//		Toolbar.addItem({text: 'Ѕлокировать/–азблокировать<br><span class="translate_toolbar">Block/Unbloc</span>', onclick: toolbarItemBlockUnblockCard}).addClassName('toolbar-item-block-unblock');
+//	}
 
 	// если дл€ определенной карточки роль пользователь совпадает с ролью непосредственного руководител€ то делаем заметки видимыми
 
