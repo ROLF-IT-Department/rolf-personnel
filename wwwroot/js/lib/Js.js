@@ -42,9 +42,3 @@ Js = new function()
 		return window.open(url, name, params);
 	}
 }
-
-$(document).ready(function(){
-   $('textarea').change(function(){
-	   Card._textfieldChangeHandler(this);
-   })
- });
