@@ -1611,6 +1611,30 @@ var Card = new function()
 		return obj;
 	}
 
+	this._getInputs = function(table)
+	{
+		var rows = table.rows;
+		var inputs = [];
+
+		for (var i = 0; i < rows.length; i++)
+		{
+			var cells = rows[i].cells;
+			for (var j = 0; j < cells.length; j++)
+			{
+				var input = cells[j].firstChild;
+
+				while (input && input.name)
+				{
+					input = input.nextSibling;
+				}
+
+				if(input)
+					inputs.push(input);
+			}
+		}
+		return inputs;
+	}
+
 	//------------------------------------------------------
 	var _input = null;
 
@@ -1629,4 +1653,18 @@ var Card = new function()
 		}
 		input.value = year + '-' + (1 + month) + '-' + day;
 	}
+
+	this._textfieldChangeHandler = function (input)
+	{
+		var row_class = input.parentNode.parentNode.className;
+		var new_class = ' row-not-saved';
+
+		var class = /\srow-not-saved/;
+		if( ! class.test(row_class))
+		{
+			input.parentNode.parentNode.className += new_class;
+		}
+		changes = true;
+	}
+
 }

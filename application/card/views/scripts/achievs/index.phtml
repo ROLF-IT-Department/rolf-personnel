@@ -11,6 +11,14 @@
 		@import url('<?php echo $this->baseUrl() ?>/css/app/card/achievs/index.css');
 	</style>
 	<script type="text/javascript">
+		var changes = false;
+
+		window.onbeforeunload = function(evt) {
+			evt = evt || window.event;
+			if(changes == true) evt.returnValue = "Вы не сохранили изменения в карточке сотрудника. Закрытие окна может вызвать потерю имеющихся изменений.";
+		}
+
+
 		var BASE_URL          = '<?php echo $this->baseUrl() ?>';
 
 		/*function logoff()
@@ -70,6 +78,7 @@
 		var active_tab = '<?php echo $this->tab?>';
 
 	</script>
+	<script src="<?php echo $this->baseUrl() ?>/js/lib/jquery.1.4.4.js" type="text/javascript"></script>
 	<script src="<?php echo $this->baseUrl() ?>/js/lib/Js.js" type="text/javascript"></script>
 	<script src="<?php echo $this->baseUrl() ?>/js/lib/Js/Toolbar.js" type="text/javascript"></script>
 	<script src="<?php echo $this->baseUrl() ?>/js/lib/Js/TabPanel.js" type="text/javascript"></script>

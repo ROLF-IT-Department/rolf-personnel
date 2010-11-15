@@ -20,8 +20,6 @@ function init()
 
 	Card.init(period);
 
-	//alert(period);
-
 	Tabs = new Js.TabPanel();
 	Tabs.addTab('tabs-item-tasks', 'tabs-body-tasks');
 	Tabs.addTab('tabs-item-compets', 'tabs-body-compets');
@@ -144,10 +142,8 @@ function init()
 	if (USER_ROLE & ROLE_FUNC_MANAGER) {
 		Card.setEditFuncNotes();
 	}
-
-
-
 }
+
 /**
  * Создание и отправка сообщения по email
  */
