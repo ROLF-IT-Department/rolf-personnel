@@ -10,8 +10,6 @@ function init()
 	JsCalendarInit(BASE_URL + '/js/lib/JsCalendar');
 	JsCalendar.handler = Card.calendarHandler;
 
-
-
 	elems = window.document.card.elements;
 
 	elems.period.onchange = periodOnchangeHandler;

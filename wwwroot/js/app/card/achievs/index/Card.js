@@ -63,18 +63,16 @@ var Card = new function()
 		_buttonAddTraining = document.getElementById('buttonAddTraining');
 		_period = period;
 		
-		$(document).ready(function(){
-			$('textarea').change(function(){
-				var row_class = this.parentNode.parentNode.className;
-				var new_class = ' row-not-saved';
+		$('textarea').change(function(){
+			var row_class = this.parentNode.parentNode.className;
+			var new_class = ' row-not-saved';
 
-				var expr_class = /\srow-not-saved/;
-				if( ! expr_class.test(row_class))
-				{
-					this.parentNode.parentNode.className += new_class;
-				}
-				changes = true;
-			})
+			var expr_class = /\srow-not-saved/;
+			if( ! expr_class.test(row_class))
+			{
+				this.parentNode.parentNode.className += new_class;
+			}
+			changes = true;
 		});
 		
 	}
