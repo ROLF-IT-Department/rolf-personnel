@@ -228,7 +228,7 @@ class Zend_View_Helper_AchievsFormTasks
 					<div>' . $num . '</div>' . $toggle . '
 				</td>
 				<td class="tasks-field-description">
-					<textarea name="' . $name . '[description]" type="text" readonly="readonly">' . $task->description . '</textarea>
+					<textarea name="' . $name . '[description]" id="' . $name . '" readonly="readonly">' . $task->description . '</textarea>
 				</td>
 				<td class="tasks-field-term">
 					<input name="term_display" type="text" value="' . $term_date .'" readonly="readonly" />
