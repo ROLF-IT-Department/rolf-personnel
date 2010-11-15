@@ -1515,5 +1515,11 @@ var Card = new function()
 		}
 		changes = true;
 	}
+	
+	$(document).ready(function(){
+		$('textarea').change(function(){
+			Card._textfieldChangeHandler(this);
+		})
+	});
 
 }
