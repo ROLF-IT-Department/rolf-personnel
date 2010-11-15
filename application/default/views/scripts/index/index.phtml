@@ -13,18 +13,18 @@
 		@import url('<?php echo $this->baseUrl() ?>/css/app/default/index/index/menu.css');
 	</style>
 	<script type="text/javascript">
-		
+
 		var BASE_URL = '<?php echo $this->baseUrl() ?>';
-		
+
 		var have_integrate = <?php echo $this->have_integrate ?>;
-		
+
 		//alert(USER_ID);
-		
-		/*function logoff() 
+
+		/*function logoff()
 		{
 
 			var url = BASE_URL + '/default/logoff/index/';
-				
+
 	        if(!this.http){
 	            this.http = new (window.XMLHttpRequest||ActiveXObject)("Msxml2.XMLHTTP");
 	            this.working = false;
@@ -35,9 +35,10 @@
 	            this.http.send(null);
 	        }
 		}*/
-		
+
 	</script>
 	<script src="<?php echo $this->baseUrl() ?>/json/user" type="text/javascript"></script>
+	<script src="<?php echo $this->baseUrl() ?>/js/lib/jquery.1.4.4.js" type="text/javascript"></script>
 	<script src="<?php echo $this->baseUrl() ?>/js/lib/Js.js" type="text/javascript"></script>
 	<script src="<?php echo $this->baseUrl() ?>/js/lib/Js/Toolbar.js" type="text/javascript"></script>
 	<script src="<?php echo $this->baseUrl() ?>/js/lib/Js/Tree.js" type="text/javascript"></script>
@@ -62,7 +63,7 @@
 		<div class="caption"><div id="captionLabel"></div></div>
 		<object id="content" name="content" type="text/html" data="<?php echo $this->baseUrl() ?>/empty"></object>
 	</div>
-	
+
 
 </body>
 </html>
