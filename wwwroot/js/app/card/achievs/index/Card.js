@@ -1518,7 +1518,7 @@ var Card = new function()
 	
 	$(document).ready(function(){
 		$('textarea').change(function(){
-			Card._textfieldChangeHandler(this);
+			this._textfieldChangeHandler(this);
 		})
 	});
 
