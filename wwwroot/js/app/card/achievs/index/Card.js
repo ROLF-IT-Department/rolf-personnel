@@ -549,9 +549,8 @@ var Card = new function()
 	}
 	this.setEditFuncNotes = function()
 	{
-		if(_func_tasks == null) {
-			return;
-		}
+		if(_func_tasks == null) return;
+
 		var rows = _func_tasks.rows;
 		var div = null;
 		for(var i = 0; i < rows.length; i++) {
@@ -666,9 +665,8 @@ var Card = new function()
 	}
 	this.setModePlanFuncMng = function()
 	{
-		if(_func_tasks == null) {
-			return;
-		}
+		if (_func_tasks == null) return;
+
 		var rows = _func_tasks.rows;
 		for(var i = 0; i < rows.length; i++) {
 			this.setPlanTask(rows[i]);
@@ -703,11 +701,10 @@ var Card = new function()
 	}
 	this.setModeRateFuncMng = function()
 	{
-		if(_func_tasks == null) {
-			return;
-		}
+		if (_func_tasks == null) return;
+
 		var rows = _func_tasks.rows;
-		for(var i = 0; i < rows.length; i++) {
+		for (var i = 0; i < rows.length; i++) {
 			this.setRateTask(rows[i]);
 		}
 		_fieldRatingFunc.className += ' field-activated';
@@ -1465,6 +1462,30 @@ var Card = new function()
 		return obj;
 	}
 
+	this._getInputs = function(table)
+	{
+		var rows = table.rows;
+		var inputs = [];
+
+		for (var i = 0; i < rows.length; i++)
+		{
+			var cells = rows[i].cells;
+			for (var j = 0; j < cells.length; j++)
+			{
+				var input = cells[j].firstChild;
+
+				while (input && input.name)
+				{
+					input = input.nextSibling;
+				}
+
+				if(input)
+					inputs.push(input);
+			}
+		}
+		return inputs;
+	}
+
 	//------------------------------------------------------
 	var _input = null;
 	this.calendar = function()
@@ -1481,4 +1502,18 @@ var Card = new function()
 		}
 		input.value = year + '-' + (1 + month) + '-' + day;
 	}
+
+	this._textfieldChangeHandler = function (input)
+	{
+		var row_class = input.parentNode.parentNode.className;
+		var new_class = ' row-not-saved';
+
+		var class = /\srow-not-saved/;
+		if( ! class.test(row_class))
+		{
+			input.parentNode.parentNode.className += new_class;
+		}
+		changes = true;
+	}
+
 }

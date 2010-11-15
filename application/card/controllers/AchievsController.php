@@ -1,5 +1,12 @@
 <?php
 
+/**
+ *  онтроллер отображени€ карточки.
+ *
+ * @todo Ѕрать всю информацию о должности сотрудника из карточки, а не из employee.
+ * @throws Exception
+ *
+ */
 class Card_AchievsController extends Zend_Controller_Action
 {
 	const ROLE_VIEWER       = 0;			// право просмотра карточки
@@ -82,6 +89,7 @@ class Card_AchievsController extends Zend_Controller_Action
 		$view->emp = $emp;
 		$view->person = $person;
 		$view->user = $user;
+		$view->user_viewed_posts = $user->getTreePost()->findViewedPosts(true)->toArray();
 		$view->userRole = $this->_getUserRole($card, $user);
 		$view->card = $card;
 		$view->periods = $periods;
@@ -116,8 +124,6 @@ class Card_AchievsController extends Zend_Controller_Action
 	public function saveAction()
 	{
 		$request = $this->getRequest();
-//		echo '<div style="height:100%;width:100%;display:block;overflow:auto"><pre>';
-//		exit(var_dump($request->getPost('tasks')));
 		$cardId  = $request->getPost('id', null);
 
 		$tab = $request->getPost('tab', 'tasks');
@@ -175,6 +181,10 @@ class Card_AchievsController extends Zend_Controller_Action
 		$empId = $emp->person_id;		// id сотрудника
 		$userId = $user->person_id;	// id пользовател€
 
+		// ѕодразумевалось, что можно было бы задавать всем HRовцам роль дл€ добавлени€/блокировок карточек...
+//		$employees = new Rp_Db_View_Employees();
+//		$user_employee_info = $employees->findByPersonId($userId)->current()->getPerson();
+
 		/*
 		if ($empId == $userId AND $user->isTop()) {
 			$userRole |= self::ROLE_EMPLOYEE | self::ROLE_MANAGER | self::ROLE_HIGH_MANAGER;
@@ -194,6 +204,14 @@ class Card_AchievsController extends Zend_Controller_Action
 				$userRole |= self::ROLE_HIGH_MANAGER;	// устанавливаем роль вышесто€щего руководител€
 			}
 		}
+
+		// ѕодразумевалось, что можно было бы задавать всем HRовцам роль дл€ добавлени€/блокировок карточек...
+//		if (preg_match('/ƒепартамент информационных технологий/', $user_employee_info->FullPath)
+//		    OR preg_match('/ќтдел по персоналу/', $user_employee_info->FullPath)
+//		) {
+//			$userRole |= self::ROLE_HR;
+//		}
+
 		if (in_array($userId, $mngsIds)) {			// если пользователь есть в списке непосредственных руководителей
 			$userRole |= self::ROLE_MANAGER;		// устанавливаем роль руководител€
 			if (count($highMngsIds) == 0) {					// если нет вышесто€щих руководителей
@@ -215,8 +233,6 @@ class Card_AchievsController extends Zend_Controller_Action
 		if (in_array($userId, $funcMngsIds)) {			// если пользователь в списке функциональных руководителей, то устанавливаем ему эту роль
 			$userRole |= self::ROLE_FUNC_MANAGER;
 		}
-
-
 
 		return $userRole;		// возвращаем роль пользовател€
 	}

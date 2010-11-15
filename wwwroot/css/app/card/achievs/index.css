@@ -60,6 +60,12 @@ fieldset {
 .toolbar-item-print div {
 	background-image: url('../../../../img/achievs/card/toolbar/printer.gif');
 }
+.toolbar-item-new-card div {
+	background-image: url('../../../../img/achievs/card/toolbar/block_unblock.gif');
+}
+.toolbar-item-block-unblock div {
+	background-image: url('../../../../img/achievs/card/toolbar/create_new.gif');
+}
 
 .panel-status {
 	background-color: #CCCCCC;
