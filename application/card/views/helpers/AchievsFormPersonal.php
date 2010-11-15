@@ -378,7 +378,7 @@ class Zend_View_Helper_AchievsFormPersonal
 					<input name="' . $name . '[status]" type="hidden" value="' . $task->status . '" />
 				</td>
 				<td class="tasks-field-description">
-					<textarea name="' . $name . '[description]" id="' . $name . '" readonly="readonly">' . $task->description . '</textarea>
+					<textarea name="' . $name . '[description]" readonly="readonly">' . $task->description . '</textarea>
 				</td>
 				<td class="tasks-field-term">
 					<input name="term_display" type="text" value="' . $term_date .'" readonly="readonly" />
@@ -430,7 +430,7 @@ class Zend_View_Helper_AchievsFormPersonal
 					<input name="' . $name . '[status]" type="hidden" value="' . $task->status . '" />
 				</td>
 				<td class="tasks-field-description">
-					<textarea name="' . $name . '[description]" id="' . $name . '" readonly="readonly">' . $task->description . '</textarea>
+					<textarea name="' . $name . '[description]" readonly="readonly">' . $task->description . '</textarea>
 				</td>
 				<td class="tasks-field-term">
 					<input name="term_display" type="text" value="' . date('d.m.y', strtotime($term)) .'" readonly="readonly" />

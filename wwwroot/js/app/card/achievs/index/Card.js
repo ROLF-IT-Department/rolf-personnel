@@ -20,6 +20,7 @@ var Card = new function()
 	var lbl_mng = null;
 	var lbl_fnc = null;
 	var _period = null;
+	
 	this.init = function(period)
 	{
 		_tasks = document.getElementById('tasks');
@@ -61,6 +62,21 @@ var Card = new function()
 		_buttonAddPersonalTask = document.getElementById('buttonAddPersonalTask');
 		_buttonAddTraining = document.getElementById('buttonAddTraining');
 		_period = period;
+		
+		$(document).ready(function(){
+			$('textarea').change(function(){
+				var row_class = this.parentNode.parentNode.className;
+				var new_class = ' row-not-saved';
+
+				var expr_class = /\srow-not-saved/;
+				if( ! expr_class.test(row_class))
+				{
+					this.parentNode.parentNode.className += new_class;
+				}
+				changes = true;
+			})
+		});
+		
 	}
 	this.displayRatio = function()
 	{
@@ -1502,24 +1518,4 @@ var Card = new function()
 		}
 		input.value = year + '-' + (1 + month) + '-' + day;
 	}
-
-	this._textfieldChangeHandler = function (input)
-	{
-		var row_class = input.parentNode.parentNode.className;
-		var new_class = ' row-not-saved';
-
-		var class = /\srow-not-saved/;
-		if( ! class.test(row_class))
-		{
-			input.parentNode.parentNode.className += new_class;
-		}
-		changes = true;
-	}
-	
-	$(document).ready(function(){
-		$('textarea').change(function(){
-			this._textfieldChangeHandler(this);
-		})
-	});
-
 }
