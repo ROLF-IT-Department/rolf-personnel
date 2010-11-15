@@ -402,3 +402,9 @@ function openNotesTraining(trainId)
 
 	Js.open(url, '', 400, 510);
 }
+
+$(document).ready(function(){
+   $('textarea').change(function(){
+	   Card._textfieldChangeHandler(this);
+   })
+ });
