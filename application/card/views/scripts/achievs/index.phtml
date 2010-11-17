@@ -182,7 +182,13 @@
 
 		window.onbeforeunload = function(evt) {
 			evt = evt || window.event;
-			if(changes == true) evt.returnValue = "Вы не сохранили изменения в карточке сотрудника. Закрытие окна может вызвать потерю имеющихся изменений.";
+			if(changes == true)
+			{
+				var error_text = "Вы не сохранили изменения в карточке сотрудника. Закрытие окна может вызвать потерю имеющихся изменений. \n \n"
+								+ "You haven't saved changes made in the employee card. Closing the window may cause loss of existing changes.";
+				
+				evt.returnValue = error_text;
+			}
 		}
 
 
