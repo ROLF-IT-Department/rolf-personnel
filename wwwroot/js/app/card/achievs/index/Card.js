@@ -20,7 +20,7 @@ var Card = new function()
 	var lbl_mng = null;
 	var lbl_fnc = null;
 	var _period = null;
-	
+
 	this.init = function(period)
 	{
 		_tasks = document.getElementById('tasks');
@@ -62,7 +62,7 @@ var Card = new function()
 		_buttonAddPersonalTask = document.getElementById('buttonAddPersonalTask');
 		_buttonAddTraining = document.getElementById('buttonAddTraining');
 		_period = period;
-		
+
 		$('textarea').change(function(){
 			var row_class = this.parentNode.parentNode.className;
 			var new_class = ' row-not-saved';
@@ -74,7 +74,7 @@ var Card = new function()
 			}
 			changes = true;
 		});
-		
+
 	}
 	this.displayRatio = function()
 	{
@@ -1251,6 +1251,8 @@ var Card = new function()
 				return;
 			}
 		}
+
+		changes = false;
 		document.forms.card.submit();
 	}
 	this.countActiveObjectivesByStatus = function (table)
