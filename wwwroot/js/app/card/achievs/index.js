@@ -5,6 +5,11 @@ var Toolbar = null;
 
 var period = null;
 
+/**
+ * параметр редактирования (отката) карточки
+ */
+var edit   = false;
+
 function init()
 {
 	JsCalendarInit(BASE_URL + '/js/lib/JsCalendar');
@@ -158,12 +163,18 @@ function sendEmail()
 
 }
 
+/**
+ * Сохранение карточки
+ */
 function toolbarItemSave()
 {
 	Card.save();
 
 }
 
+/**
+ * Сохранение карточки и закрытие окна
+ */
 function toolbarItemSaveClose()
 {
 	Card.save();
@@ -174,26 +185,29 @@ function toolbarItemSaveClose()
 
 }
 
-
-
+/**
+ * Редактирование карточки (откат) до этапа планирования
+ */
 function toolbarItemEditPlan()
 {
 	var msg = 'Внимание! При переходе в статус планирования все ранее полученные согласования будут сняты!\n\nAttention! When shifting to the planning status all previous plan confirmations will be removed!';
 	if (window.confirm(msg)) {
 		elems['approvals[plan_mng_status]'].value = '';
+		edit = true;
 		Card.save();
-		//document.forms.card.submit();
 	}
 }
 
+/**
+ * Редактирование карточки (откат) до этапа оценки
+ */
 function toolbarItemEditRate()
 {
 	var msg = 'Внимание! При переходе в статус оценки все ранее полученные согласования оценки будут сняты!\n\nAttention! When shifting to rating status all previous rating confirmations will be removed!';
 	if (window.confirm(msg)) {
 		elems['approvals[rate_mng_status]'].value = '';
+		edit = true;
 		Card.save();
-		//document.forms.card.submit();
-
 	}
 }
 

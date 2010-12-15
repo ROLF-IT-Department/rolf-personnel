@@ -816,6 +816,7 @@ var Card = new function()
 			for(var i = 0; i < rows.length - 1; i++) {
 				cells = rows[i].cells;
 				status = rows[i].className;
+
 				// Проверка нового плана
 				if(card_action == 'new') {
 					if(status == 'row-not-saved') {
@@ -842,19 +843,19 @@ var Card = new function()
 							}
 						}
 					}
-					if(status == '') {
+					if(status == '' && edit == false) {
 						for(var j = 0; j < (cells.length - 1); j++) {
 							if(j != 0 && j != 6) {
 								var content = _getControl(cells[j]).value;
 								if(content == '') {
 									msg[0] = '- Не заполнено одно из обязательных полей в одном из планов развития!';
-									msg[1] =
-									'- Not filled one of the nessessary field in one of the development ' + 'plan!';
+									msg[1] = '- Not filled one of the nessessary field in one of the development plan!';
 								}
 							}
 						}
 					}
 				}
+
 				// Этап оценки
 				if(card_action == 'approve') {
 					for(var k = 0; k < cells.length - 1; k++) {
