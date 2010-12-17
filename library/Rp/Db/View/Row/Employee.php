@@ -87,8 +87,8 @@ class Rp_Db_View_Row_Employee extends Rp_Db_View_Row
 		$attribs = new Rp_Db_View_Employees_Attribs();
 		$persons = new Rp_Db_View_Persons();
 		$person_id = $persons->fetchRow('id = '.$this->person_id, 'id DESC');
-		
-		return $attribs->find($this->person_id)->current();
+
+		return $attribs->find($person_id->New_ID)->current();
 	}
 	
 	/**
