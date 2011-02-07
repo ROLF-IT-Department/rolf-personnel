@@ -1,11 +1,11 @@
 <?php
 
 class Zend_View_Helper_IntegratedBlock
-{	
+{
 	public function integratedBlock()
 	{
 		$xhtml = array();
-		
+
 		$user = Rp_User::getInstance();;
 		$user_id = $user->getPersonId();
 		$companies = new Rp_Db_View_Companies();
@@ -15,7 +15,7 @@ class Zend_View_Helper_IntegratedBlock
 		$integrated = new Rp_Db_View_IntegratedPersons();
 		$integrate_note = "";
 		$kol = 0;
-		
+
 		$xhtml[] = "<div class='caption_int'>Совмещенные должности</div>
 
 							<table class='integrate_table'>
@@ -25,12 +25,13 @@ class Zend_View_Helper_IntegratedBlock
 									<td align='center'><b>Полный путь</b></td>
 									<td align='center'><b>Должность</b></td>
 								</tr>";
-		
-		if ($user_id < 90000000)
+
+//		if ($user_id < 90000000)
+		if ($user->persg == 1)
 		{
 			$refer_id = $integrated->fetchRefID($user_id);
 		}
-		else 
+		else
 		{
 			$person_id = $integrated->fetchPersonID($user_id);
 			$refer_id = $integrated->fetchRefID($person_id[0]);
@@ -40,7 +41,7 @@ class Zend_View_Helper_IntegratedBlock
 			$appointment = current($appointments->fetchNames($employee->appointment_id));
 			$full_path = $employee->getPerson()->FullPath;
 			$integrate_note = "<div class='integrate_note'>* основное место работы</div>";
-			
+
 			$xhtml[] = "<tr style='color: blue;'>
 								<td align='center'>" . ++$kol . "*</td>
 								<td><a href='#' style='color: blue;' onclick='forwardIntegratePerson(". $person_id[0] .")'>" . $company . "</a></td>
@@ -67,13 +68,13 @@ class Zend_View_Helper_IntegratedBlock
 							</tr>";
 			}
 		}
-			
+
 		$xhtml[] = "</table>" . $integrate_note . "<br><br>";
-		
-		
-		
+
+
+
 		return implode($xhtml);
 	}
-	
+
 
 }
