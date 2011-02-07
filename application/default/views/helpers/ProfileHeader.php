@@ -1,7 +1,7 @@
 <?php
 
 class Zend_View_Helper_ProfileHeader
-{	
+{
 	public function profileHeader(Rp_Db_View_Row_Person $person, $baseUrl)
 	{
 		$xhtml = '
@@ -16,10 +16,12 @@ class Zend_View_Helper_ProfileHeader
 				</a>
 			';
 		}
-		
+
 		$is_integrate = "";
-		if ($person->id >= 90000000) 
-			$is_integrate = "<span style='color: blue; font-size: 12px;'>(סמגלוסעטעוכü)</span>";
+//		if ($person->id >= 90000000)
+		if ($person->persg != 1)
+			$is_integrate = "<span style='color: blue; font-size: 12px;'>(" . $person->pgtxt . ")</span>";
+//			$is_integrate = "<span style='color: blue; font-size: 12px;'>(סמגלוסעטעוכü)</span>";
 
 		$is_testperiod = '';
 		if( $person->endtest_date >= date('Y-m-d'))
@@ -27,7 +29,7 @@ class Zend_View_Helper_ProfileHeader
 
 		$xhtml .= $is_integrate;
 		$xhtml .= $is_testperiod;
-			
+
 		$xhtml .= '
 			</div>
 		';

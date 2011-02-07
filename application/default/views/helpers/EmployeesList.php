@@ -1,7 +1,7 @@
 <?php
 
 class Zend_View_Helper_EmployeesList
-{	
+{
 	public function employeesList(Employees_List $list)
 	{
 		$xhtml = array();
@@ -27,7 +27,7 @@ class Zend_View_Helper_EmployeesList
 			$title = implode(', ', $list->postNames);
 			$xhtml[] = '<div class="list-title">' . $title . '</div>';
 			$message = '';
-			
+
 			if (count($list->rows) == 0) {
 				$message = 'Нет сотрудников на данной должности';
 			}
@@ -50,10 +50,10 @@ class Zend_View_Helper_EmployeesList
 				</div>
 			</div>
 		';
-		
+
 		return implode($xhtml);
 	}
-	
+
 	private function _listTable($id, $class, array &$rows)
 	{
 		$xhtml = '
@@ -69,15 +69,17 @@ class Zend_View_Helper_EmployeesList
 		';
 		return $xhtml;
 	}
-	
+
 	private function _listRow(array &$row)
 	{
 		$statusFirst = isset($row['statusFirst']) ? $row['statusFirst'] : 'Новая';
 		$statusSecond = isset($row['statusSecond']) ? $row['statusSecond'] : 'Новая';
 		$is_integrate = "";
 		$is_testperiod = '';
-		if ( $row['id'] >= 90000000) 
-			$is_integrate = "<span style='color: blue; font-size: 10px;'>&nbsp;(совместитель)</span>";
+//		if ( $row['id'] >= 90000000)
+		if ( $row['persg'] != 1)
+			$is_integrate = "<span style='color: blue; font-size: 10px;'>&nbsp;(" . $row['pgtxt'] . ")</span>";
+//			$is_integrate = "<span style='color: blue; font-size: 10px;'>&nbsp;(совместитель)</span>";
 
 		if( $row['endtest_date'] >= date('Y-m-d'))
 			$is_testperiod = '<span style="color: green; font-size: 10px;">&nbsp;(испытательный срок)</span>';
@@ -88,10 +90,10 @@ class Zend_View_Helper_EmployeesList
 				<td class="field-name">' . $row['fullname'] . '</td>
 				<td class="field-depart">' . $row['department'] . '</td>
 				<td class="field-post">' . $row['appointment'] . $is_integrate . $is_testperiod . '</td>
-				<td class="field-ach-status status' . $row['statusFirstId'] . '" 
+				<td class="field-ach-status status' . $row['statusFirstId'] . '"
 					title="' . $statusFirst . '"></td>
 				<td class="field-ach-rating">' . $row['ratingFirst'] . '</td>
-				<td class="field-ach-status status' . $row['statusSecondId'] . '" 
+				<td class="field-ach-status status' . $row['statusSecondId'] . '"
 					title="' . $statusSecond . '"></td>
 				<td class="field-ach-rating">' . $row['ratingSecond'] . '</td>
 			</tr>

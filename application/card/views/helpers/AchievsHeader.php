@@ -1,21 +1,23 @@
 <?php
 
 class Zend_View_Helper_AchievsHeader
-{	
+{
 	public function achievsHeader(Rp_Db_View_Row_Employee $emp)
 	{
 		$persons = new Rp_Db_View_Persons();
 		$companies = new Rp_Db_View_Companies();
 		$departments = new Rp_Db_View_Departments();
 		$appointments = new Rp_Db_View_Appointments();
-		
+
 		$category = $emp->isManager() ? 'Руководитель' : 'Сотрудник';
 		$managersIds = $emp->getManagers()->getCol('person_id');
 
 		$managers = implode('<br />', $persons->fetchFullnames($managersIds));
-		
+
 		$is_integrate = "";
-		if ($emp->person_id >= 90000000)
+
+//		if ($emp->person_id >= 90000000)
+		if ($emp->persg >= 90000000)
 			$is_integrate = "<span style='color: blue; font-size: 12px;'>(совместитель)</span>";
 
 		$is_testperiod = '';
@@ -26,7 +28,7 @@ class Zend_View_Helper_AchievsHeader
 		$dep_name = "-";
 		if ($emp->department_id != '-')
 			$dep_name = current($departments->fetchNames($emp->department_id));
-		
+
 		return '
 			<table class="header" cellspacing="5">
 				<tbody>
