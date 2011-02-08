@@ -27,7 +27,7 @@ class Zend_View_Helper_IntegratedBlock
 								</tr>";
 
 //		if ($user_id < 90000000)
-		if ($user->persg > 1)
+		if ($user->persg == 1)
 		{
 			$refer_id = $integrated->fetchRefID($user_id);
 		}
