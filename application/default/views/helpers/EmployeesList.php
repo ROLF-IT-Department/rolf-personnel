@@ -77,7 +77,29 @@ class Zend_View_Helper_EmployeesList
 		$is_integrate = "";
 		$is_testperiod = '';
 		if ( $row['persg'] != 1)
-			$is_integrate = "<span style='color: blue; font-size: 10px;'>&nbsp;(" . $row['pgtxt'] . ")</span>";
+		{
+			$text = NULL;
+			switch($row['persg'])
+			{
+				case 2:
+				case 3:
+				case 7:
+				case 8:
+				case 10:
+					$text = 'Совместитель';
+					break;
+				case 4:
+				case 6:
+					$text = 'Несписочный Состав';
+					break;
+				case 9:
+					$text = 'Внешние Совместители';
+					break;
+			}
+			$is_integrate = ($text)
+				? "<span style='color: blue; font-size: 10px;'>&nbsp;(" . $text . ")</span>"
+				: NULL;
+		}
 
 		if( $row['endtest_date'] >= date('Y-m-d'))
 			$is_testperiod = '<span style="color: green; font-size: 10px;">&nbsp;(испытательный срок)</span>';
