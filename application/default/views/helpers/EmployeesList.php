@@ -76,10 +76,8 @@ class Zend_View_Helper_EmployeesList
 		$statusSecond = isset($row['statusSecond']) ? $row['statusSecond'] : 'Новая';
 		$is_integrate = "";
 		$is_testperiod = '';
-//		if ( $row['id'] >= 90000000)
 		if ( $row['persg'] != 1)
 			$is_integrate = "<span style='color: blue; font-size: 10px;'>&nbsp;(" . $row['pgtxt'] . ")</span>";
-//			$is_integrate = "<span style='color: blue; font-size: 10px;'>&nbsp;(совместитель)</span>";
 
 		if( $row['endtest_date'] >= date('Y-m-d'))
 			$is_testperiod = '<span style="color: green; font-size: 10px;">&nbsp;(испытательный срок)</span>';

@@ -15,17 +15,17 @@
  * @subpackage Employees_List
  */
 class Employees_List
-{	
+{
 	public $rows = null;
-	
+
 	public $subRows = null;
-	
+
 	public $postNames = null;
-	
+
 	public $periodFirst = null;
-	
+
 	public $periodSecond = null;
-	
+
 	public function __construct($postIds, $periodFirst, $periodSecond, $fetchEmps = true, $fetchSubEmps = true, $func)
 	{
 		if (!empty($postIds)) {
@@ -56,7 +56,7 @@ class Employees_List
 		$this->periodFirst = $periodFirst;
 		$this->periodSecond = $periodSecond;
 	}
-	
+
 	private function _fetch($keyName, $postIds, $periodFirst, $periodSecond, $table)
 	{
 		$db = Rp::getDbAdapter();
@@ -66,6 +66,8 @@ class Employees_List
 		$sql = "
 			SELECT DISTINCT
 				persons.id,
+				persons.persg,
+				persons.pgtxt,
 				persons.fullname,
 				departments.name AS department,
 				appointments.name AS appointment,
@@ -79,7 +81,7 @@ class Employees_List
 			FROM
 				$table posts_employees
 				INNER JOIN user_rp_employees_PM employees
-					ON posts_employees.$keyName IN ($postIds) 
+					ON posts_employees.$keyName IN ($postIds)
 						AND posts_employees.person_id = employees.person_id
 				INNER JOIN user_rp_persons_PM persons
 					ON employees.person_id = persons.id
@@ -102,7 +104,7 @@ class Employees_List
 			ORDER BY
 				persons.fullname
 		";
-		
+
 		return $db->fetchAll($sql);
 	}
 }
