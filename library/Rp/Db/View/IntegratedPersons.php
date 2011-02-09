@@ -30,12 +30,12 @@ class Rp_Db_View_IntegratedPersons extends Rp_Db_View_Abstract
 	 */
 	public function fetchRefID($person_id = null)
 	{
-		return $this->_fetchCol('ref_id', 'person_id = ' . $person_id);
+		return ($person_id) ? $this->_fetchCol('ref_id', 'person_id = ' . $person_id) : NULL;
 	}
 
 	public function fetchPersonID($ref_id = null)
 	{
-		return $this->_fetchCol('person_id', 'ref_id = ' . $ref_id);
+		return ($ref_id) ? $this->_fetchCol('person_id', 'ref_id = ' . $ref_id) : NULL;
 	}
 
 }
