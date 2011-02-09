@@ -17,7 +17,7 @@ class Zend_View_Helper_AchievsHeader
 		$is_integrate = "";
 
 //		if ($emp->person_id >= 90000000)
-		if ($emp->persg >= 90000000)
+		if ($emp->persg != 1 AND $emp->persg != 4 AND $emp->persg != 6)
 			$is_integrate = "<span style='color: blue; font-size: 12px;'>(סמגלוסעטעוכü)</span>";
 
 		$is_testperiod = '';

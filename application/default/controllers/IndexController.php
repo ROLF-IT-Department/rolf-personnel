@@ -10,7 +10,7 @@ class IndexController extends Zend_Controller_Action
 		$integrated = new Rp_Db_View_IntegratedPersons();
 		$refer_id = $integrated->fetchRefID($user_id);
 //		if (($user_id >= 90000000) OR (count($refer_id) > 0))
-		if (($user->persg != 1) OR (count($refer_id) > 0))
+		if (($user->persg != 1 AND $user->persg != 4 AND $user->persg != 6) OR (count($refer_id) > 0))
 				$have_integrate = 1;
 
 		$view = $this->initView();
@@ -18,8 +18,8 @@ class IndexController extends Zend_Controller_Action
 		$view->have_integrate = $have_integrate;
 		$is_integrate = "";
 //		if ($user_id >= 90000000)
-		if ($user->persg != 1)
-			$is_integrate = $user->pgtxt;//"Ñîâìåñòèòåëü";
+		if ($user->persg != 1 AND $user->persg != 4 AND $user->persg != 6)
+			$is_integrate = "Ñîâìåñòèòåëü";
 
 		$view->is_integrate = $is_integrate;
 	}
