@@ -10,16 +10,38 @@ class IndexController extends Zend_Controller_Action
 		$integrated = new Rp_Db_View_IntegratedPersons();
 		$refer_id = $integrated->fetchRefID($user_id);
 //		if (($user_id >= 90000000) OR (count($refer_id) > 0))
-		if (($user->persg != 1 AND $user->persg != 4 AND $user->persg != 6) OR (count($refer_id) > 0))
+		switch($user_id)
+		{
+			case 2:
+			case 3:
+			case 7:
+			case 8:
+			case 10:
 				$have_integrate = 1;
+				break;
+			default:
+				if(count($refer_id) > 0)
+				{
+					$have_integrate = 1;
+				}
+				break;
+		}
 
 		$view = $this->initView();
 		$view->title = Rp::getTitle();
 		$view->have_integrate = $have_integrate;
 		$is_integrate = "";
 //		if ($user_id >= 90000000)
-		if ($user->persg != 1 AND $user->persg != 4 AND $user->persg != 6)
-			$is_integrate = "Совместитель";
+		switch($user->persg)
+		{
+			case 2:
+			case 3:
+			case 7:
+			case 8:
+			case 10:
+				$is_integrate = "Совместитель";
+				break;
+		}
 
 		$view->is_integrate = $is_integrate;
 	}
@@ -35,7 +57,9 @@ class IndexController extends Zend_Controller_Action
 			$treePost = $user->getEmployee()->getTreePost();	// получаем должность сотрудника в дереве должностей
 
 			// если мы нажали на просмотр непосредственных подчиненных, то получаем id непоср. подчиненных,  в противном случае ищем id подчиненных подчиненных
-			$postIds = ($id == 'people' || $id == 'funcpeople') ? $treePost->id : $treePost->findChildPosts()->getCol('id');
+			$postIds = ($id == 'people' || $id == 'funcpeople')
+				? $treePost->id
+				: $treePost->findChildPosts()->getCol('id');
 
 			$func = false;
 			if ($id == 'funcpeople') $func = true;

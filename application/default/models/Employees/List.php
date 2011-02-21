@@ -28,21 +28,29 @@ class Employees_List
 
 	public function __construct($postIds, $periodFirst, $periodSecond, $fetchEmps = true, $fetchSubEmps = true, $func)
 	{
-		if (!empty($postIds)) {
+		if (!empty($postIds))
+		{
 			$table = 'user_rp_tree_posts_employees_PM';
-			if ($fetchEmps) {
+			if ($fetchEmps)
+			{
 				$this->rows = $this->_fetch('post_id', $postIds, $periodFirst, $periodSecond, $table);
 				$treePosts = new Rp_Db_View_TreePosts();
 				$this->postNames = $treePosts->fetchNames($postIds);
 			}
-			if ($fetchSubEmps) {
+
+			if ($fetchSubEmps)
+			{
 				$this->subRows = $this->_fetch('post_pid', $postIds, $periodFirst, $periodSecond, $table);
 			}
-			if ($func) {
+
+			if ($func)
+			{
 				$table = 'user_rp_tree_posts_func';
 				$this->subRows = $this->_fetch('post_func_id', $postIds, $periodFirst, $periodSecond, $table);
 			}
-		} else {
+		}
+		else
+		{
 			if ($fetchEmps) {
 				$this->rows = array();
 			}
@@ -77,7 +85,8 @@ class Employees_List
 				statuses_second.name AS statusSecond,
 				ratings_first.name AS ratingFirst,
 				ratings_second.name AS ratingSecond,
-				employees.endtest_date
+				employees.endtest_date,
+				employees.dismissal_date
 			FROM
 				$table posts_employees
 				INNER JOIN user_rp_employees_PM employees
@@ -101,6 +110,9 @@ class Employees_List
 					ON cards_first.rtg_total_id = ratings_first.id
 				LEFT JOIN user_rp_ach_ratings ratings_second
 					ON cards_second.rtg_total_id = ratings_second.id
+
+			WHERE ltrim(employees.dismissal_date) = '' --OR DATEDIFF(day,CONVERT(datetime, ltrim(persons.out_date)),GETDATE()) <= 0)
+
 			ORDER BY
 				persons.fullname
 		";
