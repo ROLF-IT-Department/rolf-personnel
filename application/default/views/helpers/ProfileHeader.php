@@ -19,9 +19,16 @@ class Zend_View_Helper_ProfileHeader
 
 		$is_integrate = "";
 //		if ($person->id >= 90000000)
-		if ($person->persg != 1)
-			$is_integrate = "<span style='color: blue; font-size: 12px;'>(" . $person->pgtxt . ")</span>";
-//			$is_integrate = "<span style='color: blue; font-size: 12px;'>(סמגלוסעטעוכü)</span>";
+		switch($person->persg)
+		{
+			case 2:
+			case 3:
+			case 7:
+			case 8:
+			case 10:
+				$is_integrate = "<span style='color: blue; font-size: 12px;'>(" . $person->pgtxt . ")</span>";
+				break;
+		}
 
 		$is_testperiod = '';
 		if( $person->endtest_date >= date('Y-m-d'))
