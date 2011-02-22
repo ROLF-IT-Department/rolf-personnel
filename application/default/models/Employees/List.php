@@ -85,13 +85,12 @@ class Employees_List
 				statuses_second.name AS statusSecond,
 				ratings_first.name AS ratingFirst,
 				ratings_second.name AS ratingSecond,
-				employees.endtest_date,
-				employees.dismissal_date
+				employees.endtest_date
+
 			FROM
 				$table posts_employees
 				INNER JOIN user_rp_employees_PM employees
-					ON posts_employees.$keyName IN ($postIds)
-						AND posts_employees.person_id = employees.person_id
+					ON posts_employees.$keyName IN ($postIds) AND posts_employees.person_id = employees.person_id
 				INNER JOIN user_rp_persons_PM persons
 					ON employees.person_id = persons.id
 				LEFT JOIN user_rp_departments departments
@@ -111,7 +110,7 @@ class Employees_List
 				LEFT JOIN user_rp_ach_ratings ratings_second
 					ON cards_second.rtg_total_id = ratings_second.id
 
-			WHERE ltrim(employees.dismissal_date) = '' --OR DATEDIFF(day,CONVERT(datetime, ltrim(persons.out_date)),GETDATE()) <= 0)
+			-- WHERE (ltrim(persons.out_date) = '' OR DATEDIFF(day,CONVERT(datetime, ltrim(persons.out_date)),GETDATE()) <= 0)
 
 			ORDER BY
 				persons.fullname

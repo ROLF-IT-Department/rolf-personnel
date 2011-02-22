@@ -33,7 +33,7 @@ class Zend_View_Helper_IntegratedBlock
 			case 3:
 			case 7:
 			case 8:
-			case 10:
+			case 'S':
 				$person_id = $integrated->fetchPersonID($user_id);
 				$refer_id = $integrated->fetchRefID($person_id[0]);
 				$employee = $employees->findByPersonId($person_id[0])->current();
