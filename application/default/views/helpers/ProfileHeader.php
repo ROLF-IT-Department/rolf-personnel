@@ -25,7 +25,7 @@ class Zend_View_Helper_ProfileHeader
 			case 3:
 			case 7:
 			case 8:
-			case 10:
+			case 'S':
 				$is_integrate = "<span style='color: blue; font-size: 12px;'>(" . $person->pgtxt . ")</span>";
 				break;
 		}
