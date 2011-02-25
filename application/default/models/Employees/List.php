@@ -111,7 +111,7 @@ class Employees_List
 				LEFT JOIN user_rp_ach_ratings ratings_second
 					ON cards_second.rtg_total_id = ratings_second.id
 
-			WHERE out_date = ''
+			-- WHERE out_date = ''
 
 			ORDER BY
 				persons.fullname
