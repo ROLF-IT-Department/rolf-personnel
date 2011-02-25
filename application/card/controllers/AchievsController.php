@@ -164,8 +164,8 @@ class Card_AchievsController extends Zend_Controller_Action
 				$userRole |= self::ROLE_HIGH_MANAGER;		// устанавливаем роль вышестоящего руководителя
 			}
 
-			/////  Ограничение для Ника Хокинса и Сергея Петрова. Чтобы он не был вышестоящим руководителем
-			if ($highMngsIds[0] == 29790 OR $highMngsIds[0] == 43835)
+			//  Ограничение для Ника Хокинса, Сергея Петрова и Салиты. Чтобы он не был вышестоящим руководителем
+			if ($highMngsIds[0] == 29790 OR $highMngsIds[0] == 44345 OR $highMngsIds[0] == 44107)
 				$userRole |= self::ROLE_HIGH_MANAGER;
 		}
 
