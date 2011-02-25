@@ -65,8 +65,8 @@ class Achievs_ApprovalsModel
 					{
 						$approvalsPersons['rate_hmg_id'] = $mngsPersonIds[0];
 
-						//////  Ограничение для Ника Хокинса и Сергея Петрова. Чтобы он не был вышестоящим руководителем
-						if ($mngsPersonIds[0] == 29790 OR $mngsPersonIds[0] == 43835)
+						//  Ограничение для Ника Хокинса, Сергея Петрова и Салиты. Чтобы он не был вышестоящим руководителем
+						if ($mngsPersonIds[0] == 29790 OR $mngsPersonIds[0] == 44345 OR $mngsPersonIds[0] == 44107)
 						{
 							$mngsPersonIds = $employee->getManagers()->getCol('person_id');
 							$approvalsPersons['rate_hmg_id'] = $mngsPersonIds[0];
