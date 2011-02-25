@@ -85,8 +85,8 @@ class Employees_List
 				statuses_second.name AS statusSecond,
 				ratings_first.name AS ratingFirst,
 				ratings_second.name AS ratingSecond,
-				employees.endtest_date,
-				ltrim(persons.out_date) as out_date
+				employees.endtest_date
+				--ltrim(persons.out_date) as out_date
 
 			FROM
 				$table posts_employees
