@@ -86,7 +86,6 @@ class Employees_List
 				ratings_first.name AS ratingFirst,
 				ratings_second.name AS ratingSecond,
 				employees.endtest_date
-				--ltrim(persons.out_date) as out_date
 
 			FROM
 				$table posts_employees
@@ -111,7 +110,7 @@ class Employees_List
 				LEFT JOIN user_rp_ach_ratings ratings_second
 					ON cards_second.rtg_total_id = ratings_second.id
 
-			-- WHERE out_date = ''
+			WHERE persons.out_date = ' ' OR persons.out_date = ''
 
 			ORDER BY
 				persons.fullname
