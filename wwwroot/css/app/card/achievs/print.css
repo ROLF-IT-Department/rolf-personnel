@@ -116,7 +116,7 @@ div.panel-statusCLS {
 }
 .table th, .table td {
 	padding: 2px;
-	padding-left: 4px; 
+	padding-left: 4px;
 	border-right: 1px solid #999999;
 	border-bottom: 1px solid #999999;
 }
@@ -158,8 +158,9 @@ div.panel-statusCLS {
 	background: url('../../../../img/achievs/card/cancel_stamp.gif') no-repeat center;
 }
 
-.tasks-field-num {
-	width: 20px;
+.tasks-field-num, .compets-field-num {
+	width: 20px!important;
+	padding:0!important;
 }
 .tasks-field-description {
 }
@@ -179,9 +180,6 @@ div.panel-statusCLS {
 	text-align: center;
 }
 
-.compets-field-num {
-	width: 20px;
-}
 .compets-field-name {
 	width: 230px;
 }
@@ -203,6 +201,10 @@ td.compets-field-name div div {
 	font-size: 90%;
 	font-weight: normal;
 	color: #555555;
+}
+
+.personal-competence-body .compets-field-name {
+	width: 775px;
 }
 
 .trains-field-num {
@@ -249,7 +251,7 @@ td.trains-field-method div div {
 .ratings td.ratings-field-value {
 	padding-left: 0;
 	padding-right: 25px;
-	
+
 }
 .ratings th.ratings-field-value {
 	width: 100%;
@@ -364,14 +366,14 @@ div.tasks-type {
 }
 
 .func_comment{
-	
+
 	width: 700px;
 	height: 32px;
 	margin: 5px;
 	padding: 5px;
 	overflow: auto;
 	overflow-x: hidden;
-	display: none; 
+	display: none;
 }
 
 .func_div{
@@ -393,7 +395,7 @@ div.tasks-type {
 	border-top: 1px solid #CCCCCC;
 
 	width: 100%;
-	
+
 	overflow: scroll;
 	overflow-x: hidden;
 
@@ -422,7 +424,7 @@ div.tasks-type {
 	valign: top;
 }
 
-.personal-grid-body-table textarea 
+.personal-grid-body-table textarea
 {
 	padding: 0;
 	border: 0;
@@ -445,7 +447,7 @@ div.tasks-type {
 	font-weight: bold;
 	table-layout: fixed;
 	font-family: Arial, sans-serif;
-	
+
 }
 
 .personal-competence-header div

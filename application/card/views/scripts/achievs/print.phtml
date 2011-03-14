@@ -7,12 +7,12 @@
 	<style type="text/css">
 		@import url('<?php echo $this->baseUrl() ?>/css/app/print.css');
 		@import url('<?php echo $this->baseUrl() ?>/css/app/card/achievs/print.css');
-		
+
 	</style>
 	<script type="text/javascript">
-		
+
 		var BASE_URL  = '<?php echo $this->baseUrl() ?>';
-		
+
 	</script>
 </head>
 <body>
@@ -55,10 +55,10 @@
 		<tbody>
 			<tr><th>Комментарий руководителя - Manager's comment</th></tr>
 			<tr><td><?php echo $this->card->mng_comment ?></td></tr>
-			
+
 			<!--<tr><?php //if ($this->count_func > 0) echo '<th>Комментарий функционального руководителя - Functional manager\'s comment</th>' ?></tr>
 			<tr><?php //if ($this->count_func > 0) echo '<td>' . $this->card->fnc_comment . '</td>' ?></tr>-->
-			
+
 			<tr><th>Рекомендации по развитию карьеры - Career Development Recommendations</th></tr>
 			<tr><td class="comments-field-flags">
 					<?php echo $this->achievsCareerFlags($this->card->career_flag_id, $this->careerFlags) ?>
@@ -67,11 +67,23 @@
 			<tr><td><?php echo $this->card->career_recom ?></td></tr>
 			<tr><th>Карьерные ожидания сотрудника - Employee’s Career Expectations</th></tr>
 			<tr><td><?php echo $this->card->career_wait ?></td></tr>
-			
+
 		</tbody>
 	</table>
 	<div class="caption">Форма сотрудника - Employee form</div>
-	<?php echo $this->achievsPrintPersonal( $this->tasks, $this->personalTrainings, $this->personalCompetences, $this->ratings, $this->rate_weights, $this->card, $this->status->id) ?>
+	<?php echo $this->achievsPrintPersonal(
+						$this->tasks,
+						$this->personalTrainings,
+						$this->personalCompetences,
+						$this->ratings,
+						$this->rate_weights,
+						//$this->userRole & $ROLE_FUNC_MANAGER,
+						$this->card,
+						$this->status->id,
+						// данные для компетенций
+						$this->competences
+						// $this->ratings, $this->rate_weights, $this->card->rtg_competens_id, TRUE
+						);?>
 	<div class="caption">Согласования - Approvals</div>
 	<div class="caption">&nbsp;</div>
 	<table class="approvals">
@@ -83,6 +95,6 @@
 			</tr>
 		</tbody>
 	</table>
-	
+
 </body>
 </html>
