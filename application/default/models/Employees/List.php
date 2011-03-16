@@ -71,7 +71,7 @@ class Employees_List
 		$postIds = $db->quote($postIds);
 		$periodFirst = $db->quote($periodFirst);
 		$periodSecond = $db->quote($periodSecond);
-		$sql = "
+		$sql = '
 			SELECT DISTINCT
 				persons.id,
 				persons.persg,
@@ -88,19 +88,22 @@ class Employees_List
 				employees.endtest_date
 
 			FROM
-				$table posts_employees
+				' . $table . ' posts_employees
 				INNER JOIN user_rp_employees_PM employees
-					ON posts_employees.$keyName IN ($postIds) AND posts_employees.person_id = employees.person_id
+					ON posts_employees.' . $keyName . ' IN (' . $postIds . ')
+					AND posts_employees.person_id = employees.person_id
 				INNER JOIN user_rp_persons_PM persons
 					ON employees.person_id = persons.id
+				LEFT JOIN user_rp_ach_cards cards_first
+					ON persons.id = cards_first.person_id
+					AND cards_first.period = \'' . $periodFirst .'\'
+				LEFT JOIN user_rp_ach_cards cards_second
+					ON persons.id = cards_second.person_id
+					AND cards_second.period = \'' . $periodSecond . '\'
 				LEFT JOIN user_rp_departments departments
 					ON employees.department_id = departments.id
 				LEFT JOIN user_rp_appointments appointments
 					ON employees.appointment_id = appointments.id
-				LEFT JOIN user_rp_ach_cards cards_first
-					ON persons.id = cards_first.person_id AND cards_first.period = '$periodFirst'
-				LEFT JOIN user_rp_ach_cards cards_second
-					ON persons.id = cards_second.person_id AND cards_second.period = '$periodSecond'
 				LEFT JOIN user_rp_ach_cards_statuses statuses_first
 					ON cards_first.status_id = statuses_first.id
 				LEFT JOIN user_rp_ach_cards_statuses statuses_second
@@ -110,11 +113,11 @@ class Employees_List
 				LEFT JOIN user_rp_ach_ratings ratings_second
 					ON cards_second.rtg_total_id = ratings_second.id
 
-			WHERE persons.out_date = ' ' OR persons.out_date = ''
-
 			ORDER BY
 				persons.fullname
-		";
+
+			--WHERE persons.out_date = \' \' OR persons.out_date = \'\'
+		';
 
 		return $db->fetchAll($sql);
 	}

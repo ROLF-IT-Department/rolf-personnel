@@ -6,7 +6,7 @@ class Zend_View_Helper_IntegratedBlock
 	{
 		$xhtml = array();
 
-		$user = Rp_User::getInstance();;
+		$user = Rp_User::getInstance();
 		$user_id = $user->getPersonId();
 		$companies = new Rp_Db_View_Companies();
 		$departments = new Rp_Db_View_Departments();

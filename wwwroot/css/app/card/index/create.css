@@ -1,0 +1,39 @@
+body {
+	background-color: #F0F0F0;
+}
+
+#cardCreate {
+	margin: 10px auto;
+	padding: 10px;
+	border: 1px solid #ccc;
+	background-color:#FFFBF0;
+	width: 400px;
+}
+
+.form-item label {
+	display: inline-block;
+	font-weight:bold;
+	width: 290px;
+}
+.form-item input {
+	display: inline-block;
+	width: 80px;
+}
+fieldset {
+	border:1px solid #ccc;
+	padding: 0 10px 10px;
+	margin: 0 0 10px
+}
+legend {
+	padding: 0.2em 0.5em;
+	border:1px solid #ccc;
+	background-color:#DDDDDD;
+    text-align:left;
+}
+
+input[type=submit] {
+	display:block;
+	width: 150px;
+	height: 25px;
+	margin: 0 auto
+}
