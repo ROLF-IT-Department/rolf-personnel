@@ -23,16 +23,76 @@ class Card_AchievsController extends Zend_Controller_Action
 			}
 		} else {
 			$personId = $request->getParam('personid', null);
-			$period = $request->getParam('period', date('Y'));
-			$card = $cards->findByPersonIdAndPeriod($personId, $period);
+			$cardid = $request->getParam('cardid', NULL);
+			$period = $request->getParam('period', NULL);
+			$card = $cards->findByPersonIdAndCard($personId, $cardid, $period);
 		}
 
 		$user = Rp_User::getInstance();
 		$emp = $card->getEmployee();
 		$person = $emp->getPerson();
 
-		$periods = range(2006, date('Y') + 1);
-		$periods = array_combine($periods, $periods);
+		$cards_and_periods = $cards->get_cards_and_periods($personId);
+
+		$today_year = date('Y');
+		$more_years = FALSE;
+		$periods =  NULL;
+		$statistics =  NULL;
+		$count = count($cards_and_periods);
+		$i = 0;
+		foreach($cards_and_periods as $card_and_periods)
+		{
+			$_periods = NULL;
+			$_period_start = strtotime($card_and_periods->period_start);
+			$_period_end   = strtotime($card_and_periods->period_end);
+			if($card_and_periods->period_start OR $card_and_periods->period_end)
+			{
+
+				$_periods = ': ' . date('m', $_period_start) . '-' . date('m', $_period_end);
+				if($card_and_periods->period == $card->period)
+				{
+					$statistics[$card_and_periods->id] = array(
+						'period' => array(
+//							'year' => $card_and_periods->period,
+							'start' => date('d.m.Y', $_period_start),
+							'end' => date('d.m.Y', $_period_end),
+						),
+						'ratings' => array(
+							'tasks'     => $card_and_periods->rtg_tasks_id,
+							'competens' => $card_and_periods->rtg_competens_id,
+							'total'     => $card_and_periods->rtg_total_id,
+						),
+					);
+				}
+			}
+
+			$periods[$card_and_periods->id] = array(
+				'year' => $card_and_periods->period,
+				'name' => $card_and_periods->period . $_periods
+			);
+			$i++;
+			if($count == $i)
+			{
+				if($card_and_periods->period > $today_year)
+				{
+					$more_years = TRUE;
+				}
+			}
+		}
+
+		if( ! $more_years)
+		{
+			$periods[0] = array(
+				'year' => $today_year + 1,
+				'name' => $today_year + 1,
+			);
+		}
+
+		$period_start = date('d.m.Y', strtotime($card->period_start));
+		$period_end   = date('d.m.Y', strtotime($card->period_end));
+		$period_text = ($card->period_start OR $card->period_end)
+			? $period_start. ' - ' . $period_end
+			: NULL;
 		$statuses = new Rp_Db_Table_Ach_Cards_Statuses();
 		$status = $statuses->find($card->status_id)->current();
 
@@ -50,6 +110,7 @@ class Card_AchievsController extends Zend_Controller_Action
 		$view->userRole = $this->_getUserRole($card, $user);
 		$view->card = $card;
 		$view->periods = $periods;
+		$view->period_text = $period_text;
 		$view->status = $status;
 		$view->tasks = $card->fetchTasks();
 		$view->personalTasks = $card->fetchPersonalTasks();
@@ -68,6 +129,7 @@ class Card_AchievsController extends Zend_Controller_Action
 		$view->careerFlags = $careerFlags->fetchNames();
 		$view->count_func = count($emp->getFuncManagers()->getCol('person_id'));
 		$view->emails = $this->_getEmails($card, $user);
+		$view->statistics = $statistics;
 
 		$view->tab = (isset($_SESSION['tab'])) ? $_SESSION['tab'] : 'tasks';
 	}
