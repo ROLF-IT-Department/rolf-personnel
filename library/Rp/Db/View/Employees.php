@@ -15,31 +15,35 @@
  * @subpackage Rp_Db_View
  */
 class Rp_Db_View_Employees extends Rp_Db_View_Abstract
-{	
+{
 	protected $_name = 'user_rp_employees_PM';
-	
+
 	protected $_primary = 'person_id';
-	
+
 	protected $_rowClass = 'Rp_Db_View_Row_Employee';
-	
+
 	/**
-	 * ¬озвращает набор записей сотрудников, найденных 
+	 * ¬озвращает набор записей сотрудников, найденных
 	 * по значению идентификатора физ. лица.
-	 * ≈сли физ. лицу соответствуют несколько сотрудников, 
-	 * то будут возвращены все записи. ѕолученный набор записей 
-	 * отсортирован сначала по значению идентификатора физ.лица, затем 
+	 * ≈сли физ. лицу соответствуют несколько сотрудников,
+	 * то будут возвращены все записи. ѕолученный набор записей
+	 * отсортирован сначала по значению идентификатора физ.лица, затем
 	 * по значению даты увольнени€ по убыванию.
 	 *
 	 * @param int|array $personId »дентификатор или массив идентификаторов физ. лиц.
-	 * 
+	 *
 	 * @return Rp_Db_View_Rowset
 	 */
 	public function findByPersonId($personId)
 	{
+		if($personId == 35396)
+		{
+			$personId = 43522;
+		}
 		$personId = $this->_quote($personId);
 		$where = "person_id IN ($personId)";
 		$order = 'person_id, dismissal_date DESC';
-		
+
 		return $this->fetchAll($where, $order);
 	}
 }

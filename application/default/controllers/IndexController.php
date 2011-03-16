@@ -3,9 +3,9 @@
 class IndexController extends Zend_Controller_Action
 {
 	public function indexAction()
-	{	
+	{
 		$have_integrate = 0;
-		$user = Rp_User::getInstance();;
+		$user = Rp_User::getInstance();
 		$user_id = $user->getPersonId();
 		$integrated = new Rp_Db_View_IntegratedPersons();
 		$refer_id = $integrated->fetchRefID($user_id);
@@ -19,23 +19,23 @@ class IndexController extends Zend_Controller_Action
 			$is_integrate = "Совместитель";
 		$view->is_integrate = $is_integrate;
 	}
-	
+
 	public function menuAction()
 	{
 		$request = $this->getRequest();
 		$id = $request->getParam('id', null);
-		
-		if ($id == 'people' || $id == 'subpeople' || $id == 'funcpeople') 
+
+		if ($id == 'people' || $id == 'subpeople' || $id == 'funcpeople')
 		{
 			$user = Rp_User::getInstance();			// получаем объект пользователя
 			$treePost = $user->getEmployee()->getTreePost();	// получаем должность сотрудника в дереве должностей
-			
+
 			// если мы нажали на просмотр непосредственных подчиненных, то получаем id непоср. подчиненных,  в противном случае ищем id подчиненных подчиненных
 			$postIds = ($id == 'people' || $id == 'funcpeople') ? $treePost->id : $treePost->findChildPosts()->getCol('id');
-			
+
 			$func = false;
 			if ($id == 'funcpeople') $func = true;
-			
+
 			$params = array(
 				'postIds' => $postIds,
 				'showEmps' => false,
