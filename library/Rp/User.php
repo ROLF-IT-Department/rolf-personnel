@@ -20,37 +20,37 @@ class Rp_User
 	 * @var Rp_User
 	 */
 	private static $_instance = null;
-	
+
 	/**
 	 * Объект сотрудника.
 	 *
 	 * @var Rp_Db_View_Row_Employee
 	 */
 	private static $_employee = null;
-	
+
 	/**
 	 * Идентификатор физ. лица.
 	 *
 	 * @var int
 	 */
 	private $_personId = null;
-	
+
 	/**
 	 * Идентификатор метки входа в систему.
-	 * 
+	 *
 	 * @var int
 	 */
 	private $_logonId = null;
-	
+
 	/**
 	 * Конструктор.
-	 * 
+	 *
 	 * Для установки объекта используется метод {@link setInstance()}.
 	 * Для получения объекта используется метод {@link getInstance()}.
 	 * Объект пользователя - это объект-singleton.
 	 *
 	 * @param int $personId Идентификатор физ. лица.
-	 * 
+	 *
 	 * @return void
 	 * @throws Exception
 	 */
@@ -64,11 +64,11 @@ class Rp_User
 		}
 		$this->_personId = $personId;
 	}
-	
+
 	/**
 	 * Магический метод.
-	 * 
-	 * Объект пользователя предоставляет интерфейс для доступа 
+	 *
+	 * Объект пользователя предоставляет интерфейс для доступа
 	 * к свойствам (полям строки) соответствующего ему объекта сотрудника.
 	 *
 	 * @param  string $field Название поля.
@@ -78,17 +78,17 @@ class Rp_User
 	{
 		return $this->getEmployee()->$field;
 	}
-	
+
 	/**
 	 * Магический метод.
-	 * 
-	 * Объект пользователя предоставляет интерфейс для доступа 
+	 *
+	 * Объект пользователя предоставляет интерфейс для доступа
 	 * к методам соответствующего ему объекта сотрудника.
 	 * Поддерживается только вызов методов без параметров.
 	 *
 	 * @param string $method Название метода.
 	 * @param array  $args   Массив параметров.
-	 * 
+	 *
 	 * @return mixed
 	 * @throws Exception
 	 */
@@ -99,19 +99,19 @@ class Rp_User
 		}
 		return $this->getEmployee()->$method();
 	}
-	
+
 	/**
 	 * Магический метод.
-	 * 
+	 *
 	 * Предотвращает клонирование объекта.
-	 * 
+	 *
 	 * @return void
 	 */
 	public function __clone()
 	{
 		throw new Exception('Объект пользователя не может быть клонирован.');
 	}
-	
+
 	/**
 	 * Возвращает идентификатор физ. лица.
 	 *
@@ -121,22 +121,22 @@ class Rp_User
 	{
 		return $this->_personId;
 	}
-	
+
 	/**
 	 * Инстанцирует объект пользователя.
 	 *
 	 * @param int $personId Идентификатор физ. лица.
-	 * 
+	 *
 	 * @return void
 	 */
 	public static function setInstance($personId)
 	{
 		self::$_instance = new self($personId);
-		
+
 		$session = new Zend_Session_Namespace(__CLASS__);
 		$session->instance = self::$_instance;
 	}
-	
+
 	/**
 	 * Возвращает инстанцированный объект пользователя.
 	 * Если объект ранее не был инстанцирован и не установлен в сессии,
@@ -146,7 +146,7 @@ class Rp_User
 	 * @throws Exception
 	 */
 	public static function getInstance()
-	{	
+	{
 		if (empty(self::$_instance)) {
 			$session = new Zend_Session_Namespace(__CLASS__);
 			if (! $session->instance instanceof self) {
@@ -156,7 +156,7 @@ class Rp_User
 		}
 		return self::$_instance;
 	}
-	
+
 	/**
 	 * Проверяет был ли инстанцирован объект пользователя.
 	 *
@@ -170,7 +170,7 @@ class Rp_User
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Возвращает объект сотрудника.
 	 *
@@ -181,6 +181,7 @@ class Rp_User
 	{
 		if (empty(self::$_employee)) {
 			$employees = new Rp_Db_View_Employees();
+
 			$employee = $employees->findByPersonId($this->_personId)->current();
 			if (empty($employee)) {
 				throw new Exception('Объект сотрудника не установлен.');

@@ -14,36 +14,36 @@
  * @package    Rp_Db
  * @subpackage Rp_Db_View
  */
-class Rp_Db_View_Row_Employee extends Rp_Db_View_Row 
-{	
+class Rp_Db_View_Row_Employee extends Rp_Db_View_Row
+{
 	/**
 	 * Объект физического лица.
 	 *
 	 * @var Rp_Db_View_Row_Person
 	 */
 	protected $_person = null;
-	
+
 	/**
 	 * Непосредственные руководители сотрудника.
-	 * 
+	 *
 	 * @var Rp_Db_View_Rowset
 	 */
 	protected $_managers = null;
-	
+
 	/**
 	 * Функциональные руководители сотрудника.
-	 * 
+	 *
 	 * @var Rp_Db_View_Rowset
 	 */
 	protected $_func_managers = null;
-	
+
 	/**
 	 * Должность из дерева должностей.
 	 *
 	 * @var Rp_Db_View_Row_TreePost
 	 */
 	protected $_treePost = null;
-	
+
 	/**
 	 * Возвращает объект строки физ. лица.
 	 *
@@ -55,11 +55,12 @@ class Rp_Db_View_Row_Employee extends Rp_Db_View_Row
 			$persons = new Rp_Db_View_Persons();
 			$this->_person = $persons->find($this->person_id)->current();
 		}
+
 		return $this->_person;
 	}
-	
+
 	/**
-	 * Возвращает объект строки должности сотрудника 
+	 * Возвращает объект строки должности сотрудника
 	 * из дерева должностей.
 	 *
 	 * @return Rp_Db_View_Row_TreePost
@@ -76,7 +77,7 @@ class Rp_Db_View_Row_Employee extends Rp_Db_View_Row
 		}
 		return $this->_treePost;
 	}
-	
+
 	/**
 	 * Возвращает объект строки атрибутов сотрудника.
 	 *
@@ -85,13 +86,15 @@ class Rp_Db_View_Row_Employee extends Rp_Db_View_Row
 	public function getAttribs()
 	{
 		$attribs = new Rp_Db_View_Employees_Attribs();
-		
-		return $attribs->find($this->person_id)->current();
+		$persons = new Rp_Db_View_Persons();
+		$person_id = $persons->fetchRow('id = '.$this->person_id, 'id DESC');
+
+		return $attribs->find($person_id->New_ID)->current();
 	}
-	
+
 	/**
-	 * Возвращает true, если сотрудник работает 
-	 * на текущий момент времени и определен в иерархической 
+	 * Возвращает true, если сотрудник работает
+	 * на текущий момент времени и определен в иерархической
 	 * структуре должностей, иначе возвращает false.
 	 *
 	 * @return boolean
@@ -104,9 +107,9 @@ class Rp_Db_View_Row_Employee extends Rp_Db_View_Row
 			return false;
 		}
 	}
-	
+
 	/**
-	 * Возвращает true, если сотрудник является уволенным 
+	 * Возвращает true, если сотрудник является уволенным
 	 * на текущий момент времени, иначе возвращает false.
 	 *
 	 * @return boolean
@@ -114,15 +117,15 @@ class Rp_Db_View_Row_Employee extends Rp_Db_View_Row
 	public function isRedundant()
 	{
 		if (count($this->dismissal_date) < 8) return false;
-		
+
 		if ($this->dismissal_date < date('Y-m-d')) {
 			return true;
 		}
 		return false;
 	}
-	
+
 	/**
-	 * Возвращает true, если сотрудник занимает руководящую должность, 
+	 * Возвращает true, если сотрудник занимает руководящую должность,
 	 * иначе возвращает false.
 	 *
 	 * @return boolean
@@ -130,12 +133,12 @@ class Rp_Db_View_Row_Employee extends Rp_Db_View_Row
 	public function isManager()
 	{
 		$childPosts = $this->getTreePost()->findChildPosts();
-		
+
 		return count($childPosts) > 0;
 	}
-	
+
 	/**
-	 * Возвращает true, если сотрудник занимает должность 
+	 * Возвращает true, если сотрудник занимает должность
 	 * с атрибутом "Топ-менеджер", иначе возвращает false.
 	 *
 	 * @return boolean
@@ -144,10 +147,10 @@ class Rp_Db_View_Row_Employee extends Rp_Db_View_Row
 	{
 		$postId = $this->getTreePost()->id;
 		$postsTops = new Rp_Db_View_TreePosts_Tops();
-		
+
 		return count($postsTops->find($postId)) > 0;
 	}
-	
+
 	/**
 	 * Возвращает непосредственных руководителей сотрудника.
 	 *
@@ -166,7 +169,7 @@ class Rp_Db_View_Row_Employee extends Rp_Db_View_Row
 		}
 		return $this->_managers;
 	}
-	
+
 	/**
 	 * Возвращает вышестоящих руководителей сотрудника.
 	 *
@@ -185,7 +188,7 @@ class Rp_Db_View_Row_Employee extends Rp_Db_View_Row
 		}
 		return $this->getView()->find($empIds);
 	}
-	
+
 	/**
 	 * Возвращает функциональных руководителей сотрудника.
 	 *
@@ -196,7 +199,7 @@ class Rp_Db_View_Row_Employee extends Rp_Db_View_Row
 		if (empty($this->_func_managers)) {
 			$treePost = $this->getTreePost();
 			$postsEmps = new Rp_Db_View_TreePosts_Func();
-			$empIds = $postsEmps->fetchFuncEmployeeIds($treePost->id);		// возвращаем массив post_func_id, затем по ним ищем employee_id									
+			$empIds = $postsEmps->fetchFuncEmployeeIds($treePost->id);		// возвращаем массив post_func_id, затем по ним ищем employee_id
 			$emp = new Rp_Db_View_TreePosts_Employees();
 			$func = $emp->fetchEmployeeIds($empIds);		// находим employee_id функциональных руководителей
 			$this->_func_managers = $this->getView()->find($func);
