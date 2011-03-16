@@ -14,36 +14,36 @@
  * @package    Rp_Db
  * @subpackage Rp_Db_Table
  */
-class Rp_Db_Table_Row_Ach_Card extends Rp_Db_Table_Row 
+class Rp_Db_Table_Row_Ach_Card extends Rp_Db_Table_Row
 {
 	/**
 	 * Îáúåêò ñòğîêè ñîòğóäíèêà.
-	 * 
+	 *
 	 * @var Rp_Db_View_Row_Employee
 	 */
 	protected $_employee = null;
-	
+
 	/**
 	 * Îáúåêò òàáëèöû áèçíåñ-öåëåé.
 	 *
 	 * @var Rp_Db_Table_Ach_Tasks
 	 */
 	protected $_tableTasks = null;
-	
+
 	/**
 	 * Îáúåêò òàáëèöû êîìïåòåíöèé êàğòî÷åê.
 	 *
 	 * @var Rp_Db_Table_Ach_Cards_Competences
 	 */
 	protected $_tableCardsCompetences = null;
-	
+
 	/**
 	 * Îáúåêò òàáëèöû öåëåé ïğîô. ğàçâèòèÿ.
 	 *
 	 * @var Rp_Db_Table_Ach_Trainings
 	 */
 	protected $_tableTrainings = null;
-	
+
 	/**
 	 * Âîçâğàùàåò îáúåêò ñòğîêè ñîòğóäíèêà.
 	 *
@@ -57,7 +57,7 @@ class Rp_Db_Table_Row_Ach_Card extends Rp_Db_Table_Row
 		}
 		return $this->_employee;
 	}
-	
+
 	/**
 	 * Âîçâğàùàåò îáúåêò òàáëèöû áèçíåñ-öåëåé.
 	 *
@@ -70,7 +70,7 @@ class Rp_Db_Table_Row_Ach_Card extends Rp_Db_Table_Row
 		}
 		return $this->_tableTasks;
 	}
-	
+
 	/**
 	 * Âîçâğàùàåò îáúåêò òàáëèöû êîìïåòåíöèé êàğòî÷åê.
 	 *
@@ -83,7 +83,7 @@ class Rp_Db_Table_Row_Ach_Card extends Rp_Db_Table_Row
 		}
 		return $this->_tableCardsCompetences;
 	}
-	
+
 	/**
 	 * Âîçâğàùàåò îáúåêò òàáëèöû öåëåé ïğîô. ğàçâèòèÿ.
 	 *
@@ -98,100 +98,100 @@ class Rp_Db_Table_Row_Ach_Card extends Rp_Db_Table_Row
 	}
 
 
-	
+
 	/**
 	 * Âñòàâëÿåò áèçíåñ-öåëè â êàğòî÷êó.
 	 *
 	 * @param array $tasks Ìàññèâ áèçíåñ-öåëåé.
-	 * 
+	 *
 	 * @return void
 	 */
 	public function insertTasks(array $tasks)
 	{
 		$tableTasks = $this->getTableTasks();
-		
+
 		foreach ($tasks as $row) {
 			$row['card_id'] = $this->id;
 			$tableTasks->insert($row);
 		}
 	}
-	
+
 	/**
 	 * Îáíîâëÿåò áèçíåñ-öåëè.
 	 *
 	 * @param array $tasks Ìàññèâ áèçíåñ-öåëåé.
-	 * 
+	 *
 	 * @return void
 	 */
 	public function updateTasks(array $tasks)
 	{
 		$tableTasks = $this->getTableTasks();
-		
+
 		foreach ($tasks as $id => $row) {
 			$tableTasks->update($row, $id);
 		}
 	}
-	
-	
+
+
 	public function insertCompetences(array $competences)
 	{
 		$tableCompetences = $this->getTableCardsCompetences();
-		
+
 		foreach ($competences as $row) {
 			$row['card_id'] = $this->id;
 			$tableCompetences->insert($row);
 		}
 	}
-	
+
 	/**
 	 * Îáíîâëÿåò êîìïåòåíöèè.
 	 *
 	 * @param array $competences Ìàññèâ êîìïåòåíöèé.
-	 * 
+	 *
 	 * @return void
 	 */
 	public function updateCompetences(array $competences)
 	{
 		$tableCompetences = $this->getTableCardsCompetences();
-		
+
 		foreach ($competences as $id => $row) {
 			$tableCompetences->update($row, $id);
 		}
 	}
-	
+
 	/**
 	 * Âñòàâëÿåò öåëè ïğîô. ğàçâèòèÿ â êàğòî÷êó.
 	 *
 	 * @param array $trainings Ìàññèâ öåëåé ïğîô. ğàçâèòèÿ.
-	 * 
+	 *
 	 * @return void
 	 */
 	public function insertTrainings(array $trainings)
 	{
 		$tableTrainings = $this->getTableTrainings();
-		
+
 		foreach ($trainings as $row) {
 			$row['card_id'] = $this->id;
 			$tableTrainings->insert($row);
 		}
 	}
-	
+
 	/**
 	 * Îáíîâëÿåò öåëè ïğîô. ğàçâèòèÿ.
 	 *
 	 * @param array $trainings Ìàññèâ öåëåé ïğîô. ğàçâèòèÿ.
-	 * 
+	 *
 	 * @return void
 	 */
 	public function updateTrainings(array $trainings)
 	{
 		$tableTrainings = $this->getTableTrainings();
-		
+
 		foreach ($trainings as $id => $row) {
 			$tableTrainings->update($row, $id);
 		}
 	}
-	
+
 	/**
 	 * Âîçâğàùàåò íàáîğ áèçíåñ-öåëåé.
 	 *
@@ -201,12 +201,12 @@ class Rp_Db_Table_Row_Ach_Card extends Rp_Db_Table_Row
 	{
 		return $this->getTableTasks()->findByCardId($this->id);
 	}
-	
+
 	public function fetchPersonalTasks()
 	{
 		return $this->getTableTasks()->findByCardIdAndPersonal($this->id);
 	}
-	
+
 	/**
 	 * Âîçâğàùàåò íàáîğ êîìïåòåíöèé.
 	 *
@@ -216,12 +216,12 @@ class Rp_Db_Table_Row_Ach_Card extends Rp_Db_Table_Row
 	{
 		return $this->getTableCardsCompetences()->findByCardId($this->id);
 	}
-	
+
 	public function fetchPersonalCompetences()
 	{
 		return $this->getTableCardsCompetences()->findByCardIdAndPersonal($this->id);
 	}
-	
+
 	/**
 	 * Âîçâğàùàåò íàáîğ öåëåé ïğîô. ğàçâèòèÿ.
 	 *
@@ -231,7 +231,7 @@ class Rp_Db_Table_Row_Ach_Card extends Rp_Db_Table_Row
 	{
 		return $this->getTableTrainings()->findByCardId($this->id);
 	}
-	
+
 	public function fetchPersonalTrainings()
 	{
 		return $this->getTableTrainings()->findByCardIdAndPersonal($this->id);

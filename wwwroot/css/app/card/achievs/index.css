@@ -186,6 +186,9 @@ div.panel-statusCLS {
 #tabs-item-personal div {
 	background-image: url('../../../../img/achievs/card/doc.gif');
 }
+#tabs-item-statistics div {
+	background-image: url('../../../../img/achievs/card/doc.gif');
+}
 /*#tabs-body-trains .grid-head {
 	padding-right: 0!important;
 }*/
@@ -263,7 +266,7 @@ div.panel-statusCLS {
 	height: 16px;
 	cursor: pointer;
 	background: url('../../../../img/achievs/card/remove.gif') no-repeat;
-	
+
 }
 
 tr.row-canceled .toggle-cancel {
@@ -655,14 +658,14 @@ td.ratings-field-total select {
 }
 
 .func_comment{
-	
+
 	width: 700px;
 	height: 32px;
 	margin: 5px;
 	padding: 5px;
 	overflow: auto;
 	overflow-x: hidden;
-	display: none; 
+	display: none;
 }
 
 .func_div{
@@ -681,7 +684,7 @@ td.ratings-field-total select {
 .personal-grid-body
 {
 	display: block;
-	
+
 	border-top: 1px solid #CCCCCC;
 	height: auto!important;
 	width: 100%;
@@ -715,7 +718,7 @@ td.ratings-field-total select {
 	valign: top;
 }
 
-.personal-grid-body-table textarea 
+.personal-grid-body-table textarea
 {
 	padding: 0;
 	border: 0;
@@ -738,7 +741,7 @@ td.ratings-field-total select {
 	font-weight: bold;
 	table-layout: fixed;
 	font-family: Arial, sans-serif;
-	
+
 }
 
 .personal-competence-header div
@@ -779,4 +782,26 @@ td.ratings-field-total select {
 }
 #tabs-body-personal .personal-grid-body {
 	overflow: hidden
+}
+
+#statistics-table {
+	margin: 5em auto 2em;
+
+}
+
+#statistics-table td, #statistics-table th {
+	padding: 1em 2em!important;
+}
+
+.inline {
+	display:inline-block;
+}
+
+#statistics-table td > div {
+	margin: 0 1em 0 0;
+}
+
+#statistics-total-rating {
+	margin:0 auto;
+	width: 15em;
 }
