@@ -372,19 +372,10 @@ function toolbarItemCardBlock()
 
 function periodOnchangeHandler()
 {
-	/*
-	var msg = 'Внимание! При переходе в другой период все несохраненные изменения';
-	msg += ' в карточке за текущий период будут потеряны!';
-	if (!window.confirm(msg)) {
-		return false;
-	}
-	*/
-
 	var personId = elems.person_id.value;
 	var cardid = elems.period.options[elems.period.selectedIndex].value;
-	var period = $('#period option:selected').attr('period');
 
-	var url = BASE_URL + '/card/achievs/index/personid/' + personId + '/cardid/' + cardid + '/period/' + period;
+	var url = BASE_URL + '/card/achievs/index/personid/' + personId + '/cardid/' + cardid;
 	location.replace(url);
 }
 
