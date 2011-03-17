@@ -803,5 +803,53 @@ td.ratings-field-total select {
 
 #statistics-total-rating {
 	margin:0 auto;
-	width: 15em;
+	width: 13em;
+}
+
+#common_rating_confirmation_buttons {
+	width: 280px;
+	margin: 5px auto;
+}
+
+#common_rating_confirmation_buttons .conf_button {
+	width: 120px;
+	height: 28px;
+	padding: 5px 10px 5px 0;
+	border-style:solid;
+	border-width:1px;
+	border-top-color: #B6BAC0;
+	border-left-color: #B6BAC0;
+	border-right-color: #666666;
+	border-bottom-color: #666666;
+	display:inline-block;
+	background: #CCCCCC;
+	cursor:pointer;
+}
+#common_rating_confirmation_buttons .conf_button:first-child {
+	margin-right:10px;
+}
+
+#common_rating_confirmation_buttons .conf_button:hover {
+	background:#FFCC99;
+}
+#common_rating_confirmation_buttons .conf_button:active {
+	border-bottom-color: #B6BAC0;
+	border-right-color: #B6BAC0;
+	border-top-color: #666666;
+	border-left-color: #666666;
+
+}
+#common_rating_confirmation_buttons .conf_button img, #common_rating_confirmation_buttons .conf_button div {
+	display:block;
+	float:left;
+	margin-left: 10px;
+	font-weight:bold;
+}
+#common_rating_confirmation_buttons .conf_button img {
+	margin-top:5px;
+}
+#common_rating_confirmation_buttons .conf_button div span {
+	display:block;
+	font-size:smaller;
+	color:#fff
 }

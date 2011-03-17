@@ -111,7 +111,7 @@
 								Период:
 								<select name="period" id="period">
 									<?php foreach($this->periods as $card_id => $period):?>
-										<option value="<?php echo $card_id?>" period="<?php echo $period['year']?>" label="<?php echo $period['name']?>"<?php echo ($this->card->id == $card_id) ? ' selected="selected"' : ''?>><?php echo $period['name']?></option>
+										<option value="<?php echo $card_id?>" label="<?php echo $period['name']?>"<?php echo ($this->card->id == $card_id) ? ' selected="selected"' : ''?>><?php echo $period['name']?></option>
 									<?php endforeach;?>
 								<br><span class="translate_menu">Period:</span>
 							</div>
@@ -255,14 +255,27 @@
 						<tr>
 							<td><?php echo $rating['period']['start']?> - <?php echo $rating['period']['end']?></td>
 							<td>
-								<div class="inline">Итоговый рейтинг бизнес-целей: <?php echo ($rating['ratings']['tasks']) ? $rating['ratings']['tasks'] : '-'?></div>
-								<div class="inline">Итоговый рейтинг компетенций: <?php echo ($rating['ratings']['competens']) ? $rating['ratings']['competens'] : '-'?></div>
-								<div class="inline">Общий рейтинг: <?php echo ($rating['ratings']['total']) ? $rating['ratings']['total'] : '-'?></div>
+								<div class="inline">Итоговый рейтинг бизнес-целей: <?php echo ($rating['ratings']['tasks']['name']) ? $rating['ratings']['tasks']['name'] : '-'?></div>
+								<div class="inline">Итоговый рейтинг компетенций: <?php echo ($rating['ratings']['competens']['name']) ? $rating['ratings']['competens']['name'] : '-'?></div>
+								<div class="inline">Общий рейтинг: <?php echo ($rating['ratings']['total']['name']) ? $rating['ratings']['total']['name'] : '-'?></div>
 							</td>
 						</tr>
 				<?php endforeach;?>
 					</table>
-					<div id="statistics-total-rating">Общий итоговый рейтинг: <span>-</span></div>
+					<div id="statistics-total-rating">Общий итоговый рейтинг: <span><?php echo $this->rate_calc['name']?></span></div>
+					<?php if($this->rate_calc['name'] != '-' AND ! $this->common_rating_confirmed):?>
+					<div id="common_rating_confirmation_buttons">
+						<div class="conf_button">
+							<img src='/img/achievs/card/toolbar/approval.gif' alt=""/>
+							<div>Согласовать<span>Confirm</span></div>
+						</div>
+
+						<div class="conf_button">
+							<img src='/img/achievs/card/toolbar/reject.gif' alt=""/>
+							<div>Отклонить<span>Reject</span></div>
+						</div>
+					</div>
+					<?php endif;?>
 				</div>
 <?php endif;?>
 			</div>

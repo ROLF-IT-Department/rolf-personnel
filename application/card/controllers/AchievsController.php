@@ -24,8 +24,7 @@ class Card_AchievsController extends Zend_Controller_Action
 		} else {
 			$personId = $request->getParam('personid', null);
 			$cardid = $request->getParam('cardid', NULL);
-			$period = $request->getParam('period', NULL);
-			$card = $cards->findByPersonIdAndCard($personId, $cardid, $period);
+			$card = $cards->findByPersonIdAndCard($personId, $cardid);//, $period);
 		}
 
 		$user = Rp_User::getInstance();
@@ -33,6 +32,17 @@ class Card_AchievsController extends Zend_Controller_Action
 		$person = $emp->getPerson();
 
 		$cards_and_periods = $cards->get_cards_and_periods($personId);
+
+        $ratings = new Rp_Db_Table_Ach_Ratings();
+        $rate_weights = $ratings->fetchWeights();
+		$rate_names = $ratings->fetchNames();
+
+		$rates = array();
+		foreach($rate_names as $id => $name)
+		{
+			$rates[$id] = array('name' => $name, 'weight' => (isset($rate_weights[$id]['weight'])) ? $rate_weights[$id]['weight'] : NULL);
+		}
+
 
 		$today_year = date('Y');
 		$more_years = FALSE;
@@ -58,9 +68,9 @@ class Card_AchievsController extends Zend_Controller_Action
 							'end' => date('d.m.Y', $_period_end),
 						),
 						'ratings' => array(
-							'tasks'     => $card_and_periods->rtg_tasks_id,
-							'competens' => $card_and_periods->rtg_competens_id,
-							'total'     => $card_and_periods->rtg_total_id,
+							'tasks'     => $rates[$card_and_periods->rtg_tasks_id],
+							'competens' => $rates[$card_and_periods->rtg_competens_id],
+							'total'     => $rates[$card_and_periods->rtg_total_id],
 						),
 					);
 				}
@@ -76,6 +86,27 @@ class Card_AchievsController extends Zend_Controller_Action
 				if($card_and_periods->period > $today_year)
 				{
 					$more_years = TRUE;
+				}
+			}
+		}
+
+		$rate_calc = array('name' => '-');
+		if($statistics)
+		{
+			$rate_sum = 0;
+			$rate_num = 0;
+			foreach($statistics as $_rate)
+			{
+				$rate_sum += $_rate['ratings']['total']['weight'];
+				$rate_num++;
+			}
+			$common_rate = round($rate_sum / $rate_num);
+
+			foreach($rate_weights as $id => $weight)
+			{
+				if($weight['weight'] == $common_rate)
+				{
+					$rate_calc = $rates[$id];
 				}
 			}
 		}
@@ -97,7 +128,7 @@ class Card_AchievsController extends Zend_Controller_Action
 		$status = $statuses->find($card->status_id)->current();
 
 		$months = new Rp_Db_Table_Months();
-		$ratings = new Rp_Db_Table_Ach_Ratings();
+
 		$trainsGroupsMethods = new Rp_Db_Table_Ach_Trainings_GroupsMethods();
 		$trainsRespons = new Rp_Db_Table_Ach_Trainings_Respons();
 		$careerFlags = new Rp_Db_Table_Ach_Cards_CareerFlags();
@@ -120,9 +151,11 @@ class Card_AchievsController extends Zend_Controller_Action
 		$view->personalTrainings = $card->fetchPersonalTrainings();
 		$view->approvals = new Achievs_ApprovalsModel($card);
 		$view->months = $months->fetchNames();
-		$view->ratings = $ratings->fetchNames();
-		$view->rate_weights = $ratings->fetchWeights();
+		$view->ratings = $rate_names;
+		$view->rate_weights = $rate_weights;
 		$view->rate_name_weights = $ratings->fetchNameWeights();
+		$view->rate_calc = $rate_calc;
+		$view->common_rating_confirmed = FALSE;
 		$view->trainsGroupsMethods = $trainsGroupsMethods->toArrayNames();
 		$view->trainsGroupsMethodsActual = $trainsGroupsMethods->toArrayNamesWithoutDisabled();
 		$view->trainsRespons = $trainsRespons->fetchNames();
@@ -142,8 +175,6 @@ class Card_AchievsController extends Zend_Controller_Action
 	public function saveAction()
 	{
 		$request = $this->getRequest();
-//		echo '<div style="height:100%;width:100%;display:block;overflow:auto"><pre>';
-//		exit(var_dump($request->getPost('tasks')));
 		$cardId  = $request->getPost('id', null);
 
 		$tab = $request->getPost('tab', 'tasks');
@@ -168,13 +199,13 @@ class Card_AchievsController extends Zend_Controller_Action
 		$card->setFromArray($request->getPost('approvals', array()));
 		$card->setFromArray($request->getPost('ratio', array()));
 
-		$date_save = array('save_date'=> date("m.d.Y h:i:00"));
+		$date_save = array('save_date'=> date("m.d.Y h:I"));
 
 		$card->setFromArray($date_save);
 
 		$card->save();
 
-		$this->_redirect('/card/achievs/index/id/' . $cardId);
+		$this->_redirect('/card/achievs/index/personid/' . $card->person_id . '/cardid/' . $card->id);
 	}
 
 	public function approvalAction()
