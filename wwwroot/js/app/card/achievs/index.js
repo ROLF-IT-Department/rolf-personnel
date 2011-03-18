@@ -401,3 +401,22 @@ function openNotesTraining(trainId)
 }
 
 
+$(document).ready(function(){
+	$('#common_rating_confirmation_buttons .conf_button').click(function(){
+		var common_rating_confirmed = $(this).attr('value');
+		$.ajax({
+			url: BASE_URL + '/card/card/agreement/',
+			data: {
+				'id'         :common_rating.id,
+				'person_id'  :common_rating.person_id,
+				'period_year':common_rating.period_year,
+				'rating_id'  :common_rating.rating_id,
+				'confirmed'  :common_rating_confirmed
+			},
+			success: function(data) {
+					location.reload();
+			}
+		});
+
+	});
+});

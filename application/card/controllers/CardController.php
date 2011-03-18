@@ -53,4 +53,20 @@ class Card_CardController extends Zend_Controller_Action
 
 		return $cards->blockCard($card_id, $user->id);
 	}
+
+	public function agreementAction()
+	{
+		$request      = $this->getRequest();
+		$agreement_id = $request->getParam('id');
+		$agreement_id = ($agreement_id == 'null') ? NULL : $agreement_id;
+		$person_id    = $request->getParam('person_id');
+		$period_year  = $request->getParam('period_year');
+		$rating_id    = $request->getParam('rating_id', 0);
+		$confirmed    = $request->getParam('confirmed', 0);
+
+		$card_agreements = new Rp_Db_Table_Ach_Cards_Agreements();
+		$card_agreement = $card_agreements->card_agreement($person_id, $period_year, $rating_id, $confirmed, $agreement_id);
+
+		return $card_agreement;
+	}
 }

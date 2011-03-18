@@ -806,6 +806,11 @@ td.ratings-field-total select {
 	width: 13em;
 }
 
+#statistics-total-rating-confirmation {
+	margin:5px auto;
+	width: 18em;
+}
+
 #common_rating_confirmation_buttons {
 	width: 280px;
 	margin: 5px auto;
