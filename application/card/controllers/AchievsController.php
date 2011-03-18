@@ -40,7 +40,11 @@ class Card_AchievsController extends Zend_Controller_Action
 		$rates = array();
 		foreach($rate_names as $id => $name)
 		{
-			$rates[$id] = array('name' => $name, 'weight' => (isset($rate_weights[$id]['weight'])) ? $rate_weights[$id]['weight'] : NULL);
+			$rates[$id] = array(
+				'name' => $name,
+				'weight' => (isset($rate_weights[$id]['weight'])) ? $rate_weights[$id]['weight'] : NULL,
+				'id' => $id,
+			);
 		}
 
 
@@ -52,12 +56,12 @@ class Card_AchievsController extends Zend_Controller_Action
 		$i = 0;
 		foreach($cards_and_periods as $card_and_periods)
 		{
+			$period_year = $card_and_periods->period;
 			$_periods = NULL;
 			$_period_start = strtotime($card_and_periods->period_start);
 			$_period_end   = strtotime($card_and_periods->period_end);
 			if($card_and_periods->period_start OR $card_and_periods->period_end)
 			{
-
 				$_periods = ': ' . date('m', $_period_start) . '-' . date('m', $_period_end);
 				if($card_and_periods->period == $card->period)
 				{
@@ -80,6 +84,7 @@ class Card_AchievsController extends Zend_Controller_Action
 				'year' => $card_and_periods->period,
 				'name' => $card_and_periods->period . $_periods
 			);
+
 			$i++;
 			if($count == $i)
 			{
@@ -91,6 +96,8 @@ class Card_AchievsController extends Zend_Controller_Action
 		}
 
 		$rate_calc = array('name' => '-');
+		$common_rating_id = NULL;
+		$common_rating_confirmed = FALSE;
 		if($statistics)
 		{
 			$rate_sum = 0;
@@ -108,6 +115,15 @@ class Card_AchievsController extends Zend_Controller_Action
 				{
 					$rate_calc = $rates[$id];
 				}
+			}
+
+			$common_ratings = new Rp_Db_Table_Ach_Cards_Agreements();
+			$common_rating = $common_ratings->cards_agreement($personId, $period_year);
+
+			if($common_rating != NULL)
+			{
+				$common_rating_confirmed = (bool) $common_rating->confirmed;
+				$common_rating_id        = $common_rating->id;
 			}
 		}
 
@@ -155,7 +171,8 @@ class Card_AchievsController extends Zend_Controller_Action
 		$view->rate_weights = $rate_weights;
 		$view->rate_name_weights = $ratings->fetchNameWeights();
 		$view->rate_calc = $rate_calc;
-		$view->common_rating_confirmed = FALSE;
+		$view->common_rating_confirmed = $common_rating_confirmed;
+		$view->common_rating_id = $common_rating_id;
 		$view->trainsGroupsMethods = $trainsGroupsMethods->toArrayNames();
 		$view->trainsGroupsMethodsActual = $trainsGroupsMethods->toArrayNamesWithoutDisabled();
 		$view->trainsRespons = $trainsRespons->fetchNames();
