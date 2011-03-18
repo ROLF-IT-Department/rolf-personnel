@@ -25,8 +25,15 @@ class Zend_View_Helper_ProfileHeader
 			case 3:
 			case 7:
 			case 8:
-			case 'S':
-				$is_integrate = "<span style='color: blue; font-size: 12px;'>(" . $person->pgtxt . ")</span>";
+			case 10:
+				$is_integrate = '<span style="color: blue; font-size: 12px;">(Совместитель)</span>';
+				break;
+			case 4:
+			case 6:
+				$is_integrate = '<span style="color: blue; font-size: 12px;">(Несписочный Состав)</span>';
+				break;
+			case 9:
+				$is_integrate = '<span style="color: blue; font-size: 12px;">(Внешние Совместители)</span>';
 				break;
 		}
 
