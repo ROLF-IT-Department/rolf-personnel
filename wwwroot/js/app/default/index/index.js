@@ -41,6 +41,7 @@ function init()
 	loadBranchPosts('subposts', User.subposts);		// загружаем список должностей подчиненных должностей в дерево
 	var posts = User.viewposts;
 	for (var key in posts) {
+		alert(posts[key].id);
 		posts[key].id = -posts[key].id;
 	}
 	loadBranchPosts('viewposts', posts);

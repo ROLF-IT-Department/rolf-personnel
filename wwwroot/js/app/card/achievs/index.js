@@ -135,22 +135,34 @@ function init()
 	}
 	Toolbar.addItem({text: 'Обновить<br><span class="translate_toolbar">Refresh</span>', onclick: toolbarItemRefresh}).addClassName('toolbar-item-refresh');
 	Toolbar.addItem({text: 'Печатная форма<br><span class="translate_toolbar">Print</span>', onclick: toolbarItemPrint}).addClassName('toolbar-item-print');
-	Toolbar.addItem({text: 'Создать карточку<br><span class="translate_toolbar">Create Card</span>', onclick: toolbarItemCreateCard}).addClassName('toolbar-item-card_create');
 
-	var blocked_text;
-	if(is_blocked)
-	{
-		 blocked_text_ru = 'Разблокировать';
-		 blocked_text_en = 'Unblock';
+
+	var posts = User.viewposts,
+		IS_HR = false;
+	for (var key in posts) {
+		if(posts[key].pid == ' ')
+		{
+			IS_HR = true;
+		}
 	}
-	else
+	if(IS_HR)
 	{
-		blocked_text_ru = 'Блокировать';
-		blocked_text_en = 'Block';
+		Toolbar.addItem({text: 'Создать карточку<br><span class="translate_toolbar">Create Card</span>', onclick: toolbarItemCreateCard}).addClassName('toolbar-item-card_create');
+	
+		var blocked_text;
+		if(is_blocked)
+		{
+			 blocked_text_ru = 'Разблокировать';
+			 blocked_text_en = 'Unblock';
+		}
+		else
+		{
+			blocked_text_ru = 'Блокировать';
+			blocked_text_en = 'Block';
+		}
+
+		Toolbar.addItem({text: blocked_text_ru + ' карточку<br><span class="translate_toolbar">' + blocked_text_en +' Card</span>', onclick: toolbarItemCardBlock}).addClassName('toolbar-item-card_block');
 	}
-
-	Toolbar.addItem({text: blocked_text_ru + ' карточку<br><span class="translate_toolbar">' + blocked_text_en +' Card</span>', onclick: toolbarItemCardBlock}).addClassName('toolbar-item-card_block');
-
 	// если для определенной карточки роль пользователь совпадает с ролью непосредственного руководителя то делаем заметки видимыми
 
 	if (USER_ROLE & ROLE_EMPLOYEE) {
