@@ -60,6 +60,12 @@ fieldset {
 .toolbar-item-print div {
 	background-image: url('../../../../img/achievs/card/toolbar/printer.gif');
 }
+.toolbar-item-card_block div {
+	background-image: url('../../../../img/achievs/card/toolbar/access.png');
+}
+.toolbar-item-card_create div {
+	background-image: url('../../../../img/achievs/card/toolbar/add.png');
+}
 
 .panel-status {
 	background-color: #CCCCCC;
@@ -803,12 +809,12 @@ td.ratings-field-total select {
 
 #statistics-total-rating {
 	margin:0 auto;
-	width: 13em;
+	width: 14em;
 }
 
 #statistics-total-rating-confirmation {
 	margin:5px auto;
-	width: 18em;
+	width: 14em;
 }
 
 #common_rating_confirmation_buttons {
@@ -857,4 +863,12 @@ td.ratings-field-total select {
 	display:block;
 	font-size:smaller;
 	color:#fff
+}
+
+#statistics-table div span, #statistics-total-rating {
+	font-weight:bold;
+	color: #333
+}
+#statistics-total-rating span {
+	color: red
 }

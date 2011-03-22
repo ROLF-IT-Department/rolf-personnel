@@ -67,6 +67,7 @@
 		var is_blocked = <?php echo ($this->card->is_blocked) ? 'true' : 'false'?>;
 
 	</script>
+	<script src="<?php echo $this->baseUrl() ?>/json/user" type="text/javascript"></script>
 	<script src="<?php echo $this->baseUrl() ?>/js/lib/jquery.1.4.4.js" type="text/javascript"></script>
 	<script src="<?php echo $this->baseUrl() ?>/js/lib/Js.js" type="text/javascript"></script>
 	<script src="<?php echo $this->baseUrl() ?>/js/lib/Js/Toolbar.js" type="text/javascript"></script>
@@ -255,9 +256,9 @@
 						<tr>
 							<td><?php echo $rating['period']['start']?> - <?php echo $rating['period']['end']?></td>
 							<td>
-								<div class="inline">Итоговый рейтинг бизнес-целей: <?php echo ($rating['ratings']['tasks']['name']) ? $rating['ratings']['tasks']['name'] : '-'?></div>
-								<div class="inline">Итоговый рейтинг компетенций: <?php echo ($rating['ratings']['competens']['name']) ? $rating['ratings']['competens']['name'] : '-'?></div>
-								<div class="inline">Общий рейтинг: <?php echo ($rating['ratings']['total']['name']) ? $rating['ratings']['total']['name'] : '-'?></div>
+								<div class="inline">Итоговый рейтинг бизнес-целей: <span><?php echo ($rating['ratings']['tasks']['name']) ? $rating['ratings']['tasks']['name'] : '-'?></span></div>
+								<div class="inline">Итоговый рейтинг компетенций: <span><?php echo ($rating['ratings']['competens']['name']) ? $rating['ratings']['competens']['name'] : '-'?></span></div>
+								<div class="inline">Общий рейтинг: <span><?php echo ($rating['ratings']['total']['name']) ? $rating['ratings']['total']['name'] : '-'?></span></div>
 							</td>
 						</tr>
 				<?php endforeach;?>
