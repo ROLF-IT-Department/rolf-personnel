@@ -4,10 +4,11 @@ class ProfileController extends Zend_Controller_Action
 {
 	public function indexAction()
 	{
+		$cardid   = $this->_getParam('cardid', NULL);
 		$personId = $this->_getParam('personid');
 
-		$cards = new Rp_Db_Table_Ach_Cards();
-		$card = $cards->findByPersonIdAndCard($personId);
+		$cards    = new Rp_Db_Table_Ach_Cards();
+		$card     = $cards->findByPersonIdAndCard($personId, $cardid);
 		$employee = $card->getEmployee();
 
 		$user = Rp_User::getInstance();
