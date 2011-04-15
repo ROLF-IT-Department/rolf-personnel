@@ -2,8 +2,12 @@
 
 class Zend_View_Helper_EmployeesList
 {
-	public function employeesList(Employees_List $list)
+
+	protected $rates;
+	
+	public function employeesList(Employees_List $list, array $rates)
 	{
+		$this->rates = $rates;
 		$xhtml = array();
 		$xhtml[] = '
 			<div class="gridbox">
@@ -54,7 +58,7 @@ class Zend_View_Helper_EmployeesList
 		return implode($xhtml);
 	}
 
-	private function _listTable($id, $class, array &$rows)
+	private function _listTable($id, $class, array $rows)
 	{
 		$xhtml = '
 			<table id="' . $id . '" class="' . $class . '">
@@ -70,16 +74,63 @@ class Zend_View_Helper_EmployeesList
 		return $xhtml;
 	}
 
-	private function _listRow(array &$row)
+	private function _listRow(array $row)
 	{
-		$statusFirst = isset($row['statusFirst']) ? $row['statusFirst'] : 'Новая';
-		$statusSecond = isset($row['statusSecond']) ? $row['statusSecond'] : 'Новая';
+		$period_status = array();
+		foreach($row['cards'] as $year => $cards)
+		{
+			$count = count($cards);
+
+			if($count AND $count == 1)
+			{
+				$period_status[$year] = array(
+					'status' => $cards[0]->status_id,
+					'rate' => $cards[0]->rtg_total_id
+				);
+			}
+			elseif($count > 1)
+			{
+				foreach($cards as $card)
+				{
+					$ratings = array();
+					if($card->rtg_total_id)
+					{
+						$ratings[] = array(
+							'days' => (strtotime($card->period_end) - strtotime($card->period_start))/86400,
+							'rating' => $card->rtg_total_id,
+						);
+					}
+				}
+				$result_rating = 0;
+				$count_days = 0;
+				foreach($ratings as $rating)
+				{
+					$result_rating += $rating['rating']*$rating['days'];
+					$count_days += $rating['days'];
+				}
+
+				$result_rating = round($result_rating/$count_days);
+
+				$period_status[$year] = array(
+					'status' => 'MTPL',
+					'rate' => ($result_rating) ? $result_rating : NULL
+				);
+			}
+			else
+			{
+				$period_status[$year] = array(
+					'status' => 'Новая',
+					'rate' => NULL
+				);
+			}
+		}
+
 		$is_integrate = "";
 		$is_testperiod = '';
-		if ( $row['persg'] != 1)
+		if ( $row['info']->persg != 1)
 		{
 			$text = NULL;
-			switch($row['persg'])
+			switch($row['info']->persg)
 			{
 				case 2:
 				case 3:
@@ -101,22 +152,25 @@ class Zend_View_Helper_EmployeesList
 				: NULL;
 		}
 
-		if( $row['endtest_date'] >= date('Y-m-d'))
+		if( $row['info']->endtest_date >= date('Y-m-d'))
 			$is_testperiod = '<span style="color: green; font-size: 10px;">&nbsp;(испытательный срок)</span>';
 
-		return '
+		$view = '
 			<tr>
-				<td class="field-id">' . $row['id'] . '</td>
-				<td class="field-name">' . $row['fullname'] . '</td>
-				<td class="field-depart">' . $row['department'] . '</td>
-				<td class="field-post">' . $row['appointment'] . $is_integrate . $is_testperiod . '</td>
-				<td class="field-ach-status status' . $row['statusFirstId'] . '"
-					title="' . $statusFirst . '"></td>
-				<td class="field-ach-rating">' . $row['ratingFirst'] . '</td>
-				<td class="field-ach-status status' . $row['statusSecondId'] . '"
-					title="' . $statusSecond . '"></td>
-				<td class="field-ach-rating">' . $row['ratingSecond'] . '</td>
-			</tr>
-		';
+				<td class="field-id">' . $row['info']->id . '</td>
+				<td class="field-name">' . $row['info']->fullname . '</td>
+				<td class="field-depart">' . preg_replace('/\/([-\pL\s]+)/', '', $row['info']->FullPath) . '</td>
+				<td class="field-post">' . $row['attribs']->appointment . $is_integrate . $is_testperiod . '</td>';
+
+		foreach($period_status as $period)
+		{
+			$view .= '<td class="field-ach-status status' . $period['status'] . '"
+					title="' . $period['status']. '"></td>
+				<td class="field-ach-rating">' . $this->rates[$period['rate']]['name'] . '</td>';
+		}
+
+			$view .= '</tr>';
+
+		return $view;
 	}
 }

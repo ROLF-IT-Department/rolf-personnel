@@ -70,12 +70,14 @@ class Card_AchievsController extends Zend_Controller_Action
 //							'year' => $card_and_periods->period,
 							'start' => date('d.m.Y', $_period_start),
 							'end' => date('d.m.Y', $_period_end),
+							'days' => ($_period_end - $_period_start)/86400
 						),
 						'ratings' => array(
 							'tasks'     => $rates[$card_and_periods->rtg_tasks_id],
 							'competens' => $rates[$card_and_periods->rtg_competens_id],
 							'total'     => $rates[$card_and_periods->rtg_total_id],
 						),
+						'is_blocked' => (bool) $card_and_periods->is_blocked,
 					);
 				}
 			}
@@ -101,13 +103,13 @@ class Card_AchievsController extends Zend_Controller_Action
 		if($statistics)
 		{
 			$rate_sum = 0;
-			$rate_num = 0;
+			$rate_days = 0;
 			foreach($statistics as $_rate)
 			{
-				$rate_sum += $_rate['ratings']['total']['weight'];
-				$rate_num++;
+				$rate_sum  += $_rate['ratings']['total']['weight']*$_rate['period']['days'];
+				$rate_days += $_rate['period']['days'];
 			}
-			$common_rate = round($rate_sum / $rate_num);
+			$common_rate = round($rate_sum / $rate_days);
 
 			foreach($rate_weights as $id => $weight)
 			{

@@ -431,4 +431,22 @@ $(document).ready(function(){
 		});
 
 	});
+
+	if(is_blocked == true)
+	{
+		$('.tabs-body').prepend('<div class="overlay">').css({overflow:'hidden'});
+
+		$('.comments-body').css({'z-index':1});
+
+		$('.overlay').css({
+			width:'100%',
+			height:'100%',
+			background:'#ccc',
+			'z-index':1000,
+			position:'absolute',
+			display: 'block',
+			opacity:0.4
+		})
+
+	}
 });

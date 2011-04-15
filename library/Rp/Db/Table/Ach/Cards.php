@@ -70,7 +70,7 @@ class Rp_Db_Table_Ach_Cards extends Rp_Db_Table_Abstract
 			$db->quote($card_id) .',' .
 			$db->quote($period_start) . ',' .
 			$db->quote($period_end) . ',' .
-			$db->quote($person_id)
+			$db->quote($card_creator_id)
 		);
 
 		$where =

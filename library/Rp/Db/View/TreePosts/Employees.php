@@ -45,4 +45,18 @@ class Rp_Db_View_TreePosts_Employees extends Rp_Db_View_Abstract
 		$where = "post_id IN ($postId)";
 		return $this->_fetchCol('person_id', $where);
 	}
+
+	/**
+	 * Возвращает массив идентификаторов сотрудников,
+	 * находящихся на должности с идентификатором $postId.
+	 *
+	 * @param  int|array $postId Идентификатор или массив идентификаторов должности.
+	 * @return array
+	 */
+	public function fetchEmployeeIds_by_pid($postId)
+	{
+		$postId = $this->_quote($postId);
+		$where = "post_pid IN ($postId)";
+		return $this->_fetchCol('person_id', $where);
+	}
 }
