@@ -69,6 +69,7 @@
 	</script>
 	<script src="<?php echo $this->baseUrl() ?>/json/user" type="text/javascript"></script>
 	<script src="<?php echo $this->baseUrl() ?>/js/lib/jquery.1.4.4.js" type="text/javascript"></script>
+	<script src="http://cdn.jquerytools.org/1.2.5/jquery.tools.min.js"></script>
 	<script src="<?php echo $this->baseUrl() ?>/js/lib/Js.js" type="text/javascript"></script>
 	<script src="<?php echo $this->baseUrl() ?>/js/lib/Js/Toolbar.js" type="text/javascript"></script>
 	<script src="<?php echo $this->baseUrl() ?>/js/lib/Js/TabPanel.js" type="text/javascript"></script>
@@ -231,6 +232,7 @@
 					</div>
 				</div>
 				<div class="tabs-body" id="tabs-body-personal">
+					<div>
 					<?php echo $this->achievsFormPersonal(
 						$this->tasks,
 						$this->personalTrainings,
@@ -244,48 +246,52 @@
 						$this->competences
 						// $this->ratings, $this->rate_weights, $this->card->rtg_competens_id, TRUE
 						);?>
+					</div>
 				</div>
 <?php if($this->statistics):?>
 				<div class="tabs-body" id="tabs-body-statistics">
-					<table id="statistics-table">
-						<tr>
-							<th>Период:</th>
-							<th>Рейтинги:</th>
-						</tr>
-				<?php foreach($this->statistics as $rating):?>
-						<tr>
-							<td><?php echo $rating['period']['start']?> - <?php echo $rating['period']['end']?></td>
-							<td>
-								<div class="inline">Итоговый рейтинг бизнес-целей: <span><?php echo ($rating['ratings']['tasks']['name']) ? $rating['ratings']['tasks']['name'] : '-'?></span></div>
-								<div class="inline">Итоговый рейтинг компетенций: <span><?php echo ($rating['ratings']['competens']['name']) ? $rating['ratings']['competens']['name'] : '-'?></span></div>
-								<div class="inline">Общий рейтинг: <span><?php echo ($rating['ratings']['total']['name']) ? $rating['ratings']['total']['name'] : '-'?></span></div>
-							</td>
-						</tr>
-				<?php endforeach;?>
-					</table>
-					<div id="statistics-total-rating">Общий итоговый рейтинг: <span><?php echo $this->rate_calc['name']?></span></div>
-					<div id="statistics-total-rating-confirmation">Согласование: <span><?php echo ($this->common_rating_confirmed) ? 'Согласовано' : 'Не согласовано'?></span></div>
-					<?php if($this->rate_calc['name'] != '-' AND $this->common_rating_confirmed == FALSE):?>
-					<script type="text/javascript">
-						var common_rating  = {
-							'id'          : <?php echo ($this->common_rating_id) ? $this->common_rating_id : 'null'?>,
-							'person_id'   : <?php echo $this->card->person_id ?>,
-							'period_year' : <?php echo $this->card->period?>,
-							'rating_id'   : <?php echo $this->rate_calc['id']?>
-						};
-					</script>
-					<div id="common_rating_confirmation_buttons">
-						<div class="conf_button" value="1">
-							<img src='/img/achievs/card/toolbar/approval.gif' alt=""/>
-							<div>Согласовать<span>Confirm</span></div>
-						</div>
+					<div>
+						<table id="statistics-table">
+							<tr>
+								<th>Период:</th>
+								<th>Рейтинги:</th>
+							</tr>
+					<?php foreach($this->statistics as $rating):?>
+							<tr>
+								<td><?php echo $rating['period']['start']?> - <?php echo $rating['period']['end']?></td>
+								<td>
+									<?php echo ($rating['is_blocked']) ? '<div class="inline"><span style="color:red">Заблокирована</span></div>' : NULL?>
+									<div class="inline">Итоговый рейтинг бизнес-целей: <span><?php echo ($rating['ratings']['tasks']['name']) ? $rating['ratings']['tasks']['name'] : '-'?></span></div>
+									<div class="inline">Итоговый рейтинг компетенций: <span><?php echo ($rating['ratings']['competens']['name']) ? $rating['ratings']['competens']['name'] : '-'?></span></div>
+									<div class="inline">Общий рейтинг: <span><?php echo ($rating['ratings']['total']['name']) ? $rating['ratings']['total']['name'] : '-'?></span></div>
+								</td>
+							</tr>
+					<?php endforeach;?>
+						</table>
+						<div id="statistics-total-rating">Общий итоговый рейтинг: <span><?php echo $this->rate_calc['name']?></span></div>
+						<div id="statistics-total-rating-confirmation">Согласование: <span><?php echo ($this->common_rating_confirmed) ? 'Согласовано' : 'Не согласовано'?></span></div>
+						<?php if($this->rate_calc['name'] != '-' AND $this->common_rating_confirmed == FALSE AND $this->userRole == 1):?>
+						<script type="text/javascript">
+							var common_rating  = {
+								'id'          : <?php echo ($this->common_rating_id) ? $this->common_rating_id : 'null'?>,
+								'person_id'   : <?php echo $this->card->person_id ?>,
+								'period_year' : <?php echo $this->card->period?>,
+								'rating_id'   : <?php echo $this->rate_calc['id']?>
+							};
+						</script>
+						<div id="common_rating_confirmation_buttons">
+							<div class="conf_button" value="1">
+								<img src='/img/achievs/card/toolbar/approval.gif' alt=""/>
+								<div>Согласовать<span>Confirm</span></div>
+							</div>
 
-						<div class="conf_button" id="<?php echo $this->common_rating_id?>" value="0">
-							<img src='/img/achievs/card/toolbar/reject.gif' alt=""/>
-							<div>Отклонить<span>Reject</span></div>
+							<div class="conf_button" id="<?php echo $this->common_rating_id?>" value="0">
+								<img src='/img/achievs/card/toolbar/reject.gif' alt=""/>
+								<div>Отклонить<span>Reject</span></div>
+							</div>
 						</div>
+						<?php endif;?>
 					</div>
-					<?php endif;?>
 				</div>
 <?php endif;?>
 			</div>

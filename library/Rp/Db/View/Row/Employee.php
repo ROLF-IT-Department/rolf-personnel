@@ -16,6 +16,8 @@
  */
 class Rp_Db_View_Row_Employee extends Rp_Db_View_Row
 {
+
+
 	/**
 	 * Объект физического лица.
 	 *

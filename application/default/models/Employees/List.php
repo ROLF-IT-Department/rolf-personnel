@@ -33,14 +33,72 @@ class Employees_List
 			$table = 'user_rp_tree_posts_employees_PM';
 			if ($fetchEmps)
 			{
-				$this->rows = $this->_fetch('post_id', $postIds, $periodFirst, $periodSecond, $table);
+//				$this->rows = $this->_fetch('post_id', $postIds, $periodFirst, $periodSecond, $table);
+				$treePostsEmployees = new Rp_Db_View_TreePosts_Employees();
+				$employees_ids = $treePostsEmployees->fetchEmployeeIds($postIds);
+				$employees_model = new Rp_Db_View_Persons();
+				$employees_attribs_model = new Rp_Db_View_Employees_Attribs();
+				$cards_model = new Rp_Db_Table_Ach_Cards();
+
+				$_employees = $employees_model->find($employees_ids);
+
+				foreach($_employees as $employee)
+				{
+					$employees[$employee->id]['info'] = $employee;
+					$employees[$employee->id]['attribs'] = $employees_attribs_model->find($employee->id)->current();
+
+					$where ='person_id = ' . $employee->id . ' AND period IN (' . $periodFirst . ',' . $periodSecond . ')';
+					$cards = $cards_model->fetchAll($where);
+
+					foreach($cards as $card)
+					{
+						if($card->period == $periodFirst)
+						{
+							$employees[$employee->id]['cards'][$periodFirst][] = $card;
+						}
+						elseif($card->period == $periodSecond)
+						{
+							$employees[$employee->id]['cards'][$periodSecond][] = $card;
+						}
+					}
+				}
+				$this->rows = $employees;
 				$treePosts = new Rp_Db_View_TreePosts();
 				$this->postNames = $treePosts->fetchNames($postIds);
 			}
 
 			if ($fetchSubEmps)
 			{
-				$this->subRows = $this->_fetch('post_pid', $postIds, $periodFirst, $periodSecond, $table);
+				$treePostsEmployees = new Rp_Db_View_TreePosts_Employees();
+				$employees_ids = $treePostsEmployees->fetchEmployeeIds_by_pid($postIds);
+				$employees_model = new Rp_Db_View_Persons();
+				$employees_attribs_model = new Rp_Db_View_Employees_Attribs();
+				$cards_model = new Rp_Db_Table_Ach_Cards();
+
+				$_employees = $employees_model->find($employees_ids);
+
+				foreach($_employees as $employee)
+				{
+					$employees[$employee->id]['info'] = $employee;
+					$employees[$employee->id]['attribs'] = $employees_attribs_model->find($employee->id)->current();
+
+					$where ='person_id = ' . $employee->id . ' AND period IN (' . $periodFirst . ',' . $periodSecond . ')';
+					$cards = $cards_model->fetchAll($where);
+
+					foreach($cards as $card)
+					{
+						if($card->period == $periodFirst)
+						{
+							$employees[$employee->id]['cards'][$periodFirst][] = $card;
+						}
+						elseif($card->period == $periodSecond)
+						{
+							$employees[$employee->id]['cards'][$periodSecond][] = $card;
+						}
+					}
+				}
+
+				$this->subRows = $employees;
 			}
 
 			if ($func)

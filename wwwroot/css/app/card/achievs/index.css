@@ -95,6 +95,9 @@ div.panel-statusCRG {
 div.panel-statusCLS {
 	background-image: url('../../../../img/achievs/status/CLS.gif');
 }
+div.panel-statusMTPL {
+	background-image: url('../../../../img/achievs/status/MTPL.gif');
+}
 
 .button {
 	width: 190px;
@@ -792,7 +795,6 @@ td.ratings-field-total select {
 
 #statistics-table {
 	margin: 5em auto 2em;
-
 }
 
 #statistics-table td, #statistics-table th {
@@ -801,6 +803,9 @@ td.ratings-field-total select {
 
 .inline {
 	display:inline-block;
+	zoom: 1;
+	*display: inline!important;
+	margin-right:10px
 }
 
 #statistics-table td > div {

@@ -9,7 +9,7 @@ class Card_CardController extends Zend_Controller_Action
 		$person_id       = $request->getPost('person_id', NULL);
 		$card_creator_id = $request->getPost('card_creator_id', NULL);
 		$period_start    = $request->getPost('period_start', NULL);
-		$period_end      = $request->getPost('period_end', NULL);
+		$period_end      = $request->getPost('period_end', date('31.12.Y'));
 
 		$period_start = ($period_start) ? strtotime($period_start) : NULL;
 		$period_end =   ($period_end)   ? strtotime($period_end) : NULL;
