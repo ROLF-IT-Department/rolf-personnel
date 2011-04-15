@@ -29,6 +29,8 @@ class EmployeesController extends Zend_Controller_Action
 			);
 		}
 
+
+
 		$view = $this->initView();
 		$view->listEmployees = $listEmployees;
 		$view->rates = $rates;

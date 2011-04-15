@@ -44,4 +44,25 @@ class Rp_Db_View_Employees extends Rp_Db_View_Abstract
 
 		return $this->fetchAll($where, $order);
 	}
+	
+	public function find_full_info($person_id)
+	{
+		$db = Rp::getDbAdapter();
+		$sql = '
+			SELECT
+				departments.name AS department,
+				appointments.name AS appointment
+
+			FROM
+				' . $this->_name . ' AS employees
+
+			LEFT JOIN user_rp_departments departments
+				ON employees.department_id = departments.id
+			LEFT JOIN user_rp_appointments appointments
+				ON employees.appointment_id = appointments.id
+
+			WHERE employees.person_id = ' . $person_id;
+
+		return $db->fetchRow($sql);
+	}
 }

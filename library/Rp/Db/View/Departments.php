@@ -32,4 +32,5 @@ class Rp_Db_View_Departments extends Rp_Db_View_Abstract
 	{
 		return $this->_fetchPairs('name', $id, $order);
 	}
+
 }

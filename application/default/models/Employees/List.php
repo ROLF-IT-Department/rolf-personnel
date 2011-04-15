@@ -33,35 +33,35 @@ class Employees_List
 			$table = 'user_rp_tree_posts_employees_PM';
 			if ($fetchEmps)
 			{
-//				$this->rows = $this->_fetch('post_id', $postIds, $periodFirst, $periodSecond, $table);
-				$treePostsEmployees = new Rp_Db_View_TreePosts_Employees();
+				$treePostsEmployees =      new Rp_Db_View_TreePosts_Employees();
+				$person_model =            new Rp_Db_View_Persons();
+				$employee_model =          new Rp_Db_View_Employees();
+				$cards_model =             new Rp_Db_Table_Ach_Cards();
+
 				$employees_ids = $treePostsEmployees->fetchEmployeeIds($postIds);
-				$employees_model = new Rp_Db_View_Persons();
-				$employees_attribs_model = new Rp_Db_View_Employees_Attribs();
-				$cards_model = new Rp_Db_Table_Ach_Cards();
+				$_persons      = $person_model->find($employees_ids);
 
-				$_employees = $employees_model->find($employees_ids);
-
-				foreach($_employees as $employee)
+				foreach($_persons as $person)
 				{
-					$employees[$employee->id]['info'] = $employee;
-					$employees[$employee->id]['attribs'] = $employees_attribs_model->find($employee->id)->current();
+					$employees[$person->id]['info'] = $person;
+					$employees[$person->id]['attribs'] = $employee_model->find_full_info($person->id);//$employees_attribs_model->find($person->id)->current();
 
-					$where ='person_id = ' . $employee->id . ' AND period IN (' . $periodFirst . ',' . $periodSecond . ')';
+					$where ='person_id = ' . $person->id . ' AND period IN (' . $periodFirst . ',' . $periodSecond . ')';
 					$cards = $cards_model->fetchAll($where);
 
 					foreach($cards as $card)
 					{
 						if($card->period == $periodFirst)
 						{
-							$employees[$employee->id]['cards'][$periodFirst][] = $card;
+							$employees[$person->id]['cards'][$periodFirst][] = $card;
 						}
 						elseif($card->period == $periodSecond)
 						{
-							$employees[$employee->id]['cards'][$periodSecond][] = $card;
+							$employees[$person->id]['cards'][$periodSecond][] = $card;
 						}
 					}
 				}
+				
 				$this->rows = $employees;
 				$treePosts = new Rp_Db_View_TreePosts();
 				$this->postNames = $treePosts->fetchNames($postIds);
@@ -69,31 +69,31 @@ class Employees_List
 
 			if ($fetchSubEmps)
 			{
-				$treePostsEmployees = new Rp_Db_View_TreePosts_Employees();
+				$treePostsEmployees =      new Rp_Db_View_TreePosts_Employees();
+				$person_model =            new Rp_Db_View_Persons();
+				$employee_model =          new Rp_Db_View_Employees();
+				$cards_model =             new Rp_Db_Table_Ach_Cards();
+
 				$employees_ids = $treePostsEmployees->fetchEmployeeIds_by_pid($postIds);
-				$employees_model = new Rp_Db_View_Persons();
-				$employees_attribs_model = new Rp_Db_View_Employees_Attribs();
-				$cards_model = new Rp_Db_Table_Ach_Cards();
+				$_persons      = $person_model->find($employees_ids);
 
-				$_employees = $employees_model->find($employees_ids);
-
-				foreach($_employees as $employee)
+				foreach($_persons as $person)
 				{
-					$employees[$employee->id]['info'] = $employee;
-					$employees[$employee->id]['attribs'] = $employees_attribs_model->find($employee->id)->current();
+					$employees[$person->id]['info'] = $person;
+					$employees[$person->id]['attribs'] = $employee_model->find_full_info($person->id);//$employees_attribs_model->find($person->id)->current();
 
-					$where ='person_id = ' . $employee->id . ' AND period IN (' . $periodFirst . ',' . $periodSecond . ')';
+					$where ='person_id = ' . $person->id . ' AND period IN (' . $periodFirst . ',' . $periodSecond . ')';
 					$cards = $cards_model->fetchAll($where);
 
 					foreach($cards as $card)
 					{
 						if($card->period == $periodFirst)
 						{
-							$employees[$employee->id]['cards'][$periodFirst][] = $card;
+							$employees[$person->id]['cards'][$periodFirst][] = $card;
 						}
 						elseif($card->period == $periodSecond)
 						{
-							$employees[$employee->id]['cards'][$periodSecond][] = $card;
+							$employees[$person->id]['cards'][$periodSecond][] = $card;
 						}
 					}
 				}

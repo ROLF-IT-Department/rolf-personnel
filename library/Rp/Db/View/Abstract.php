@@ -232,10 +232,18 @@ abstract class Rp_Db_View_Abstract
 			throw new Exception("Столбец первичного ключа не определен.");
 		}
 		if ($where !== null) {
-			if (is_array($where) || is_numeric($where)) {
+			if (is_numeric($where))
+			{
+				$where = $this->_quote($where);
+				$where = "WHERE {$this->_primary} = $where";
+			}
+			elseif(is_array($where))
+			{
 				$where = $this->_quote($where);
 				$where = "WHERE {$this->_primary} IN ($where)";
-			} else {
+			}
+			else
+			{
 				$where = 'WHERE ' . $where;
 			}
 		}
