@@ -90,9 +90,9 @@ class Zend_View_Helper_EmployeesList
 			}
 			elseif($count > 1)
 			{
+				$ratings = array();
 				foreach($cards as $card)
 				{
-					$ratings = array();
 					if($card->rtg_total_id)
 					{
 						$ratings[] = array(
@@ -101,6 +101,7 @@ class Zend_View_Helper_EmployeesList
 						);
 					}
 				}
+				
 				$result_rating = 0;
 				$count_days = 0;
 				foreach($ratings as $rating)
@@ -108,8 +109,8 @@ class Zend_View_Helper_EmployeesList
 					$result_rating += $rating['rating']*$rating['days'];
 					$count_days += $rating['days'];
 				}
-
-				$result_rating = round($result_rating/$count_days);
+				
+				$result_rating = ($count_days) ?  round($result_rating/$count_days) : NULL;
 
 				$period_status[$year] = array(
 					'status' => 'MTPL',
@@ -154,13 +155,12 @@ class Zend_View_Helper_EmployeesList
 
 		if( $row['info']->endtest_date >= date('Y-m-d'))
 			$is_testperiod = '<span style="color: green; font-size: 10px;">&nbsp;(испытательный срок)</span>';
-
 		$view = '
 			<tr>
 				<td class="field-id">' . $row['info']->id . '</td>
 				<td class="field-name">' . $row['info']->fullname . '</td>
-				<td class="field-depart">' . preg_replace('/\/([-\pL\s]+)/', '', $row['info']->FullPath) . '</td>
-				<td class="field-post">' . $row['attribs']->appointment . $is_integrate . $is_testperiod . '</td>';
+				<td class="field-depart">' . $row['attribs']['department'] . '</td>
+				<td class="field-post">' . $row['attribs']['appointment'] . $is_integrate . $is_testperiod . '</td>';
 
 		foreach($period_status as $period)
 		{
