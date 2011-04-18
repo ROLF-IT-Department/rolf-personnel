@@ -75,7 +75,9 @@ fieldset {
 	padding-right: 20px;
 	font-weight: bold;
 	text-align: right;
+	float: right;
 	background: no-repeat right;
+	width: 160px;
 }
 div.panel-statusNEW {
 	background-image: url('../../../../img/achievs/status/NEW.gif');
@@ -85,6 +87,7 @@ div.panel-statusPLN {
 }
 div.panel-statusCPN {
 	background-image: url('../../../../img/achievs/status/CPN.gif');
+	width: 195px;
 }
 div.panel-statusRTG {
 	background-image: url('../../../../img/achievs/status/RTG.gif');
