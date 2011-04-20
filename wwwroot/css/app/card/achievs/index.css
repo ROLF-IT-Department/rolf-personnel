@@ -880,3 +880,8 @@ td.ratings-field-total select {
 #statistics-total-rating span {
 	color: red
 }
+
+.crossed div {
+	text-decoration: line-through;
+	cursor: help
+}

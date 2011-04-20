@@ -9,15 +9,16 @@ class Card_CardController extends Zend_Controller_Action
 		$person_id       = $request->getPost('person_id', NULL);
 		$card_creator_id = $request->getPost('card_creator_id', NULL);
 		$period_start    = $request->getPost('period_start', NULL);
-		$period_end      = $request->getPost('period_end', date('31.12.Y'));
+//		$period_end      = $request->getPost('period_end', date('31.12.Y'));
 
-		$period_start = ($period_start) ? strtotime($period_start) : NULL;
-		$period_end =   ($period_end)   ? strtotime($period_end) : NULL;
+		$_period_start = ($period_start) ? strtotime($period_start) : NULL;
+//		$period_end =   ($period_start)   ? date('31.12.Y', $period_start) : NULL;
 
-		$period = date('Y', $period_start);
+		$period = date('Y', $_period_start);
 
-		$period_start = date('Y-m-d H:i', $period_start);
-		$period_end = date('Y-m-d H:i', $period_end);
+		$period_start = date('Y-m-d H:i', $_period_start);
+		$period_end = date('Y-12-31 H:i', $_period_start);
+
 
 		$cards = new Rp_Db_Table_Ach_Cards();
 
@@ -27,7 +28,22 @@ class Card_CardController extends Zend_Controller_Action
 
 		if(count($old_cards) >= 1)
 		{
-			$card_id = $old_cards->current()->id;
+			$card_id = NULL;
+			foreach($old_cards as $old_card)
+			{
+				if( ! $card_id)
+				{
+					$card_id = $old_card->id;
+				}
+				$card_period_start = strtotime($old_card->period_start);
+				$card_period_end   = strtotime($old_card->period_end);
+
+				if($_period_start < $card_period_start)
+				{
+					$period_end = date('Y-m-d H:i', $card_period_start - 86400);
+				}
+			}
+
 			$new_card = $cards->cut_the_card($person_id, $card_id, $period, $period_start, $period_end, $card_creator_id);
 		}
 		elseif(count($old_cards) == 0)

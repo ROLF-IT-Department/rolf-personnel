@@ -40,20 +40,20 @@ function init()
 		case 'NEW':			// новая карточка
 		case 'PLN':			// планирование (выставление бизнес-целей и тренингов)
 
-			if (USER_ROLE & ROLE_EMPLOYEE) {
+			if (USER_ROLE & ROLE_EMPLOYEE && ! is_blocked) {
 
 				Toolbar.addItem({text: 'Сохранить<br><span class="translate_toolbar">Save</span>', onclick: toolbarItemSave}).addClassName('toolbar-item-save');
 				Toolbar.addItem({text: 'Закрыть<br><span class="translate_toolbar">Save & Close</span>', onclick: toolbarItemSaveClose}).addClassName('toolbar-item-save-close');
 				Card.setModePersonalPlan();
 				Card.setEditEmpComments();
 			}
-			if (USER_ROLE & ROLE_MANAGER) {
+			if (USER_ROLE & ROLE_MANAGER && ! is_blocked) {
 				Toolbar.addItem({text: 'Сохранить<br><span class="translate_toolbar">Save</span>', onclick: toolbarItemSave}).addClassName('toolbar-item-save');
 				Toolbar.addItem({text: 'Закрыть<br><span class="translate_toolbar">Save & Close</span>', onclick: toolbarItemSaveClose}).addClassName('toolbar-item-save-close');
 				Toolbar.addItem({text: 'Согласовать<br><span class="translate_toolbar">Approve</span>', onclick: toolbarItemApprovalPlan}).addClassName('toolbar-item-approval');
 				Card.setModePlan();
 			}
-			if (USER_ROLE & ROLE_FUNC_MANAGER) {
+			if (USER_ROLE & ROLE_FUNC_MANAGER && ! is_blocked) {
 				Toolbar.addItem({text: 'Сохранить<br><span class="translate_toolbar">Save</span>', onclick: toolbarItemSave}).addClassName('toolbar-item-save');
 				Toolbar.addItem({text: 'Закрыть<br><span class="translate_toolbar">Save & Close</span>', onclick: toolbarItemSaveClose}).addClassName('toolbar-item-save-close');
 				Card.setModePlanFuncMng();
@@ -62,39 +62,40 @@ function init()
 			break;
 
 		case 'CPN':			// согласование планирования
-			if (USER_ROLE & ROLE_MANAGER) {
+			if (USER_ROLE & ROLE_MANAGER && ! is_blocked) {
 				Toolbar.addItem({text: 'Редактировать<br><span class="translate_toolbar">Edit</span>', onclick: toolbarItemEditPlan}).addClassName('toolbar-item-edit');
 			}
 			if (USER_ROLE & ROLE_EMPLOYEE && elems['approvals[plan_emp_status]'].value != '1' ||
 				USER_ROLE & ROLE_HIGH_MANAGER && elems['approvals[plan_hmg_status]'].value != '1' ||
-				USER_ROLE & ROLE_FUNC_MANAGER && elems['approvals[plan_fnc_status]'].value != '1') {
+				USER_ROLE & ROLE_FUNC_MANAGER && elems['approvals[plan_fnc_status]'].value != '1'
+				&& ! is_blocked) {
 				Toolbar.addItem({text: 'Согласовать<br><span class="translate_toolbar">Approve</span>', onclick: toolbarItemApprovalPlan}).addClassName('toolbar-item-approval');
 			}
 			if (USER_ROLE & ROLE_EMPLOYEE && elems['approvals[plan_emp_status]'].value == '' ||
 				USER_ROLE & ROLE_HIGH_MANAGER && elems['approvals[plan_hmg_status]'].value == '' ||
-				USER_ROLE & ROLE_FUNC_MANAGER && elems['approvals[plan_fnc_status]'].value == '') {
+				USER_ROLE & ROLE_FUNC_MANAGER && elems['approvals[plan_fnc_status]'].value == ''
+				&& ! is_blocked) {
 				Toolbar.addItem({text: 'Отклонить<br><span class="translate_toolbar">Reject</span>', onclick: toolbarItemRejectPlan}).addClassName('toolbar-item-reject');
 			}
 			break;
 
 		case 'RTG':			// оценка (выставление рейтингов)
-			if (USER_ROLE & ROLE_EMPLOYEE) {
+			if (USER_ROLE & ROLE_EMPLOYEE && ! is_blocked) {
 
 				Toolbar.addItem({text: 'Сохранить<br><span class="translate_toolbar">Save</span>', onclick: toolbarItemSave}).addClassName('toolbar-item-save');
 				Toolbar.addItem({text: 'Закрыть<br><span class="translate_toolbar">Save & Close</span>', onclick: toolbarItemSaveClose}).addClassName('toolbar-item-save-close');
 				Card.setModeRatePersonal();
 				Card.setEditEmpComments();
-
 			}
 
-			if (USER_ROLE & ROLE_MANAGER) {
+			if (USER_ROLE & ROLE_MANAGER && ! is_blocked) {
 				Toolbar.addItem({text: 'Сохранить<br><span class="translate_toolbar">Save</span>', onclick: toolbarItemSave}).addClassName('toolbar-item-save');
 				Toolbar.addItem({text: 'Закрыть<br><span class="translate_toolbar">Save & Close</span>', onclick: toolbarItemSaveClose}).addClassName('toolbar-item-save-close');
 				Toolbar.addItem({text: 'Редактировать<br><span class="translate_toolbar">Edit</span>', onclick: toolbarItemEditPlan}).addClassName('toolbar-item-edit');
 				Toolbar.addItem({text: 'Согласовать<br><span class="translate_toolbar">Approve</span>', onclick: toolbarItemApprovalRate}).addClassName('toolbar-item-approval');
 				Card.setModeRate();
 			}
-			if (USER_ROLE & ROLE_FUNC_MANAGER) {
+			if (USER_ROLE & ROLE_FUNC_MANAGER && ! is_blocked) {
 				Toolbar.addItem({text: 'Сохранить<br><span class="translate_toolbar">Save</span>', onclick: toolbarItemSave}).addClassName('toolbar-item-save');
 				Toolbar.addItem({text: 'Закрыть<br><span class="translate_toolbar">Save & Close</span>', onclick: toolbarItemSaveClose}).addClassName('toolbar-item-save-close');
 				Card.setModeRateFuncMng();
@@ -103,20 +104,22 @@ function init()
 			break;
 
 		case 'CRG':			// согласование оценки
-			if (USER_ROLE & ROLE_MANAGER) {
+			if (USER_ROLE & ROLE_MANAGER && ! is_blocked) {
 				Toolbar.addItem({text: 'Редактировать<br><span class="translate_toolbar">Edit</span>', onclick: toolbarItemEditRate}).addClassName('toolbar-item-edit');
 			}
 			if (USER_ROLE & ROLE_EMPLOYEE && elems['approvals[rate_emp_status]'].value != '1' ||
 				USER_ROLE & ROLE_HIGH_MANAGER && elems['approvals[rate_hmg_status]'].value != '1' ||
-				USER_ROLE & ROLE_FUNC_MANAGER && elems['approvals[rate_fnc_status]'].value != '1') {
+				USER_ROLE & ROLE_FUNC_MANAGER && elems['approvals[rate_fnc_status]'].value != '1'
+			    && ! is_blocked) {
 				Toolbar.addItem({text: 'Согласовать<br><span class="translate_toolbar">Approve</span>', onclick: toolbarItemApprovalRate}).addClassName('toolbar-item-approval');
 			}
 			if (USER_ROLE & ROLE_EMPLOYEE && elems['approvals[rate_emp_status]'].value == '' ||
 				USER_ROLE & ROLE_HIGH_MANAGER && elems['approvals[rate_hmg_status]'].value == '' ||
-				USER_ROLE & ROLE_FUNC_MANAGER && elems['approvals[rate_fnc_status]'].value == '') {
+				USER_ROLE & ROLE_FUNC_MANAGER && elems['approvals[rate_fnc_status]'].value == ''
+				 && ! is_blocked) {
 				Toolbar.addItem({text: 'Отклонить<br><span class="translate_toolbar">Reject</span>', onclick: toolbarItemRejectRate}).addClassName('toolbar-item-reject');
 			}
-			if (USER_ROLE & ROLE_EMPLOYEE) {
+			if (USER_ROLE & ROLE_EMPLOYEE && ! is_blocked) {
 				Toolbar.addItem({text: 'Сохранить<br><span class="translate_toolbar">Save</span>', onclick: toolbarItemSave}).addClassName('toolbar-item-save');
 				Toolbar.addItem({text: 'Закрыть<br><span class="translate_toolbar">Save & Close</span>', onclick: toolbarItemSaveClose}).addClassName('toolbar-item-save-close');
 
@@ -125,7 +128,7 @@ function init()
 			break;
 
 		case 'CLS':			// закрытая карточка
-			if (USER_ROLE & ROLE_MANAGER) {
+			if (USER_ROLE & ROLE_MANAGER && ! is_blocked) {
 				Toolbar.addItem({text: 'Редактировать<br><span class="translate_toolbar">Edit</span>', onclick: toolbarItemEditRate}).addClassName('toolbar-item-edit');
 			}
 			break;
@@ -148,7 +151,7 @@ function init()
 	if(IS_HR)
 	{
 		Toolbar.addItem({text: 'Создать карточку<br><span class="translate_toolbar">Create Card</span>', onclick: toolbarItemCreateCard}).addClassName('toolbar-item-card_create');
-	
+
 		var blocked_text;
 		if(is_blocked)
 		{
@@ -441,7 +444,7 @@ $(document).ready(function(){
 		$('.overlay').css({
 			width:'100%',
 			height:'100%',
-			background:'#ccc',
+			'background': "url('/img/achievs/status/locked.gif') center center #ccc no-repeat",
 			'z-index':1000,
 			position:'absolute',
 			display: 'block',

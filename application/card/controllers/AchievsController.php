@@ -106,8 +106,11 @@ class Card_AchievsController extends Zend_Controller_Action
 			$rate_days = 0;
 			foreach($statistics as $_rate)
 			{
-				$rate_sum  += $_rate['ratings']['total']['weight']*$_rate['period']['days'];
-				$rate_days += $_rate['period']['days'];
+				if( ! $_rate['is_blocked'] AND $_rate['ratings']['total']['weight'])
+				{
+					$rate_sum  += $_rate['ratings']['total']['weight']*$_rate['period']['days'];
+					$rate_days += $_rate['period']['days'];
+				}
 			}
 			$common_rate = round($rate_sum / $rate_days);
 

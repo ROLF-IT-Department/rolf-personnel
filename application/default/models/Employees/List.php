@@ -41,6 +41,7 @@ class Employees_List
 				$employees_ids = $treePostsEmployees->fetchEmployeeIds($postIds);
 				$_persons      = $person_model->find($employees_ids);
 
+				$employees = NULL;
 				foreach($_persons as $person)
 				{
 					$employees[$person->id]['info'] = $person;
@@ -61,7 +62,7 @@ class Employees_List
 						}
 					}
 				}
-				
+
 				$this->rows = $employees;
 				$treePosts = new Rp_Db_View_TreePosts();
 				$this->postNames = $treePosts->fetchNames($postIds);
