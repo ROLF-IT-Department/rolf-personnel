@@ -20,7 +20,7 @@
 			<fieldset>
 				<legend>Создание новой карты</legend>
 				<input name="person_id" type="hidden" value="<?php echo $this->person_id ?>" />
-				<input name="card_creator_id" type="hidden" value="<?php echo $this->user->id ?>" />
+				<input name="card_creator_id" type="hidden" value="<?php echo $this->user->person_id ?>" />
 				<div class="form-item">
 					<?php echo $this->formLabel('period_start', 'Период начала действия новой карты')?>
 					<?php echo $this->formText('period_start', date('d.m.Y'))?>

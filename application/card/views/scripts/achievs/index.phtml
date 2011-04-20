@@ -258,9 +258,8 @@
 							</tr>
 					<?php foreach($this->statistics as $rating):?>
 							<tr>
-								<td><?php echo $rating['period']['start']?> - <?php echo $rating['period']['end']?></td>
-								<td>
-									<?php echo ($rating['is_blocked']) ? '<div class="inline"><span style="color:red">Заблокирована</span></div>' : NULL?>
+								<td<?php echo ($rating['is_blocked']) ? ' class="crossed" title="Карточка заблокирована"' : NULL?>><div><?php echo $rating['period']['start']?> - <?php echo $rating['period']['end']?></div></td>
+								<td<?php echo ($rating['is_blocked']) ? ' class="crossed" title="Карточка заблокирована"' : NULL?>>
 									<div class="inline">Итоговый рейтинг бизнес-целей: <span><?php echo ($rating['ratings']['tasks']['name']) ? $rating['ratings']['tasks']['name'] : '-'?></span></div>
 									<div class="inline">Итоговый рейтинг компетенций: <span><?php echo ($rating['ratings']['competens']['name']) ? $rating['ratings']['competens']['name'] : '-'?></span></div>
 									<div class="inline">Общий рейтинг: <span><?php echo ($rating['ratings']['total']['name']) ? $rating['ratings']['total']['name'] : '-'?></span></div>

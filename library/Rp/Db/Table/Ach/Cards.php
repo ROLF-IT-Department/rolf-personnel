@@ -58,7 +58,7 @@ class Rp_Db_Table_Ach_Cards extends Rp_Db_Table_Abstract
 	public function cut_the_card($person_id, $card_id,  $period, $period_start = NULL, $period_end = NULL, $card_creator_id = NULL)
 	{
 		if (!is_numeric($card_id)) {
-			throw new Exception('Идентификатор физ. лица должен быть целым числом.');
+			throw new Exception('Идентификатор карты должен быть целым числом.');
 		}
 		if (!is_numeric($period)) {
 			throw new Exception('Период карточки должен быть целым числом.');
@@ -191,6 +191,6 @@ class Rp_Db_Table_Ach_Cards extends Rp_Db_Table_Abstract
 
 		$where = 'person_id = ' . $db->quote($person_id);
 
-		return $this->fetchAll($where, 'period');
+		return $this->fetchAll($where, array('period', 'period_start'));
 	}
 }

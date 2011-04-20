@@ -4,7 +4,7 @@ class Zend_View_Helper_EmployeesList
 {
 
 	protected $rates;
-	
+
 	public function employeesList(Employees_List $list, array $rates)
 	{
 		$this->rates = $rates;
@@ -77,8 +77,19 @@ class Zend_View_Helper_EmployeesList
 	private function _listRow(array $row)
 	{
 		$period_status = array();
+
+		$second_period = date('Y');
+		$first_period = $second_period - 1;
+
+		$periods = array(
+			$first_period => FALSE,
+			$second_period => FALSE,
+		);
+
 		foreach($row['cards'] as $year => $cards)
 		{
+			$periods[$year] = TRUE;
+
 			$count = count($cards);
 
 			if($count AND $count == 1)
@@ -90,37 +101,31 @@ class Zend_View_Helper_EmployeesList
 			}
 			elseif($count > 1)
 			{
-				$ratings = array();
-				foreach($cards as $card)
-				{
-					if($card->rtg_total_id)
-					{
-						$ratings[] = array(
-							'days' => (strtotime($card->period_end) - strtotime($card->period_start))/86400,
-							'rating' => $card->rtg_total_id,
-						);
-					}
-				}
-				
-				$result_rating = 0;
-				$count_days = 0;
-				foreach($ratings as $rating)
-				{
-					$result_rating += $rating['rating']*$rating['days'];
-					$count_days += $rating['days'];
-				}
-				
-				$result_rating = ($count_days) ?  round($result_rating/$count_days) : NULL;
+				$agreements_model = new Rp_Db_Table_Ach_Cards_Agreements();
+
+				$result_rating = $agreements_model->cards_agreement($cards[0]->person_id, $cards[0]->period);
+				$result_rating = ($result_rating) ? $result_rating->rtg_total_id : $result_rating;
 
 				$period_status[$year] = array(
 					'status' => 'MTPL',
-					'rate' => ($result_rating) ? $result_rating : NULL
+					'rate' => $result_rating
 				);
 			}
-			else
+			elseif($count == 0)
 			{
 				$period_status[$year] = array(
-					'status' => 'Новая',
+					'status' => 'NEW',
+					'rate' => NULL
+				);
+			}
+		}
+
+		foreach($periods as $year => $status)
+		{
+			if($status == FALSE)
+			{
+				$period_status[$year] = array(
+					'status' => 'NEW',
 					'rate' => NULL
 				);
 			}
@@ -166,7 +171,7 @@ class Zend_View_Helper_EmployeesList
 		{
 			$view .= '<td class="field-ach-status status' . $period['status'] . '"
 					title="' . $period['status']. '"></td>
-				<td class="field-ach-rating">' . $this->rates[$period['rate']]['name'] . '</td>';
+				<td class="field-ach-rating">' . str_replace('-', '', $this->rates[$period['rate']]['name']) . '</td>';
 		}
 
 			$view .= '</tr>';

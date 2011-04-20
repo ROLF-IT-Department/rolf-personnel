@@ -25,5 +25,6 @@ class Card_IndexController extends Zend_Controller_Action
 		$view->user = $user;
 		$view->person_id = $personId;
 		$view->person = $person;
+
 	}
 }
