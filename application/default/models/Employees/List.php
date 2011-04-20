@@ -31,6 +31,7 @@ class Employees_List
 		if (!empty($postIds))
 		{
 			$table = 'user_rp_tree_posts_employees_PM';
+			$employees = NULL;
 			if ($fetchEmps)
 			{
 				$treePostsEmployees =      new Rp_Db_View_TreePosts_Employees();
@@ -41,7 +42,6 @@ class Employees_List
 				$employees_ids = $treePostsEmployees->fetchEmployeeIds($postIds);
 				$_persons      = $person_model->find($employees_ids);
 
-				$employees = NULL;
 				foreach($_persons as $person)
 				{
 					$employees[$person->id]['info'] = $person;
