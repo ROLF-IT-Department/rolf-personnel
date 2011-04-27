@@ -444,7 +444,7 @@ $(document).ready(function(){
 		$('.overlay').css({
 			width:'100%',
 			height:'100%',
-			'background': "url('/img/achievs/status/locked.gif') center center #ccc no-repeat",
+			'background': "url('" + BASE_URL + "/img/achievs/status/locked.gif') center center #ccc no-repeat",
 			'z-index':1000,
 			position:'absolute',
 			display: 'block',
