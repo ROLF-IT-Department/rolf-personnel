@@ -78,25 +78,25 @@ class Rp_Auth_Adapter_DbTable extends Zend_Auth_Adapter_DbTable
 	 */
 	public function authenticate()
     {
-        $exception = null;
+        $exception = NULL;
 
-        if ( ! $this->_tableName)
+        if ($this->_tableName == '')
         {
             $exception = 'A table must be supplied for the Zend_Auth_Adapter_DbTable authentication adapter.';
         }
-        elseif ( ! $this->_identityColumn)
+        elseif ($this->_identityColumn == '')
         {
             $exception = 'An identity column must be supplied for the Zend_Auth_Adapter_DbTable authentication adapter.';
         }
-        elseif ( ! $this->_credentialColumn)
+        elseif ($this->_credentialColumn == '')
         {
             $exception = 'A credential column must be supplied for the Zend_Auth_Adapter_DbTable authentication adapter.';
         }
-        elseif ( ! $this->_identity)
+        elseif ($this->_identity == '')
         {
             $exception = 'A value for the identity was not provided prior to authentication with Zend_Auth_Adapter_DbTable.';
         }
-        elseif ( ! $this->_credential)
+        elseif ($this->_credential === NULL)
         {
             $exception = 'A credential value was not provided prior to authentication with Zend_Auth_Adapter_DbTable.';
         }
@@ -117,6 +117,8 @@ class Rp_Auth_Adapter_DbTable extends Zend_Auth_Adapter_DbTable
             'messages' => array()
             );
 
+	    echo '<div style="width:100%;height:100%;overflow:auto">';
+	    exit(Zend_Debug::dump($this));
 
         // build credential expression
         if (empty($this->_credentialTreatment) || (strpos($this->_credentialTreatment, "?") === false)) {
