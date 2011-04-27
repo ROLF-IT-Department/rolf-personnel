@@ -55,6 +55,18 @@ class Rp_Db_Table_Ach_Cards extends Rp_Db_Table_Abstract
 		return $this->find($cardId)->current();
 	}
 
+	/**
+	 * Режет карту надвое
+	 *
+	 * @throws Exception
+	 * @param  $person_id
+	 * @param  $card_id
+	 * @param  $period
+	 * @param null $period_start
+	 * @param null $period_end
+	 * @param null $card_creator_id
+	 * @return Zend_Db_Table_Row_Abstract
+	 */
 	public function cut_the_card($person_id, $card_id,  $period, $period_start = NULL, $period_end = NULL, $card_creator_id = NULL)
 	{
 		if (!is_numeric($card_id)) {
@@ -82,6 +94,43 @@ class Rp_Db_Table_Ach_Cards extends Rp_Db_Table_Abstract
 		return $this->fetchRow($where);
 	}
 
+	/**
+	 * Сдвигает временнУю границу для 2х карт
+	 *
+	 * @param array   $cards
+	 * @param integer $period_start
+	 * @return
+	 */
+	public function move_time_border(array $cards, $period_start)
+	{
+		$db = $this->getAdapter();
+		$card_first = $this->fetchRow('id = ' . $db->quote($cards['current']->id));
+		$card_second = $this->fetchRow('id = ' . $db->quote($cards[2]->id));
+
+		$this->update(
+			array(
+				'period_end' => date('Y-m-d', $period_start - 86400),
+			),
+			$db->quote($card_first->id, Zend_Db::INT_TYPE)
+		);
+
+		$this->update(
+			array(
+				'period_start' => date('Y-m-d', $period_start),
+			),
+			$db->quote($card_second->id, Zend_Db::INT_TYPE)
+		);
+
+		return $cards[2];
+	}
+
+	/**
+	 * Блокировка карт
+	 *
+	 * @param integer $card_id
+	 * @param integer $user_id
+	 * @return boolean
+	 */
 	public function blockCard($card_id, $user_id)
 	{
 		$db = $this->getAdapter();
@@ -104,10 +153,10 @@ class Rp_Db_Table_Ach_Cards extends Rp_Db_Table_Abstract
 	 * Если карточка не будет найдена, то метод создаст
 	 * новую карточку с указанными значениями $personId.
 	 *
-	 * @param int $personId Идентификатор физ. лица.
-	 * @param int $card_id   Период карточки.
-	 *
-	 * @return Rp_Db_Table_Row_Ach_Card
+	 * @param  $personId
+	 * @param null $card_id
+	 * @param null $period
+	 * @return null|Rp_Db_Table_Row_Ach_Card|Zend_Db_Table_Row_Abstract
 	 */
 	public function findByPersonIdAndCard($personId, $card_id = NULL, $period = NULL)
 	{
@@ -185,6 +234,10 @@ class Rp_Db_Table_Ach_Cards extends Rp_Db_Table_Abstract
 		return $rowCard;
 	}
 
+	/**
+	 * @param  $person_id
+	 * @return Zend_Db_Table_Rowset_Abstract
+	 */
 	public function get_cards_and_periods($person_id)
 	{
 		$db = $this->getAdapter();

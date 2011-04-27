@@ -9,24 +9,27 @@ class Card_CardController extends Zend_Controller_Action
 		$person_id       = $request->getPost('person_id', NULL);
 		$card_creator_id = $request->getPost('card_creator_id', NULL);
 		$period_start    = $request->getPost('period_start', NULL);
-//		$period_end      = $request->getPost('period_end', date('31.12.Y'));
 
 		$_period_start = ($period_start) ? strtotime($period_start) : NULL;
-//		$period_end =   ($period_start)   ? date('31.12.Y', $period_start) : NULL;
+		$period        = date('Y', $_period_start);
 
-		$period = date('Y', $_period_start);
+		$period_start = date('Y-m-d 00:00', $_period_start);
+		$period_end   = date('Y-12-31 00:00', $_period_start);
 
-		$period_start = date('Y-m-d H:i', $_period_start);
-		$period_end = date('Y-12-31 H:i', $_period_start);
+		if( ! $person_id OR ! $card_creator_id OR ! $period_start)
+		{
+			throw new ErrorException('Не определены основные параметры.');
+		}
 
+		$_cards = new Rp_Db_Table_Ach_Cards();
 
-		$cards = new Rp_Db_Table_Ach_Cards();
+		$where ='person_id = ' . (int) $person_id . ' AND period = ' . (int) $period;
 
-		$where ='person_id = ' . $person_id . ' AND period = ' . $period;
+		$old_cards = $_cards->fetchAll($where);
 
-		$old_cards = $cards->fetchAll($where);
+		$old_cards_count = count($old_cards);
 
-		if(count($old_cards) >= 1)
+		if($old_cards_count == 1)
 		{
 			$card_id = NULL;
 			foreach($old_cards as $old_card)
@@ -35,20 +38,145 @@ class Card_CardController extends Zend_Controller_Action
 				{
 					$card_id = $old_card->id;
 				}
-				$card_period_start = strtotime($old_card->period_start);
-				$card_period_end   = strtotime($old_card->period_end);
+			}
 
-				if($_period_start < $card_period_start)
+			$new_card = $_cards->cut_the_card($person_id, $card_id, $period, $period_start, $period_end, $card_creator_id);
+		}
+		elseif($old_cards_count > 1)
+		{
+			$old_cards_arr = array();
+			foreach($old_cards as $old_card)
+			{
+				$old_cards_arr[] = array(
+					'period_start' => strtotime($old_card->period_start),
+					'period_end' => strtotime($old_card->period_end),
+					'card' => $old_card
+				);
+			}
+
+			$cards = array();
+			foreach($old_cards_arr as $i => $old_card)
+			{
+				if(
+					    $_period_start > $old_card['period_start']
+					AND $_period_start < $old_card['period_end']
+				)
 				{
-					$period_end = date('Y-m-d H:i', $card_period_start - 86400);
+					$cards[1] = isset($old_cards_arr[$i - 1]) ? $old_cards_arr[$i - 1]['card'] : NULL;
+					$cards[2] = isset($old_cards_arr[$i + 1]) ? $old_cards_arr[$i + 1]['card'] : NULL;
+					$cards['current'] = $old_card['card'];
+					break;
 				}
 			}
 
-			$new_card = $cards->cut_the_card($person_id, $card_id, $period, $period_start, $period_end, $card_creator_id);
+			if($cards[2] == NULL)
+			{
+				$new_card = $_cards->cut_the_card($person_id, $cards['current']->id, $period, $period_start, $period_end, $card_creator_id);
+			}
+			else
+			{
+				$new_card = $_cards->move_time_border($cards, $_period_start);
+			}
+//			$move_period_start = FALSE;
+//			$cards = array();
+//			foreach($old_cards as $old_card)
+//			{
+//				$old_card_period_start = strtotime($old_card->period_start);
+//				$old_card_period_end   = strtotime($old_card->period_end);
+//
+//				if(
+//					    $_period_start > $old_card_period_start
+//					AND $_period_start < $old_card_period_end
+//					AND date('d.m', $old_card_period_end) == '31.12'
+//				)
+//				{
+//					$new_card = $cards->cut_the_card($person_id, $old_card->id, $period, $period_start, $period_end, $card_creator_id);
+//				}
+//				elseif(
+//					    $_period_start > $old_card_period_start
+//					AND $_period_start < $old_card_period_end
+//					AND date('d.m', $old_card_period_start) == '01.01'
+//				)
+//				{
+//					$move_period_start = TRUE;
+//					$cards[1] = $old_card;
+//				}
+//				else
+//				{
+////					if( ! isset($cards[1]) AND ! isset($cards[2]))
+////					{
+////						$cards[1] = $old_card;
+////					}
+//					if(isset($cards[1]) AND !isset($cards[2]))
+//					{
+//						$cards[2] = $old_card;
+//					}
+//				}
+//			}
+//
+//			if($move_period_start === TRUE)
+//			{
+//				$new_card = $cards->move_time_border($cards, $_period_start);
+//
+//			}
+//		}
+//		elseif($old_cards_count > 2)
+//		{
+//			$move_period_start = FALSE;
+//			$cards = array();
+//			foreach($old_cards as $old_card)
+//			{
+//				$old_card_period_start = strtotime($old_card->period_start);
+//				$old_card_period_end   = strtotime($old_card->period_end);
+//
+//				if(
+//					    $_period_start > $old_card_period_start
+//					AND $_period_start < $old_card_period_end
+//					AND date('d.m', $old_card_period_end) == '31.12'
+//				)
+//				{
+//					$new_card = $cards->cut_the_card($person_id, $old_card->id, $period, $period_start, $period_end, $card_creator_id);
+//				}
+//				elseif(
+//					    $_period_start > $old_card_period_start
+//					AND $_period_start < $old_card_period_end
+//					AND date('d.m', $old_card_period_start) == '01.01'
+//				)
+//				{
+//					$move_period_start = TRUE;
+//					$cards[1] = $old_card;
+//				}
+//				elseif(
+//					    $_period_start > $old_card_period_start
+//					AND $_period_start < $old_card_period_end
+//					AND date('d.m', $old_card_period_start) != '01.01'
+//					AND date('d.m', $old_card_period_end) != '31.12'
+//				)
+//				{
+//
+//				}
+//				else
+//				{
+//					if( ! isset($cards[1]) AND ! isset($cards[2]))
+//					{
+//						$cards[1] = $old_card;
+//					}
+//					if(isset($cards[1]) AND !isset($cards[2]))
+//					{
+//						$cards[2] = $old_card;
+//					}
+//				}
+//			}
+//
+//			if($move_period_start === TRUE)
+//			{
+//				$new_card = $cards->move_time_border($cards, $_period_start);
+//
+//			}
 		}
-		elseif(count($old_cards) == 0)
+		elseif($old_cards_count == 0)
 		{
-			$new_card = $cards->createCard($person_id, $period, $period_start, $period_end, $card_creator_id);
+			$new_card = $_cards->createCard($person_id, $period, $period_start, $period_end, $card_creator_id);
 		}
 
 		$view = $this->initView();

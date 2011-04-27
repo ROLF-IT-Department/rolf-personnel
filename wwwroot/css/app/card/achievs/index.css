@@ -817,7 +817,7 @@ td.ratings-field-total select {
 
 #statistics-total-rating {
 	margin:0 auto;
-	width: 14em;
+	width: 16em;
 }
 
 #statistics-total-rating-confirmation {
@@ -826,7 +826,7 @@ td.ratings-field-total select {
 }
 
 #common_rating_confirmation_buttons {
-	width: 280px;
+	width: 290px;
 	margin: 5px auto;
 }
 
@@ -841,6 +841,8 @@ td.ratings-field-total select {
 	border-right-color: #666666;
 	border-bottom-color: #666666;
 	display:inline-block;
+	zoom: 1;
+	*display: inline!important;
 	background: #CCCCCC;
 	cursor:pointer;
 }
