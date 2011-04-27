@@ -9,30 +9,30 @@
 
 /**
  * Адаптер авторизации в системе.
- * 
+ *
  * @category   Rp
  * @package    Rp_Auth
  * @subpackage Rp_Auth_Adapter
  */
 class Rp_Auth_Adapter_DbTable extends Zend_Auth_Adapter_DbTable
 {
-	/** 
+	/**
 	 * Авторизация через форму ввода логина/пароля.
 	 */
 	const AUTH_FORM = 1;
-	
+
 	/**
 	 * Прозрачная авторизация (windows-авторизация).
 	 */
 	const AUTH_TRANSPARENT = 2;
-	
+
 	/**
 	 * Конструктор.
 	 *
 	 * @param string $username Имя пользователя.
 	 * @param string $password Пароль пользователя.
 	 * @param int    $authtype Тип авторизации.
-	 * 
+	 *
 	 * @return void
 	 * @throws Exception
 	 */
@@ -40,28 +40,35 @@ class Rp_Auth_Adapter_DbTable extends Zend_Auth_Adapter_DbTable
 	{
 		$identityColumn = '';
 		$credentialColumn = 'password';
-		
-		if (!$username) {
-			//throw new Exception('Не указан логин пользователя.');
-			throw new Exception();
+
+		if ( ! $username)
+		{
+			throw new Exception('Не указан логин пользователя.');
 		}
-		if ($authtype === self::AUTH_TRANSPARENT) {
+		if ($authtype === self::AUTH_TRANSPARENT)
+		{
 			$identityColumn = 'netname';
-		} elseif ($authtype === self::AUTH_FORM) {
-			if (empty($password)) {
+		}
+		elseif($authtype === self::AUTH_FORM)
+		{
+			if ( ! $password)
+			{
 				throw new Exception('Не указан пароль пользователя.');
 			}
+
 			$identityColumn = 'login';
-		} else {
+		}
+		else
+		{
 			throw new Exception('Не верно указан тип авторизации.');
 		}
-		
+
 		$this->setIdentity($username);
 		$this->setCredential($password);
-		
+
 		parent::__construct(Rp::getDbAdapter(), 'user_rp_persons_PM', $identityColumn, $credentialColumn);
 	}
-	
+
 	/**
 	 * Переопределенный метод Zend_Auth_Adapter_DbTable::authenticate().
 	 * После исправления ошибок в стандартном методе нужно удалить этот метод.
@@ -72,20 +79,30 @@ class Rp_Auth_Adapter_DbTable extends Zend_Auth_Adapter_DbTable
 	public function authenticate()
     {
         $exception = null;
-		//exit(Zend_Debug::dump($this));
-        if ($this->_tableName == '') {
+
+        if ( ! $this->_tableName)
+        {
             $exception = 'A table must be supplied for the Zend_Auth_Adapter_DbTable authentication adapter.';
-        } elseif ($this->_identityColumn == '') {
+        }
+        elseif ( ! $this->_identityColumn)
+        {
             $exception = 'An identity column must be supplied for the Zend_Auth_Adapter_DbTable authentication adapter.';
-        } elseif ($this->_credentialColumn == '') {
+        }
+        elseif ( ! $this->_credentialColumn)
+        {
             $exception = 'A credential column must be supplied for the Zend_Auth_Adapter_DbTable authentication adapter.';
-        } elseif ($this->_identity == '') {
+        }
+        elseif ( ! $this->_identity)
+        {
             $exception = 'A value for the identity was not provided prior to authentication with Zend_Auth_Adapter_DbTable.';
-        } elseif ($this->_credential === null) {
+        }
+        elseif ( ! $this->_credential)
+        {
             $exception = 'A credential value was not provided prior to authentication with Zend_Auth_Adapter_DbTable.';
         }
 
-        if (null !== $exception) {
+        if ($exception)
+        {
             /**
              * @see Zend_Auth_Adapter_Exception
              */
@@ -113,12 +130,20 @@ class Rp_Auth_Adapter_DbTable extends Zend_Auth_Adapter_DbTable
         $dbSelect->from($this->_tableName, array('*', $credentialExpression))
                  ->where($this->_zendDb->quoteIdentifier($this->_identityColumn) . ' = ?', $this->_identity);
 
-        $select = str_replace('"', '', $dbSelect->__toString());       
-		
+	    if($this->_credential)
+	    {
+		    $dbSelect->where($this->_zendDb->quoteIdentifier($this->_credentialColumn) . ' = ?', $this->_credential);
+	    }
+
+        $select = str_replace('"', '', $dbSelect->__toString());
+
 		// query for the identity
-        try {
+        try
+        {
         	$resultIdentities = $this->_zendDb->fetchAll($select);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             /**
              * @see Zend_Auth_Adapter_Exception
              */
@@ -128,11 +153,14 @@ class Rp_Auth_Adapter_DbTable extends Zend_Auth_Adapter_DbTable
                                                 . 'for validity.');
         }
 
-        if (count($resultIdentities) < 1) {
+        if (count($resultIdentities) < 1)
+        {
             $authResult['code'] = Zend_Auth_Result::FAILURE_IDENTITY_NOT_FOUND;
             $authResult['messages'][] = 'A record with the supplied identity could not be found.';
             return new Zend_Auth_Result($authResult['code'], $authResult['identity'], $authResult['messages']);
-        } elseif (count($resultIdentities) > 1) {
+        }
+        elseif (count($resultIdentities) > 1)
+        {
             $authResult['code'] = Zend_Auth_Result::FAILURE_IDENTITY_AMBIGUOUS;
             $authResult['messages'][] = 'More than one record matches the supplied identity.';
             return new Zend_Auth_Result($authResult['code'], $authResult['identity'], $authResult['messages']);
