@@ -117,9 +117,6 @@ class Rp_Auth_Adapter_DbTable extends Zend_Auth_Adapter_DbTable
             'messages' => array()
             );
 
-	    echo '<div style="width:100%;height:100%;overflow:auto">';
-	    exit(Zend_Debug::dump($this));
-
         // build credential expression
         if (empty($this->_credentialTreatment) || (strpos($this->_credentialTreatment, "?") === false)) {
             $this->_credentialTreatment = '?';
