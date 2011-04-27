@@ -112,7 +112,7 @@ class Card_AchievsController extends Zend_Controller_Action
 					$rate_days += $_rate['period']['days'];
 				}
 			}
-			$common_rate = round($rate_sum / $rate_days);
+			$common_rate = ($rate_days) ? round($rate_sum / $rate_days) : 0;
 
 			foreach($rate_weights as $id => $weight)
 			{
@@ -130,6 +130,7 @@ class Card_AchievsController extends Zend_Controller_Action
 				$common_rating_confirmed = (bool) $common_rating->confirmed;
 				$common_rating_id        = $common_rating->id;
 			}
+
 		}
 
 		if( ! $more_years)

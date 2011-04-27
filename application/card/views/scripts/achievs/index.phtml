@@ -269,7 +269,7 @@
 						</table>
 						<div id="statistics-total-rating">Общий итоговый рейтинг: <span><?php echo $this->rate_calc['name']?></span></div>
 						<div id="statistics-total-rating-confirmation">Согласование: <span><?php echo ($this->common_rating_confirmed) ? 'Согласовано' : 'Не согласовано'?></span></div>
-						<?php if($this->rate_calc['name'] != '-' AND $this->common_rating_confirmed == FALSE AND $this->userRole == 1):?>
+						<?php if($this->rate_calc['name'] != 'нет' AND $this->common_rating_confirmed == FALSE AND $this->userRole == 1):?>
 						<script type="text/javascript">
 							var common_rating  = {
 								'id'          : <?php echo ($this->common_rating_id) ? $this->common_rating_id : 'null'?>,
@@ -283,7 +283,7 @@
 								<img src='/img/achievs/card/toolbar/approval.gif' alt=""/>
 								<div>Согласовать<span>Confirm</span></div>
 							</div>
-
+&nbsp;
 							<div class="conf_button" id="<?php echo $this->common_rating_id?>" value="0">
 								<img src='/img/achievs/card/toolbar/reject.gif' alt=""/>
 								<div>Отклонить<span>Reject</span></div>
