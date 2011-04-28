@@ -47,6 +47,7 @@ class Zend_View_Helper_EmployeesList
 			if (count($list->subRows) == 0) {
 				$message = 'Нет подчиненных сотрудников';
 			}
+
 			$xhtml[] = '<div class="list-message">' . $message . '</div>';
 			$xhtml[] = $this->_listTable('subemps', 'list-body-table', $list->subRows);
 		}

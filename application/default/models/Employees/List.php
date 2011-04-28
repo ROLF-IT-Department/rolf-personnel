@@ -30,7 +30,6 @@ class Employees_List
 	{
 		if (!empty($postIds))
 		{
-			$table = 'user_rp_tree_posts_employees_PM';
 			$employees = NULL;
 			if ($fetchEmps)
 			{
@@ -104,8 +103,36 @@ class Employees_List
 
 			if ($func)
 			{
-				$table = 'user_rp_tree_posts_func';
-				$this->subRows = $this->_fetch('post_func_id', $postIds, $periodFirst, $periodSecond, $table);
+				$treePostsEmployees =      new Rp_Db_View_TreePosts_Func();
+				$person_model =            new Rp_Db_View_Persons();
+				$employee_model =          new Rp_Db_View_Employees();
+				$cards_model =             new Rp_Db_Table_Ach_Cards();
+
+				$employees_ids = $treePostsEmployees->fetchFuncEmployeeIds($postIds);
+				$_persons      = $person_model->find($employees_ids);
+
+				foreach($_persons as $person)
+				{
+					$employees[$person->id]['info'] = $person;
+					$employees[$person->id]['attribs'] = $employee_model->find_full_info($person->id);//$employees_attribs_model->find($person->id)->current();
+
+					$where ='person_id = ' . $person->id . ' AND period IN (' . $periodFirst . ',' . $periodSecond . ')';
+					$cards = $cards_model->fetchAll($where);
+
+					foreach($cards as $card)
+					{
+						if($card->period == $periodFirst)
+						{
+							$employees[$person->id]['cards'][$periodFirst][] = $card;
+						}
+						elseif($card->period == $periodSecond)
+						{
+							$employees[$person->id]['cards'][$periodSecond][] = $card;
+						}
+					}
+				}
+
+				$this->subRows = $employees;
 			}
 		}
 		else
