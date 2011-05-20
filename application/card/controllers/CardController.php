@@ -2,6 +2,10 @@
 
 class Card_CardController extends Zend_Controller_Action
 {
+	/**
+	 * @throws ErrorException
+	 * @return void
+	 */
 	public function createAction()
 	{
 		$request = $this->getRequest();
@@ -77,102 +81,6 @@ class Card_CardController extends Zend_Controller_Action
 			{
 				$new_card = $_cards->move_time_border($cards, $_period_start);
 			}
-//			$move_period_start = FALSE;
-//			$cards = array();
-//			foreach($old_cards as $old_card)
-//			{
-//				$old_card_period_start = strtotime($old_card->period_start);
-//				$old_card_period_end   = strtotime($old_card->period_end);
-//
-//				if(
-//					    $_period_start > $old_card_period_start
-//					AND $_period_start < $old_card_period_end
-//					AND date('d.m', $old_card_period_end) == '31.12'
-//				)
-//				{
-//					$new_card = $cards->cut_the_card($person_id, $old_card->id, $period, $period_start, $period_end, $card_creator_id);
-//				}
-//				elseif(
-//					    $_period_start > $old_card_period_start
-//					AND $_period_start < $old_card_period_end
-//					AND date('d.m', $old_card_period_start) == '01.01'
-//				)
-//				{
-//					$move_period_start = TRUE;
-//					$cards[1] = $old_card;
-//				}
-//				else
-//				{
-////					if( ! isset($cards[1]) AND ! isset($cards[2]))
-////					{
-////						$cards[1] = $old_card;
-////					}
-//					if(isset($cards[1]) AND !isset($cards[2]))
-//					{
-//						$cards[2] = $old_card;
-//					}
-//				}
-//			}
-//
-//			if($move_period_start === TRUE)
-//			{
-//				$new_card = $cards->move_time_border($cards, $_period_start);
-//
-//			}
-//		}
-//		elseif($old_cards_count > 2)
-//		{
-//			$move_period_start = FALSE;
-//			$cards = array();
-//			foreach($old_cards as $old_card)
-//			{
-//				$old_card_period_start = strtotime($old_card->period_start);
-//				$old_card_period_end   = strtotime($old_card->period_end);
-//
-//				if(
-//					    $_period_start > $old_card_period_start
-//					AND $_period_start < $old_card_period_end
-//					AND date('d.m', $old_card_period_end) == '31.12'
-//				)
-//				{
-//					$new_card = $cards->cut_the_card($person_id, $old_card->id, $period, $period_start, $period_end, $card_creator_id);
-//				}
-//				elseif(
-//					    $_period_start > $old_card_period_start
-//					AND $_period_start < $old_card_period_end
-//					AND date('d.m', $old_card_period_start) == '01.01'
-//				)
-//				{
-//					$move_period_start = TRUE;
-//					$cards[1] = $old_card;
-//				}
-//				elseif(
-//					    $_period_start > $old_card_period_start
-//					AND $_period_start < $old_card_period_end
-//					AND date('d.m', $old_card_period_start) != '01.01'
-//					AND date('d.m', $old_card_period_end) != '31.12'
-//				)
-//				{
-//
-//				}
-//				else
-//				{
-//					if( ! isset($cards[1]) AND ! isset($cards[2]))
-//					{
-//						$cards[1] = $old_card;
-//					}
-//					if(isset($cards[1]) AND !isset($cards[2]))
-//					{
-//						$cards[2] = $old_card;
-//					}
-//				}
-//			}
-//
-//			if($move_period_start === TRUE)
-//			{
-//				$new_card = $cards->move_time_border($cards, $_period_start);
-//
-//			}
 		}
 		elseif($old_cards_count == 0)
 		{
@@ -186,6 +94,9 @@ class Card_CardController extends Zend_Controller_Action
 
 	}
 
+	/**
+	 * @return bool
+	 */
 	public function blockAction()
 	{
 		$request = $this->getRequest();
@@ -198,6 +109,9 @@ class Card_CardController extends Zend_Controller_Action
 		return $cards->blockCard($card_id, $user->id);
 	}
 
+	/**
+	 * @return Zend_Db_Table_Row_Abstract
+	 */
 	public function agreementAction()
 	{
 		$request      = $this->getRequest();

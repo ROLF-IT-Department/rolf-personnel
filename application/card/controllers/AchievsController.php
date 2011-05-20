@@ -32,7 +32,6 @@ class Card_AchievsController extends Zend_Controller_Action
 		$person = $emp->getPerson();
 
 		$cards_and_periods = $cards->get_cards_and_periods($personId);
-
         $ratings = new Rp_Db_Table_Ach_Ratings();
         $rate_weights = $ratings->fetchWeights();
 		$rate_names = $ratings->fetchNames();
@@ -100,6 +99,7 @@ class Card_AchievsController extends Zend_Controller_Action
 		$rate_calc = array('name' => '-');
 		$common_rating_id = NULL;
 		$common_rating_confirmed = FALSE;
+
 		if($statistics)
 		{
 			$rate_sum = 0;
@@ -110,6 +110,13 @@ class Card_AchievsController extends Zend_Controller_Action
 				{
 					$rate_sum  += $_rate['ratings']['total']['weight']*$_rate['period']['days'];
 					$rate_days += $_rate['period']['days'];
+				}
+				elseif( ! $_rate['ratings']['total']['weight'])
+				{
+					$common_rating_id = NULL;
+					$common_rating_confirmed = FALSE;
+					$rate_sum = 0;
+					break;
 				}
 			}
 			$common_rate = ($rate_days) ? round($rate_sum / $rate_days) : 0;
@@ -123,7 +130,7 @@ class Card_AchievsController extends Zend_Controller_Action
 			}
 
 			$common_ratings = new Rp_Db_Table_Ach_Cards_Agreements();
-			$common_rating = $common_ratings->cards_agreement($personId, $period_year);
+			$common_rating = $common_ratings->cards_agreement($personId, $card->period);
 
 			if($common_rating != NULL)
 			{
