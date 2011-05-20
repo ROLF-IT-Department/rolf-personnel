@@ -17,7 +17,7 @@
 class Rp_Db_Table_Ach_Cards_Agreements extends Rp_Db_Table_Abstract
 {
 	protected $_name = 'user_rp_ach_cards_agreements';
-	
+
 	/**
 	 * Возвращает информацию по согласованию карт сотрудника за указанный период
 	 *
@@ -28,19 +28,19 @@ class Rp_Db_Table_Ach_Cards_Agreements extends Rp_Db_Table_Abstract
 	public function cards_agreement($person_id, $period_year)
 	{
 		$where  = 'person_id = '.(int) $person_id;
-		$where .= 'AND period = ' . $period_year;
+		$where .= ' AND period = ' . $period_year;
 		return $this->fetchRow($where);
 	}
 
 	/**
 	 * Создаёт новую запись (или редактирует имеющуюся) согласования общего рейтинга всех карт
 	 *
-	 * @param int      $person_id
-	 * @param int      $period_year
-	 * @param int      $rating_id
-	 * @param int     $confirmation
-	 * @param int|null $confirmation_id
-	 * @return Zend_Db_Table_Row_Abstract
+	 * @param  $person_id
+	 * @param  $period_year
+	 * @param int $rating_id
+	 * @param int $confirmed
+	 * @param null $confirmation_id
+	 * @return int
 	 */
 	public function card_agreement($person_id, $period_year, $rating_id = 0, $confirmed = 0, $confirmation_id = NULL)
 	{
