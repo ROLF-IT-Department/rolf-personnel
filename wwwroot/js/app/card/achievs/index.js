@@ -140,13 +140,13 @@ function init()
 	Toolbar.addItem({text: 'Печатная форма<br><span class="translate_toolbar">Print</span>', onclick: toolbarItemPrint}).addClassName('toolbar-item-print');
 
 
+	// Отображение кнопок редактирования карт
 	var posts = User.viewposts,
 		IS_HR = false;
 	for (var key in posts) {
-		if(posts[key].pid == ' ')
-		{
+
+		if(posts.length > 0)
 			IS_HR = true;
-		}
 	}
 	if(IS_HR)
 	{
