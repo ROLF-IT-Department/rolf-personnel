@@ -14,6 +14,7 @@ Js.Toolbar = function(id, classNames)
 
 	this.onclick  = null;
 	this.onselect = null;
+	
 
 	this.getItem = function(id)
 	{
@@ -23,9 +24,10 @@ Js.Toolbar = function(id, classNames)
 	this.addItem = function(attribs)
 	{
 		var item = new Js.ToolbarItem(attribs);
-
+		
 		return this.appendItem(item);
 	}
+	
 
 	this.appendItem = function(item)
 	{
@@ -97,18 +99,19 @@ Js.ToolbarItem = function(attribs)
 	this.render = function(classNames)
 	{
 		_classNames = classNames;
-
+		
 		_tag.className = this.className += ' ' + classNames.item;
-
+		
 		if (this.selected) {
 			_tag.className += ' ' + classNames.itemSelected;
 		}
 		_label.innerHTML = this.text;
 
 		this.rendered = true;
-
+		
 		return _tag;
 	}
+	
 
 	this.click = function()
 	{
@@ -130,7 +133,8 @@ Js.ToolbarItem = function(attribs)
 
 		if (this.onselect) {
 			this.onselect(this);
-		}
+		} 
+
 		if (this.toolbar) {
 			this.toolbar.onselectHandler(this);
 		}
@@ -143,7 +147,7 @@ Js.ToolbarItem = function(attribs)
 
 		this.selected = false;
 	}
-
+	
 	this.addClassName = function(className)
 	{
 		if (className) {

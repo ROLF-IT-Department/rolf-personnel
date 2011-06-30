@@ -24,7 +24,7 @@ Js = new function()
 	this.open = function(url, name, width, height, top, left, params)
 	{
 		params = params ? [params.join('=1,') + '=1'] : [];
-
+		
 		if (width) {
 			params.push('width=' + width);
 		}

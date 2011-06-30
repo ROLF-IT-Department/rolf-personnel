@@ -1,4 +1,3 @@
-
 var main = null;
 var menu = null;
 
@@ -175,7 +174,7 @@ function toolbarItemRefresh()
 function toolbarItemHelp()
 {
 	var url = BASE_URL + '/help';
-	Js.open(url, '', 450, 350, null, null, ['status', 'resizable']);
+	Js.open(url, '', 480, 350, null, null, ['status', 'resizable']);
 }
 
 function toolbarItemIntegrate()
@@ -196,5 +195,4 @@ function forwardIntegratePerson(person_id)
 {
 	var url = BASE_URL + '/integrate/index/id/' + person_id ;		// перенаправляем на метод авторизации
 	window.location = url;
-
 }

@@ -1,26 +1,26 @@
 <?php
 
 class Zend_View_Helper_AchievsFormCompetences
-{	
+{
 	/**
 	 * Объект представления.
-	 * 
+	 *
      * @var Zend_View_Interface
      */
     public $view;
-	
+
 	public function setView(Zend_View_Interface $view)
     {
 		$this->view = $view;
     }
-    
+
     public function achievsFormCompetences(Rp_Db_Table_Rowset $competences, array $ratings, $rate_weights, $cardRtgCompetensId)
     {
     	$competences = $competences->toArray();
 
 		$xhtml  = array();
     	$stands = array();
-    	$addits = array(); 
+    	$addits = array();
     	$xhtml[] = '
 			<div class="grid-head">
 				<table class="grid-head-table">
@@ -38,8 +38,6 @@ class Zend_View_Helper_AchievsFormCompetences
 			</div>
     		<div class="grid-body">
 		';
-
-		
 
     	$stands[] = '
     			<div class="compets-type">Корпоративные компетенции - <span class="translate_category_tasks">Corporate competences</span></div>
@@ -87,9 +85,9 @@ class Zend_View_Helper_AchievsFormCompetences
 						</tr>
 					</tbody>
 				</table>
-			</div>    	
+			</div>
 		';
-    	
+
     	return implode('', $xhtml);
     }
 
@@ -97,35 +95,41 @@ class Zend_View_Helper_AchievsFormCompetences
     {
     	$sum = 0;
     	$count = 0;
-    	foreach ($competences as $item) {
-    		if ((!$item['disabled']) && ($item['rating_id']) && (!$item['is_personal'])) 
-    			{
-    				$val = $rate_weights[$item['rating_id']]['weight'];		// вес рейтинга
-    				$sum += $val;
-    				if ($val != 0)
-    					$count++;
-    			}
-    		
+    	foreach ($competences as $item)
+	    {
+    		if ((!$item['disabled']) && ($item['rating_id']) && (!$item['is_personal']))
+			{
+				$val = $rate_weights[$item['rating_id']]['weight'];		// вес рейтинга
+				$sum += $val;
+				if ($val != 0)
+					$count++;
+			}
     	}
+
     	$result = 0;
    		if ($count) $result = round($sum / $count);
    		$rate = new Rp_Db_Table_Ach_Ratings();
    		$name = $rate->fetchNameWeights();
    		$ret = null;
+
    		foreach ($name as $key=>$value)
-   			if ($value[weight]==$result) $ret = $key; 
+	   {
+		   if ($value[weight]==$result)
+			   $ret = $key;
+	   }
+
     	return $ret;
     }
-    
+
     public function _rowCompetence(array $competence, array $ratings)
     {
-    	$standsCounter = 0;
-    	$additsCounter = 0;
-    	
-    	
+    	static $standsCounter = 0;
+    	static $additsCounter = 0;
+
+
     	$competen = new Rp_Db_Table_Ach_Cards_Competences();
 		$competen = $competen->find($competence['id'])->current();
-		
+
 		$num  = $competence['additional'] ? ++$additsCounter : ++$standsCounter;
 		$name = 'competences[' . $competence['id'] . ']';
 		$kol = count($competen->fetchNotes($competen->id));

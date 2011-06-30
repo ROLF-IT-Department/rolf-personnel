@@ -15,11 +15,11 @@
  * @subpackage Rp_Db_View
  */
 class Rp_Db_View_TreePosts_Employees extends Rp_Db_View_Abstract
-{	
+{
 	protected $_name = 'user_rp_tree_posts_employees_PM';
-	
+
 	/**
-	 * Возвращает массив идентификаторов должностей, 
+	 * Возвращает массив идентификаторов должностей,
 	 * на которых находятся сотрудники с идентификаторами $employeeId.
 	 *
 	 * @param  int|array $employeeId Идентификатор или массив идентификаторов сотрудников.
@@ -31,9 +31,9 @@ class Rp_Db_View_TreePosts_Employees extends Rp_Db_View_Abstract
 		$where = "person_id IN ($employeeId)";
 		return $this->_fetchCol('post_id', $where);
 	}
-	
+
 	/**
-	 * Возвращает массив идентификаторов сотрудников, 
+	 * Возвращает массив идентификаторов сотрудников,
 	 * находящихся на должности с идентификатором $postId.
 	 *
 	 * @param  int|array $postId Идентификатор или массив идентификаторов должности.
@@ -43,6 +43,20 @@ class Rp_Db_View_TreePosts_Employees extends Rp_Db_View_Abstract
 	{
 		$postId = $this->_quote($postId);
 		$where = "post_id IN ($postId)";
+		return $this->_fetchCol('person_id', $where);
+	}
+
+	/**
+	 * Возвращает массив идентификаторов сотрудников,
+	 * находящихся на должности с идентификатором $postId.
+	 *
+	 * @param  int|array $postId Идентификатор или массив идентификаторов должности.
+	 * @return array
+	 */
+	public function fetchEmployeeIds_by_pid($postId)
+	{
+		$postId = $this->_quote($postId);
+		$where = "post_pid IN ($postId)";
 		return $this->_fetchCol('person_id', $where);
 	}
 }

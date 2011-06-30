@@ -15,27 +15,29 @@
  * @subpackage Rp_Db_View
  */
 class Rp_Db_View_IntegratedPersons extends Rp_Db_View_Abstract
-{	
+{
 	protected $_name = 'user_rp_persons_integrated_PM';
-	
+
 	protected $_primary = 'person_id';
-	
+
 	/**
 	 * Возвращает массив названий должностей.
 	 *
-	 * @param int|array $id    Идентификатор или массив идентификаторов сотрудников.
-	 * @param string    $order Условие сортировки.
-	 * 
-	 * @return array
+	 * @param null|int|array $person_id Идентификатор или массив идентификаторов сотрудников.
+	 * @return array|null
 	 */
 	public function fetchRefID($person_id = null)
 	{
-		return $this->_fetchCol('ref_id', 'person_id = ' . $person_id);
+		return ($person_id === NULL) ?  NULL : $this->_fetchCol('ref_id', 'person_id = ' . $person_id);
 	}
-	
-	public function fetchPersonID($ref_id = null)
+
+	/**
+	 * 
+	 * @param null|int $ref_id
+	 * @return array|null
+	 */
+	public function fetchPersonID($ref_id = NULL)
 	{
-		return $this->_fetchCol('person_id', 'ref_id = ' . $ref_id);
+		return ($ref_id === NULL) ? NULL : $this->_fetchCol('person_id', 'ref_id = ' . $ref_id);
 	}
-	
 }

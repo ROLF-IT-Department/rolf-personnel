@@ -4,7 +4,6 @@ class Card_View_Helper_AchievsCompetenceNotes
 {	
 	public function achievsCompetenceNotes(Zend_Db_Table_Rowset_Abstract $notes, $is_personal)
 	{
-		//exit(var_dump(count($notes)));
 		$xhtml = array();
 		
 		$xhtml[] = '

@@ -1,4 +1,3 @@
-
 var elems   = null;
 var Tabs    = null;
 var Toolbar = null;
@@ -29,6 +28,8 @@ function init()
 	Tabs.addTab('tabs-item-trains', 'tabs-body-trains');
 	Tabs.addTab('tabs-item-comments', 'tabs-body-comments');
 	Tabs.addTab('tabs-item-personal', 'tabs-body-personal');
+	if(has_statistics)
+		Tabs.addTab('tabs-item-statistics', 'tabs-body-statistics');
 
 	// Активация последней посещённой вкладки
 	if(active_tab)
@@ -38,83 +39,117 @@ function init()
 
 	Toolbar = new Js.Toolbar('toolbarBox');
 
-	if (count_func > 0)	 Card.displayRatio();		// выводим соотношение весов
+	// выводим соотношение весов
+	if (count_func > 0)	 Card.displayRatio();
 
 	switch (elems.status_id.value) {
 		case 'NEW':			// новая карточка
 		case 'PLN':			// планирование (выставление бизнес-целей и тренингов)
+
 			Toolbar.addItem({text: 'Сохранить<br><span class="translate_toolbar">Save</span>', onclick: toolbarItemSave}).addClassName('toolbar-item-save');
 			Toolbar.addItem({text: 'Закрыть<br><span class="translate_toolbar">Save & Close</span>', onclick: toolbarItemSaveClose}).addClassName('toolbar-item-save-close');
-			if (USER_ROLE & ROLE_EMPLOYEE) {
+
+			if (USER_ROLE & ROLE_EMPLOYEE && ! is_blocked)
+			{
 				Card.setModePersonalPlan();
 				Card.setEditEmpComments();
 			}
-			if (USER_ROLE & ROLE_MANAGER) {
+
+			if (USER_ROLE & ROLE_MANAGER && ! is_blocked)
+			{
 				Toolbar.addItem({text: 'Согласовать<br><span class="translate_toolbar">Approve</span>', onclick: toolbarItemApprovalPlan}).addClassName('toolbar-item-approval');
 				Card.setModePlan();
 			}
-			if (USER_ROLE & ROLE_FUNC_MANAGER) {
+
+			if (USER_ROLE & ROLE_FUNC_MANAGER && ! is_blocked)
+			{
 				Card.setModePlanFuncMng();
 			}
 			break;
 
-		case 'CPN':			// согласование планирования
-			if (USER_ROLE & ROLE_MANAGER) {
+		// согласование планирования
+		case 'CPN':
+			if (USER_ROLE & ROLE_MANAGER && ! is_blocked)
+			{
 				Toolbar.addItem({text: 'Редактировать<br><span class="translate_toolbar">Edit</span>', onclick: toolbarItemEditPlan}).addClassName('toolbar-item-edit');
 			}
+
 			if (USER_ROLE & ROLE_EMPLOYEE && elems['approvals[plan_emp_status]'].value != '1' ||
 				USER_ROLE & ROLE_HIGH_MANAGER && elems['approvals[plan_hmg_status]'].value != '1' ||
-				USER_ROLE & ROLE_FUNC_MANAGER && elems['approvals[plan_fnc_status]'].value != '1') {
+				USER_ROLE & ROLE_FUNC_MANAGER && elems['approvals[plan_fnc_status]'].value != '1'
+			    && ! is_blocked)
+			{
 				Toolbar.addItem({text: 'Согласовать<br><span class="translate_toolbar">Approve</span>', onclick: toolbarItemApprovalPlan}).addClassName('toolbar-item-approval');
 			}
+
 			if (USER_ROLE & ROLE_EMPLOYEE && elems['approvals[plan_emp_status]'].value == '' ||
 				USER_ROLE & ROLE_HIGH_MANAGER && elems['approvals[plan_hmg_status]'].value == '' ||
-				USER_ROLE & ROLE_FUNC_MANAGER && elems['approvals[plan_fnc_status]'].value == '') {
+				USER_ROLE & ROLE_FUNC_MANAGER && elems['approvals[plan_fnc_status]'].value == ''
+			    && ! is_blocked)
+			{
 				Toolbar.addItem({text: 'Отклонить<br><span class="translate_toolbar">Reject</span>', onclick: toolbarItemRejectPlan}).addClassName('toolbar-item-reject');
 			}
 			break;
 
-		case 'RTG':			// оценка (выставление рейтингов)
+		// оценка (выставление рейтингов)
+		case 'RTG':
 			Toolbar.addItem({text: 'Сохранить<br><span class="translate_toolbar">Save</span>', onclick: toolbarItemSave}).addClassName('toolbar-item-save');
 			Toolbar.addItem({text: 'Закрыть<br><span class="translate_toolbar">Save & Close</span>', onclick: toolbarItemSaveClose}).addClassName('toolbar-item-save-close');
-			if (USER_ROLE & ROLE_EMPLOYEE) {
+
+			if (USER_ROLE & ROLE_EMPLOYEE && ! is_blocked)
+			{
 				Card.setModeRatePersonal();
 				Card.setEditEmpComments();
 			}
-			if (USER_ROLE & ROLE_MANAGER) {
+
+			if (USER_ROLE & ROLE_MANAGER && ! is_blocked)
+			{
 				Toolbar.addItem({text: 'Редактировать<br><span class="translate_toolbar">Edit</span>', onclick: toolbarItemEditPlan}).addClassName('toolbar-item-edit');
 				Toolbar.addItem({text: 'Согласовать<br><span class="translate_toolbar">Approve</span>', onclick: toolbarItemApprovalRate}).addClassName('toolbar-item-approval');
 				Card.setModeRate();
 			}
-			if (USER_ROLE & ROLE_FUNC_MANAGER) {
+
+			if (USER_ROLE & ROLE_FUNC_MANAGER && ! is_blocked)
+			{
 				Card.setModeRateFuncMng();
 			}
 			break;
 
-		case 'CRG':			// согласование оценки
-			if (USER_ROLE & ROLE_MANAGER) {
+		// согласование оценки
+		case 'CRG':
+			if (USER_ROLE & ROLE_MANAGER && ! is_blocked)
+			{
 				Toolbar.addItem({text: 'Редактировать<br><span class="translate_toolbar">Edit</span>', onclick: toolbarItemEditRate}).addClassName('toolbar-item-edit');
 			}
+
 			if (USER_ROLE & ROLE_EMPLOYEE && elems['approvals[rate_emp_status]'].value != '1' ||
 				USER_ROLE & ROLE_HIGH_MANAGER && elems['approvals[rate_hmg_status]'].value != '1' ||
-				USER_ROLE & ROLE_FUNC_MANAGER && elems['approvals[rate_fnc_status]'].value != '1') {
+				USER_ROLE & ROLE_FUNC_MANAGER && elems['approvals[rate_fnc_status]'].value != '1'
+			    && ! is_blocked)
+			{
 				Toolbar.addItem({text: 'Согласовать<br><span class="translate_toolbar">Approve</span>', onclick: toolbarItemApprovalRate}).addClassName('toolbar-item-approval');
 			}
+
 			if (USER_ROLE & ROLE_EMPLOYEE && elems['approvals[rate_emp_status]'].value == '' ||
 				USER_ROLE & ROLE_HIGH_MANAGER && elems['approvals[rate_hmg_status]'].value == '' ||
-				USER_ROLE & ROLE_FUNC_MANAGER && elems['approvals[rate_fnc_status]'].value == '') {
+				USER_ROLE & ROLE_FUNC_MANAGER && elems['approvals[rate_fnc_status]'].value == ''
+			    && ! is_blocked)
+			{
 				Toolbar.addItem({text: 'Отклонить<br><span class="translate_toolbar">Reject</span>', onclick: toolbarItemRejectRate}).addClassName('toolbar-item-reject');
 			}
-			if (USER_ROLE & ROLE_EMPLOYEE) {
+
+			if (USER_ROLE & ROLE_EMPLOYEE && ! is_blocked)
+			{
 				Toolbar.addItem({text: 'Сохранить<br><span class="translate_toolbar">Save</span>', onclick: toolbarItemSave}).addClassName('toolbar-item-save');
 				Toolbar.addItem({text: 'Закрыть<br><span class="translate_toolbar">Save & Close</span>', onclick: toolbarItemSaveClose}).addClassName('toolbar-item-save-close');
 
 			}
-
 			break;
 
-		case 'CLS':			// закрытая карточка
-			if (USER_ROLE & ROLE_MANAGER) {
+		// закрытая карточка
+		case 'CLS':
+			if (USER_ROLE & ROLE_MANAGER && ! is_blocked)
+			{
 				Toolbar.addItem({text: 'Редактировать<br><span class="translate_toolbar">Edit</span>', onclick: toolbarItemEditRate}).addClassName('toolbar-item-edit');
 			}
 			break;
@@ -125,26 +160,45 @@ function init()
 	Toolbar.addItem({text: 'Обновить<br><span class="translate_toolbar">Refresh</span>', onclick: toolbarItemRefresh}).addClassName('toolbar-item-refresh');
 	Toolbar.addItem({text: 'Печатная форма<br><span class="translate_toolbar">Print</span>', onclick: toolbarItemPrint}).addClassName('toolbar-item-print');
 
-	// Если карточку просматривает HR сотрудник, то фигачим кнопки создания и блокировки/разблокировки карточки
-//	if (ROLE_VIEWER_USER == 1000) {
-//		Toolbar.addItem({text: 'Создать карточку<br><span class="translate_toolbar">Create new</span>', onclick: toolbarItemCreateNewCard}).addClassName('toolbar-item-new-card');
-//		Toolbar.addItem({text: 'Блокировать/Разблокировать<br><span class="translate_toolbar">Block/Unbloc</span>', onclick: toolbarItemBlockUnblockCard}).addClassName('toolbar-item-block-unblock');
-//	}
+	// Отображение кнопок редактирования карт
+	var posts = User.viewposts,
+		IS_HR = false;
+	for (var key in posts) {
 
-	// если для определенной карточки роль пользователь совпадает с ролью непосредственного руководителя то делаем заметки видимыми
+		if(posts.length > 0)
+			IS_HR = true;
+	}
+	if(IS_HR)
+	{
+		Toolbar.addItem({text: 'Создать карточку<br><span class="translate_toolbar">Create Card</span>', onclick: toolbarItemCreateCard}).addClassName('toolbar-item-card_create');
 
-	if (USER_ROLE & ROLE_EMPLOYEE) {
-		Card.setEditPersonalNotes();
+		var blocked_text;
+		if(is_blocked)
+		{
+			 blocked_text_ru = 'Разблокировать';
+			 blocked_text_en = 'Unblock';
+		}
+		else
+		{
+			blocked_text_ru = 'Блокировать';
+			blocked_text_en = 'Block';
+		}
+
+		Toolbar.addItem({text: blocked_text_ru + ' карточку<br><span class="translate_toolbar">' + blocked_text_en +' Card</span>', onclick: toolbarItemCardBlock}).addClassName('toolbar-item-card_block');
 	}
 
-	if (USER_ROLE & ROLE_MANAGER) {
+	// если для определенной карточки роль пользователь совпадает с ролью непосредственного руководителя то делаем заметки видимыми
+	if (USER_ROLE & ROLE_EMPLOYEE)
+		Card.setEditPersonalNotes();
+
+	if (USER_ROLE & ROLE_MANAGER)
+	{
 		Card.setEditNotes();
 		Card.setEditCompetenceNotes();
 	}
 
-	if (USER_ROLE & ROLE_FUNC_MANAGER) {
+	if (USER_ROLE & ROLE_FUNC_MANAGER)
 		Card.setEditFuncNotes();
-	}
 }
 
 /**
@@ -191,7 +245,8 @@ function toolbarItemSaveClose()
 function toolbarItemEditPlan()
 {
 	var msg = 'Внимание! При переходе в статус планирования все ранее полученные согласования будут сняты!\n\nAttention! When shifting to the planning status all previous plan confirmations will be removed!';
-	if (window.confirm(msg)) {
+	if (window.confirm(msg))
+	{
 		elems['approvals[plan_mng_status]'].value = '';
 		edit = true;
 		Card.save();
@@ -213,27 +268,34 @@ function toolbarItemEditRate()
 
 function toolbarItemApprovalPlan()
 {
-	if (USER_ROLE & ROLE_MANAGER) {
+	if (USER_ROLE & ROLE_MANAGER)
+	{
 		if (!Card.checkSetPlan(count_func)) return;
 		elems['approvals[plan_mng_id]'].value = elems.userId.value;
 		elems['approvals[plan_mng_status]'].value = 1;
 
 		sendEmail();
 	}
-	if (USER_ROLE & ROLE_EMPLOYEE) {
+
+	if (USER_ROLE & ROLE_EMPLOYEE)
+	{
 		elems['approvals[plan_emp_status]'].value = 1;
 	}
-	if (USER_ROLE & ROLE_HIGH_MANAGER) {
+
+	if (USER_ROLE & ROLE_HIGH_MANAGER)
+	{
 		elems['approvals[plan_hmg_id]'].value = elems.userId.value;
 		elems['approvals[plan_hmg_status]'].value = 1;
 	}
 
-	if (count_func == 0) {
+	if (count_func == 0)
+	{
 		elems['approvals[plan_fnc_id]'].value = elems.userId.value;
 		elems['approvals[plan_fnc_status]'].value = 1;
 	}
 
-	if (USER_ROLE & ROLE_FUNC_MANAGER) {
+	if (USER_ROLE & ROLE_FUNC_MANAGER)
+	{
 		elems['approvals[plan_fnc_id]'].value = elems.userId.value;
 		elems['approvals[plan_fnc_status]'].value = 1;
 	}
@@ -244,31 +306,34 @@ function toolbarItemApprovalPlan()
 function toolbarItemApprovalRate()
 {
 
-	if (USER_ROLE & ROLE_MANAGER) {
-		if (!Card.checkSetRatings(count_func)) {
+	if (USER_ROLE & ROLE_MANAGER)
+	{
+		if (!Card.checkSetRatings(count_func) || !Card.checkBalanceTasks() || !Card.checkBalanceCompetences())
 			return;
-		}
-		if (!Card.checkBalanceTasks()) return;
-		if (!Card.checkBalanceCompetences()) return;
+
 		elems['approvals[rate_mng_id]'].value = elems.userId.value;
 		elems['approvals[rate_mng_status]'].value = 1;
 
 		sendEmail();
 	}
-	if (USER_ROLE & ROLE_EMPLOYEE) {
+
+	if (USER_ROLE & ROLE_EMPLOYEE)
 		elems['approvals[rate_emp_status]'].value = 1;
-	}
-	if (USER_ROLE & ROLE_HIGH_MANAGER) {
+
+	if (USER_ROLE & ROLE_HIGH_MANAGER)
+	{
 		elems['approvals[rate_hmg_id]'].value = elems.userId.value;
 		elems['approvals[rate_hmg_status]'].value = 1;
 	}
 
-	if (count_func == 0) {
+	if (count_func == 0)
+	{
 		elems['approvals[rate_fnc_id]'].value = elems.userId.value;
 		elems['approvals[rate_fnc_status]'].value = 1;
 	}
 
-	if (USER_ROLE & ROLE_FUNC_MANAGER) {
+	if (USER_ROLE & ROLE_FUNC_MANAGER)
+	{
 		elems['approvals[rate_fnc_id]'].value = elems.userId.value;
 		elems['approvals[rate_fnc_status]'].value = 1;
 	}
@@ -278,20 +343,23 @@ function toolbarItemApprovalRate()
 
 function toolbarItemRejectPlan()
 {
-	if (USER_ROLE & ROLE_EMPLOYEE) {
+	if (USER_ROLE & ROLE_EMPLOYEE)
 		elems['approvals[plan_emp_status]'].value = 0;
-	}
-	if (USER_ROLE & ROLE_HIGH_MANAGER) {
+
+	if (USER_ROLE & ROLE_HIGH_MANAGER)
+	{
 		elems['approvals[plan_hmg_id]'].value = elems.userId.value;
 		elems['approvals[plan_hmg_status]'].value = 0;
 	}
 
-	if (count_func == 0) {
+	if (count_func == 0)
+	{
 		elems['approvals[plan_fnc_id]'].value = elems.userId.value;
 		elems['approvals[plan_fnc_status]'].value = 0;
 	}
 
-	if (USER_ROLE & ROLE_FUNC_MANAGER) {
+	if (USER_ROLE & ROLE_FUNC_MANAGER)
+	{
 		elems['approvals[plan_fnc_id]'].value = elems.userId.value;
 		elems['approvals[plan_fnc_status]'].value = 0;
 	}
@@ -301,20 +369,23 @@ function toolbarItemRejectPlan()
 
 function toolbarItemRejectRate()
 {
-	if (USER_ROLE & ROLE_EMPLOYEE) {
+	if (USER_ROLE & ROLE_EMPLOYEE)
 		elems['approvals[rate_emp_status]'].value = 0;
-	}
-	if (USER_ROLE & ROLE_HIGH_MANAGER) {
+
+	if (USER_ROLE & ROLE_HIGH_MANAGER)
+	{
 		elems['approvals[rate_hmg_id]'].value = elems.userId.value;
 		elems['approvals[rate_hmg_status]'].value = 0;
 	}
 
-	if (count_func == 0) {
+	if (count_func == 0)
+	{
 		elems['approvals[rate_fnc_id]'].value = elems.userId.value;
 		elems['approvals[rate_fnc_status]'].value = 0;
 	}
 
-	if (USER_ROLE & ROLE_FUNC_MANAGER) {
+	if (USER_ROLE & ROLE_FUNC_MANAGER)
+	{
 		elems['approvals[rate_fnc_id]'].value = elems.userId.value;
 		elems['approvals[rate_fnc_status]'].value = 0;
 	}
@@ -333,7 +404,8 @@ function toolbarItemRefresh()
 function toolbarItemPrint()
 {
 	var personId = elems.person_id.value;
-	var period = elems.period.options[elems.period.selectedIndex].value;
+//	var period = elems.period.options[elems.period.selectedIndex].value;
+	var period = $('#period option:selected').attr('period');
 
 	var url = BASE_URL + '/card/achievs/print/personid/' + personId + '/period/' + period;
 
@@ -350,6 +422,26 @@ function toolbarItemCreateNewCard()
 	var url = BASE_URL + '/card/new-card/index';
 
 	Js.open(url, 'Создание новой карточки', 400, 510);
+}
+
+function toolbarItemCreateCard()
+{
+	var personId = elems.person_id.value;
+
+	var url = BASE_URL + '/card/index/create/personid/' + personId;
+
+	Js.open(url, '', 440, 210);
+}
+
+function toolbarItemCardBlock()
+{
+	$.ajax({
+	    url: BASE_URL + '/card/card/block/',
+		data: 'card_id=' + card_id,
+		    success: function(data) {
+				location.reload();
+		    }
+	});
 }
 
 /**
@@ -377,9 +469,11 @@ function periodOnchangeHandler()
 	*/
 
 	var personId = elems.person_id.value;
-	var period = elems.period.options[elems.period.selectedIndex].value;
+//	var period = elems.period.options[elems.period.selectedIndex].value;
+	var cardid = elems.period.options[elems.period.selectedIndex].value;
 
-	var url = BASE_URL + '/card/achievs/index/personid/' + personId + '/period/' + period;
+//	var url = BASE_URL + '/card/achievs/index/personid/' + personId + '/period/' + period;
+	var url = BASE_URL + '/card/achievs/index/personid/' + personId + '/cardid/' + cardid;
 	location.replace(url);
 }
 /**
@@ -414,3 +508,41 @@ function openNotesTraining(trainId)
 
 	Js.open(url, '', 400, 510);
 }
+
+$(document).ready(function(){
+	$('#common_rating_confirmation_buttons .conf_button').click(function(){
+		var common_rating_confirmed = $(this).attr('value');
+		$.ajax({
+			url: BASE_URL + '/card/card/agreement/',
+			data: {
+				'id'         :common_rating.id,
+				'person_id'  :common_rating.person_id,
+				'period_year':common_rating.period_year,
+				'rating_id'  :common_rating.rating_id,
+				'confirmed'  :common_rating_confirmed
+			},
+			success: function(data) {
+					location.reload();
+			}
+		});
+
+	});
+
+	if(is_blocked == true)
+	{
+		$('.tabs-body').prepend('<div class="overlay">').css({overflow:'hidden'});
+
+		$('.comments-body').css({'z-index':1});
+
+		$('.overlay').css({
+			width:'100%',
+			height:'100%',
+			'background': "url('" + BASE_URL + "/img/achievs/status/locked.gif') center center #ccc no-repeat",
+			'z-index':1000,
+			position:'absolute',
+			display: 'block',
+			opacity:0.4
+		})
+
+	}
+});

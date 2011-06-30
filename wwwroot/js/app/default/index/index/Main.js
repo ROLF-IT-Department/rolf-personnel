@@ -1,12 +1,11 @@
-
 Main = function()
 {
 	var _main = this;
-
+	
 	this.sidebar = null;
 	this.container = null;
 	this.delimiter = null;
-
+	
 	this.init = function()
 	{
 		this.sidebar = new Sidebar();
@@ -37,7 +36,7 @@ Main = function()
 		this.content = document.getElementById('content');
 
 		var _captionLabel = document.getElementById('captionLabel');
-
+		
 		this.setCaption = function(text)
 		{
 			_captionLabel.innerHTML = text;
@@ -57,7 +56,7 @@ Main = function()
 	function Delimiter()
 	{
 		this.node = document.getElementById('delimiter');
-
+		
 		this.node.ondrag = function(e)
 		{
 			_main.sidebar.setWidth((e || window.event).clientX - _main.sidebar.node.offsetLeft - 3);

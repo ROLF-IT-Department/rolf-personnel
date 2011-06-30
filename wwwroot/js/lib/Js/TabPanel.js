@@ -21,6 +21,7 @@ Js.TabPanel = function()
 			bookmark.activate();
 		}
 	}
+
 	/**
 	 * Выделение определённой закладки
 	 * @param id

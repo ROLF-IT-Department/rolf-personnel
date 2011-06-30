@@ -4,11 +4,11 @@ class Zend_View_Helper_AchievsFormTrainings
 {
 	/**
 	 * Объект представления.
-	 *
+	 * 
      * @var Zend_View_Interface
      */
     public $view;
-
+	
 	public function setView(Zend_View_Interface $view)
     {
 		$this->view = $view;
@@ -64,31 +64,33 @@ class Zend_View_Helper_AchievsFormTrainings
 
 		return implode('', $xhtml);
 	}
-
+    
     private function _rowTraining(Zend_Db_Table_Row_Abstract $training,
 		array $methods, array $groupsMethods, array $respons, array $months, array $groupsMethodsActual)
 	{
 		static $counter = 0;
 
-		if (empty($training->id)) {
+		if (empty($training->id))
+		{
 			$num   = '*';
 			$name  = 'trainingPattern';
 			$class = 'row-pattern';
-
 			$toggle = '<div class="toggle-cancel-train" onclick="Card.removeRow(this)">&nbsp;</div>';
-
+			
 			end($months);
 			$training->method_id = key($methods);
 			$training->month_term_id = key($months);
 			$training->responsible_id = key($respons);
-		} else {
+		}
+		else
+		{
 			$num   = ++$counter;
 			$name  = 'trainings[' . $training->id . ']';
 			$class = '';
 
 			$toggle = '';
 		}
-
+		
 		$groupMethodsName = '';
 		foreach ($groupsMethods as $groupName => $items) {
 			if (array_key_exists($training->method_id, $items)) {

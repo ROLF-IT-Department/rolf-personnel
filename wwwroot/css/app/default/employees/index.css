@@ -29,7 +29,7 @@
 }
 .list-body-table {
 	margin-bottom: 6px;
-	line-height: 18px;
+	line-height: 19px;
 	cursor: pointer;
 }
 .list-head-table th,
@@ -107,6 +107,9 @@ td.statusCRG {
 }
 td.statusCLS {
 	background-image: url('../../../../img/achievs/status/CLS.gif');
+}
+td.statusMTPL {
+	background-image: url('../../../../img/achievs/status/MTPL.gif');
 }
 
 .profile {
