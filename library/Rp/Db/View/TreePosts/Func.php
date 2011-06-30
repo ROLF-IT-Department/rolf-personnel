@@ -8,7 +8,7 @@
  */
 
 /**
- * Объект представления должностей из иерархической структуры 
+ * Объект представления должностей из иерархической структуры
  * с атрибутом "Функциональный руководитель".
  *
  * @category   Rp
@@ -16,15 +16,15 @@
  * @subpackage Rp_Db_View
  */
 class Rp_Db_View_TreePosts_Func extends Rp_Db_View_Abstract
-{	
+{
 	protected $_name = 'user_rp_tree_posts_func';
-	
+
 	/**
 	 * Возвращает массив идентификаторов функциональных подчиненных должностей.
 	 *
-	 * @param  int|array $postId Идентификатор или массив идентификаторов 
+	 * @param  int|array $postId Идентификатор или массив идентификаторов
 	 * функциональных подчиненных должностей.
-	 * 
+	 *
 	 * @return array
 	 */
 	public function fetchFuncEmployeeIds($postId)

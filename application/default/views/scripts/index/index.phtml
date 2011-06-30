@@ -13,18 +13,17 @@
 		@import url('<?php echo $this->baseUrl() ?>/css/app/default/index/index/menu.css');
 	</style>
 	<script type="text/javascript">
-
 		var BASE_URL = '<?php echo $this->baseUrl() ?>';
-
+		
 		var have_integrate = <?php echo $this->have_integrate ?>;
-
+		
 		//alert(USER_ID);
-
-		/*function logoff()
+		
+		/*function logoff() 
 		{
 
 			var url = BASE_URL + '/default/logoff/index/';
-
+				
 	        if(!this.http){
 	            this.http = new (window.XMLHttpRequest||ActiveXObject)("Msxml2.XMLHTTP");
 	            this.working = false;
@@ -47,7 +46,6 @@
 </head>
 <body onload="init()" >
 
-
 <div id="integrated_block"><?php echo $this->integratedBlock() ?></div>
 
 	<div class="logo"><div class="integrate_name"><?php echo $this->is_integrate ?></div></div>
@@ -62,7 +60,5 @@
 		<div class="caption"><div id="captionLabel"></div></div>
 		<object id="content" name="content" type="text/html" data="<?php echo $this->baseUrl() ?>/empty"></object>
 	</div>
-
-
 </body>
 </html>

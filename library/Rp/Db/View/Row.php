@@ -14,7 +14,7 @@
  * @package    Rp_Db
  * @subpackage Rp_Db_View
  */
-class Rp_Db_View_Row 
+class Rp_Db_View_Row
 {
 	/**
 	 * Объект представления.
@@ -29,7 +29,7 @@ class Rp_Db_View_Row
 	 * @var array
 	 */
 	protected $_data = array();
-	
+
 	/**
 	 * Конструктор.
 	 *
@@ -63,13 +63,13 @@ class Rp_Db_View_Row
 		}
 		return $this->_data[$column];
 	}
-	
+
 	/**
 	 * Генерирует исключение при попытке установить значение поля строки.
 	 *
 	 * @param string $column Название поля.
 	 * @param mixed  $value  Значение поля.
-	 * 
+	 *
 	 * @return void
 	 * @throws Exception
 	 */
@@ -77,7 +77,7 @@ class Rp_Db_View_Row
 	{
 		throw new Exception("Объект строки представления не поддерживает установку значений полей.");
 	}
-	
+
 	/**
 	 * Проверяет наличие поля $column в строке.
 	 *

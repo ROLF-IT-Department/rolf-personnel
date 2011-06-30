@@ -2,14 +2,14 @@
 
 class Zend_View_Helper_AchievsFormTasks
 {
-
+	
 	/**
 	 * Объект представления.
-	 *
+	 * 
      * @var Zend_View_Interface
      */
     public $view;
-
+	
 	public function setView(Zend_View_Interface $view)
     {
 		$this->view = $view;
@@ -38,12 +38,17 @@ class Zend_View_Helper_AchievsFormTasks
 				</table>
 			</div>';
     	if ($have_func > 0)
-    		$xhtml[] = '<div class="grid-body" style="bottom:100px; height: expression(this.parentNode.offsetHeight - 137 + \'px\')">';
+	    {
+		    $xhtml[] = '<div class="grid-body" style="bottom:100px; height: expression(this.parentNode.offsetHeight - 137 + \'px\')">';
+	    }
     	else
-			$xhtml[] = '<div class="grid-body">';
-
-    	if ($have_func > 0)
-    		$xhtml[] = '<div class="tasks-type"><span class="translate_ratio"><table id="ratio_tab" width="480px">
+	    {
+		    $xhtml[] = '<div class="grid-body">';
+	    }
+			
+    	if ($have_func > 0) 
+	    {
+		    $xhtml[] = '<div class="tasks-type"><span class="translate_ratio"><table id="ratio_tab" width="480px">
     							<tr>
     								<td width="360px">Соотношение веса - бизнес-цели / функциональные цели<br/>
     									Weight ratio - business objectives / functional objectives
@@ -54,19 +59,29 @@ class Zend_View_Helper_AchievsFormTasks
     								</td>
     							</tr>
     						  </table></span></div>';
+	    }
 
     	$xhtml[] = '<div class="tasks-type">Бизнес-цели - <span class="translate_category_tasks">Business Objectives</span></div>
 				<table class="grid-body-table" id="tasks">
 					<tbody>';
     	$count = 0;
     	$count_func = 0;
-    	foreach ($tasks as $item) {
+
+    	foreach ($tasks as $item)
+	    {
     		if ($item->is_personal == null)
-	    		if ($item->is_functional == 1)
-	    			$func_tasks[] = $this->_rowTask($item, $ratings, 1, ++$count_func);
-	    		else
-	    			$xhtml[] = $this->_rowTask($item, $ratings, null, ++$count);
+		    {
+			    if ($item->is_functional == 1)
+			    {
+				    $func_tasks[] = $this->_rowTask($item, $ratings, 1, ++$count_func);
+			    }
+			    else
+			    {
+				    $xhtml[] = $this->_rowTask($item, $ratings, null, ++$count);
+			    }
+		    }
     	}
+
     	$xhtml[] = $this->_rowTask($tasks->getTable()->createRow(), $ratings, $func);
     	$xhtml[] = '</tbody>
 				</table>';
@@ -125,16 +140,17 @@ class Zend_View_Helper_AchievsFormTasks
 
     	return implode('', $xhtml);
     }
-
+    
     private function CalculateWeights($tasks, $rate_weights, $card)	// рассчет вычисляемого рейтинга
     {
     	$sum = 0;
     	$func_sum = 0;
 
-    	foreach ($tasks as $item) {
+    	foreach ($tasks as $item)
+	    {
     		if (($item->weight) && ($item->status != 0) && ($item->is_personal == null))
     		{
-    			if ($item->is_functional)
+    			if ($item->is_functional) 
     			{
     				$val = $rate_weights[$item->rating_id][weight];		// вес рейтинга
     				$wght = $item->weight;
@@ -149,11 +165,12 @@ class Zend_View_Helper_AchievsFormTasks
     					$sum += $value * $weight;
     			}
     		}
-
     	}
+
    		$sum /= 100;
    		$func_sum /=100;
    		$result = 0;
+
    		if ($func_sum > 0)
    		{
    			$rate_sum = round($sum);
@@ -165,15 +182,19 @@ class Zend_View_Helper_AchievsFormTasks
    		$rate = new Rp_Db_Table_Ach_Ratings();
    		$name = $rate->fetchNameWeights();
    		$ret = "";
-   		foreach ($name as $key=>$value)
-   			if ($value[weight]==$result) $ret = $key;
+
+		foreach ($name as $key=>$value)
+		{
+			if ($value[weight]==$result)
+				$ret = $key;
+		}
+
     	return $ret;
 
     }
-
+    
 	private function _rowTask(Zend_Db_Table_Row_Abstract $task, array $ratings, $func, $counter = null)
-	{
-
+	{	
 		if ($func)
 		{
 			$table = 'functasks';
@@ -183,7 +204,8 @@ class Zend_View_Helper_AchievsFormTasks
 			$table = 'tasks';
 		}
 
-		if (empty($task->id)) {
+		if (empty($task->id))
+		{
 			$num   = '*';
 			$term  = '';//(date('n') < 12 ? date('Y') : (date('Y') + 1)) . '-12-31';
 			$term_date = '[дата]';
@@ -192,8 +214,9 @@ class Zend_View_Helper_AchievsFormTasks
 			$class = 'row-pattern';
 			$toggle = '<div class="toggle-cancel" onclick="Card.removeRow(this, \'' . $table . '\')">&nbsp;</div>';
 			$weight = '0';
-		} else {
-
+		}
+		else
+		{
 			$all_notes = new Rp_Db_Table_Ach_Tasks_Notes();
 			$kol = count($all_notes->fetchTaskNotes($task->id));
 

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title><?php echo $this->escape($this->title) ?></title>
+	<meta http-equiv="content-type" content="text/html; charset=windows-1251" />
+	<style type="text/css">
+		@import url('<?php echo $this->baseUrl() ?>/css/app/index.css');
+		@import url('<?php echo $this->baseUrl() ?>/css/app/card/index/create.css');
+	</style>
+	<script type="text/javascript">
+
+		var BASE_URL  = '<?php echo $this->baseUrl() ?>';
+
+	</script>
+
+</head>
+<body>
+	<div id="cardCreate">
+		<form name="cardCreate" action="<?php echo $this->baseUrl() ?>/card/card/create" method="post">
+			<fieldset>
+				<legend>Создание новой карты</legend>
+				<input name="person_id" type="hidden" value="<?php echo $this->person_id ?>" />
+				<input name="card_creator_id" type="hidden" value="<?php echo $this->user->person_id ?>" />
+				<div class="form-item">
+					<?php echo $this->formLabel('period_start', 'Период начала действия новой карты')?>
+					<?php echo $this->formText('period_start', date('d.m.Y'))?>
+				</div>
+<!--				<div class="form-item">-->
+<!--					--><?php //echo $this->formLabel('period_end', 'Период окончания действия новой карты')?>
+<!--					--><?php //echo $this->formText('period_end', '31.12.' . date('Y'))?>
+<!--				</div>-->
+			</fieldset>
+			<?php echo $this->formSubmit(NULL, 'Создать карту')?>
+		</form>
+	</div>
+</body>
+</html>

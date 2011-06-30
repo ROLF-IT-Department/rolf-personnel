@@ -18,7 +18,7 @@
 </head>
 <body onload="init()">
 
-	<?php echo $this->employeesList($this->listEmployees) ?>
+	<?php echo $this->employeesList($this->listEmployees, $this->rates) ?>
 	<div class="profile">
 		<iframe name="profile" src="<?php echo $this->baseUrl() ?>/default/empty"></iframe>
 	</div>

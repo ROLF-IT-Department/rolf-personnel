@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script type="text/javascript">
+
+		var BASE_URL  = '<?php echo $this->baseUrl() ?>';
+
+		var url = BASE_URL + '/card/achievs/index/personid/<?php echo $this->person_id ?>/cardid/<?php echo $this->card_id ?>/period/<?php echo $this->period ?>';
+		parent.opener.location.replace(url);
+		window.close();
+
+	</script>
+
+</head>
+<body>
+</body>
+</html>

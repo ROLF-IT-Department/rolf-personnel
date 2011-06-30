@@ -66,7 +66,12 @@ fieldset {
 .toolbar-item-block-unblock div {
 	background-image: url('../../../../img/achievs/card/toolbar/create_new.gif');
 }
-
+.toolbar-item-card_block div {
+	background-image: url('../../../../img/achievs/card/toolbar/access.png');
+}
+.toolbar-item-card_create div {
+	background-image: url('../../../../img/achievs/card/toolbar/add.png');
+}
 .panel-status {
 	background-color: #CCCCCC;
 }
@@ -76,6 +81,12 @@ fieldset {
 	font-weight: bold;
 	text-align: right;
 	background: no-repeat right;
+	width: 160px;
+	float: right;
+}
+.panel-status div span {
+	display: inline-block;
+	clear: right;
 }
 div.panel-statusNEW {
 	background-image: url('../../../../img/achievs/status/NEW.gif');
@@ -85,6 +96,7 @@ div.panel-statusPLN {
 }
 div.panel-statusCPN {
 	background-image: url('../../../../img/achievs/status/CPN.gif');
+	width: 195px;
 }
 div.panel-statusRTG {
 	background-image: url('../../../../img/achievs/status/RTG.gif');
@@ -94,6 +106,9 @@ div.panel-statusCRG {
 }
 div.panel-statusCLS {
 	background-image: url('../../../../img/achievs/status/CLS.gif');
+}
+div.panel-statusMTPL {
+	background-image: url('../../../../img/achievs/status/MTPL.gif');
 }
 
 .button {
@@ -177,6 +192,22 @@ div.panel-statusCLS {
 .tabs-item div {
 	font-family: Verdana, Tahoma, sans-serif;
 }
+.tabs-item div span.ru {
+	font-weight: bold;
+	font-size:11px;
+	height: 10px;
+	position: relative;
+	top: -8px;
+}
+
+.tabs-item div span.en {
+	color: #888888;
+	font-size:10px;
+	height: 10px;
+	position: absolute;
+	top: 8px;
+}
+
 #tabs-item-tasks div {
 	background-image: url('../../../../img/achievs/card/doc.gif');
 }
@@ -190,6 +221,9 @@ div.panel-statusCLS {
 	background-image: url('../../../../img/achievs/card/confirm.gif');
 }
 #tabs-item-personal div {
+	background-image: url('../../../../img/achievs/card/doc.gif');
+}
+#tabs-item-statistics div {
 	background-image: url('../../../../img/achievs/card/doc.gif');
 }
 /*#tabs-body-trains .grid-head {
@@ -771,7 +805,7 @@ td.ratings-field-total select {
 	overflow: scroll;
 	overflow-x: hidden;
 	width: expression(this.parentNode.offsetWidth - 16 + 'px');
-	padding-right: 16px!important;
+	*padding-right: 16px!important;
 }
 #tabs-body-personal .grid-head,
 #tabs-body-personal .grid-body-table {padding: 0!important;width:100%!important}
@@ -794,4 +828,96 @@ td.ratings-field-total select {
 .row-not-saved input, .row-not-saved textarea {
 	color: #0000E6;
 	font-weight: bold;
+}
+
+#statistics-table {
+	margin: 5em auto 2em;
+}
+
+#statistics-table td, #statistics-table th {
+	padding: 1em 2em!important;
+}
+
+.inline {
+	display:inline-block;
+	zoom: 1;
+	*display: inline!important;
+	margin-right:10px
+}
+
+#statistics-table td > div {
+	margin: 0 1em 0 0;
+}
+
+#statistics-total-rating {
+	margin:0 auto;
+	width: 16em;
+}
+
+#statistics-total-rating-confirmation {
+	margin:5px auto;
+	width: 14em;
+}
+
+#common_rating_confirmation_buttons {
+	width: 290px;
+	margin: 5px auto;
+}
+
+#common_rating_confirmation_buttons .conf_button {
+	width: 120px;
+	height: 28px;
+	padding: 5px 10px 5px 0;
+	border-style:solid;
+	border-width:1px;
+	border-top-color: #B6BAC0;
+	border-left-color: #B6BAC0;
+	border-right-color: #666666;
+	border-bottom-color: #666666;
+	display:inline-block;
+	zoom: 1;
+	*display: inline!important;
+	background: #CCCCCC;
+	cursor:pointer;
+}
+#common_rating_confirmation_buttons .conf_button:first-child {
+	margin-right:10px;
+}
+
+#common_rating_confirmation_buttons .conf_button:hover {
+	background:#FFCC99;
+}
+#common_rating_confirmation_buttons .conf_button:active {
+	border-bottom-color: #B6BAC0;
+	border-right-color: #B6BAC0;
+	border-top-color: #666666;
+	border-left-color: #666666;
+
+}
+#common_rating_confirmation_buttons .conf_button img, #common_rating_confirmation_buttons .conf_button div {
+	display:block;
+	float:left;
+	margin-left: 10px;
+	font-weight:bold;
+}
+#common_rating_confirmation_buttons .conf_button img {
+	margin-top:5px;
+}
+#common_rating_confirmation_buttons .conf_button div span {
+	display:block;
+	font-size:smaller;
+	color:#fff
+}
+
+#statistics-table div span, #statistics-total-rating {
+	font-weight:bold;
+	color: #333
+}
+#statistics-total-rating span {
+	color: red
+}
+
+.crossed div {
+	text-decoration: line-through;
+	cursor: help;
 }

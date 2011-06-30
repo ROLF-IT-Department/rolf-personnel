@@ -45,7 +45,10 @@
 						<td class="panel-period">
 							<div>
 								Период:
-								<?php echo $this->formSelect('period', $this->card->period, null, $this->periods) ?>
+								<select name="period" id="period">
+									<?php foreach($this->periods as $card_id => $period):?>
+										<option value="<?php echo $card_id?>" label="<?php echo $period['name']?>"<?php echo ($this->card->id == $card_id) ? ' selected="selected"' : ''?>><?php echo $period['name']?></option>
+									<?php endforeach;?>
 								<br><span class="translate_menu">Period:</span>
 							</div>
 
@@ -54,6 +57,7 @@
 						<td class="panel-status">
 							<div class="panel-status<?php echo $this->status->id ?>">
 								<span title="Статус карточки"><?php echo $this->status->name ?></span>
+								<?php echo ($this->period_text) ? '<span>'.$this->period_text.'</span>' : NULL?>
 							</div>
 						</td>
 					</tr>
@@ -64,11 +68,14 @@
 				<table class="tabs-items">
 					<tbody>
 						<tr>
-							<td id="tabs-item-tasks" class="tabs-item tabs-item-activated"><div><span style="font-weight: bold; font-size:11px; height: 10px; position: relative; top: -8px; ">Бизнес-цели (<?php echo (count($this->tasks) - count($this->personalTasks)) ?>)</span><span style="color: #888888; font-size:10px; height: 10px; position: absolute; top: 8px; left: 23px;">Business objectives</span></div></td>
-							<td id="tabs-item-compets" class="tabs-item"><div><span style="font-weight: bold; font-size:11px; height: 10px; position: relative; top: -8px; ">Компетенции (<?php echo count($this->competences) ?>)</span><span style="color: #888888; font-size:10px; height: 10px; position: absolute; top: 8px; left: 164px;">Competences</span></div></td>
-							<td id="tabs-item-trains" class="tabs-item"><div><span style="font-weight: bold; font-size:11px; height: 10px; position: relative; top: -8px; ">План развития (<?php echo count($this->trainings) ?>)</span><span style="color: #888888; font-size:10px; height: 10px; position: absolute; top: 8px; left: 316px;">Development plan</span></div></td>
-							<td id="tabs-item-comments" class="tabs-item"><div><span style="font-weight: bold; font-size:11px; height: 10px; position: relative; top: -8px; ">Комментарии и согласования</span><span style="color: #888888; font-size:10px; height: 10px; position: absolute; top: 8px; left: 470px;">Comments & approvals</span></div></td>
-							<td id="tabs-item-personal" class="tabs-item"><div><span style="font-weight: bold; font-size:11px; height: 10px; position: relative; top: -8px; ">Форма сотрудника</span><span style="color: #888888; font-size:10px; height: 10px; position: absolute; top: 8px; left: 696px;">Personal form</span></div></td>
+							<td id="tabs-item-tasks" class="tabs-item tabs-item-activated"><div><span class="ru">Бизнес-цели (<?php echo (count($this->tasks) - count($this->personalTasks)) ?>)</span><span class="en" style="left: 23px;">Business objectives</span></div></td>
+							<td id="tabs-item-compets" class="tabs-item"><div><span class="ru">Компетенции (<?php echo count($this->competences) ?>)</span><span class="en" style="left: 164px;">Competences</span></div></td>
+							<td id="tabs-item-trains" class="tabs-item"><div><span class="ru">План развития (<?php echo count($this->trainings) ?>)</span><span class="en" style="left: 316px;">Development plan</span></div></td>
+							<td id="tabs-item-comments" class="tabs-item"><div><span class="ru">Комментарии и согласования</span><span class="en" style="left: 470px;">Comments & approvals</span></div></td>
+							<td id="tabs-item-personal" class="tabs-item"><div><span class="ru">Форма сотрудника</span><span class="en" style="left: 696px;">Personal form</span></div></td>
+							<?php if($this->statistics):?>
+								<td id="tabs-item-statistics" class="tabs-item"><div><span class="ru">Статистика</span><span class="en" style="left: 855px;">Statistics</span></div></td>
+							<?php endif;?>
 						</tr>
 					</tbody>
 				</table>
@@ -159,6 +166,7 @@
 					</div>
 				</div>
 				<div class="tabs-body" id="tabs-body-personal">
+					<div>
 					<?php echo $this->achievsFormPersonal(
 						$this->tasks,
 						$this->personalTrainings,
@@ -172,8 +180,53 @@
 						$this->competences
 						// $this->ratings, $this->rate_weights, $this->card->rtg_competens_id, TRUE
 						);?>
+					</div>
 				</div>
-
+<?php if($this->statistics):?>
+				<div class="tabs-body" id="tabs-body-statistics">
+					<div>
+						<table id="statistics-table">
+							<tr>
+								<th>Период:</th>
+								<th>Рейтинги:</th>
+							</tr>
+					<?php foreach($this->statistics as $rating):?>
+							<tr>
+								<td<?php echo ($rating['is_blocked']) ? ' class="crossed" title="Карточка заблокирована"' : NULL?>><div><?php echo $rating['period']['start']?> - <?php echo $rating['period']['end']?></div></td>
+								<td<?php echo ($rating['is_blocked']) ? ' class="crossed" title="Карточка заблокирована"' : NULL?>>
+									<div class="inline">Итоговый рейтинг бизнес-целей: <span><?php echo ($rating['ratings']['tasks']['name']) ? $rating['ratings']['tasks']['name'] : '-'?></span></div>
+									<div class="inline">Итоговый рейтинг компетенций: <span><?php echo ($rating['ratings']['competens']['name']) ? $rating['ratings']['competens']['name'] : '-'?></span></div>
+									<div class="inline">Общий рейтинг: <span><?php echo ($rating['ratings']['total']['name']) ? $rating['ratings']['total']['name'] : '-'?></span></div>
+								</td>
+							</tr>
+					<?php endforeach;?>
+						</table>
+						<div id="statistics-total-rating">Общий итоговый рейтинг: <span><?php echo $this->rate_calc['name']?></span></div>
+						<div id="statistics-total-rating-confirmation">Согласование: <span><?php echo ($this->common_rating_confirmed) ? 'Согласовано' : 'Не согласовано'?></span></div>
+						<?php if($this->rate_calc['name'] != 'нет' AND $this->common_rating_confirmed == FALSE AND $this->userRole == 1):?>
+						<script type="text/javascript">
+							var common_rating  = {
+								'id'          : <?php echo ($this->common_rating_id) ? $this->common_rating_id : 'null'?>,
+								'person_id'   : <?php echo $this->card->person_id ?>,
+								'period_year' : <?php echo $this->card->period?>,
+								'rating_id'   : <?php echo $this->rate_calc['id']?>
+							};
+						</script>
+						<div id="common_rating_confirmation_buttons">
+							<div class="conf_button" value="1">
+								<img src='<?php echo $this->baseUrl() ?>/img/achievs/card/toolbar/approval.gif' alt=""/>
+								<div>Согласовать<span>Confirm</span></div>
+							</div>
+&nbsp;
+							<div class="conf_button" id="<?php echo $this->common_rating_id?>" value="0">
+								<img src='<?php echo $this->baseUrl() ?>/img/achievs/card/toolbar/reject.gif' alt=""/>
+								<div>Отклонить<span>Reject</span></div>
+							</div>
+						</div>
+						<?php endif;?>
+					</div>
+				</div>
+<?php endif;?>
 			</div>
 		</fieldset>
 	</form>
@@ -189,45 +242,20 @@
 				
 				evt.returnValue = error_text;
 			}
+
 		}
 
-
 		var BASE_URL          = '<?php echo $this->baseUrl() ?>';
-
-		/*function logoff()
-		{
-
-			var url = BASE_URL + '/default/logoff/index/';
-
-	        if(!this.http){
-	            this.http = new (window.XMLHttpRequest||ActiveXObject)("Msxml2.XMLHTTP");
-	            this.working = false;
-	        }
-	        if (!this.working && this.http) {
-	            this.http.open("GET", url, true);
-	            this.working = true;
-	            this.http.send(null);
-	        }
-		}*/
-
 		var ROLE_VIEWER       = 0;
 		var ROLE_EMPLOYEE     = 1;
 		var ROLE_MANAGER      = 2;
 		var ROLE_HIGH_MANAGER = 4;
 		var ROLE_FUNC_MANAGER = 8;
 		var ROLE_VIEWER_USER  = <?php echo (!empty($this->user_viewed_posts)) ? '1000' : '9'?>;
-
 		<?php $ROLE_FUNC_MANAGER = 8?>
-
 		var USER_ROLE         = <?php echo $this->userRole ?>;
-
 		var count_func 		  = <?php echo $this->count_func ?>;
-
-		var emails = '<?php echo $this->emails ?>';
-		//alert(mails);
-		/*var dadat = '<?php //echo date() ?>';
-		alert(dadat);*/
-
+		var emails            = '<?php echo $this->emails ?>';
 		var Str_Rate = '<?php
 			$rat = array();
 			$rates = $this->rate_name_weights;
@@ -244,14 +272,17 @@
 				$rat[] = $value[weight];
 			echo implode("," , $rat);
 		?>';
-		var Rate_Weights = Str_Weight.split(",");
-
+		var Rate_Weights       = Str_Weight.split(",");
 		var previous_bad_rates = '<?php echo $this->previous_bad_rates?>';
-
-		var active_tab = '<?php echo $this->tab?>';
+		var active_tab         = '<?php echo $this->tab?>';
+		var has_statistics     = <?php echo ($this->statistics) ? 'true' : 'false'?>;
+		var card_id            = <?php echo $this->card->id?>;
+		var is_blocked         = <?php echo ($this->card->is_blocked) ? 'true' : 'false'?>;
 
 	</script>
+	<script src="<?php echo $this->baseUrl() ?>/json/user" type="text/javascript"></script>
 	<script src="<?php echo $this->baseUrl() ?>/js/lib/jquery.1.4.4.js" type="text/javascript"></script>
+	<script src="http://cdn.jquerytools.org/1.2.5/jquery.tools.min.js"></script>
 	<script src="<?php echo $this->baseUrl() ?>/js/lib/Js.js" type="text/javascript"></script>
 	<script src="<?php echo $this->baseUrl() ?>/js/lib/Js/Toolbar.js" type="text/javascript"></script>
 	<script src="<?php echo $this->baseUrl() ?>/js/lib/Js/TabPanel.js" type="text/javascript"></script>

@@ -68,11 +68,13 @@ class Rp_Db_View_Row_Employee extends Rp_Db_View_Row
 	 */
 	public function getTreePost()
 	{
-		if (empty($this->_treePost)) {
+		if (empty($this->_treePost))
+		{
 			$treePosts = new Rp_Db_View_TreePosts();
 			$this->_treePost = $treePosts->findByEmployeeId($this->person_id);
-			if (empty($this->_treePost)) {
-				throw new Exception('Сотрудник не определен в иерархической структуре должностей.');
+			if (empty($this->_treePost))
+			{
+				throw new Zend_Exception('Сотрудник не определен в иерархической структуре должностей.');
 			}
 		}
 		return $this->_treePost;
