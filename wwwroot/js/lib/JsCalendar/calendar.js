@@ -1,4 +1,3 @@
-
 var oCalendar = new function()
 {
 	this.days          = null;
@@ -10,7 +9,7 @@ var oCalendar = new function()
 
 	this.init = function()
 	{
-		this.resize(190, 215);
+//		this.resize(190, 215);
 		//window.onblur  = this.onblurHandler;
 		window.onfocus = this.onfocusHandler;
 

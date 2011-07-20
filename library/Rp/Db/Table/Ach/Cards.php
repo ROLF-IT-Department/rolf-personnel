@@ -226,6 +226,7 @@ class Rp_Db_Table_Ach_Cards extends Rp_Db_Table_Abstract
 						$rowCard = $card;
 					}
 				}
+
 			}
 			elseif(count($cards) == 1)
 			{

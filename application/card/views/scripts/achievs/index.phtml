@@ -47,8 +47,9 @@
 								Период:
 								<select name="period" id="period">
 									<?php foreach($this->periods as $card_id => $period):?>
-										<option value="<?php echo $card_id?>" label="<?php echo $period['name']?>"<?php echo ($this->card->id == $card_id) ? ' selected="selected"' : ''?>><?php echo $period['name']?></option>
+										<option value="<?php echo $card_id?>,<?php echo $period['year']?>" label="<?php echo $period['name']?>"<?php echo ($this->card->id == $card_id) ? ' selected="selected"' : ''?>><?php echo $period['name']?></option>
 									<?php endforeach;?>
+								</select>
 								<br><span class="translate_menu">Period:</span>
 							</div>
 
