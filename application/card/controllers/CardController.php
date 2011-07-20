@@ -91,7 +91,6 @@ class Card_CardController extends Zend_Controller_Action
 		$view->person_id = $person_id;
 		$view->card_id = $new_card->id;
 		$view->period = $period;
-
 	}
 
 	/**

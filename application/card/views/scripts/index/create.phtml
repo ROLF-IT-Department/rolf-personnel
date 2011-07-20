@@ -7,12 +7,6 @@
 		@import url('<?php echo $this->baseUrl() ?>/css/app/index.css');
 		@import url('<?php echo $this->baseUrl() ?>/css/app/card/index/create.css');
 	</style>
-	<script type="text/javascript">
-
-		var BASE_URL  = '<?php echo $this->baseUrl() ?>';
-
-	</script>
-
 </head>
 <body>
 	<div id="cardCreate">
@@ -25,13 +19,23 @@
 					<?php echo $this->formLabel('period_start', 'Период начала действия новой карты')?>
 					<?php echo $this->formText('period_start', date('d.m.Y'))?>
 				</div>
-<!--				<div class="form-item">-->
-<!--					--><?php //echo $this->formLabel('period_end', 'Период окончания действия новой карты')?>
-<!--					--><?php //echo $this->formText('period_end', '31.12.' . date('Y'))?>
-<!--				</div>-->
 			</fieldset>
 			<?php echo $this->formSubmit(NULL, 'Создать карту')?>
 		</form>
 	</div>
+<script src="<?php echo $this->baseUrl() ?>/js/lib/jquery.1.4.4.js" type="text/javascript"></script>
+<script type="text/javascript">
+
+	var BASE_URL  = '<?php echo $this->baseUrl() ?>';
+	var person_fio = '<?php echo $this->person->surname?> <?php echo mb_substr($this->person->name, 0, 1)?>.<?php echo mb_substr($this->person->patronymic, 0, 1)?>.';
+
+	$(document).ready(function(){
+		$('input[type=submit]').click(function(){
+			var answer = confirm('Создать для сотрудника '+person_fio+' карту на период c '+$('#period_start').val()+'?');
+			if (! answer)
+				return false;
+		})
+	})
+</script>
 </body>
 </html>

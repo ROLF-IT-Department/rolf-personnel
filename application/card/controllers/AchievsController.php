@@ -20,10 +20,14 @@ class Card_AchievsController extends Zend_Controller_Action
 		$request = $this->getRequest();
 
 		$cards = new Rp_Db_Table_Ach_Cards();
-		$id = $request->getParam('id', null);
-		if ($id !== null)
+
+		$personId = $request->getParam('personid', null);
+		$cardid = $request->getParam('cardid', NULL);
+		$period = $request->getParam('period', NULL);
+		
+		if (isset($cardid) AND $cardid > 0)
 		{
-			$card = $cards->find($id)->current();
+			$card = $cards->find($cardid)->current();
 
 			if (empty($card))
 				throw new Exception('Карточка достижений с указанным идентификатором не найдена.');
@@ -31,13 +35,10 @@ class Card_AchievsController extends Zend_Controller_Action
 			// предыдущая карточка
 			$last_year = date('Y') - 1;
 			$previous_card = $cards->findByPersonIdAndPeriod($card->person_id, $last_year);
-
 		}
 		else
 		{
-			$personId = $request->getParam('personid', null);
-			$cardid = $request->getParam('cardid', NULL);
-			$card = $cards->findByPersonIdAndCard($personId, $cardid);//, $period);
+			$card = $cards->findByPersonIdAndCard($personId, $cardid, $period);
 
 			// предыдущая карточка
 			$last_year = date('Y') - 1;
@@ -100,7 +101,8 @@ class Card_AchievsController extends Zend_Controller_Action
 
 			$periods[$card_and_periods->id] = array(
 				'year' => $card_and_periods->period,
-				'name' => $card_and_periods->period . $_periods
+				'name' => $card_and_periods->period . $_periods,
+				'is_blocked' => (bool) $card_and_periods->is_blocked,
 			);
 
 			$i++;
@@ -128,7 +130,7 @@ class Card_AchievsController extends Zend_Controller_Action
 					$rate_sum  += $_rate['ratings']['total']['weight']*$_rate['period']['days'];
 					$rate_days += $_rate['period']['days'];
 				}
-				elseif( ! $_rate['ratings']['total']['weight'])
+				elseif(! $_rate['is_blocked'] AND ! $_rate['ratings']['total']['weight'])
 				{
 					$common_rating_id = NULL;
 					$common_rating_confirmed = FALSE;
@@ -136,6 +138,7 @@ class Card_AchievsController extends Zend_Controller_Action
 					break;
 				}
 			}
+
 			$common_rate = ($rate_days) ? round($rate_sum / $rate_days) : 0;
 
 			foreach($rate_weights as $id => $weight)
@@ -392,7 +395,7 @@ class Card_AchievsController extends Zend_Controller_Action
 
 				if (strlen($hmail) > 3
 				    AND strpos($mail, $hmail) === FALSE
-				    AND $hmail != 'NHAWKINS@ROLF.RU')
+				    AND $hmail != 'IGSALITA@ROLF.RU')
 					$mail = $mail . $hmail . '; ';
 			}
 

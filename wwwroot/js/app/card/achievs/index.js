@@ -468,12 +468,14 @@ function periodOnchangeHandler()
 	}
 	*/
 
+	var card_and_period = elems.period.options[elems.period.selectedIndex].value.split(',');
+
 	var personId = elems.person_id.value;
-//	var period = elems.period.options[elems.period.selectedIndex].value;
-	var cardid = elems.period.options[elems.period.selectedIndex].value;
+	var period = card_and_period[1];
+	var cardid = card_and_period[0];
 
 //	var url = BASE_URL + '/card/achievs/index/personid/' + personId + '/period/' + period;
-	var url = BASE_URL + '/card/achievs/index/personid/' + personId + '/cardid/' + cardid;
+	var url = BASE_URL + '/card/achievs/index/personid/' + personId + '/cardid/' + cardid + '/period/' + period;
 	location.replace(url);
 }
 /**
