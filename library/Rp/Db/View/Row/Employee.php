@@ -53,7 +53,15 @@ class Rp_Db_View_Row_Employee extends Rp_Db_View_Row
 	{
 		if (empty($this->_person)) {
 			$persons = new Rp_Db_View_Persons();
-			$this->_person = $persons->find($this->person_id)->current();
+			$persons = $persons->find($this->person_id);
+
+			foreach($persons as $person)
+			{
+				if($person->netname AND $person->out_date == ' ')
+				{
+					$this->_person = $person;
+				}
+			}
 		}
 		return $this->_person;
 	}
