@@ -25,7 +25,8 @@ class JsonController extends Zend_Controller_Action
 	{
 		$request = $this->getRequest();
 
-		$_GET['JSQUERYID'] = array_pop(explode('=', $request->getRequestUri()));
+		$uri_arr = explode('=', $request->getRequestUri());
+		$_GET['JSQUERYID'] = array_pop($uri_arr);
 		Zend_Loader::loadFile('JsDataLoader.php', 'Rp');
 
 		$id = $request->getParam('id');
