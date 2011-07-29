@@ -3,10 +3,8 @@
 <head>
 	<title></title>
 	<meta http-equiv="content-type" content="text/html; charset=windows-1251" />
-	<style type="text/css">
-		@import url('<?php echo $this->baseUrl() ?>/css/app/index.css');
-		@import url('<?php echo $this->baseUrl() ?>/css/app/card/personal/index.css');
-	</style>
+	<link rel="stylesheet" type="text/css" href="<?php echo $this->baseUrl() ?>/css/app/index.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo $this->baseUrl() ?>/css/app/card/personal/index.css" />
 </head>
 <body>
 	<table>
@@ -49,5 +47,11 @@
 			</tr>
 		</tbody>
 	</table>
+	<script src="<?php echo $this->baseUrl() ?>/js/lib/jquery.1.4.4.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		$('#loading', parent.document.body).css({
+				display: 'none'
+		});
+	</script>
 </body>
 </html>
