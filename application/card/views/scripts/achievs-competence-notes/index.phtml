@@ -4,55 +4,8 @@
 <head>
 	<title><?php echo $this->escape($this->title) ?></title>
 	<meta http-equiv="content-type" content="text/html; charset=windows-1251" />
-	<style type="text/css">
-		@import url('<?php echo $this->baseUrl() ?>/css/app/index.css');
-		@import url('<?php echo $this->baseUrl() ?>/css/app/card/achievs-task-notes/index.css');
-	</style>
-	<script type="text/javascript">
-		var BASE_URL = '<?php echo $this->baseUrl() ?>';
-		
-				
-		function AddHyperlink(posX, posY)
-		{
-			var tip = document.getElementById('hyperlink_div');
-
-    		tip.style.left = posX - 100;
-    		tip.style.top = posY - 30;
-
-    		if (tip.style.display == "none")
-        		tip.style.display = "block";
-		}
-		
-		function copyPath(data)
-		{
-			var input = document.getElementById('addHyperlink_input');
-			input.value = data;
-
-		}
-		
-		function getHyperlink()
-		{
-			var input = document.getElementById('addHyperlink_input');
-			var text = input.value;
-			
-			var hyperlink = "<a href='" + text + "' target='_blank'>ссылка</a>";
-			
-			var textarea = document.getElementById('newNote[text]');
-			
-			if (text.length > 0)
-				textarea.value = textarea.value + hyperlink;
-			
-			input.value = "";
-				
-			var tip = document.getElementById('hyperlink_div');
-			tip.style.display = "none";
-			
-		}
-		
-		
-		
-		
-	</script>
+	<link rel="stylesheet" type="text/css" href="<?php echo $this->baseUrl() ?>/css/app/index.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo $this->baseUrl() ?>/css/app/card/achievs-task-notes/index.css" />
 </head>
 <body>
 
@@ -90,5 +43,46 @@
 			</div>
 		</fieldset>
 	</form>
+<script type="text/javascript">
+	var BASE_URL = '<?php echo $this->baseUrl() ?>';
+
+
+	function AddHyperlink(posX, posY)
+	{
+		var tip = document.getElementById('hyperlink_div');
+
+		tip.style.left = posX - 100;
+		tip.style.top = posY - 30;
+
+		if (tip.style.display == "none")
+			tip.style.display = "block";
+	}
+
+	function copyPath(data)
+	{
+		var input = document.getElementById('addHyperlink_input');
+		input.value = data;
+
+	}
+
+	function getHyperlink()
+	{
+		var input = document.getElementById('addHyperlink_input');
+		var text = input.value;
+
+		var hyperlink = "<a href='" + text + "' target='_blank'>ссылка</a>";
+
+		var textarea = document.getElementById('newNote[text]');
+
+		if (text.length > 0)
+			textarea.value = textarea.value + hyperlink;
+
+		input.value = "";
+
+		var tip = document.getElementById('hyperlink_div');
+		tip.style.display = "none";
+
+	}
+</script>
 </body>
 </html>

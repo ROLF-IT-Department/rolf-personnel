@@ -80,6 +80,9 @@ Js.Tree = function(id, hoverEnable, classNames)
 		if (this.onselect) {
 			this.onselect(node);
 		}
+		$('#loading').css({
+			display: 'block'
+		});
 	}
 	
 	this.onunselectHandler = function(node)

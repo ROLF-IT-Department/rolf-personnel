@@ -468,6 +468,7 @@ function periodOnchangeHandler()
 	}
 	*/
 
+
 	var card_and_period = elems.period.options[elems.period.selectedIndex].value.split(',');
 
 	var personId = elems.person_id.value;
@@ -476,6 +477,9 @@ function periodOnchangeHandler()
 
 //	var url = BASE_URL + '/card/achievs/index/personid/' + personId + '/period/' + period;
 	var url = BASE_URL + '/card/achievs/index/personid/' + personId + '/cardid/' + cardid + '/period/' + period;
+	$('#loading', parent.document.body).css({
+			display: 'block'
+	});
 	location.replace(url);
 }
 /**
