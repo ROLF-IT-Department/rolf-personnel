@@ -41,10 +41,6 @@ class Rp_Auth_Adapter_DbTable extends Zend_Auth_Adapter_DbTable
 		$identityColumn = '';
 		$credentialColumn = 'password';
 
-		if ( ! $username)
-		{
-			throw new Exception('Не указан логин пользователя.');
-		}
 		if ($authtype === self::AUTH_TRANSPARENT)
 		{
 			$identityColumn = 'netname';
@@ -61,6 +57,11 @@ class Rp_Auth_Adapter_DbTable extends Zend_Auth_Adapter_DbTable
 		else
 		{
 			throw new Exception('Не верно указан тип авторизации.');
+		}
+
+		if (! $username)
+		{
+			throw new Exception('Не указан логин пользователя.');
 		}
 
 		$this->setIdentity($username);
