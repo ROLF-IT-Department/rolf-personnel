@@ -342,6 +342,9 @@ function periodOnchangeHandler()
 		return false;
 	}
 	*/
+	$('#loading', parent.document.body).css({
+		display: 'block'
+	});
 	
 	var personId = elems.person_id.value;
 	var period = elems.period.options[elems.period.selectedIndex].value;
