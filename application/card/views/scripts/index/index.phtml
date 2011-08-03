@@ -13,9 +13,6 @@
 		var BASE_URL  = '<?php echo $this->baseUrl() ?>';
 		
 	</script>
-	<script src="<?php echo $this->baseUrl() ?>/js/lib/Js.js" type="text/javascript"></script>
-	<script src="<?php echo $this->baseUrl() ?>/js/lib/Js/TabPanel.js" type="text/javascript"></script>
-	<script src="<?php echo $this->baseUrl() ?>/js/app/card/index/index.js" type="text/javascript"></script>
 </head>
 <body onload="init()" >
 	<div class="tabs">
@@ -38,5 +35,23 @@
 			<iframe name="personal" src="<?php echo $this->baseUrl() ?>/card/personal/index/personid/<?php echo $this->person->id ?>"></iframe>
 		</div>
 	</div>
+	<div id="loading">
+		<div id="text">
+			<div id="alert">Загрузка...<span>Loading...</span></div>
+			<div id="image"><img src="/img/loading.gif"></div>
+		</div>
+	</div>
+	<script src="<?php echo $this->baseUrl() ?>/js/lib/jquery.1.4.4.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		$('#loading', parent.document.body).css({
+				display: 'none'
+		});
+		$('#loading').css({
+			display: 'block'
+		});
+	</script>
+	<script src="<?php echo $this->baseUrl() ?>/js/lib/Js.js" type="text/javascript"></script>
+	<script src="<?php echo $this->baseUrl() ?>/js/lib/Js/TabPanel.js" type="text/javascript"></script>
+	<script src="<?php echo $this->baseUrl() ?>/js/app/card/index/index.js" type="text/javascript"></script>
 </body>
 </html>

@@ -10,66 +10,6 @@
 		@import url('<?php echo $this->baseUrl() ?>/css/app/index.css');
 		@import url('<?php echo $this->baseUrl() ?>/css/app/card/achievs/index.css');
 	</style>
-	<script type="text/javascript">
-		var BASE_URL          = '<?php echo $this->baseUrl() ?>';
-		
-		/*function logoff() 
-		{
-
-			var url = BASE_URL + '/default/logoff/index/';
-			
-	        if(!this.http){
-	            this.http = new (window.XMLHttpRequest||ActiveXObject)("Msxml2.XMLHTTP");
-	            this.working = false;
-	        }
-	        if (!this.working && this.http) {
-	            this.http.open("GET", url, true);
-	            this.working = true;
-	            this.http.send(null);
-	        }
-		}*/
-		
-		var ROLE_VIEWER       = 0;
-		var ROLE_EMPLOYEE     = 1;			
-		var ROLE_MANAGER      = 2;
-		var ROLE_HIGH_MANAGER = 4;
-		var ROLE_FUNC_MANAGER = 8;
-		<?php $ROLE_FUNC_MANAGER = 8?>
-		var USER_ROLE         = <?php echo $this->userRole ?>;
-		var count_func 		  = <?php echo $this->count_func ?>;
-		
-		var emails = '<?php echo $this->emails ?>';
-		//alert(mails);
-		/*var dadat = '<?php //echo date() ?>';
-		alert(dadat);*/
-		
-		var Str_Rate = '<?php 
-			$rat = array();
-			$rates = $this->rate_name_weights;
-			foreach ($rates as $key=>$value)
-				$rat[] = $key;
-			echo implode("," , $rat);
-		?>';
-		var Rate_Names = Str_Rate.split(",");
-		
-		var Str_Weight = '<?php 
-			$rat = array();
-			$rates = $this->rate_name_weights;
-			foreach ($rates as $key=>$value)
-				$rat[] = $value[weight];
-			echo implode("," , $rat);
-		?>';
-		var Rate_Weights = Str_Weight.split(",");
-		
-		var active_tab = '<?php echo $this->tab?>';
-
-	</script>
-	<script src="<?php echo $this->baseUrl() ?>/js/lib/Js.js" type="text/javascript"></script>
-	<script src="<?php echo $this->baseUrl() ?>/js/lib/Js/Toolbar.js" type="text/javascript"></script>
-	<script src="<?php echo $this->baseUrl() ?>/js/lib/Js/TabPanel.js" type="text/javascript"></script>
-	<script src="<?php echo $this->baseUrl() ?>/js/lib/JsCalendar/driver.js" type="text/javascript"></script>
-	<script src="<?php echo $this->baseUrl() ?>/js/app/card/achievs/index/Card.js" type="text/javascript"></script>
-	<script src="<?php echo $this->baseUrl() ?>/js/app/card/achievs/index.js" type="text/javascript"></script>
 </head>
 <body onload="init();">
 
@@ -237,5 +177,71 @@
 			</div>
 		</fieldset>
 	</form>
+<script src="<?php echo $this->baseUrl() ?>/js/lib/jquery.1.4.4.js" type="text/javascript"></script>
+<script type="text/javascript">
+	$('#loading', parent.document.body).css({
+			display: 'none'
+	});
+</script>
+<script type="text/javascript">
+		var BASE_URL          = '<?php echo $this->baseUrl() ?>';
+
+		/*function logoff()
+		{
+
+			var url = BASE_URL + '/default/logoff/index/';
+
+	        if(!this.http){
+	            this.http = new (window.XMLHttpRequest||ActiveXObject)("Msxml2.XMLHTTP");
+	            this.working = false;
+	        }
+	        if (!this.working && this.http) {
+	            this.http.open("GET", url, true);
+	            this.working = true;
+	            this.http.send(null);
+	        }
+		}*/
+
+		var ROLE_VIEWER       = 0;
+		var ROLE_EMPLOYEE     = 1;
+		var ROLE_MANAGER      = 2;
+		var ROLE_HIGH_MANAGER = 4;
+		var ROLE_FUNC_MANAGER = 8;
+		<?php $ROLE_FUNC_MANAGER = 8?>
+		var USER_ROLE         = <?php echo $this->userRole ?>;
+		var count_func 		  = <?php echo $this->count_func ?>;
+
+		var emails = '<?php echo $this->emails ?>';
+		//alert(mails);
+		/*var dadat = '<?php //echo date() ?>';
+		alert(dadat);*/
+
+		var Str_Rate = '<?php
+			$rat = array();
+			$rates = $this->rate_name_weights;
+			foreach ($rates as $key=>$value)
+				$rat[] = $key;
+			echo implode("," , $rat);
+		?>';
+		var Rate_Names = Str_Rate.split(",");
+
+		var Str_Weight = '<?php
+			$rat = array();
+			$rates = $this->rate_name_weights;
+			foreach ($rates as $key=>$value)
+				$rat[] = $value[weight];
+			echo implode("," , $rat);
+		?>';
+		var Rate_Weights = Str_Weight.split(",");
+
+		var active_tab = '<?php echo $this->tab?>';
+
+	</script>
+	<script src="<?php echo $this->baseUrl() ?>/js/lib/Js.js" type="text/javascript"></script>
+	<script src="<?php echo $this->baseUrl() ?>/js/lib/Js/Toolbar.js" type="text/javascript"></script>
+	<script src="<?php echo $this->baseUrl() ?>/js/lib/Js/TabPanel.js" type="text/javascript"></script>
+	<script src="<?php echo $this->baseUrl() ?>/js/lib/JsCalendar/driver.js" type="text/javascript"></script>
+	<script src="<?php echo $this->baseUrl() ?>/js/app/card/achievs/index/Card.js" type="text/javascript"></script>
+	<script src="<?php echo $this->baseUrl() ?>/js/app/card/achievs/index.js" type="text/javascript"></script>
 </body>
 </html>
