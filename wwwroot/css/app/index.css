@@ -30,3 +30,42 @@ form, fieldset, textarea, div, th, td {
 iframe, fieldset, img {
 	border: 0;
 }
+#loading {
+width: 100%;
+height: 100%;
+z-index: 1000;
+position: absolute;
+display: none;
+opacity: 0.5;
+filter:progid:DXImageTransform.Microsoft.Alpha(opacity=50);
+background: #ccc;
+color: #000;
+}
+
+#loading #text {
+
+background: #fff;
+padding: 10px 0 10px 10px;
+height: 35px;
+display: block;
+width: 150px;
+margin: 300px auto;
+opacity: 1.4;
+}
+
+#loading #text #alert, #loading #text #image {
+display: inline-block;
+float: left;
+}
+
+#loading #text #alert {
+font-weight: bold;
+font-size: 110%;
+margin-right: 10px;
+}
+
+#loading #text #alert span {
+display: block;
+font-size: 80%;
+font-weight: normal;
+}

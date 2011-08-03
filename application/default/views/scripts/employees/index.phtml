@@ -22,5 +22,10 @@
 	<div class="profile">
 		<iframe name="profile" src="<?php echo $this->baseUrl() ?>/default/empty"></iframe>
 	</div>
-</body>
+<script src="<?php echo $this->baseUrl() ?>/js/lib/jquery.1.4.4.js" type="text/javascript"></script>
+<script type="text/javascript">
+	$('#loading', parent.document.body).css({
+			display: 'none'
+	});
+</script>
 </html>
