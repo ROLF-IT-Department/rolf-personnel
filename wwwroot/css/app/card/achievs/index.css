@@ -1,782 +1,166 @@
-/**
- * “аблица стилей карточки достижений.
- */
-
-body {
-	background-color: #F0F0F0;
-}
-form {
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	width: 100%;
-	height: expression(this.parentNode.offsetHeight - this.offsetTop + 'px');
-}
-fieldset {
-	width: 100%;
-	height: 100%;
-}
-
-.panel {
-	width: 100%;
-}
-.panel-period {
-	padding-left: 10px;
-	width: 120px;
-	height: 30px;
-	background-color: #CCCCCC;
-}
-.panel-period div {
-	overflow: hidden;
-	white-space: nowrap;
-}
-.panel-period select {
-	margin: 0 2px;
-	vertical-align: middle;
-}
-
-.panel-toolbar {
-	background-color: #CCCCCC;
-}
-.toolbar-item-save div {
-	background-image: url('../../../../img/achievs/card/toolbar/save.gif');
-}
-.toolbar-item-save-close div {
-	background-image: url('../../../../img/achievs/card/toolbar/save_close.gif');
-}
-.toolbar-item-edit div {
-	background-image: url('../../../../img/achievs/card/toolbar/edit.gif');
-}
-.toolbar-item-approval div {
-	background-image: url('../../../../img/achievs/card/toolbar/approval.gif');
-}
-.toolbar-item-reject div {
-	background-image: url('../../../../img/achievs/card/toolbar/reject.gif');
-}
-.toolbar-item-refresh div {
-	background-image: url('../../../../img/achievs/card/toolbar/refresh.gif');
-}
-.toolbar-item-print div {
-	background-image: url('../../../../img/achievs/card/toolbar/printer.gif');
-}
-
-.panel-status {
-	background-color: #CCCCCC;
-}
-.panel-status div {
-	margin-right: 10px;
-	padding-right: 20px;
-	font-weight: bold;
-	text-align: right;
-	background: no-repeat right;
-}
-div.panel-statusNEW {
-	background-image: url('../../../../img/achievs/status/NEW.gif');
-}
-div.panel-statusPLN {
-	background-image: url('../../../../img/achievs/status/PLN.gif');
-}
-div.panel-statusCPN {
-	background-image: url('../../../../img/achievs/status/CPN.gif');
-}
-div.panel-statusRTG {
-	background-image: url('../../../../img/achievs/status/RTG.gif');
-}
-div.panel-statusCRG {
-	background-image: url('../../../../img/achievs/status/CRG.gif');
-}
-div.panel-statusCLS {
-	background-image: url('../../../../img/achievs/status/CLS.gif');
-}
-
-.button {
-	width: 190px;
-	text-indent: 24px;
-	line-height: 16px;
-	font-weight: bold;
-	white-space: pre;
-	cursor: pointer;
-	background: url('../../../../img/achievs/card/add.gif') no-repeat 6px;
-	display: none;
-}
-.button-activated {
-	display: block;
-}
-
-.header {
-	margin-top: 1px;
-	width: 100%;
-	table-layout: fixed;
-	border-collapse: separate;
-	border-spacing: 5px;
-}
-.header-field-name {
-	padding-left: 5px;
-	width: 95px;
-	height: 29px;
-	white-space: nowrap;
-	overflow: hidden;
-	font-size: 90%;
-	font-weight: bold;
-	font-family: Arial, sans-serif;
-}
-.header-field-name div {
-	font-size: 80%;
-	color: #666666;
-}
-.header-field-value {
-	border: 1px solid #999999;
-	height: 29px;
-	overflow: hidden;
-}
-.header-field-value div {
-	padding-left: 5px;
-	padding-top: 2px;
-	height: 100%;
-	line-height: 14px;
-	overflow: hidden;
-	overflow-y: auto;
-	background-color: #FFFFFF;
-}
-.header-field-empty {
-	width: 1px;
-}
-
-.tabs {
-	position: absolute;
-	top: 114px;
-	bottom: 0;
-	left: 0;
-	width: 100%;
-	height: expression(this.parentNode.offsetHeight - this.offsetTop + 'px');
-}
-.tabs-items {
-	position: relative;
-	top: 1px;
-	left: 10px;
-	z-index: 1;
-}
-.tabs-body {
-	position: absolute;
-	top: 36px;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	/*width: expression(this.parentNode.offsetWidth - 2 + 'px');*/
-	height: expression(this.parentNode.offsetHeight - this.offsetTop - 2 + 'px');
-	z-index: 0;
-	background-color: #FFFBF0;
-}
-.tabs-item div {
-	font-family: Verdana, Tahoma, sans-serif;
-}
-#tabs-item-tasks div {
-	background-image: url('../../../../img/achievs/card/doc.gif');
-}
-#tabs-item-compets div {
-	background-image: url('../../../../img/achievs/card/doc.gif');
-}
-#tabs-item-trains div {
-	background-image: url('../../../../img/achievs/card/doc.gif');
-}
-#tabs-item-comments div {
-	background-image: url('../../../../img/achievs/card/confirm.gif');
-}
-#tabs-item-personal div {
-	background-image: url('../../../../img/achievs/card/doc.gif');
-}
-/*#tabs-body-trains .grid-head {
-	padding-right: 0!important;
-}*/
-.grid-head {
-	padding-right: 16px;
-	border-top: 1px solid #999999;
-	border-bottom: 1px solid #666666;
-	height: 31px;
-	overflow: hidden;
-	background-color: #FFDDBB;
-}
-.grid-body {
-	position: absolute;
-	border-top: 1px solid #CCCCCC;
-	top: 33px;
-	bottom: 37px;
-	width: 100%;
-	height: expression(this.parentNode.offsetHeight - 73 + 'px');
-	overflow: auto;
-	overflow-x: hidden;
-}
-
-.grid-footer {
-	position: absolute;
-	border-top: 1px solid #666666;
-	bottom: 0;
-	width: 100%;
-	background-color: #FFDDBB;
-}
-
-.grid-head-table {
-	width: 100%;
-	height: 100%;
-	table-layout: fixed;
-	font-family: Arial, sans-serif;
-}
-.grid-head-table th {
-	border-right: 1px solid #999999;
-	font-size: 90%;
-	text-align: left;
-}
-.grid-head-table th, .grid-body-table td {
-	padding-left: 4px;
-	white-space: nowrap;
-	overflow: hidden;
-}
-.grid-head-table th div {
-	font-size: 80%;
-	color: #666666;
-}
-.grid-body-table {
-	border-bottom: 1px solid #999999;
-	width: 100%;
-	width: expression(this.parentNode.offsetWidth - 16 + 'px');
-	table-layout: fixed;
-	background-color: #FFFBF0;
-}
-.grid-body-table tr.row-pattern {
-	display: none;
-}
-
-
-.grid-body-table tr.row-canceled {
-	background: #DDDDDD;
-}
-.toggle-cancel {
-	width: 16px;
-	height: 16px;
-	cursor: pointer;
-	background: url('../../../../img/achievs/card/remove.gif') no-repeat;
-}
-
-.toggle-cancel-train {
-	width: 16px;
-	height: 16px;
-	cursor: pointer;
-	background: url('../../../../img/achievs/card/remove.gif') no-repeat;
-	
-}
-
-tr.row-canceled .toggle-cancel {
-	background-image: url('../../../../img/achievs/card/add.gif');
-}
-tr.row-canceled .field-activated {
-	background-color: #DDDDDD !important;
-}
-tr.row-canceled textarea {
-	background: url('../../../../img/achievs/card/cancel_stamp.gif') no-repeat center;
-}
-.field-activated .toggle-cancel {
-	/*display: block;*/
-}
-.grid-body-table .toggle-cancel {
-	display: none;
-}
-tr.row-planning .toggle-cancel {
-	display: block;
-}
-
-
-.grid-body-table td {
-	border-right: 1px solid #999999;
-	border-bottom: 1px solid #999999;
-	vertical-align: top;
-}
-.grid-body-table textarea {
-	padding: 0;
-	border: 0;
-	width: 100%;
-	height: 98px;
-	overflow: auto;
-	overflow-x: hidden;
-	background: transparent;
-	cursor: default;
-}
-.grid-body-table select {
-	margin-top: 1px;
-	margin-left: -1px;
-	width: 100%;
-	display: none;
-}
-.grid-body-table input {
-	border: 0;
-	background: transparent;
-	cursor: default;
-}
-.grid-body-table div {
-	margin-top: 1px;
-}
-.grid-body-table .field-activated {
-	background-color: #FFFFFF;
-}
-.grid-footer-table {
-	width: 100%;
-	font-weight:bold;
-	font-size: 11px;
-}
-.grid-footer-table td {
-	height: 32px;
-}
-
-.field-rating {
-	text-align: center;
-	font-weight: bold;
-}
-.field-rating select {
-	width: 100%;
-	font-weight: bold;
-	display: none;
-}
-.field-activated textarea {
-	overflow-y: scroll;
-	cursor: text;
-}
-.field-activated select {
-	display: block;
-}
-.field-activated input {
-	cursor: pointer;
-}
-.field-activated div {
-	display: none;
-}
-.field-activated label {
-	cursor: pointer;
-}
-
-.tasks-field-num {
-	width: 20px;
-}
-.tasks-field-description {
-}
-.tasks-field-term {
-	width: 56px;
-}
-.tasks-field-weight {
-	width: 56px;
-}
-.tasks-field-note {
-	width: 20px;
-}
-.tasks-field-result {
-}
-.tasks-field-rating {
-	width: 56px;
-	text-align: center;
-}
-td.tasks-field-term input {
-	width: 100%;
-}
-td.tasks-field-note div {
-	margin: 0 auto;
-	width: 16px;
-	font-size: 10px;
-	line-height: 14px;
-	text-align: center;
-	color: #666666;
-	background: url('../../../../img/default/profile/bookmark.gif') no-repeat;
-	cursor: pointer;
-}
-th.tasks-field-rating-total {
-	padding-right: 4px;
-	text-align: right;
-}
-td.tasks-field-rating-total {
-	padding-right: 18px;
-	width: 56px;
-}
-
-
-div.tasks-type {
-	padding: 6px 0 4px 10px;
-	border-right: 1px solid #999999;
-	border-bottom: 1px solid #999999;
-	font-weight: bold;
-	color: #444444;
-	background-color: #EEEEEE;
-}
-
-td.compets-field-note div {
-	margin: 0 auto;
-	width: 16px;
-	font-size: 10px;
-	line-height: 14px;
-	text-align: center;
-	color: #666666;
-	background: url('../../../../img/default/profile/bookmark.gif') no-repeat;
-	cursor: pointer;
-}
-
-div.compets-type {
-	padding: 6px 0 4px 10px;
-	border-right: 1px solid #999999;
-	border-bottom: 1px solid #999999;
-	font-weight: bold;
-	color: #444444;
-	background-color: #EEEEEE;
-}
-.compets-field-num {
-	width: 20px;
-}
-
-.compets-field-note {
-	width: 20px;
-}
-
-.compets-field-name {
-	width: 230px;
-}
-.compets-field-description {
-}
-.compets-field-result {
-	width: 30%;
-}
-.compets-field-rating {
-	width: 56px;
-	text-align: center;
-}
-.compets-field-note {
-	width: 20px;
-}
-td.compets-field-name {
-	font-weight: bold;
-	color: #333333;
-}
-td.compets-field-name div div {
-	padding-top: 4px;
-	font-size: 90%;
-	font-weight: normal;
-	color: #555555;
-}
-.compets-field-description textarea {
-	height: 128px;
-}
-.compets-field-result textarea {
-	height: 128px;
-}
-th.compets-field-rating-total {
-	padding-right: 4px;
-	text-align: right;
-}
-td.compets-field-rating-total {
-	padding-right: 18px;
-	width: 56px;
-}
-
-.trains-field-num {
-	width: 20px;
-}
-.trains-field-situation {
-}
-.trains-field-objective {
-}
-.trains-field-method {
-	width: 20%;
-}
-.trains-field-term {
-	width: 80px;
-}
-.trains-field-responsible {
-	width: 105px;
-}
-.trains-field-result {
-	width: 22%;
-}
+body{background-color:#F0F0F0;}
+form{position:absolute;top:0;bottom:0;left:0;width:100%;height:expression(this.parentNode.offsetHeight - this.offsetTop + 'px');}
+fieldset{width:100%;height:100%;}
+.panel{width:100%;}
+.panel-period{padding-left:10px;width:120px;height:30px;background-color:#CCCCCC;}
+.panel-period div{overflow:hidden;white-space:nowrap;}
+.panel-period select{margin:0 2px;vertical-align:middle;}
+.panel-toolbar{background-color:#CCCCCC;}
+.toolbar-item-save div{background-image:url('../../../../img/achievs/card/toolbar/save.gif');}
+.toolbar-item-save-close div{background-image:url('../../../../img/achievs/card/toolbar/save_close.gif');}
+.toolbar-item-edit div{background-image:url('../../../../img/achievs/card/toolbar/edit.gif');}
+.toolbar-item-approval div{background-image:url('../../../../img/achievs/card/toolbar/approval.gif');}
+.toolbar-item-reject div{background-image:url('../../../../img/achievs/card/toolbar/reject.gif');}
+.toolbar-item-refresh div{background-image:url('../../../../img/achievs/card/toolbar/refresh.gif');}
+.toolbar-item-print div{background-image:url('../../../../img/achievs/card/toolbar/printer.gif');}
+.panel-status{background-color:#CCCCCC;}
+.panel-status div{margin-right:10px;padding-right:20px;font-weight:bold;text-align:right;background:no-repeat right;}
+div.panel-statusNEW{background-image:url('../../../../img/achievs/status/NEW.gif');}
+div.panel-statusPLN{background-image:url('../../../../img/achievs/status/PLN.gif');}
+div.panel-statusCPN{background-image:url('../../../../img/achievs/status/CPN.gif');}
+div.panel-statusRTG{background-image:url('../../../../img/achievs/status/RTG.gif');}
+div.panel-statusCRG{background-image:url('../../../../img/achievs/status/CRG.gif');}
+div.panel-statusCLS{background-image:url('../../../../img/achievs/status/CLS.gif');}
+.button{width:190px;text-indent:24px;line-height:16px;font-weight:bold;white-space:pre;cursor:pointer;background:url('../../../../img/achievs/card/add.gif') no-repeat 6px;display:none;}
+.button-activated{display:block;}
+.header{margin-top:1px;width:100%;table-layout:fixed;border-collapse:separate;border-spacing:5px;}
+.header-field-name{padding-left:5px;width:95px;height:29px;white-space:nowrap;overflow:hidden;font-size:90%;font-weight:bold;font-family:Arial, sans-serif;}
+.header-field-name div{font-size:80%;color:#666666;}
+.header-field-value{border:1px solid #999999;height:29px;overflow:hidden;}
+.header-field-value div{padding-left:5px;padding-top:2px;height:100%;line-height:14px;overflow:hidden;overflow-y:auto;background-color:#FFFFFF;}
+.header-field-empty{width:1px;}
+.tabs{position:absolute;top:114px;bottom:0;left:0;width:100%;height:expression(this.parentNode.offsetHeight - this.offsetTop + 'px');}
+.tabs-items{position:relative;top:1px;left:10px;z-index:1;}
+.tabs-body{position:absolute;top:36px;bottom:0;left:0;right:0;height:expression(this.parentNode.offsetHeight - this.offsetTop - 2 + 'px');z-index:0;background-color:#FFFBF0;}
+.tabs-item div{font-family:Verdana, Tahoma, sans-serif;}
+#tabs-item-tasks div{background-image:url('../../../../img/achievs/card/doc.gif');}
+#tabs-item-compets div{background-image:url('../../../../img/achievs/card/doc.gif');}
+#tabs-item-trains div{background-image:url('../../../../img/achievs/card/doc.gif');}
+#tabs-item-comments div{background-image:url('../../../../img/achievs/card/confirm.gif');}
+#tabs-item-personal div{background-image:url('../../../../img/achievs/card/doc.gif');}
+.grid-head{padding-right:16px;border-top:1px solid #999999;border-bottom:1px solid #666666;height:31px;overflow:hidden;background-color:#FFDDBB;}
+.grid-body{position:absolute;border-top:1px solid #CCCCCC;top:33px;bottom:37px;width:100%;height:expression(this.parentNode.offsetHeight - 73 + 'px');overflow:auto;overflow-x:hidden;}
+.grid-footer{position:absolute;border-top:1px solid #666666;bottom:0;width:100%;background-color:#FFDDBB;}
+.grid-head-table{width:100%;height:100%;table-layout:fixed;font-family:Arial, sans-serif;}
+.grid-head-table th{border-right:1px solid #999999;font-size:90%;text-align:left;}
+.grid-head-table th, .grid-body-table td{padding-left:4px;white-space:nowrap;overflow:hidden;}
+.grid-head-table th div{font-size:80%;color:#666666;}
+.grid-body-table{border-bottom:1px solid #999999;width:100%;width:expression(this.parentNode.offsetWidth - 16 + 'px');table-layout:fixed;background-color:#FFFBF0;}
+.grid-body-table tr.row-pattern{display:none;}
+.grid-body-table tr.row-canceled{background:#DDDDDD;}
+.toggle-cancel{width:16px;height:16px;cursor:pointer;background:url('../../../../img/achievs/card/remove.gif') no-repeat;}
+.toggle-cancel-train{width:16px;height:16px;cursor:pointer;background:url('../../../../img/achievs/card/remove.gif') no-repeat;}
+tr.row-canceled .toggle-cancel{background-image:url('../../../../img/achievs/card/add.gif');}
+tr.row-canceled .field-activated{background-color:#DDDDDD !important;}
+tr.row-canceled textarea{background:url('../../../../img/achievs/card/cancel_stamp.gif') no-repeat center;}
+.field-activated .toggle-cancel{}
+.grid-body-table .toggle-cancel{display:none;}
+tr.row-planning .toggle-cancel{display:block;}
+.grid-body-table td{border-right:1px solid #999999;border-bottom:1px solid #999999;vertical-align:top;}
+.grid-body-table textarea{padding:0;border:0;width:100%;height:98px;overflow:auto;overflow-x:hidden;background:transparent;cursor:default;}
+.grid-body-table select{margin-top:1px;margin-left:-1px;width:100%;display:none;}
+.grid-body-table input{border:0;background:transparent;cursor:default;}
+.grid-body-table div{margin-top:1px;}
+.grid-body-table .field-activated{background-color:#FFFFFF;}
+.grid-footer-table{width:100%;font-weight:bold;font-size:11px;}
+.grid-footer-table td{height:32px;}
+.field-rating{text-align:center;font-weight:bold;}
+.field-rating select{width:100%;font-weight:bold;display:none;}
+.field-activated textarea{overflow-y:scroll;cursor:text;}
+.field-activated select{display:block;}
+.field-activated input{cursor:pointer;}
+.field-activated div{display:none;}
+.field-activated label{cursor:pointer;}
+.tasks-field-num{width:20px;}
+.tasks-field-description{}
+.tasks-field-term{width:56px;}
+.tasks-field-weight{width:56px;}
+.tasks-field-note{width:20px;}
+.tasks-field-result{}
+.tasks-field-rating{width:56px;text-align:center;}
+td.tasks-field-term input{width:100%;}
+td.tasks-field-note div{margin:0 auto;width:16px;font-size:10px;line-height:14px;text-align:center;color:#666666;background:url('../../../../img/default/profile/bookmark.gif') no-repeat;cursor:pointer;}
+th.tasks-field-rating-total{padding-right:4px;text-align:right;}
+td.tasks-field-rating-total{padding-right:18px;width:56px;}
+div.tasks-type{padding:6px 0 4px 10px;border-right:1px solid #999999;border-bottom:1px solid #999999;font-weight:bold;color:#444444;background-color:#EEEEEE;}
+td.compets-field-note div{margin:0 auto;width:16px;font-size:10px;line-height:14px;text-align:center;color:#666666;background:url('../../../../img/default/profile/bookmark.gif') no-repeat;cursor:pointer;}
+div.compets-type{padding:6px 0 4px 10px;border-right:1px solid #999999;border-bottom:1px solid #999999;font-weight:bold;color:#444444;background-color:#EEEEEE;}
+.compets-field-num{width:20px;}
+.compets-field-note{width:20px;}
+.compets-field-name{width:230px;}
+.compets-field-description{}
+.compets-field-result{width:30%;}
+.compets-field-rating{width:56px;text-align:center;}
+.compets-field-note{width:20px;}
+td.compets-field-name{font-weight:bold;color:#333333;}
+td.compets-field-name div div{padding-top:4px;font-size:90%;font-weight:normal;color:#555555;}
+.compets-field-description textarea{height:128px;}
+.compets-field-result textarea{height:128px;}
+th.compets-field-rating-total{padding-right:4px;text-align:right;}
+td.compets-field-rating-total{padding-right:18px;width:56px;}
+.trains-field-num{width:20px;}
+.trains-field-situation{}
+.trains-field-objective{}
+.trains-field-method{width:20%;}
+.trains-field-term{width:80px;}
+.trains-field-responsible{width:105px;}
+.trains-field-result{width:22%;}
 td.trains-field-method div,
-td.trains-field-responsible div {
-	border-bottom: 1px solid #CCCCCC;
-	width: 96%;
-	height: 33px;
-	line-height: 16px;
-	overflow: hidden;
-	white-space: nowrap;
-}
-td.trains-field-method div {
-	cursor: help;
-}
-td.trains-field-method div div {
-	border: 0;
-	width: 100%;
-	text-indent: 8px;
-}
+td.trains-field-responsible div{border-bottom:1px solid #CCCCCC;width:96%;height:33px;line-height:16px;overflow:hidden;white-space:nowrap;}
+td.trains-field-method div{cursor:help;}
+td.trains-field-method div div{border:0;width:100%;text-indent:8px;}
 td.trains-field-method textarea,
-td.trains-field-responsible textarea {
-	width: 97%;
-	height: 63px;
-	font-size: 80%;
-}
-td.trains-field-method textarea {
-	width: 99%;
-}
-
-.comments-body {
-	width: 100%;
-	height: 100%;
-	overflow: scroll;
-	overflow-x: hidden;
-}
-.comments-table {
-	border-top: 1px solid #999999;
-}
-.comments-table th {
-	padding-left: 10px;
-	line-height: 22px;
-	font-size: 90%;
-	text-align: left;
-	white-space: nowrap;
-	overflow: hidden;
-	background-color: #FFDDBB;
-}
-.comments-table td {
-	padding-left: 4px;
-	border-right: 0;
-}
-.comments-table textarea {
-	height: 100px;
-}
-.comments-table input {
-	margin-left: 4px;
-	vertical-align: -3px;
-}
-td.comments-field-flags {
-	padding-top: 1px;
-	border-bottom-style: dashed;
-	height: 20px;
-}
-.ratings-body {
-	border-top: 1px solid #999999;
-}
-.ratings-table {
-}
-.ratings-table th {
-	padding-left: 10px;
-	height: 35px;
-	font-weight: normal;
-	text-align: left;
-	white-space: nowrap;
-	overflow: hidden;
-}
-.ratings-table td {
-	padding: 0 20px 0 10px;
-}
-th.ratings-field-total {
-	font-weight: bold;
-}
-td.ratings-field-total {
-	width: 56px;
-	text-align: left;
-	color: #CC0000;
-}
-td.ratings-field-total select {
-	color: #CC0000;
-}
-
-.approvals {
-	width: 100%;
-}
-.approvals td.approvals-margin {
-	width: 50%;
-}
-.approvals-table {
-}
-.approvals-table th {
-	padding: 10px 40px 8px 0;
-}
-.approvals-table td {
-	height: 20px;
-	white-space: nowrap;
-}
-.approvals-field-name {
-}
-.approvals-field-status {
-	padding-right: 50px;
-}
-.approvals-field-date {
-	padding-right: 40px;
-}
-.approvals-field-role {
-	font-size: 80%;
-	font-style: italic;
-	vertical-align: top;
-	color: #666666;
-}
-.approvals-status {
-	background: url('../../../../img/achievs/card/ball_yellow.gif') no-repeat center;
-}
-.approvals-status1 {
-	background: url('../../../../img/achievs/card/apply.gif') no-repeat center;
-}
-.approvals-status0 {
-	background: url('../../../../img/achievs/card/delete.gif') no-repeat center;
-}
-
-.translate_category_tasks{
-	font-size:12px;
-}
-
-.translate_menu{
-	position:relative;
-	color: white;
-	font-weight: bold;
-	font-size: 10px;
-	top:-5px;
-}
-
-.translate_ratio{
-	position:relative;
-	color: #666666;
-	font-size: 11px;
-	white-space: nowrap;
-}
-
-.translate_toolbar{
-	position:relative;
-	color: white;
-	font-weight: bold;
-	font-size: 10px;
-
-}
-
-.translate_func_comment{
-	position:relative;
-	color: #000000;
-	text-indent: 10px;
-	font-weight:bold;
-	font-size: 11px;
-}
-
-.func_comment{
-	
-	width: 700px;
-	height: 32px;
-	margin: 5px;
-	padding: 5px;
-	overflow: auto;
-	overflow-x: hidden;
-	display: none; 
-}
-
-.func_div{
-	width:100%;
-	height:32px;
-	background-color:#FFFBF0;
-	font-weight: normal;
-	font-size: 13px;
-	margin:5px;
-	padding:5px;
-	border:1px #666666 inset;
-	overflow-y: scroll;
-	display: block;
-}
-
-.personal-grid-body
-{
-	display: block;
-	
-	border-top: 1px solid #CCCCCC;
-	height: auto!important;
-	width: 100%;
-	position: relative;
-	overflow: scroll;
-	overflow-x: hidden;
-
-}
-
-
-.personal-grid-body-table
-{
-	overflow: hidden;
-	border-bottom: 1px solid #999999;
-	width: 100%;
-	/*width: expression(this.parentNode.offsetWidth - 16 + 'px');*/
-	table-layout: fixed;
-	background-color: #FFFBF0;
-}
-
-.personal-grid-body-table .field-activated {
-	background-color: #FFFFFF;
-}
-
-.personal-grid-body-table td
-{
-	padding-left: 4px;
-	white-space: nowrap;
-	overflow: hidden;
-	border-bottom: 1px solid #999999;
-	valign: top;
-}
-
-.personal-grid-body-table textarea 
-{
-	padding: 0;
-	border: 0;
-	width: 100%;
-	height: 98px;
-	overflow-y: scroll;
-	overflow-x: hidden;
-	background: transparent;
-	cursor: default;
-
-}
-
-.personal-competence-header
-{
-	height: 31px;
-	background-color: #FFDDBB;
-	white-space: nowrap;
-	overflow: hidden;
-	font-size: 90%;
-	font-weight: bold;
-	table-layout: fixed;
-	font-family: Arial, sans-serif;
-	
-}
-
-.personal-competence-header div
-{
-	font-size: 80%;
-	color: #666666;
-}
-
+td.trains-field-responsible textarea{width:97%;height:63px;font-size:80%;}
+td.trains-field-method textarea{width:99%;}
+.comments-body{width:100%;height:100%;overflow:scroll;overflow-x:hidden;}
+.comments-table{border-top:1px solid #999999;}
+.comments-table th{padding-left:10px;line-height:22px;font-size:90%;text-align:left;white-space:nowrap;overflow:hidden;background-color:#FFDDBB;}
+.comments-table td{padding-left:4px;border-right:0;}
+.comments-table textarea{height:100px;}
+.comments-table input{margin-left:4px;vertical-align:-3px;}
+td.comments-field-flags{padding-top:1px;border-bottom-style:dashed;height:20px;}
+.ratings-body{border-top:1px solid #999999;}
+.ratings-table{}
+.ratings-table th{padding-left:10px;height:35px;font-weight:normal;text-align:left;white-space:nowrap;overflow:hidden;}
+.ratings-table td{padding:0 20px 0 10px;}
+th.ratings-field-total{font-weight:bold;}
+td.ratings-field-total{width:56px;text-align:left;color:#CC0000;}
+td.ratings-field-total select{color:#CC0000;}
+.approvals{width:100%;}
+.approvals td.approvals-margin{width:50%;}
+.approvals-table{}
+.approvals-table th{padding:10px 40px 8px 0;}
+.approvals-table td{height:20px;white-space:nowrap;}
+.approvals-field-name{}
+.approvals-field-status{padding-right:50px;}
+.approvals-field-date{padding-right:40px;}
+.approvals-field-role{font-size:80%;font-style:italic;vertical-align:top;color:#666666;}
+.approvals-status{background:url('../../../../img/achievs/card/ball_yellow.gif') no-repeat center;}
+.approvals-status1{background:url('../../../../img/achievs/card/apply.gif') no-repeat center;}
+.approvals-status0{background:url('../../../../img/achievs/card/delete.gif') no-repeat center;}
+.translate_category_tasks{font-size:12px;}
+.translate_menu{position:relative;color:white;font-weight:bold;font-size:10px;top:-5px;}
+.translate_ratio{position:relative;color:#666666;font-size:11px;white-space:nowrap;}
+.translate_toolbar{position:relative;color:white;font-weight:bold;font-size:10px;}
+.translate_func_comment{position:relative;color:#000000;text-indent:10px;font-weight:bold;font-size:11px;}
+.func_comment{width:700px;height:32px;margin:5px;padding:5px;overflow:auto;overflow-x:hidden;display:none;}
+.func_div{width:100%;height:32px;background-color:#FFFBF0;font-weight:normal;font-size:13px;margin:5px;padding:5px;border:1px #666666 inset;overflow-y:scroll;display:block;}
+.personal-grid-body{display:block;border-top:1px solid #CCCCCC;height:auto!important;width:100%;position:relative;overflow:scroll;overflow-x:hidden;}
+.personal-grid-body-table{overflow:hidden;border-bottom:1px solid #999999;width:100%;table-layout:fixed;background-color:#FFFBF0;}
+.personal-grid-body-table .field-activated{background-color:#FFFFFF;}
+.personal-grid-body-table td{padding-left:4px;white-space:nowrap;overflow:hidden;border-bottom:1px solid #999999;valign:top;}
+.personal-grid-body-table textarea{padding:0;border:0;width:100%;height:98px;overflow-y:scroll;overflow-x:hidden;background:transparent;cursor:default;}
+.personal-competence-header{height:31px;background-color:#FFDDBB;white-space:nowrap;overflow:hidden;font-size:90%;font-weight:bold;table-layout:fixed;font-family:Arial, sans-serif;}
+.personal-competence-header div{font-size:80%;color:#666666;}
 #tabs-body-personal .grid-head,
 #tabs-body-personal .grid-body,
-#tabs-body-personal .grid-footer {
-	display: block;
-	float: left;
-	width:100%!important;
-	height: auto!important;
-	top: auto;
-	bottom: auto;
-	position: relative;
-	overflow: auto;
-	overflow-x: hidden;
-	padding: 0!important;}
-
-#tabs-body-personal {
-	overflow: scroll;
-	overflow-x: hidden;
-	width: expression(this.parentNode.offsetWidth - 16 + 'px');
-	padding-right: 16px!important;
-}
+#tabs-body-personal .grid-footer{display:block;float:left;width:100%!important;height:auto!important;top:auto;bottom:auto;position:relative;overflow:auto;overflow-x:hidden;padding:0!important;}
+#tabs-body-personal{overflow:scroll;overflow-x:hidden;width:expression(this.parentNode.offsetWidth - 16 + 'px');padding-right:16px!important;}
 #tabs-body-personal .grid-head,
-#tabs-body-personal .grid-body-table {padding: 0!important;width:100%!important}
-#tabs-body-personal .compets-field-name {width:auto;white-space: normal}
-#tabs-body-personal .compets-field-result {width:40%}
-#tabs-body-personal .tasks-field-result {width:40%}
+#tabs-body-personal .grid-body-table{padding:0!important;width:100%!important}
+#tabs-body-personal .compets-field-name{width:auto;white-space:normal}
+#tabs-body-personal .compets-field-result{width:40%}
+#tabs-body-personal .tasks-field-result{width:40%}
 #tabs-body-tasks .grid-body,
-#tabs-body-trains .grid-body{
-	overflow: scroll;
-	overflow-x: hidden
-}
-#tabs-body-personal .personal-grid-body {
-	overflow: hidden
-}
+#tabs-body-trains .grid-body{overflow:scroll;overflow-x:hidden}
+#tabs-body-personal .personal-grid-body{overflow:hidden}
