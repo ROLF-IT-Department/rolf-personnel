@@ -1,68 +1,10 @@
-/**
- * Таблица стилей для окна с выбором совмещенной должности.
- */
- 
-a {
-	color: #0000FF;
-	text-decoration: none;
-}
-a:hover {
-	color: #FF6633;
-}
-div.caption_int {
-	padding: 20px 0 20px 60px;
-	
-	font-size: 160%;
-	color: #666666;
-}
-ol.docs-list {
-	margin: 0;
-	padding-left: 25px;
-}
-ol.docs-list li {
-	padding-top: 8px;
-	font-size: 110%;
-	color: #666666;
- 	list-style-position: inside;
-}
-
-#integrated_block
-{
-	width: 600px;
-	position: absolute;
-	z-index: 100;
-	top: 100px;
-	left: 100px;
-	border: 1px solid black;
-	background-color: #FFFFFF;
-	display: none;
-}
-
-.integrate_table
-{
-	width: 500px;
-	margin: 0 auto;
-	font-size: 110%;
-	color: #666666;
-	
-}
-
-.integrate_table tr
-{
-	height: 40px;
-}
-
-.integrate_table td
-{
-	padding: 10px;
-	border: 1px solid #AAAAAA;
-	overflow: auto;
-}
-
-.integrate_note
-{
-	width: 500px;
-	margin: 0 auto;
-	font-size: 110%;
-	color: blue;
-}
+a{color:#0000FF;text-decoration:none;}
+a:hover{color:#FF6633;}
+div.caption_int{padding:20px 0 20px 60px;font-size:160%;color:#666666;}
+ol.docs-list{margin:0;padding-left:25px;}
+ol.docs-list li{padding-top:8px;font-size:110%;color:#666666;list-style-position:inside;}
+#integrated_block{width:600px;position:absolute;z-index:100;top:100px;left:100px;border:1px solid black;background-color:#FFFFFF;display:none;}
+.integrate_table{width:500px;margin:0 auto;font-size:110%;color:#666666;}
+.integrate_table tr{height:40px;}
+.integrate_table td{padding:10px;border:1px solid #AAAAAA;overflow:auto;}
+.integrate_note{width:500px;margin:0 auto;font-size:110%;color:blue;}

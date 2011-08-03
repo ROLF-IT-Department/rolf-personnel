@@ -1,123 +1,23 @@
-/** 
- * Таблица стилей основной страницы.
- */
-
-body {
-	background-color: #FFFBF0;
-}
-#toolbar {
-	padding-top: 1px;
-	padding-left: 3px;
-	height: 42px;
-	background: #CCCCCC;
-}
-#toolbar table {
-	border-spacing: 2px;
-}
-#sidebar, #container {
-	position: absolute;
-	top: 93px;
-	bottom: 5px;
-	height: expression(this.parentNode.offsetHeight - this.offsetTop - 7 + 'px');
-	overflow: hidden;
-	border: 1px solid #666666;
-	background-color: #FFFFFF;
-}
-#sidebar {
-	left: 5px;
-	width: 294px;
-}
-#container {
-	left: 305px;
-	right: 5px;
-	width: expression(this.parentNode.offsetWidth - this.offsetLeft - 7 + 'px');
-}
-.delimiter {
-	position: absolute;
-	margin-top: 82px;
-	top: 38%;
-	left: 302px;
-	width: 10px;
-	height: 10%;
-	cursor: e-resize;
-	background-color: #BBBBBB;
-}
-.delimiter-activated {
-	top: 37%;
-	height: 12%;
-	background-color: #999999;
-}
-.toolbar-item-card div {
-	background-image: url('../../../../img/default/card.gif');
-}
-.toolbar-item-achievs div {
-	background-image: url('../../../../img/default/star.gif');
-}
-.toolbar-item-refresh div {
-	background-image: url('../../../../img/default/refresh.gif');
-}
-.toolbar-item-help div {
-	background-image: url('../../../../img/default/info.gif');
-}
-.toolbar-item-integrate div {
-	background-image: url('../../../../img/default/profile/doc.gif');
-}
-.caption {
-	padding: 0 8px;
-	height: 26px;
-	background: #990000 url('../../../../img/default/index/caption/bg.gif') repeat-x;
-}
-.caption div {
-	padding-right: 24px;
-	overflow: hidden;
-	font-size: 11pt;
-	font-weight: bold;
-	line-height: 24px;
-	white-space: nowrap;
-	color: #FFFFFF;
-	background: url('../../../../img/default/index/caption/folder.gif') no-repeat right;
-}
-.caption div.caption-card {
-	background-image: url('../../../../img/default/index/caption/card.gif');
-}
-.caption div.caption-achievs {
-	background-image: url('../../../../img/default/index/caption/doc.gif');
-}
-.caption div.caption-personal {
-	background-image: url('../../../../img/default/index/caption/user.gif');
-}
-.caption div.caption-people {
-	background-image: url('../../../../img/default/index/caption/users.gif');
-}
-#menu {
-	position: absolute;
-	top: 26px;
-	bottom: 0;
-	width: 100%;
-	height: expression(this.parentNode.offsetHeight - this.offsetTop - 1 + 'px');
-	overflow: auto;
-}
-#content {
-	position: absolute;
-	top: 26px;
-	bottom: 0;
-	width: 100%;
-	height: 100%;
-	height: expression(this.parentNode.offsetHeight - this.offsetTop - 2 + 'px');
-}
-
-.translate_menu{
-	color: white;
-	font-weight: bold;
-	font-size: 10px;
-}
-
-.integrate_name
-{
-	position: absolute;
-	right: 20px;
-	top: 15px;
-	color: #990000;
-	font-weight: bold;
-	font-size: 18px;
-}
+body{background-color:#FFFBF0;}
+#toolbar{padding-top:1px;padding-left:3px;height:42px;background:#CCCCCC;}
+#toolbar table{border-spacing:2px;}
+#sidebar, #container{position:absolute;top:93px;bottom:5px;height:expression(this.parentNode.offsetHeight - this.offsetTop - 7 + 'px');overflow:hidden;border:1px solid #666666;background-color:#FFFFFF;}
+#sidebar{left:5px;width:294px;}
+#container{left:305px;right:5px;width:expression(this.parentNode.offsetWidth - this.offsetLeft - 7 + 'px');}
+.delimiter{position:absolute;margin-top:82px;top:38%;left:302px;width:10px;height:10%;cursor:e-resize;background-color:#BBBBBB;}
+.delimiter-activated{top:37%;height:12%;background-color:#999999;}
+.toolbar-item-card div{background-image:url('../../../../img/default/card.gif');}
+.toolbar-item-achievs div{background-image:url('../../../../img/default/star.gif');}
+.toolbar-item-refresh div{background-image:url('../../../../img/default/refresh.gif');}
+.toolbar-item-help div{background-image:url('../../../../img/default/info.gif');}
+.toolbar-item-integrate div{background-image:url('../../../../img/default/profile/doc.gif');}
+.caption{padding:0 8px;height:26px;background:#990000 url('../../../../img/default/index/caption/bg.gif') repeat-x;}
+.caption div{padding-right:24px;overflow:hidden;font-size:11pt;font-weight:bold;line-height:24px;white-space:nowrap;color:#FFFFFF;background:url('../../../../img/default/index/caption/folder.gif') no-repeat right;}
+.caption div.caption-card{background-image:url('../../../../img/default/index/caption/card.gif');}
+.caption div.caption-achievs{background-image:url('../../../../img/default/index/caption/doc.gif');}
+.caption div.caption-personal{background-image:url('../../../../img/default/index/caption/user.gif');}
+.caption div.caption-people{background-image:url('../../../../img/default/index/caption/users.gif');}
+#menu{position:absolute;top:26px;bottom:0;width:100%;height:expression(this.parentNode.offsetHeight - this.offsetTop - 1 + 'px');overflow:auto;}
+#content{position:absolute;top:26px;bottom:0;width:100%;height:100%;height:expression(this.parentNode.offsetHeight - this.offsetTop - 2 + 'px');}
+.translate_menu{color:white;font-weight:bold;font-size:10px;}
+.integrate_name{position:absolute;right:20px;top:15px;color:#990000;font-weight:bold;font-size:18px;}
