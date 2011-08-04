@@ -6,7 +6,7 @@ fieldset{width:100%;height:100%;}
 .panel-period div{overflow:hidden;white-space:nowrap;}
 .panel-period select{margin:0 2px;vertical-align:middle;}
 .panel-toolbar{background-color:#CCCCCC;}
-.toolbar-item-save div{background-image:url('../../../../img/achievs/card/toolbar/save.gif');}
+.toolbar-item-save div{background-image:url('../../../../img/achievs/card/toolbar/save.png');}
 .toolbar-item-save-close div{background-image:url('../../../../img/achievs/card/toolbar/save_close.gif');}
 .toolbar-item-edit div{background-image:url('../../../../img/achievs/card/toolbar/edit.gif');}
 .toolbar-item-approval div{background-image:url('../../../../img/achievs/card/toolbar/approval.gif');}
