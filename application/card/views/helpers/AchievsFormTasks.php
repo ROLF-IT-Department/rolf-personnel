@@ -148,7 +148,7 @@ class Zend_View_Helper_AchievsFormTasks
 
     	foreach ($tasks as $item)
 	    {
-    		if (($item->weight) && ($item->status != 0) && ($item->is_personal == null))
+    		if ($item->rating_id AND $item->weight AND ($item->status != 0) AND ($item->is_personal == null))
     		{
     			if ($item->is_functional) 
     			{
