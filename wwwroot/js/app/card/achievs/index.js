@@ -395,8 +395,12 @@ function toolbarItemRejectRate()
 
 function toolbarItemRefresh()
 {
+	var loading_object = $('#loading');
+	
+	$('#loading').css({display: 'block'});
 	$('#loading', parent.document.body).css({display: 'block'});
-	location.reload();
+
+	window.location.reload();
 }
 
 /**
@@ -476,9 +480,10 @@ function periodOnchangeHandler()
 
 //	var url = BASE_URL + '/card/achievs/index/personid/' + personId + '/period/' + period;
 	var url = BASE_URL + '/card/achievs/index/personid/' + personId + '/cardid/' + cardid + '/period/' + period;
-	$('#loading', parent.document.body).css({
-			display: 'block'
-	});
+	var loading_object = $('#loading');
+
+	$('#loading').css({display: 'block'});
+	$('#loading', parent.document.body).css({display: 'block'});
 	location.replace(url);
 }
 
