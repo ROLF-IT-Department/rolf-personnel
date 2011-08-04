@@ -19,15 +19,15 @@ ol.docs-list li{padding-top:8px;font-size:110%;color:#666666;list-style-position
 .integrate_table td{padding:10px;border:1px solid #AAAAAA;overflow:auto;}
 .integrate_note{width:500px;margin:0 auto;font-size:110%;color:blue;}
 .tree-root {padding: 4px;}
-.tree-node-card div {background-image: url('../../../../../img/default/card.gif');}
-.tree-node-achievs div {background-image: url('../../../../../img/default/star.gif');}
-.tree-node-personal div {background-image: url('../../../../../img/default/person.gif');}
-.tree-branch-emps .tree-node div {background-image: url('../../../../../img/default/users.gif');}
-.tree-branch-posts .tree-node div {background-image: url('../../../../../img/default/user.gif');}
-.tree-branch-func .tree-node div {background-image: url('../../../../../img/default/users.gif');}
+.tree-node-card div {background-image: url('../../img/default/card.gif');}
+.tree-node-achievs div {background-image: url('../../img/default/star.gif');}
+.tree-node-personal div {background-image: url('../../img/default/person.gif');}
+.tree-branch-emps .tree-node div {background-image: url('../../img/default/users.gif');}
+.tree-branch-posts .tree-node div {background-image: url('../../img/default/user.gif');}
+.tree-branch-func .tree-node div {background-image: url('../../img/default/users.gif');}
 .toolbar {border-collapse: separate;border-spacing: 0;background-color: #CCCCCC;}
 .toolbarItem {padding: 3px 4px 3px 2px;cursor: pointer;}
-.toolbarItem div {padding-left: 18px;overflow: hidden;white-space: nowrap;background: url('../img/icon.gif') no-repeat left;cursor: pointer;}
+.toolbarItem div {padding-left: 18px;overflow: hidden;white-space: nowrap;background: url('../../js/lib/Js/Toolbar/img/icon.gif') no-repeat left;cursor: pointer;}
 .toolbarItemHover {padding: 2px 3px 2px 1px;border: 1px solid #666666;background-color: #FFCC99;}
 
 #loading {width: 100%;height: 100%;display: none;}
