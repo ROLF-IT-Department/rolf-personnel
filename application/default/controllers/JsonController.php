@@ -17,6 +17,7 @@ class JsonController extends Zend_Controller_Action
 			$userData['viewposts'] = $treePost->findViewedPosts(true)->toArray();
 		}
 
+		$this->getResponse()->setHeader('Content-Type', 'text/javascript; charset=windows-1251');
 		$view = $this->initView();
 		$view->user = Zend_Json_Encoder::encode($userData);
 	}

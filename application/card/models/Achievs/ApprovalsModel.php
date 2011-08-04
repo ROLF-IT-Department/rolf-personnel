@@ -129,18 +129,26 @@ class Achievs_ApprovalsModel
 				'rate_status' => $card->rate_emp_status,
 			),
 			'hmg' => array(
-				'plan_name'   => $fullnames[$approvalsPersons['plan_hmg_id']],
+				'plan_name'   => (array_key_exists($approvalsPersons['plan_hmg_id'], $fullnames))
+				                    ? $fullnames[$approvalsPersons['plan_hmg_id']]
+				                    : '--/--',
 				'plan_date'   => $card->plan_hmg_date,
 				'plan_status' => $card->plan_hmg_status,
-				'rate_name'   => $fullnames[$approvalsPersons['rate_hmg_id']],
+				'rate_name'   => (array_key_exists($approvalsPersons['rate_hmg_id'], $fullnames))
+				                    ? $fullnames[$approvalsPersons['rate_hmg_id']]
+				                    : '--/--',
 				'rate_date'   => $card->rate_hmg_date,
 				'rate_status' => $card->rate_hmg_status,
 			),
 			'fnc' => array(
-				'plan_name'   => $fullnames[$approvalsPersons['plan_fnc_id']],
+				'plan_name'   => (array_key_exists($approvalsPersons['plan_fnc_id'], $fullnames))
+				                    ? $fullnames[$approvalsPersons['plan_fnc_id']]
+				                    : '--/--',
 				'plan_date'   => $card->plan_fnc_date,
 				'plan_status' => $card->plan_fnc_status,
-				'rate_name'   => $fullnames[$approvalsPersons['rate_fnc_id']],
+				'rate_name'   => (array_key_exists($approvalsPersons['rate_fnc_id'], $fullnames))
+				                    ? $fullnames[$approvalsPersons['rate_fnc_id']]
+				                    : '--/--',
 				'rate_date'   => $card->rate_fnc_date,
 				'rate_status' => $card->rate_fnc_status
 			)

@@ -441,6 +441,7 @@ abstract class Zend_Controller_Action
      */
     public function preDispatch()
     {
+	    $this->getResponse()->setHeader('Content-Type', 'text/html; charset=windows-1251');
     }
 
     /**
