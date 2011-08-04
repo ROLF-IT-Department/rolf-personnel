@@ -43,8 +43,8 @@ class Employees_List
 
 				foreach($_persons as $person)
 				{
-					$employees[$person->id]['info'] = $person;
-					$employees[$person->id]['attribs'] = $employee_model->find_full_info($person->id);//$employees_attribs_model->find($person->id)->current();
+					$employees[$person->surname]['info'] = $person;
+					$employees[$person->surname]['attribs'] = $employee_model->find_full_info($person->id);//$employees_attribs_model->find($person->id)->current();
 
 					$where ='person_id = ' . $person->id . ' AND period IN (' . $periodFirst . ',' . $periodSecond . ')';
 					$cards = $cards_model->fetchAll($where);
@@ -53,15 +53,15 @@ class Employees_List
 					{
 						if($card->period == $periodFirst)
 						{
-							$employees[$person->id]['cards'][$periodFirst][] = $card;
+							$employees[$person->surname]['cards'][$periodFirst][] = $card;
 						}
 						elseif($card->period == $periodSecond)
 						{
-							$employees[$person->id]['cards'][$periodSecond][] = $card;
+							$employees[$person->surname]['cards'][$periodSecond][] = $card;
 						}
 					}
 				}
-
+				ksort($employees);
 				$this->rows = $employees;
 				$treePosts = new Rp_Db_View_TreePosts();
 				$this->postNames = $treePosts->fetchNames($postIds);
@@ -79,8 +79,8 @@ class Employees_List
 
 				foreach($_persons as $person)
 				{
-					$employees[$person->id]['info'] = $person;
-					$employees[$person->id]['attribs'] = $employee_model->find_full_info($person->id);//$employees_attribs_model->find($person->id)->current();
+					$employees[$person->surname]['info'] = $person;
+					$employees[$person->surname]['attribs'] = $employee_model->find_full_info($person->id);//$employees_attribs_model->find($person->id)->current();
 
 					$where ='person_id = ' . $person->id . ' AND period IN (' . $periodFirst . ',' . $periodSecond . ')';
 					$cards = $cards_model->fetchAll($where);
@@ -89,15 +89,15 @@ class Employees_List
 					{
 						if($card->period == $periodFirst)
 						{
-							$employees[$person->id]['cards'][$periodFirst][] = $card;
+							$employees[$person->surname]['cards'][$periodFirst][] = $card;
 						}
 						elseif($card->period == $periodSecond)
 						{
-							$employees[$person->id]['cards'][$periodSecond][] = $card;
+							$employees[$person->surname]['cards'][$periodSecond][] = $card;
 						}
 					}
 				}
-
+				ksort($employees);
 				$this->subRows = $employees;
 			}
 
@@ -113,8 +113,8 @@ class Employees_List
 
 				foreach($_persons as $person)
 				{
-					$employees[$person->id]['info'] = $person;
-					$employees[$person->id]['attribs'] = $employee_model->find_full_info($person->id);//$employees_attribs_model->find($person->id)->current();
+					$employees[$person->surname]['info'] = $person;
+					$employees[$person->surname]['attribs'] = $employee_model->find_full_info($person->id);//$employees_attribs_model->find($person->id)->current();
 
 					$where ='person_id = ' . $person->id . ' AND period IN (' . $periodFirst . ',' . $periodSecond . ')';
 					$cards = $cards_model->fetchAll($where);
@@ -123,15 +123,15 @@ class Employees_List
 					{
 						if($card->period == $periodFirst)
 						{
-							$employees[$person->id]['cards'][$periodFirst][] = $card;
+							$employees[$person->surname]['cards'][$periodFirst][] = $card;
 						}
 						elseif($card->period == $periodSecond)
 						{
-							$employees[$person->id]['cards'][$periodSecond][] = $card;
+							$employees[$person->surname]['cards'][$periodSecond][] = $card;
 						}
 					}
 				}
-
+				ksort($employees);
 				$this->subRows = $employees;
 			}
 		}
