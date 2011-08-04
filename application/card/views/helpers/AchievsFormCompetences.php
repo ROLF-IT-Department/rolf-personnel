@@ -114,7 +114,7 @@ class Zend_View_Helper_AchievsFormCompetences
 
    		foreach ($name as $key=>$value)
 	   {
-		   if ($value[weight]==$result)
+		   if ($value['weight']==$result)
 			   $ret = $key;
 	   }
 

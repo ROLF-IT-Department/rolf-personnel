@@ -1,25 +1,10 @@
 /** 
  * Таблица стилей древовидного меню основной страницы.
  */
-
-.tree-root {
-	padding: 4px;
-}
-.tree-node-card div {
-	background-image: url('../../../../../img/default/card.gif');
-}
-.tree-node-achievs div {
-	background-image: url('../../../../../img/default/star.gif');
-}
-.tree-node-personal div {
-	background-image: url('../../../../../img/default/person.gif');
-}
-.tree-branch-emps .tree-node div {
-	background-image: url('../../../../../img/default/users.gif');
-}
-.tree-branch-posts .tree-node div {
-	background-image: url('../../../../../img/default/user.gif');
-}
-.tree-branch-func .tree-node div {
-	background-image: url('../../../../../img/default/users.gif');
-}
+.tree-root {padding: 4px;}
+.tree-node-card div {background-image: url('../../../../../img/default/card.gif');}
+.tree-node-achievs div {background-image: url('../../../../../img/default/star.gif');}
+.tree-node-personal div {background-image: url('../../../../../img/default/person.gif');}
+.tree-branch-emps .tree-node div {background-image: url('../../../../../img/default/users.gif');}
+.tree-branch-posts .tree-node div {background-image: url('../../../../../img/default/user.gif');}
+.tree-branch-func .tree-node div {background-image: url('../../../../../img/default/users.gif');}

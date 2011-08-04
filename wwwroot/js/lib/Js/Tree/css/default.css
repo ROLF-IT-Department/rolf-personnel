@@ -1,43 +1,11 @@
-
-.tree-root, .tree-branch {
-	margin: 0;
-	padding: 0;
-	list-style-type: none;
-}
-.tree-branch {
-	display: none;
-	padding-left: 16px;
-}
-.tree-branch-expanded {
-	display: block;
-}
-.tree-node {
-	padding-left: 16px;
-	width: 16px;
-	cursor: pointer;
-	background: url('../img/plus.gif') no-repeat left center;
-}
-.tree-node div {
-	padding-left: 19px;
-	white-space: nowrap;
-	background: url('../img/folder.gif') no-repeat left center;
-}
-.tree-node span {
-	line-height: 16px;
-}
-.tree-node-expanded {
-	background-image: url('../img/minus.gif');
-}
-.tree-node-leaf {
-	cursor: default;
-	background: none;
-}
-.tree-node-leaf div {
-	cursor: pointer;
-}
-.tree-node-hover span {
-	background-color: #F0F0F0;
-}
-.tree-node-selected span {
-	background-color: #FFCC99;
-}
+.tree-root, .tree-branch {margin: 0;padding: 0;list-style-type: none;}
+.tree-branch {display: none;padding-left: 16px;}
+.tree-branch-expanded {display: block;}
+.tree-node {padding-left: 16px;width: 16px;cursor: pointer;background: url('../img/plus.gif') no-repeat left center;}
+.tree-node div {padding-left: 19px;white-space: nowrap;background: url('../img/folder.gif') no-repeat left center;}
+.tree-node span {line-height: 16px;}
+.tree-node-expanded {background-image: url('../img/minus.gif');}
+.tree-node-leaf {cursor: default;background: none;}
+.tree-node-leaf div {cursor: pointer;}
+.tree-node-hover span {background-color: #F0F0F0;}
+.tree-node-selected span {background-color: #FFCC99;}

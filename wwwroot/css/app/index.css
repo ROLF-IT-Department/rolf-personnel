@@ -1,74 +1,39 @@
 /**
  * Основная таблица стилей.
  */
+html, body {margin: 0;padding: 0;border: 0;height: 100%;overflow: hidden;}
+body, textarea, input, select {font-size: 10pt;font-family: Tahoma, Arial, sans-serif;color: #000000;background-color: #FFFFFF;}
+body, fieldset {cursor: default;}
+table {border: 0;border-collapse: collapse;font-size: 100%;}
+form, fieldset, textarea, div, th, td {margin: 0;padding: 0;}
+iframe, fieldset, img {border: 0;}
+div.logo {height: 50px;background: #FFFFFF url('../../img/logo.png') no-repeat 5px center;}
+a{color:#0000FF;text-decoration:none;}
+a:hover{color:#FF6633;}
+div.caption_int{padding:20px 0 20px 60px;font-size:160%;color:#666666;}
+ol.docs-list{margin:0;padding-left:25px;}
+ol.docs-list li{padding-top:8px;font-size:110%;color:#666666;list-style-position:inside;}
+#integrated_block{width:600px;position:absolute;z-index:100;top:100px;left:100px;border:1px solid black;background-color:#FFFFFF;display:none;}
+.integrate_table{width:500px;margin:0 auto;font-size:110%;color:#666666;}
+.integrate_table tr{height:40px;}
+.integrate_table td{padding:10px;border:1px solid #AAAAAA;overflow:auto;}
+.integrate_note{width:500px;margin:0 auto;font-size:110%;color:blue;}
+.tree-root {padding: 4px;}
+.tree-node-card div {background-image: url('../../../../../img/default/card.gif');}
+.tree-node-achievs div {background-image: url('../../../../../img/default/star.gif');}
+.tree-node-personal div {background-image: url('../../../../../img/default/person.gif');}
+.tree-branch-emps .tree-node div {background-image: url('../../../../../img/default/users.gif');}
+.tree-branch-posts .tree-node div {background-image: url('../../../../../img/default/user.gif');}
+.tree-branch-func .tree-node div {background-image: url('../../../../../img/default/users.gif');}
+.toolbar {border-collapse: separate;border-spacing: 0;background-color: #CCCCCC;}
+.toolbarItem {padding: 3px 4px 3px 2px;cursor: pointer;}
+.toolbarItem div {padding-left: 18px;overflow: hidden;white-space: nowrap;background: url('../img/icon.gif') no-repeat left;cursor: pointer;}
+.toolbarItemHover {padding: 2px 3px 2px 1px;border: 1px solid #666666;background-color: #FFCC99;}
 
-html, body {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	height: 100%;
-	overflow: hidden;
-}
-body, textarea, input, select {
-	font-size: 10pt;
-	font-family: Tahoma, Arial, sans-serif;
-	color: #000000;
-	background-color: #FFFFFF;
-}
-body, fieldset {
-	cursor: default;
-}
-table {
-	border: 0;
-	border-collapse: collapse;
-	font-size: 100%;
-}
-form, fieldset, textarea, div, th, td {
-	margin: 0;
-	padding: 0;
-}
-iframe, fieldset, img {
-	border: 0;
-}
-
-
-#loading {
-	width: 100%;
-	height: 100%;
-	z-index: 1000;
-	position: absolute;
-	display: none;
-	opacity: 0.5;
-	filter:progid:DXImageTransform.Microsoft.Alpha(opacity=50);
-	background: #ccc;
-	color: #000;
-}
-
-#loading #text {
-
-	background: #fff;
-	padding: 10px 0 10px 10px;
-	height: 35px;
-	display: block;
-	width: 150px;
-	margin: 300px auto;
-	opacity: 1.4;
-}
-
-#loading #text #alert, #loading #text #image {
-	display: inline-block;
-	float: left;
-}
-
-#loading #text #alert {
-	font-weight: bold;
-	font-size: 110%;
-	margin-right: 10px;
-}
-
-#loading #text #alert span {
-	display: block;
-	font-size: 80%;
-	font-weight: normal;
-}
-
+#loading {width: 100%;height: 100%;display: none;}
+#loading #overlay {width: 100%;height: 100%;z-index: 1000;position: absolute;opacity: 0.5;filter:progid:DXImageTransform.Microsoft.Alpha(opacity=50);background: #ccc;}
+#loading #text {border:1px solid #ccc;background: #fff;padding: 10px 0 10px 10px;height: 35px;width: 140px;left:45%;top:35%;position: relative;z-index: 10001;}
+#loading #text #alert, #loading #text #image {display: inline-block;float: left;}
+#loading #text #alert {font-weight: bold;font-size: 110%;margin-right: 10px;}
+#loading #text #alert span {display: block;font-size: 80%;font-weight: normal;color:gray}
+#loading #text #image img {height: 32px; width: 32px;}

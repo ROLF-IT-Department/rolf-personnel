@@ -31,7 +31,7 @@ class Zend_View_Helper_AchievsFormPersonal
 				<table class="grid-head-table">
 					<thead>
 						<tr>
-							<th class="tasks-field-num">'.$count_func.'№</th>
+							<th class="tasks-field-num">№</th>
 							<th class="tasks-field-description">Бизнес-цель<div>Business objective</div></th>
 							<th class="tasks-field-term">Срок<div>Timing</div></th>
 							<th class="tasks-field-weight">Вес (%)<div>Weight (%)</div></th>
@@ -131,9 +131,9 @@ class Zend_View_Helper_AchievsFormPersonal
 			foreach ($competences as $item) {
 				if ((!$item['disabled'])) {
 					if ($item['additional']) {
-						$addits[] = $this->_rowCompetence($item, $ratings, $in_person);
+						$addits[] = $this->_rowCompetence($item, $ratings, $personal);
 					} else {
-						$stands[] = $this->_rowCompetence($item, $ratings, $in_person);
+						$stands[] = $this->_rowCompetence($item, $ratings, $personal);
 					}
 				}
 			}
@@ -332,7 +332,7 @@ class Zend_View_Helper_AchievsFormPersonal
     
 	private function _rowTask(Zend_Db_Table_Row_Abstract $task, array $ratings, $func, $counter = null)
 	{	
-		
+		$term_date = '';
 		if (empty($task->id)) {
 			$num   = '*';
 			$term  = '';//(date('n') < 12 ? date('Y') : (date('Y') + 1)) . '-12-31';
@@ -349,7 +349,6 @@ class Zend_View_Helper_AchievsFormPersonal
 			
 			$num   = $counter;
 			$term = '';
-			$term_date = '';
 			if ($task->date_term != null)
 			{
 				$term = $task->date_term;

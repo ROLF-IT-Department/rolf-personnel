@@ -26,7 +26,7 @@ class Zend_View_Helper_AchievsFormTasks
 				<table class="grid-head-table">
 					<thead>
 						<tr>
-							<th class="tasks-field-num">'.$count_func.'№</th>
+							<th class="tasks-field-num">№</th>
 							<th class="tasks-field-description">Бизнес-цель<div>Business objective</div></th>
 							<th class="tasks-field-term">Срок<div>Timing</div></th>
 							<th class="tasks-field-weight">Вес (%)<div>Weight (%)</div></th>
@@ -152,14 +152,16 @@ class Zend_View_Helper_AchievsFormTasks
     		{
     			if ($item->is_functional) 
     			{
-    				$val = $rate_weights[$item->rating_id][weight];		// вес рейтинга
+    				$val = $rate_weights[$item->rating_id][$item->weight];		// вес рейтинга
     				$wght = $item->weight;
     				//if ($val != 0)
     					$func_sum += $val * $wght;
     			}
     			else
     			{
-    				$value = $rate_weights[$item->rating_id][weight];		// вес рейтинга
+    				$value = (array_key_exists($item->weight, $rate_weights[$item->rating_id])) // вес рейтинга
+				        ? $rate_weights[$item->rating_id][$item->weight]
+				        : 0;
     				$weight = $item->weight;
     				//if ($value != 0)
     					$sum += $value * $weight;
@@ -185,7 +187,7 @@ class Zend_View_Helper_AchievsFormTasks
 
 		foreach ($name as $key=>$value)
 		{
-			if ($value[weight]==$result)
+			if ($value['weight']==$result)
 				$ret = $key;
 		}
 

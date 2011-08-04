@@ -28,6 +28,7 @@ function init()
 	Tabs.addTab('tabs-item-trains', 'tabs-body-trains');
 	Tabs.addTab('tabs-item-comments', 'tabs-body-comments');
 	Tabs.addTab('tabs-item-personal', 'tabs-body-personal');
+
 	if(has_statistics)
 		Tabs.addTab('tabs-item-statistics', 'tabs-body-statistics');
 
@@ -305,7 +306,6 @@ function toolbarItemApprovalPlan()
 
 function toolbarItemApprovalRate()
 {
-
 	if (USER_ROLE & ROLE_MANAGER)
 	{
 		if (!Card.checkSetRatings(count_func) || !Card.checkBalanceTasks() || !Card.checkBalanceCompetences())
@@ -395,6 +395,7 @@ function toolbarItemRejectRate()
 
 function toolbarItemRefresh()
 {
+	$('#loading', parent.document.body).css({display: 'block'});
 	location.reload();
 }
 
@@ -455,7 +456,7 @@ function toolbarItemBlockUnblockCard(card_id)
 	location.replace(url);
 }
 
-	/**
+/**
  * Смена отображения периода просматриваемой карточки
  */
 function periodOnchangeHandler()
@@ -467,8 +468,6 @@ function periodOnchangeHandler()
 		return false;
 	}
 	*/
-
-
 	var card_and_period = elems.period.options[elems.period.selectedIndex].value.split(',');
 
 	var personId = elems.person_id.value;
@@ -482,6 +481,7 @@ function periodOnchangeHandler()
 	});
 	location.replace(url);
 }
+
 /**
  * Открытие окна заметки
  * @param taskId Идентификатор задачи
@@ -493,6 +493,7 @@ function openNotes(taskId, is_personal)
 
 	Js.open(url, '', 400, 510);
 }
+
 /**
  * Открытие окна заметок для компетенция
  * @param competId Идентификатор компетенции

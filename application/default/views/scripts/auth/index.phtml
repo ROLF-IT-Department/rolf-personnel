@@ -1,4 +1,3 @@
-<?php error_reporting(E_ALL ^ E_NOTICE) // отмена вывода замечаний notice?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,21 +9,10 @@
 	</style>
 	<script type="text/javascript">
 		var MESSAGE = '<?php echo addslashes($this->message) ?>';
-		
-		function init()
-		{
-			if (MESSAGE) {
-				alert(MESSAGE);
-			}
-		}
-		
+		function init(){if (MESSAGE){alert(MESSAGE);}}
 	</script>
-
 </head>
-
-
 <body onload="init()">
-
 <div class="header-logo"></div>
 	<form action="<?php echo $this->baseUrl() ?>/default/auth/index" method="post" target="_self">
 		<fieldset>
@@ -36,7 +24,6 @@
 			<input id="submit" name="submit" type="submit" value="Войти" />
 		</fieldset>
 	</form>
-
 </body>
 </html>
 
