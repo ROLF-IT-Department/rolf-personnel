@@ -11,8 +11,8 @@ var edit   = false;
 
 function init()
 {
-	JsCalendarInit(BASE_URL + '/js/lib/JsCalendar');
-	JsCalendar.handler = Card.calendarHandler;
+//	JsCalendarInit(BASE_URL + '/js/lib/JsCalendar');
+//	JsCalendar.handler = Card.calendarHandler;
 
 	elems = window.document.card.elements;
 
@@ -396,7 +396,7 @@ function toolbarItemRejectRate()
 function toolbarItemRefresh()
 {
 	var loading_object = $('#loading');
-	
+
 	$('#loading').css({display: 'block'});
 	$('#loading', parent.document.body).css({display: 'block'});
 
@@ -435,7 +435,7 @@ function toolbarItemCreateCard()
 
 	var url = BASE_URL + '/card/index/create/personid/' + personId;
 
-	Js.open(url, '', 440, 210);
+	Js.open(url, '', 440, 300);
 }
 
 function toolbarItemCardBlock()

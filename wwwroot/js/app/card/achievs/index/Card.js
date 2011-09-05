@@ -9,21 +9,21 @@ var Card = new function()
 	var _comments      = null;
 	var _func_comment  = null;
 	var _func_div	   = null;
-	
+
 	var _fieldRatingTasks   = null;
 	var _fieldRatingFunc    = null;
 	var _fieldRatingCompets = null;
 	var _fieldRatingTotal   = null;
-	
+
 	var _buttonAddTask = null;
 	var _buttonAddTraining = null;
-	
+
 	var ratio_mng = null;
 	var ratio_fnc = null;
 	var lbl_mng   = null;
 	var lbl_fnc   = null;
 	var _period   = null;
-	
+
 	this.init = function(period)
 	{
 		_tasks                 = document.getElementById('tasks');
@@ -45,7 +45,7 @@ var Card = new function()
 		_rtg_competens         = document.getElementById('ratings[rtg_competens_id]');
 		_func_comment          = document.getElementById('comments[fnc_comment]');
 		_func_div              = document.getElementById('func_div');
-		
+
 		ratio_mng = document.getElementById('ratio[ratio_mng]');
 		ratio_fnc = document.getElementById('ratio[ratio_fnc]');
 		if (ratio_mng && ratio_fnc)
@@ -53,22 +53,22 @@ var Card = new function()
 				ratio_mng.value = 50;
 				ratio_fnc.value = 50;
 			}
-			
+
 		lbl_mng = document.getElementById('ratio_mng');
 		lbl_fnc = document.getElementById('ratio_fnc');
-		
+
 		_fieldRatingTasks   = document.getElementById('fieldRatingTasks');
 		_fieldRatingFunc    = document.getElementById('fieldRatingFunc');
 		_fieldRatingCompets = document.getElementById('fieldRatingCompets');
 		_fieldRatingTotal   = document.getElementById('fieldRatingTotal');
-			
+
 		_getControl(_fieldRatingTasks).onchange   = _ratingTasksOnchange;
 		_getControl(_fieldRatingCompets).onchange = _ratingCompetsOnchange;
-		
+
 		_buttonAddTask         = document.getElementById('buttonAddTask');
 		_buttonAddPersonalTask = document.getElementById('buttonAddPersonalTask');
 		_buttonAddTraining     = document.getElementById('buttonAddTraining');
-		
+
 		_period = period;
 
 		$('textarea').change(function(){
@@ -102,7 +102,7 @@ var Card = new function()
 			lbl_fnc.innerHTML = '50';
 		}
 	}
-	
+
 	this.CalculateRating = function()
 	{
 		var rows  = _tasks.rows;
@@ -114,7 +114,7 @@ var Card = new function()
 		{
 			cells = rows[i].cells;
 			index = _getControl(cells[6]).selectedIndex;
-			rate = this.returnWeight(_getControl(cells[6]).options[index].text);	
+			rate = this.returnWeight(_getControl(cells[6]).options[index].text);
 			weight = _getControl(cells[3]).value;
 			status = _getControl(cells[0]).value;
 
@@ -131,7 +131,7 @@ var Card = new function()
 			{
 				cells = func_rows[i].cells;
 				index = _getControl(cells[6]).selectedIndex;
-				rate = this.returnWeight(_getControl(cells[6]).options[index].text);	
+				rate = this.returnWeight(_getControl(cells[6]).options[index].text);
 				weight = _getControl(cells[3]).value;
 				status = _getControl(cells[0]).value;
 				if ((!rate) || (!weight) || (rate == 0) || (status == 0))
@@ -145,7 +145,7 @@ var Card = new function()
 		fsum /= 100;
 
 		if ((count_func > 0) && (fsum != 0))
-		{ 
+		{
 			var rate_sum = Math.round(sum);
 			var rate_fsum = Math.round(fsum);
 			var mng = parseInt(ratio_mng.value, 10);
@@ -190,7 +190,7 @@ var Card = new function()
 
 		return this.returnName(ret);
 	}
-	
+
 	this.returnWeight = function(name)
 	{
 		var i;
@@ -223,15 +223,15 @@ var Card = new function()
 		if (toggle.value == '0')
 		{
 			var table = document.getElementById(tableID);
-			
+
 			var count = Card.countActiveObjectivesByStatus(table);
-		
-			if (count > 6) 
+
+			if (count > 6)
 			{
 				alert("Внимание! Ограничение по количеству целей не более 6 целей! Вам нужно удалить или отменить другую цель!");
 				return;
 			}
-			
+
 			toggle.value = 1;
 			row.className = row.className.replace(/\s*\brow-canceled\b/ig, '');
 		}
@@ -245,16 +245,16 @@ var Card = new function()
 	this.removeRow = function(node)
 	{
 		var row = node.parentNode.parentNode;
-		
+
 		row.parentNode.removeChild(row);
 	}
-	
+
 	this.addTask = function()
 	{
 		var row   = _cloneLastRow(_tasks);
 		var name  = 'newTasks[' + row.rowIndex + ']';
 		var cells = row.cells;
-		
+
 		_getControl(cells[0]).name = name + '[status]';
 		_getControl(cells[1]).name = name + '[description]';
 		_getControl(cells[3]).name = name + '[weight]';
@@ -267,7 +267,8 @@ var Card = new function()
 			input = input.nextSibling;
 		}
 		input.name = name + '[date_term]';
-		_getControl(cells[2]).onclick = Card.calendar;
+		$(_getControl(cells[2])).datepicker({dateFormat: 'dd.mm.y', changeMonth: true, showButtonPanel: true, altField: $(_getControl(cells[2])).next(), altFormat: 'yy-mm-dd'});
+//		_getControl(cells[2]).onclick = Card.calendar;
 		_getControl(cells[6]).parentNode.className =
 		_getControl(cells[6]).parentNode.className.replace(/\s*\bfield-activated\b/ig, '');
 		row.className = row.className.replace(/\s*\brow-pattern\b/ig, 'row-not-saved');
@@ -290,12 +291,13 @@ var Card = new function()
 			input = input.nextSibling;
 		}
 		input.name = name + '[date_term]';
-		_getControl(cells[2]).onclick = Card.calendar;
+		$(_getControl(cells[2])).datepicker({dateFormat: 'dd.mm.y', changeMonth: true, showButtonPanel: true, altField: $(_getControl(cells[2])).next(), altFormat: 'yy-mm-dd'});
+//		_getControl(cells[2]).onclick = Card.calendar;
 		_getControl(cells[6]).parentNode.className =
 		_getControl(cells[6]).parentNode.className.replace(/\s*\bfield-activated\b/ig, '');
 		row.className = row.className.replace(/\s*\brow-pattern\b/ig, 'row-not-saved');
 	}
-	
+
 	this.addFuncTask = function()
 	{
 		var row = _cloneLastRow(_func_tasks);
@@ -314,12 +316,13 @@ var Card = new function()
 			input = input.nextSibling;
 		}
 		input.name = name + '[date_term]';
-		_getControl(cells[2]).onclick = Card.calendar;
+		$(_getControl(cells[2])).datepicker({dateFormat: 'dd.mm.y', changeMonth: true, showButtonPanel: true, altField: $(_getControl(cells[2])).next(), altFormat: 'yy-mm-dd'});
+//		_getControl(cells[2]).onclick = Card.calendar;
 		_getControl(cells[6]).parentNode.className =
 		_getControl(cells[6]).parentNode.className.replace(/\s*\bfield-activated\b/ig, '');
 		row.className = row.className.replace(/\s*\brow-pattern\b/ig, 'row-not-saved');
 	}
-	
+
 	this.addTrain = function()
 	{
 		var row = _cloneLastRow(_trains);
@@ -354,7 +357,8 @@ var Card = new function()
 				cells[5].className += ' field-activated';
 				//cells[6].className += ' field-activated';
 				_getControl(cells[1]).readOnly = false;
-				_getControl(cells[2]).onclick = this.calendar;
+//				_getControl(cells[2]).onclick = this.calendar;
+				$(_getControl(cells[2])).datepicker({dateFormat: 'dd.mm.y', changeMonth: true, showButtonPanel: true, altField: $(_getControl(cells[2])).next(), altFormat: 'yy-mm-dd'});
 				_getControl(cells[3]).readOnly = false;
 				_getControl(cells[5]).readOnly = false;
 				break;
@@ -405,7 +409,8 @@ var Card = new function()
 				//cells[5].className += ' field-activated';
 				//cells[6].className += ' field-activated';
 				_getControl(cells[1]).readOnly = false;
-				_getControl(cells[2]).onclick = this.calendar;
+//				_getControl(cells[2]).onclick = this.calendar;
+				$(_getControl(cells[2])).datepicker({dateFormat: 'dd.mm.y', changeMonth: true, showButtonPanel: true, altField: $(_getControl(cells[2])).next(), altFormat: 'yy-mm-dd'});
 				_getControl(cells[3]).readOnly = false;
 				//_getControl(cells[5]).readOnly = false;
 				break;
@@ -539,7 +544,7 @@ var Card = new function()
 		_getControl(cells[1]).readOnly = false;
 		_getControl(cells[2]).readOnly = false;
 		_getControl(cells[6]).readOnly = false;
-		
+
 		cells[3].getElementsByTagName('textarea')[0].readOnly = false;
 		cells[4].getElementsByTagName('textarea')[0].readOnly = false;
 
@@ -547,26 +552,26 @@ var Card = new function()
 		this.activateButtons();
 
 	}
-	
+
 	this.setRateTrain = function(row)
 	{
 		var cells = row.cells;
-		
+
 		cells[6].className += ' field-activated';
 		_getControl(cells[6]).readOnly = false;
 	}
-	
+
 	this.setEditRatings = function()
 	{
 		_fieldRatingTasks.className   += ' field-activated';
 		_fieldRatingCompets.className += ' field-activated';
 		_fieldRatingTotal.className   += ' field-activated';
 	}
-	
+
 	this.setEditMngComments = function()
 	{
 		var rows = _comments.rows;
-		
+
 		rows[1].cells[0].className += ' field-activated';
 		rows[3].cells[0].className += ' field-activated';
 		rows[4].cells[0].className += ' field-activated';
@@ -575,24 +580,24 @@ var Card = new function()
 		_getControl(rows[1].cells[0]).readOnly = false;
 		_getControl(rows[4].cells[0]).readOnly = false;
 		_getControl(rows[6].cells[0]).readOnly = false;
-		
+
 		var flags = rows[3].cells[0].getElementsByTagName('input');
 		for (var i = 0; i < flags.length; i++)
 		{
 			flags[i].disabled = false;
 		}
 	}
-	
+
 	this.setEditEmpComments = function()
 	{
 		var cell = _emp_comment.rows[1].cells[0];
-		
+
 		cell.className += ' field-activated';
 		_getControl(cell).readOnly = false;
 	}
-	
+
 	// вставляет функцию-пиктограмму заметки к бизнес-цели в карточку
-	this.setEditNotes = function()			
+	this.setEditNotes = function()
 	{
 		var rows = _tasks.rows;
 		var div = null;
@@ -606,7 +611,7 @@ var Card = new function()
 		}
 	}
 
-	this.setEditPersonalNotes = function()			
+	this.setEditPersonalNotes = function()
 	{
 		var rows = _personaltasks.rows;
 		var div = null;
@@ -618,7 +623,7 @@ var Card = new function()
 				div.style.display = 'block';
 			}
 		}
-		
+
 		if (_managertasks != null)
 		{
 			var mrows = _managertasks.rows;
@@ -636,14 +641,14 @@ var Card = new function()
 		var compNote = document.getElementById('competencePersonalNote');
 		if (compNote)
 			compNote.style.display = 'block';
-		
+
 		var trainNote = document.getElementById('trainingPersonalNote');
 		if (trainNote)
 			trainNote.style.display = 'block';
-		
+
 	}
-	
-	this.setEditFuncNotes = function()			
+
+	this.setEditFuncNotes = function()
 	{
 		if(_func_tasks == null) return;
 
@@ -761,13 +766,13 @@ var Card = new function()
 				this.setPlanTask2(rows[i]);
 			}
 		}
-		
+
 		var rows = _personalCompetence.rows;
-		rows[1].cells[1].className += ' field-activated';		
+		rows[1].cells[1].className += ' field-activated';
 		_getControl(rows[1].cells[1]).readOnly = false;
-		
+
 		var rows = _personalTraining.rows;
-		rows[1].cells[1].className += ' field-activated';		
+		rows[1].cells[1].className += ' field-activated';
 		_getControl(rows[1].cells[1]).readOnly = false;
 
 		var rows = _personalStandsCompets.rows;
@@ -782,24 +787,24 @@ var Card = new function()
 
 		this.setEditPersonalCompetenceNotes();
 
-		_buttonAddPersonalTask.onclick = Card.savePersonalTasks; 
+		_buttonAddPersonalTask.onclick = Card.savePersonalTasks;
 		_buttonAddPersonalTask.className += ' button-activated';
 
-		
+
 	}
-	
+
 	this.setEditRatio = function()
 	{
-		
+
 
 		ratio_mng.style.display = 'block';
 		ratio_fnc.style.display = 'block';
 
-		lbl_mng.innerHTML = ''; 
-		lbl_fnc.innerHTML = ''; 
-		
+		lbl_mng.innerHTML = '';
+		lbl_fnc.innerHTML = '';
+
 	}
-	
+
 	this.setModePlanFuncMng = function()
 	{
 		if (_func_tasks == null) return;
@@ -808,67 +813,67 @@ var Card = new function()
 		for (var i = 0; i < rows.length; i++) {
 			this.setPlanTask(rows[i]);
 		}
-		
+
 		// комментарии
 		_func_comment.style.display = 'block';
 		_func_div.style.display = 'none';
-		
-		
+
+
 		// кнопка добавить
 		_buttonAddTask.onclick = Card.saveFunctionalTasks; //Card.addFuncTask;
 		_buttonAddTask.className += ' button-activated';
-		
+
 	}
-	
+
 	this.setModeRate = function()
 	{
 		var rows = _tasks.rows;
 		for (var i = 0; i < rows.length; i++) {
 			this.setRateTask(rows[i]);
 		}
-		
+
 		rows = _standsCompets.rows;
 		for (var i = 0; i < rows.length; i++) {
 			this.setRateCompet(rows[i]);
 		}
-		
+
 		rows = _additsCompets.rows;
 		for (var i = 0; i < rows.length; i++) {
 			this.setRateCompet(rows[i]);
 		}
-		
+
 		rows = _trains.rows;
 		for (var i = 0; i < rows.length; i++) {
 			this.setRateTrain(rows[i]);
 		}
-		
+
 		this.setEditRatings();
 		this.setEditMngComments();
 	}
-	
-	
+
+
 	this.setModeRateFuncMng = function()
 	{
 		var rows = _func_tasks.rows;
-		
+
 		for (var i = 0; i < rows.length; i++) {
 			this.setRateTask(rows[i]);
 		}
-		
+
 		_fieldRatingFunc.className   += ' field-activated';
-		
+
 		_func_comment.style.display = 'block';
 		_func_div.style.display = 'none';
-		
+
 	}
-	
+
 	this.setModeRatePersonal = function()
 	{
 		var rows = _personaltasks.rows;
 		for (var i = 0; i < rows.length; i++) {
 			this.setRateTask(rows[i]);
 		}
-		
+
 		var mrows = _managertasks.rows;
 		for (var i = 0; i < mrows.length; i++) {
 			this.setRateTask(mrows[i]);
@@ -885,23 +890,23 @@ var Card = new function()
 		}
 
 		var rows = _personalCompetence.rows;
-		rows[1].cells[1].className += ' field-activated';		
+		rows[1].cells[1].className += ' field-activated';
 		_getControl(rows[1].cells[1]).readOnly = false;
-		
+
 		// выводим Select Box для компетенции
 		var cmp_rtg_form = document.getElementById('cmp_rtg_form');
 		cmp_rtg_form.style.display = 'block';
-		
+
 		// прячем Div с оценкой
 		var cmp_rtg = document.getElementById('cmp_rtg');
 		cmp_rtg.style.display = 'none';
-	
+
 		var rows = _personalTraining.rows;
-		rows[1].cells[1].className += ' field-activated';		
+		rows[1].cells[1].className += ' field-activated';
 		_getControl(rows[1].cells[1]).readOnly = false;
 
 		this.setEditPersonalCompetenceNotes();
-		
+
 
 	}
 
@@ -924,7 +929,7 @@ var Card = new function()
 		}
 		return sum;
 	}
-	
+
 	// Калькуляция отличия суммы весов от 100%
 	this.weights_sum_diff = function(tasks_weight_sum)
 	{
@@ -1086,7 +1091,7 @@ var Card = new function()
 			emsg.push('- Due to the employees business tasks or competences in the previous year have C or D rates, '
 			          + 'you must fill the development plan for the employee for the current year.');
 		}
-		
+
 		if(_tasks)
 		{
 			var count = Card.countActiveObjectivesByStatus(_tasks);
@@ -1402,14 +1407,14 @@ var Card = new function()
 
 		return true;
 	}
-	
+
 	this.checkWeightValue = function(value)
 	{
 		if (isNaN(value)) return 0;
 		if (value > 100) return 1;
 		if (value < 0) return -1;
 	}
-	
+
 	this.checkRatio = function()
 	{
 		var mng = parseInt(ratio_mng.value, 10);
@@ -1526,7 +1531,7 @@ var Card = new function()
 		}
 		return count;
 	}
-	
+
 	/**
 	 * проверка на наличие нулевых весов у бизнес-целей
 	 * @param table таблица бизнес-целей
@@ -1548,7 +1553,7 @@ var Card = new function()
 		}
 		return false;
 	}
-	
+
 	// проверяем заполнено ли поле Срок у бизнес-целей
 	this.checkCorrectDateTerm = function (table)
 	{
@@ -1794,22 +1799,22 @@ var Card = new function()
 	//------------------------------------------------------
 	var _input = null;
 
-	this.calendar = function()
-	{
-		_input = this;
-		JsCalendar.open();
-	}
-
-	this.calendarHandler = function(time, year, month, day)
-	{
-		_input.value = day + '.' + (1 + month) + '.' + ('' + year).substr(2, 2);
-		var input = _input.nextSibling;
-
-		if(!input.name)
-		{
-			input = input.nextSibling;
-		}
-
-		input.value = year + '-' + (1 + month) + '-' + day;
-	}
+//	this.calendar = function()
+//	{
+//		_input = this;
+//		JsCalendar.open();
+//	}
+//
+//	this.calendarHandler = function(time, year, month, day)
+//	{
+//		_input.value = day + '.' + (1 + month) + '.' + ('' + year).substr(2, 2);
+//		var input = _input.nextSibling;
+//
+//		if(!input.name)
+//		{
+//			input = input.nextSibling;
+//		}
+//
+//		input.value = year + '-' + (1 + month) + '-' + day;
+//	}
 }
