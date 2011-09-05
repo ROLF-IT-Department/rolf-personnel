@@ -1,31 +1,31 @@
 <?php
 
 class Zend_View_Helper_AchievsFormPersonal
-{	
-	
+{
+
 	/**
 	 * Объект представления.
-	 * 
+	 *
      * @var Zend_View_Interface
      */
     public $view;
-	
+
 	public function setView(Zend_View_Interface $view)
     {
 		$this->view = $view;
     }
-	
+
     public function achievsFormPersonal(
 		Zend_Db_Table_Rowset_Abstract $tasks,
 		Zend_Db_Table_Rowset_Abstract $personalTrainings,
 		Zend_Db_Table_Rowset_Abstract $personalCompetences,
 		array $ratings, $rate_weights, $userRole, $card, $status_id,
 		Rp_Db_Table_Rowset $competences) {
-  
+
 		$personal = 1;
 
     	$xhtml   = array();
-    	
+
     	$xhtml[] = '
     		<div class="grid-head">
 				<table class="grid-head-table">
@@ -42,7 +42,7 @@ class Zend_View_Helper_AchievsFormPersonal
 					</thead>
 				</table>
 			</div>';
-    	
+
     	$xhtml[] = '<div class="grid-body">';
 
 			// вывод целей руководителя для оценки сотрудником
@@ -78,7 +78,7 @@ class Zend_View_Helper_AchievsFormPersonal
 			$xhtml[] = '
 						</tbody>
 					</table>';
-		
+
 		$xhtml[] = '</div>';
 
 		$xhtml[] = '
@@ -93,7 +93,7 @@ class Zend_View_Helper_AchievsFormPersonal
 					</tbody>
 				</table>
 			</div>';
-		
+
     	// [START] компетенции
 		$competences = $competences->toArray();
 		$cardRtgCompetensId = $card->rtg_competens_id;
@@ -150,7 +150,7 @@ class Zend_View_Helper_AchievsFormPersonal
 
 		$xhtml[] = '</div>';
 
-		
+
     	$xhtml[] = '
 			<div class="grid-footer">
 				<table class="grid-footer-table">
@@ -162,7 +162,7 @@ class Zend_View_Helper_AchievsFormPersonal
 		// [END] компетенции
 
 		// [START] собственные компетенции
-	
+
 		if (count($personalCompetences) > 0)
 		{
 			foreach ($personalCompetences as $itemCompetence)
@@ -207,7 +207,7 @@ class Zend_View_Helper_AchievsFormPersonal
 //		$xhtml  = array();
 //    	$stands = array();
 //    	$addits = array();
-    	
+
 		// [END] собственные компетенции
 
     	return implode('', $xhtml);
@@ -215,17 +215,17 @@ class Zend_View_Helper_AchievsFormPersonal
 
     private function getPersonalCompetences(Zend_Db_Table_Row_Abstract $personalCompetence, array $ratings)
     {
-    	if (empty($personalCompetence->id)) 
+    	if (empty($personalCompetence->id))
     	{
     		$name = 'newCompetences[0]';
     		$note  = '';
     	}
-    	else 
+    	else
     	{
     		$name =  'competences[' . $personalCompetence->id . ']';
     		$note  = '<div style="display:none" id="competencePersonalNote" onclick="openNotesCompetence(' . $personalCompetence->id . ', 1)" title="Заметки" style:>' . count($personalCompetence->fetchNotes($personalCompetence->id, 1)) . '</div>';
     	}
-    	
+
     	$html = '
 			<div class="personal-grid-body">
 				<table class="personal-grid-body-table" id="personalCompetence">
@@ -247,7 +247,7 @@ class Zend_View_Helper_AchievsFormPersonal
 							<input name="' . $name . '[is_personal]" type="hidden" value="1" />
 						</td>
 						<td colspan="5">
-							<textarea name="' . $name . '[result]" readonly="readonly" >' . $personalCompetence->result . 
+							<textarea name="' . $name . '[result]" readonly="readonly" >' . $personalCompetence->result .
 							//Zend_debug::dump($personalCompetence).
 							'</textarea>
 						</td>
@@ -259,25 +259,25 @@ class Zend_View_Helper_AchievsFormPersonal
 					</tr>
 				</table>
 			</div>';
-    	
+
     	return $html;
-    	
+
     }
-    
+
     private function getPersonalTraining(Zend_Db_Table_Row_Abstract $personalTraining)
     {
-    	
-    	if (empty($personalTraining->id)) 
+
+    	if (empty($personalTraining->id))
     	{
     		$name = 'newTrainingsPersonal[0]';
     		$note  = '';
     	}
-    	else 
+    	else
     	{
     		$name =  'trainings[' . $personalTraining->id . ']';
     		$note  = '<div style="display:none" id="trainingPersonalNote" onclick="openNotesTraining(' . $personalTraining->id . ')" title="Заметки" style:>' . count($personalTraining->fetchNotes()) . '</div>';
     	}
-    	
+
     	$html = '
 			<div class="personal-grid-body">
 				<table class="personal-grid-body-table" id="personalTraining">
@@ -304,14 +304,14 @@ class Zend_View_Helper_AchievsFormPersonal
 					</tr>
 				</table>
 			</div>';
-    	
+
     	return $html;
-    	
+
     }
-    
+
     private function getEmployeeComment($card)
     {
-    	
+
     	$html = '
 			<div class="personal-grid-body">
 				<table id="comment_employee" class="grid-body-table comments-table">
@@ -325,14 +325,14 @@ class Zend_View_Helper_AchievsFormPersonal
 					</tbody>
 				</table>
 			</div>';
-    	
+
     	return $html;
-    	
+
     }
-    
+
 	private function _rowTask(Zend_Db_Table_Row_Abstract $task, array $ratings, $func, $counter = null)
-	{	
-		$term_date = '';
+	{
+		$term_date = '[дата]';
 		if (empty($task->id)) {
 			$num   = '*';
 			$term  = '';//(date('n') < 12 ? date('Y') : (date('Y') + 1)) . '-12-31';
@@ -342,11 +342,11 @@ class Zend_View_Helper_AchievsFormPersonal
 			$toggle = '<div class="toggle-cancel" onclick="Card.removeRow(this, \'personaltasks\')">&nbsp;</div>';
 			$weight = '0';
 		} else {
-			
+
 			$all_notes = new Rp_Db_Table_Ach_Tasks_Notes();
 			$kol = count($all_notes->fetchTaskNotes($task->id));
-			
-			
+
+
 			$num   = $counter;
 			$term = '';
 			if ($task->date_term != null)
@@ -354,7 +354,7 @@ class Zend_View_Helper_AchievsFormPersonal
 				$term = $task->date_term;
 				$term_date = date('d.m.y', strtotime($term));
 			}
-			
+
 			$note  = '<div style="display:none" onclick="openNotes(' . $task->id . ', 0)" title="Заметки" style:>' . $kol . '</div>';
 			$name  = 'tasks_in_personal[' . $task->id . ']';
 			$weight = $task->weight;
@@ -369,7 +369,7 @@ class Zend_View_Helper_AchievsFormPersonal
 				$toggle = '<div class="toggle-cancel" onclick="Card.toggleCancel(this, \'personaltasks\')">&nbsp;</div>';
 			}
 		}
-		
+
 		return '
 			<tr class="' . $class . '">
 				<td class="tasks-field-num">
@@ -400,28 +400,28 @@ class Zend_View_Helper_AchievsFormPersonal
 			</tr>
 		';
 	}
-	
+
 	private function _rowManagerTask(Zend_Db_Table_Row_Abstract $task, array $ratings, $counter = null)
-	{	
-		
+	{
+
 		$all_notes = new Rp_Db_Table_Ach_Tasks_Notes();
 		$kol = count($all_notes->fetchPersonalManagerNotes($task->id));
-		
+
 		$num   = $counter;
 		$term  = $task->date_term;
 		$note  = '<div style="display:none" onclick="openNotes(' . $task->id . ', 1)" title="Заметки" style:>' . $kol . '</div>';
 		$name  = 'tasks_in_personal[' . $task->id . ']';
 		$class = ($task->status == '0') ? 'row-canceled' : '';
 		$toggle = '';
-		
+
 		//if ($task->status == '0') return;
-		
+
 		//{
 		//	$class = 'row-canceled';
 		//} elseif($task->status > 0) {
 		//	$class = 'row-approval';
 		//}
-		
+
 		return '
 			<tr class="' . $class . '">
 				<td class="tasks-field-num">

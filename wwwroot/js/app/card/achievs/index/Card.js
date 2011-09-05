@@ -269,7 +269,10 @@ var Card = new function()
 			input = input.nextSibling;
 		}
 		input.name = name + '[date_term]';
-//		_getControl(cells[2]).onclick = Card.calendar;
+		$(_getControl(cells[2])).datepicker({
+			altField: $(_getControl(cells[2])).next(),
+			altFormat: 'yy-mm-dd'
+		});
 		_getControl(cells[6]).parentNode.className =
 		_getControl(cells[6]).parentNode.className.replace(/\s*\bfield-activated\b/ig, '');
 		row.className = row.className.replace(/\s*\brow-pattern\b/ig, 'row-not-saved');
@@ -292,14 +295,13 @@ var Card = new function()
 			input = input.nextSibling;
 		}
 		input.name = name + '[date_term]';
-//		_getControl(cells[2]).onclick = Card.calendar;
+		$(_getControl(cells[2])).datepicker({
+			altField: $(_getControl(cells[2])).next(),
+			altFormat: 'yy-mm-dd'
+		});
 		_getControl(cells[6]).parentNode.className =
 		_getControl(cells[6]).parentNode.className.replace(/\s*\bfield-activated\b/ig, '');
 		row.className = row.className.replace(/\s*\brow-pattern\b/ig, 'row-not-saved');
-		$(_getControl(cells[2])).datepicker(
-		{
-			altField: $(_getControl(cells[2])).next(),
-			altFormat: 'yy-mm-dd'});
 	}
 
 	this.addFuncTask = function()
