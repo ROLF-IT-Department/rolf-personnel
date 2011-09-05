@@ -24,6 +24,8 @@ var Card = new function()
 	var lbl_fnc   = null;
 	var _period   = null;
 
+	var saving = 0;
+
 	this.init = function(period)
 	{
 		_tasks                 = document.getElementById('tasks');
@@ -267,7 +269,6 @@ var Card = new function()
 			input = input.nextSibling;
 		}
 		input.name = name + '[date_term]';
-		$(_getControl(cells[2])).datepicker({dateFormat: 'dd.mm.y', changeMonth: true, showButtonPanel: true, altField: $(_getControl(cells[2])).next(), altFormat: 'yy-mm-dd'});
 //		_getControl(cells[2]).onclick = Card.calendar;
 		_getControl(cells[6]).parentNode.className =
 		_getControl(cells[6]).parentNode.className.replace(/\s*\bfield-activated\b/ig, '');
@@ -291,11 +292,17 @@ var Card = new function()
 			input = input.nextSibling;
 		}
 		input.name = name + '[date_term]';
-		$(_getControl(cells[2])).datepicker({dateFormat: 'dd.mm.y', changeMonth: true, showButtonPanel: true, altField: $(_getControl(cells[2])).next(), altFormat: 'yy-mm-dd'});
 //		_getControl(cells[2]).onclick = Card.calendar;
 		_getControl(cells[6]).parentNode.className =
 		_getControl(cells[6]).parentNode.className.replace(/\s*\bfield-activated\b/ig, '');
 		row.className = row.className.replace(/\s*\brow-pattern\b/ig, 'row-not-saved');
+		$(_getControl(cells[2])).datepicker(
+		{
+			dateFormat: 'dd.mm.y',
+			changeMonth: true,
+			showButtonPanel: true,
+			altField: $(_getControl(cells[2])).next(),
+			altFormat: 'yy-mm-dd'});
 	}
 
 	this.addFuncTask = function()
@@ -316,11 +323,17 @@ var Card = new function()
 			input = input.nextSibling;
 		}
 		input.name = name + '[date_term]';
-		$(_getControl(cells[2])).datepicker({dateFormat: 'dd.mm.y', changeMonth: true, showButtonPanel: true, altField: $(_getControl(cells[2])).next(), altFormat: 'yy-mm-dd'});
 //		_getControl(cells[2]).onclick = Card.calendar;
 		_getControl(cells[6]).parentNode.className =
 		_getControl(cells[6]).parentNode.className.replace(/\s*\bfield-activated\b/ig, '');
 		row.className = row.className.replace(/\s*\brow-pattern\b/ig, 'row-not-saved');
+		$(_getControl(cells[2])).datepicker(
+		{
+			dateFormat: 'dd.mm.y',
+			changeMonth: true,
+			showButtonPanel: true,
+			altField: $(_getControl(cells[2])).next(),
+			altFormat: 'yy-mm-dd'});
 	}
 
 	this.addTrain = function()
@@ -358,13 +371,14 @@ var Card = new function()
 				//cells[6].className += ' field-activated';
 				_getControl(cells[1]).readOnly = false;
 //				_getControl(cells[2]).onclick = this.calendar;
-				$(_getControl(cells[2])).datepicker({dateFormat: 'dd.mm.y', changeMonth: true, showButtonPanel: true, altField: $(_getControl(cells[2])).next(), altFormat: 'yy-mm-dd'});
+				if( ! $(row).hasClass('row-pattern'))
+					$(_getControl(cells[2])).datepicker({dateFormat: 'dd.mm.y', changeMonth: true, showButtonPanel: true, altField: $(_getControl(cells[2])).next(), altFormat: 'yy-mm-dd'});
 				_getControl(cells[3]).readOnly = false;
 				_getControl(cells[5]).readOnly = false;
 				break;
 			case '1':
-				cells[1].className += ' field-activated';
-				cells[2].className += ' field-activated';
+//				cells[1].className += ' field-activated';
+//				cells[2].className += ' field-activated';
 				cells[3].className += ' field-activated';
 				_getControl(cells[3]).readOnly = false;
 				cells[5].className += ' field-activated';
@@ -410,13 +424,14 @@ var Card = new function()
 				//cells[6].className += ' field-activated';
 				_getControl(cells[1]).readOnly = false;
 //				_getControl(cells[2]).onclick = this.calendar;
-				$(_getControl(cells[2])).datepicker({dateFormat: 'dd.mm.y', changeMonth: true, showButtonPanel: true, altField: $(_getControl(cells[2])).next(), altFormat: 'yy-mm-dd'});
+				if( ! $(row).hasClass('row-pattern'))
+					$(_getControl(cells[2])).datepicker({dateFormat: 'dd.mm.y', changeMonth: true, showButtonPanel: true, altField: $(_getControl(cells[2])).next(), altFormat: 'yy-mm-dd'});
 				_getControl(cells[3]).readOnly = false;
 				//_getControl(cells[5]).readOnly = false;
 				break;
 			case '1':
-				cells[1].className += ' field-activated';
-				cells[2].className += ' field-activated';
+//				cells[1].className += ' field-activated';
+//				cells[2].className += ' field-activated';
 				cells[3].className += ' field-activated';
 				_getControl(cells[3]).readOnly = false;
 				cells[5].className += ' field-activated';
@@ -787,7 +802,7 @@ var Card = new function()
 
 		this.setEditPersonalCompetenceNotes();
 
-		_buttonAddPersonalTask.onclick = Card.savePersonalTasks;
+		_buttonAddPersonalTask.onclick = Card.createPersonalTasks;
 		_buttonAddPersonalTask.className += ' button-activated';
 
 
@@ -1446,6 +1461,12 @@ var Card = new function()
 	// Функция сохранения изменений карточки
 	this.save = function()
 	{
+		if(saving)
+		{
+			alert('Внимание, идёт сохранение данных!\nAttention! Data is saving!');
+			return false;
+		}
+
 //		_removeLastRow(_tasks);
 //		_removeLastRow(_func_tasks);
 //		_removeLastRow(_trains);
@@ -1512,7 +1533,9 @@ var Card = new function()
 		}
 
 		changes = false;
+
 		document.forms.card.submit();
+		saving = 1;
 	}
 
 	this.countActiveObjectivesByStatus = function (table)
@@ -1625,7 +1648,7 @@ var Card = new function()
 	}
 
 	// сохраняем персональные цели сотрудников, проверяем их количество - не больше 6 целей
-	this.savePersonalTasks = function()
+	this.createPersonalTasks = function()
 	{
 		if(_personaltasks && (! Card.checkWeights(_personaltasks)))
 			return;
@@ -1635,8 +1658,7 @@ var Card = new function()
 			var count = Card.countActiveObjectivesByStatus(_personaltasks);
 			if(count > 6)
 			{
-				alert("Внимание! Ограничение по количеству целей не более 6 целей! Вы не можете добавить новую "
-				      + "цель!");
+				alert("Внимание! Ограничение по количеству целей не более 6 целей! Вы не можете добавить новую цель!");
 				return;
 			}
 			else
