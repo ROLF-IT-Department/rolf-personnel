@@ -9,15 +9,20 @@ body {
 	background-color:#FFFBF0;
 	width: 400px;
 }
+.form-item {width: 100%;}
 
 .form-item label {
 	display: inline-block;
 	font-weight:bold;
-	width: 290px;
+	width: 280px;
+	zoom: 1;
+	*display: inline;
 }
 .form-item input {
 	display: inline-block;
 	width: 80px;
+	zoom: 1;
+	*display: inline;
 }
 fieldset {
 	border:1px solid #ccc;
