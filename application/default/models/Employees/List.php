@@ -61,7 +61,9 @@ class Employees_List
 						}
 					}
 				}
-				ksort($employees);
+				if(is_array($employees))
+					ksort($employees);
+
 				$this->rows = $employees;
 				$treePosts = new Rp_Db_View_TreePosts();
 				$this->postNames = $treePosts->fetchNames($postIds);
@@ -97,7 +99,9 @@ class Employees_List
 						}
 					}
 				}
-				ksort($employees);
+				if(is_array($employees))
+					ksort($employees);
+
 				$this->subRows = $employees;
 			}
 
@@ -131,7 +135,9 @@ class Employees_List
 						}
 					}
 				}
-				ksort($employees);
+				if(is_array($employees))
+					ksort($employees);
+
 				$this->subRows = $employees;
 			}
 		}
