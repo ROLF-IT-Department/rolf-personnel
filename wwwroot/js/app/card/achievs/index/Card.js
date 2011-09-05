@@ -298,9 +298,6 @@ var Card = new function()
 		row.className = row.className.replace(/\s*\brow-pattern\b/ig, 'row-not-saved');
 		$(_getControl(cells[2])).datepicker(
 		{
-			dateFormat: 'dd.mm.y',
-			changeMonth: true,
-			showButtonPanel: true,
 			altField: $(_getControl(cells[2])).next(),
 			altFormat: 'yy-mm-dd'});
 	}
@@ -329,9 +326,6 @@ var Card = new function()
 		row.className = row.className.replace(/\s*\brow-pattern\b/ig, 'row-not-saved');
 		$(_getControl(cells[2])).datepicker(
 		{
-			dateFormat: 'dd.mm.y',
-			changeMonth: true,
-			showButtonPanel: true,
 			altField: $(_getControl(cells[2])).next(),
 			altFormat: 'yy-mm-dd'});
 	}
@@ -372,7 +366,7 @@ var Card = new function()
 				_getControl(cells[1]).readOnly = false;
 //				_getControl(cells[2]).onclick = this.calendar;
 				if( ! $(row).hasClass('row-pattern'))
-					$(_getControl(cells[2])).datepicker({dateFormat: 'dd.mm.y', changeMonth: true, showButtonPanel: true, altField: $(_getControl(cells[2])).next(), altFormat: 'yy-mm-dd'});
+					$(_getControl(cells[2])).datepicker({altField: $(_getControl(cells[2])).next(), altFormat: 'yy-mm-dd'});
 				_getControl(cells[3]).readOnly = false;
 				_getControl(cells[5]).readOnly = false;
 				break;
@@ -425,7 +419,7 @@ var Card = new function()
 				_getControl(cells[1]).readOnly = false;
 //				_getControl(cells[2]).onclick = this.calendar;
 				if( ! $(row).hasClass('row-pattern'))
-					$(_getControl(cells[2])).datepicker({dateFormat: 'dd.mm.y', changeMonth: true, showButtonPanel: true, altField: $(_getControl(cells[2])).next(), altFormat: 'yy-mm-dd'});
+					$(_getControl(cells[2])).datepicker({altField: $(_getControl(cells[2])).next(), altFormat: 'yy-mm-dd'});
 				_getControl(cells[3]).readOnly = false;
 				//_getControl(cells[5]).readOnly = false;
 				break;

@@ -24,7 +24,7 @@ class Card_AchievsController extends Zend_Controller_Action
 		$personId = $request->getParam('personid', null);
 		$cardid = $request->getParam('cardid', NULL);
 		$period = $request->getParam('period', NULL);
-		
+
 		if (isset($cardid) AND $cardid > 0)
 		{
 			$card = $cards->find($cardid)->current();

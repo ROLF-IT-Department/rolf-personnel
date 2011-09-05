@@ -18,6 +18,8 @@ jQuery(function($){
 		firstDay: 1,
 		isRTL: false,
 		showMonthAfterYear: false,
-		yearSuffix: ''};
+		yearSuffix: '',
+		changeMonth: true,
+		showButtonPanel: true};
 	$.datepicker.setDefaults($.datepicker.regional['ru']);
 });
