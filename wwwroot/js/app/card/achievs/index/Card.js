@@ -73,7 +73,7 @@ var Card = new function()
 
 		_period = period;
 
-		$('textarea').change(function(){
+		$('textarea, input').change(function(){
 			var row_class = this.parentNode.parentNode.className;
 			var new_class = ' row-not-saved';
 
