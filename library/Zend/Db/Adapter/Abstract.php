@@ -238,10 +238,11 @@ abstract class Zend_Db_Adapter_Abstract
     protected function _checkRequiredOptions(array $config)
     {
         // we need at least a dbname
+		/*
         if (! array_key_exists('dbname', $config)) {
             require_once 'Zend/Db/Adapter/Exception.php';
             throw new Zend_Db_Adapter_Exception("Configuration array must have a key for 'dbname' that names the database instance");
-        }
+        }*/
 
         if (! array_key_exists('password', $config)) {
             /**
