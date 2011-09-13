@@ -33,8 +33,15 @@ class Card_AchievsController extends Zend_Controller_Action
 				throw new Exception('Карточка достижений с указанным идентификатором не найдена.');
 
 			// предыдущая карточка
-			$last_year = date('Y') - 1;
-			$previous_card = $cards->findByPersonIdAndPeriod($card->person_id, $last_year);
+			if(date('d.m', strtotime($card->period_start)) == '01.01')
+			{
+				$last_year = date('Y') - 1;
+				$previous_card = $cards->findByPersonIdAndPeriod($card->person_id, $last_year);
+			}
+			else
+			{
+				$previous_card = $cards->find_previous_card_in_multicards($card);
+			}
 		}
 		else
 		{
