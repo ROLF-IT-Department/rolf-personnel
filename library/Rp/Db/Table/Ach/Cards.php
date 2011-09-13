@@ -172,6 +172,17 @@ class Rp_Db_Table_Ach_Cards extends Rp_Db_Table_Abstract
 		return $rowCard;
 	}
 
+	public function find_previous_card_in_multicards($current_card)
+	{
+		$db = $this->getAdapter();
+
+		$where  = 'person_id = ' . $db->quote($current_card->person_id);
+		$where .= ' AND period = ' . $db->quote($current_card->period);
+		$where .= ' AND period_end = ' . $db->quote(date('Y-m-d H:i', strtotime($current_card->period_start)-86400));
+		$rowCard = $this->fetchRow($where);
+		return $rowCard;
+	}
+
 	/**
 	 * ¬озвращает карточку, найденную по значени€м
 	 * идентификатора физ. лица и id карточки.
