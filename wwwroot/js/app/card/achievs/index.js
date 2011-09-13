@@ -11,9 +11,6 @@ var edit   = false;
 
 function init()
 {
-//	JsCalendarInit(BASE_URL + '/js/lib/JsCalendar');
-//	JsCalendar.handler = Card.calendarHandler;
-
 	elems = window.document.card.elements;
 
 	elems.period.onchange = periodOnchangeHandler;
@@ -263,7 +260,23 @@ function toolbarItemEditRate()
 	if (window.confirm(msg)) {
 		elems['approvals[rate_mng_status]'].value = '';
 		edit = true;
-		Card.save();
+		if(common_rating.id)
+		{
+			var common_rating_confirmed = 0;
+			$.ajax({
+				url: BASE_URL + '/card/card/agreement/',
+				data: {
+					'id'         : common_rating.id,
+					'person_id'  : common_rating.person_id,
+					'period_year': common_rating.period_year,
+					'rating_id'  : common_rating.rating_id,
+					'confirmed'  : common_rating_confirmed
+				},
+				success: function(data) {
+					Card.save();
+				}
+			});
+		}
 	}
 }
 
@@ -465,20 +478,12 @@ function toolbarItemBlockUnblockCard(card_id)
  */
 function periodOnchangeHandler()
 {
-	/*
-	var msg = 'Внимание! При переходе в другой период все несохраненные изменения';
-	msg += ' в карточке за текущий период будут потеряны!';
-	if (!window.confirm(msg)) {
-		return false;
-	}
-	*/
 	var card_and_period = elems.period.options[elems.period.selectedIndex].value.split(',');
 
 	var personId = elems.person_id.value;
 	var period = card_and_period[1];
 	var cardid = card_and_period[0];
 
-//	var url = BASE_URL + '/card/achievs/index/personid/' + personId + '/period/' + period;
 	var url = BASE_URL + '/card/achievs/index/personid/' + personId + '/cardid/' + cardid + '/period/' + period;
 	var loading_object = $('#loading');
 
@@ -527,11 +532,11 @@ $(document).ready(function(){
 		$.ajax({
 			url: BASE_URL + '/card/card/agreement/',
 			data: {
-				'id'         :common_rating.id,
-				'person_id'  :common_rating.person_id,
-				'period_year':common_rating.period_year,
-				'rating_id'  :common_rating.rating_id,
-				'confirmed'  :common_rating_confirmed
+				'id'         : common_rating.id,
+				'person_id'  : common_rating.person_id,
+				'period_year': common_rating.period_year,
+				'rating_id'  : common_rating.rating_id,
+				'confirmed'  : common_rating_confirmed
 			},
 			success: function(data) {
 					location.reload();
