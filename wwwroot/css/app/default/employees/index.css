@@ -111,6 +111,21 @@ td.statusCLS {
 td.statusMTPL {
 	background-image: url('../../../../img/achievs/status/MTPL.gif');
 }
+td.statusMTPL_PLN {
+	background-image: url('../../../../img/achievs/status/MTPL_PLN.gif');
+}
+td.statusMTPL_CLS {
+	background-image: url('../../../../img/achievs/status/MTPL_CLS.gif');
+}
+td.statusMTPL_CRG {
+	background-image: url('../../../../img/achievs/status/MTPL_CRG.gif');
+}
+td.statusMTPL_RTG {
+	background-image: url('../../../../img/achievs/status/MTPL_RTG.gif');
+}
+td.statusMTPL_CPN {
+	background-image: url('../../../../img/achievs/status/MTPL_CPN.gif');
+}
 
 .profile {
 	position: absolute;
