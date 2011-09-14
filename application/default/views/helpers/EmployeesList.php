@@ -107,8 +107,10 @@ class Zend_View_Helper_EmployeesList
 				$result_rating = $agreements_model->cards_agreement($cards[0]->person_id, $cards[0]->period);
 				$result_rating = ($result_rating) ? $result_rating->rtg_total_id : $result_rating;
 
+				$last_card = array_pop($cards);
+
 				$period_status[$year] = array(
-					'status' => 'MTPL',
+					'status' => 'MTPL_'.$last_card->status_id,
 					'rate' => $result_rating
 				);
 			}
