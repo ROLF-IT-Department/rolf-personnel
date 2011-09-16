@@ -9,7 +9,7 @@ class ProfileController extends Zend_Controller_Action
 		$cards = new Rp_Db_Table_Ach_Cards();
 		$card = $cards->findByPersonIdAndPeriod($personId, date('Y'));
 		$employee = $card->getEmployee();
-		
+
 		$user = Rp_User::getInstance();
 		
 		$managersIds = $employee->getManagers()->getCol('person_id');
