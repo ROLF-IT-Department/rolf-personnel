@@ -122,6 +122,8 @@ abstract class Zend_Db_Adapter_Pdo_Abstract extends Zend_Db_Adapter_Abstract
 
             // always use exceptions.
             $this->_connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$this->_connection->setAttribute(PDO::SQLSRV_ATTR_ENCODING , PDO::SQLSRV_ENCODING_SYSTEM);
+
 
         } catch (PDOException $e) {
             /**

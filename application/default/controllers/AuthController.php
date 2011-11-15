@@ -10,7 +10,7 @@ class AuthController extends Zend_Controller_Action
 
 		$password = '';
 
-		if ($_POST)
+		if ($_POST OR isset($_GET['force_auth']))
 		{
 			$authtype = Rp_Auth_Adapter_DbTable::AUTH_FORM;
 			$username = $request->getPost('username', NULL);
@@ -41,13 +41,13 @@ class AuthController extends Zend_Controller_Action
 					if ( ! isset($_SESSION['user_id']))
 					{
 						$logon = array();
-						$logon['session_id'] = session_id();
-						$logon['user_id'] = $user->getPerson()->id;
+						$logon['session_id']   = session_id();
+						$logon['user_id']      = $user->getPerson()->id;
 						$logon['userfullname'] = $user->getPerson()->fullname;
-						$logon['userpost'] = current($appointments->fetchNames($user->getEmployee()->appointment_id));
-						$logon['date_logon'] = date("m.d.y H:i:s");
-						$logon['ip'] = $_SERVER['REMOTE_ADDR'];
-						$logon['version'] = $_SERVER['HTTP_USER_AGENT'];
+						$logon['userpost']     = current($appointments->fetchNames($user->getEmployee()->appointment_id));
+						$logon['date_logon']   = date("m.d.y H:i:s");
+						$logon['ip']           = $_SERVER['REMOTE_ADDR'];
+						$logon['version']      = $_SERVER['HTTP_USER_AGENT'];
 
 						$log->insert($logon);
 

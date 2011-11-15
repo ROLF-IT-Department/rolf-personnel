@@ -57,9 +57,10 @@ class Rp_Db_View_Row_Employee extends Rp_Db_View_Row
 
 			foreach($persons as $person)
 			{
-				if($person->netname AND $person->out_date == ' ')
+				if(! (bool) $person->out_date)
 				{
 					$this->_person = $person;
+					break;
 				}
 			}
 		}
