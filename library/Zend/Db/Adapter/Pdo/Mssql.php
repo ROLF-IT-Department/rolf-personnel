@@ -87,10 +87,11 @@ class Zend_Db_Adapter_Pdo_Mssql extends Zend_Db_Adapter_Pdo_Abstract
         // don't pass the username and password in the DSN
         unset($dsn['username']);
         unset($dsn['password']);
+        unset($dsn['options']);
         unset($dsn['driver_options']);
 
         if (isset($dsn['port'])) {
-            $dsn['host'] .= ',' . $dsn['port'];
+            $dsn['server'] .= ',' . $dsn['server'];
             unset($dsn['port']);
         }
 
@@ -105,10 +106,13 @@ class Zend_Db_Adapter_Pdo_Mssql extends Zend_Db_Adapter_Pdo_Abstract
                 case 'mssql':
                     $this->_pdoType = 'mssql';
                     break;
+				case 'sqlsrv':
+					$this->_pdoType = 'sqlsrv';
+					break;
                 case 'dblib':
                 default:
                     $this->_pdoType = 'dblib';
-                    break;
+					break;
             }
             unset($dsn['pdoType']);
         }
