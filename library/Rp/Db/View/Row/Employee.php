@@ -57,7 +57,7 @@ class Rp_Db_View_Row_Employee extends Rp_Db_View_Row
 
 			foreach($persons as $person)
 			{
-				if(! (bool) $person->out_date)
+				if(! (bool) trim($person->out_date))
 				{
 					$this->_person = $person;
 					break;
