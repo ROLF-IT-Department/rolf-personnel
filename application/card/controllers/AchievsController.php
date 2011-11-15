@@ -21,9 +21,9 @@ class Card_AchievsController extends Zend_Controller_Action
 
 		$cards = new Rp_Db_Table_Ach_Cards();
 
-		$personId = $request->getParam('personid', null);
-		$cardid = $request->getParam('cardid', NULL);
-		$period = $request->getParam('period', NULL);
+		$personId = $request->getParam('personid', NULL);
+		$cardid   = $request->getParam('cardid', NULL);
+		$period   = $request->getParam('period', NULL);
 
 		if (isset($cardid) AND $cardid > 0)
 		{
@@ -45,7 +45,7 @@ class Card_AchievsController extends Zend_Controller_Action
 		}
 		else
 		{
-			$card = $cards->findByPersonIdAndCard($personId, $cardid, $period);
+			$card = $cards->findByPersonIdAndCard($personId, NULL, $period);
 
 			// предыдущая карточка
 			$last_year = date('Y') - 1;
