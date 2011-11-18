@@ -56,7 +56,7 @@ class Zend_View_Helper_EmployeesList
 			</div>
 		';
 
-		return implode($xhtml);
+		return implode(NULL, $xhtml);
 	}
 
 	private function _listTable($id, $class, array $rows)

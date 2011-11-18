@@ -28,7 +28,7 @@ class Employees_List
 
 	public function __construct($postIds, $periodFirst, $periodSecond, $fetchEmps = true, $fetchSubEmps = true, $func)
 	{
-		if (!empty($postIds))
+		if ($postIds)
 		{
 			$employees = NULL;
 			if ($fetchEmps)
@@ -61,8 +61,15 @@ class Employees_List
 						}
 					}
 				}
+
 				if(is_array($employees))
+				{
 					ksort($employees);
+				}
+				elseif(is_null($employees))
+				{
+					$employees = array();
+				}
 
 				$this->rows = $employees;
 				$treePosts = new Rp_Db_View_TreePosts();
@@ -99,8 +106,15 @@ class Employees_List
 						}
 					}
 				}
+
 				if(is_array($employees))
+				{
 					ksort($employees);
+				}
+				elseif(is_null($employees))
+				{
+					$employees = array();
+				}
 
 				$this->subRows = $employees;
 			}
@@ -135,8 +149,15 @@ class Employees_List
 						}
 					}
 				}
+
 				if(is_array($employees))
+				{
 					ksort($employees);
+				}
+				elseif(is_null($employees))
+				{
+					$employees = array();
+				}
 
 				$this->subRows = $employees;
 			}
