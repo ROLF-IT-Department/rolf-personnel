@@ -24,6 +24,7 @@ class Card_AchievsController extends Zend_Controller_Action
 		$personId = $request->getParam('personid', NULL);
 		$cardid   = $request->getParam('cardid', NULL);
 		$period   = $request->getParam('period', NULL);
+		$check_bad_rates = TRUE;
 
 		if (isset($cardid) AND $cardid > 0)
 		{
@@ -40,6 +41,7 @@ class Card_AchievsController extends Zend_Controller_Action
 			}
 			else
 			{
+				$check_bad_rates = FALSE;
 				$previous_card = $cards->find_previous_card_in_multicards($card);
 			}
 		}
@@ -57,9 +59,10 @@ class Card_AchievsController extends Zend_Controller_Action
 		$person = $emp->getPerson();
 
 		$cards_and_periods = $cards->get_cards_and_periods($personId);
-        $ratings = new Rp_Db_Table_Ach_Ratings();
-        $rate_weights = $ratings->fetchWeights();
-		$rate_names = $ratings->fetchNames();
+        $ratings           = new Rp_Db_Table_Ach_Ratings();
+        $rate_weights      = $ratings->fetchWeights();
+		$rate_names        = $ratings->fetchNames();
+		$user_viewed_posts = $user->getTreePost()->findViewedPosts(true)->toArray();
 
 		$rates = array();
 		foreach($rate_names as $id => $name)
@@ -176,27 +179,27 @@ class Card_AchievsController extends Zend_Controller_Action
 		}
 
 		// Проверка оценок целей и компетенций предыдущей карточки на наличие оценок C или D
-		$tasks_bad_rates = FALSE;
+		$tasks_bad_rates      = FALSE;
 		$competence_bad_rates = FALSE;
-		foreach($previous_card->fetchTasks() as $task)
+		if($check_bad_rates)
 		{
-			if($task->rating_id == 5 OR $task->rating_id == 6)
-				$tasks_bad_rates = TRUE;
+			foreach($previous_card->fetchTasks() as $task)
+			{
+				if($task->rating_id > 4 )
+					$tasks_bad_rates = TRUE;
+			}
+
+			foreach($previous_card->fetchCompetences() as $competence)
+			{
+				if($competence->rating_id > 4)
+					$competence_bad_rates = TRUE;
+			}
 		}
 
-		foreach($previous_card->fetchCompetences() as $competence)
-		{
-			if($competence->rating_id == 5 OR $competence->rating_id == 6)
-				$competence_bad_rates = TRUE;
-		}
-
+		$previous_bad_rates = 'no';
 		if($tasks_bad_rates === TRUE OR $competence_bad_rates === TRUE)
 		{
 			$previous_bad_rates = 'yes';
-		}
-		else
-		{
-			$previous_bad_rates = 'no';
 		}
 
 		$period_start = date('d.m.Y', strtotime($card->period_start));
@@ -218,7 +221,7 @@ class Card_AchievsController extends Zend_Controller_Action
 		$view->emp = $emp;
 		$view->person = $person;
 		$view->user = $user;
-		$view->user_viewed_posts = $user->getTreePost()->findViewedPosts(true)->toArray();
+		$view->user_viewed_posts = $user_viewed_posts;
 		$view->userRole = $this->_getUserRole($card, $user);
 		$view->card = $card;
 		$view->periods = $periods;
