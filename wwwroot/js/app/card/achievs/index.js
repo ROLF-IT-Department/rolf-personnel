@@ -211,8 +211,13 @@ function sendEmail()
 
 	var bodytext = 'Уважаемые коллеги!%0A%0AИнформирую вас о том, что карточка сотрудника ' + employee_fio_value + ' выставлена на согласование.%0AОзнакомьтесь, пожалуйста, с внесенными данными и согласуйте их.%0A%0AСпасибо!%0A%0A%0A%0ADear colleagues,%0A%0APlease, be informed that performance management card of ' + employee_fio_value + ' is waiting for your approval.%0AAcquaint with information and submit it.%0A%0AThank you.';
 
-	parent.location.href="mailto:" + emails + "?subject=" + subject + "&body=" + bodytext;
+	var email_window = window.open("mailto:" + emails + "?subject=" + subject + "&body=" + bodytext,'emailWindow');
 
+	if (email_window && email_window.open &&!email_window.closed)
+	{
+		email_window.opener.focus();
+		email_window.close();
+	}
 }
 
 /**
@@ -277,6 +282,10 @@ function toolbarItemEditRate()
 				}
 			});
 		}
+		else
+		{
+			Card.save();
+		}
 	}
 }
 
@@ -322,7 +331,7 @@ function toolbarItemApprovalRate()
 	if (USER_ROLE & ROLE_MANAGER)
 	{
 		if (!Card.checkSetRatings(count_func) || !Card.checkBalanceTasks() || !Card.checkBalanceCompetences())
-			return;
+			return false;
 
 		elems['approvals[rate_mng_id]'].value = elems.userId.value;
 		elems['approvals[rate_mng_status]'].value = 1;
