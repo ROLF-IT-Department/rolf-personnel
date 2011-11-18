@@ -10,8 +10,8 @@ class EmployeesController extends Zend_Controller_Action
 		$showSubEmps = $request->getParam('showSubEmps', true);
 		$func = $request->getParam('func', null);
 
-		$periodFirst = date('Y') + (date('n') < 12 ? -1 : 0);
-		$periodSecond = $periodFirst + 1;
+		$periodSecond = date('Y');
+		$periodFirst = $periodSecond -1;
 
 		$listEmployees = new Employees_List($postIds, $periodFirst, $periodSecond, $showEmps, $showSubEmps, $func);
 

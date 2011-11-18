@@ -74,6 +74,7 @@ class Employees_List
 				$this->rows = $employees;
 				$treePosts = new Rp_Db_View_TreePosts();
 				$this->postNames = $treePosts->fetchNames($postIds);
+				$employees = NULL;
 			}
 
 			if ($fetchSubEmps)
@@ -117,6 +118,7 @@ class Employees_List
 				}
 
 				$this->subRows = $employees;
+				$employees = NULL;
 			}
 
 			if ($func)
@@ -160,6 +162,7 @@ class Employees_List
 				}
 
 				$this->subRows = $employees;
+				$employees = NULL;
 			}
 		}
 		else
