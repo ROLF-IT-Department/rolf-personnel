@@ -17,7 +17,7 @@
 class Rp_Db_Table_Ach_Competences_Notes extends Rp_Db_Table_Abstract
 {
 	protected $_name = 'user_rp_ach_cards_competences_notes';
-	
+
 	protected $_referenceMap = array(
 		'Competence' => array(
 			'columns'       => 'competence_id',
@@ -46,5 +46,21 @@ class Rp_Db_Table_Ach_Competences_Notes extends Rp_Db_Table_Abstract
 		";
 
 		return $this->_createRowset($sql);
+	}
+
+	public function find_notes_by_compets_id($competence_id)
+	{
+		if($competence_id)
+		{
+			$count = count($competence_id);
+
+
+			$competence_id = $this->_db->quote($competence_id);
+			$where = ($count == 1) ?  'competence_id = ' . $competence_id  : 'competence_id IN (' . $competence_id . ')';
+
+			return $this->fetchAll($where);
+		}
+
+		return array();
 	}
 }

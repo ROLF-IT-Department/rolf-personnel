@@ -1,9 +1,5 @@
 <?php
 
-/**
- * @TODO сначала делать фетч компетенций, потом по их id сфетчить ноуты, а потом уже построить табличку. Нужно уменьшать количество запросов...
- *
- */
 class Zend_View_Helper_AchievsFormCompetences
 {
 	/**
@@ -20,7 +16,10 @@ class Zend_View_Helper_AchievsFormCompetences
 
     public function achievsFormCompetences(Rp_Db_Table_Rowset $competences, array $ratings, $rate_weights, $cardRtgCompetensId)
     {
-    	$competences = $competences->toArray();
+//    	$competences = $competences->toArray();
+
+	    $rate = new Rp_Db_Table_Ach_Ratings();
+   		$this->_rates = $rate->fetchNameWeights();
 
 		$xhtml  = array();
     	$stands = array();
@@ -53,15 +52,53 @@ class Zend_View_Helper_AchievsFormCompetences
     			<table class="grid-body-table" id="additsCompets">
     				<tbody>
     	';
-    	foreach ($competences as $item) {
-    		if ((!$item['disabled']) && (!$item['is_personal'])) {
-    			if ($item['additional']) {
-					$addits[] = $this->_rowCompetence($item, $ratings);
+
+	    $addits_compets_ids = array();
+	    $stands_compets_ids = array();
+    	foreach($competences as $item)
+	    {
+    		if (( ! $item->disabled) AND ( ! $item->is_personal))
+		    {
+    			if ($item->additional)
+			    {
+					$addits_compets_ids[] = $item->id;
 				} else {
-					$stands[] = $this->_rowCompetence($item, $ratings);
+					$stands_compets_ids[] = $item->id;
 				}
     		}
     	}
+	    $notes = new Rp_Db_Table_Ach_Competences_Notes();
+	    $_addits_compets_notes = $notes->find_notes_by_compets_id($addits_compets_ids);
+	    $_stands_compets_notes = $notes->find_notes_by_compets_id($stands_compets_ids);
+
+	    $addits_compets_notes = array();
+	    $stands_compets_notes = array();
+	    foreach($_addits_compets_notes as $note)
+	    {
+		    $addits_compets_notes[$note->competence_id] = $note;
+	    }
+	    foreach($_stands_compets_notes as $note)
+	    {
+		    $stands_compets_notes[$note->competence_id] = $note;
+	    }
+
+	    foreach ($competences as $item)
+	    {
+    		if (( ! $item->disabled) AND ( ! $item->is_personal))
+		    {
+    			if ($item->additional)
+			    {
+				    $notes = isset($addits_compets_notes[$item->id]) ? $addits_compets_notes[$item->id] : array();
+					$addits[] = $this->_rowCompetence($item, $ratings, $notes);
+				}
+			    else
+			    {
+				    $notes = isset($stands_compets_notes[$item->id]) ? $stands_compets_notes[$item->id] : array();
+					$stands[] = $this->_rowCompetence($item, $ratings, $notes);
+				}
+    		}
+    	}
+
     	$stands[] = '
     				</tbody>
     			</table>
@@ -101,9 +138,9 @@ class Zend_View_Helper_AchievsFormCompetences
     	$count = 0;
     	foreach ($competences as $item)
 	    {
-    		if ((!$item['disabled']) && ($item['rating_id']) && (!$item['is_personal']))
+    		if (( ! $item->disabled) AND ($item->rating_id) AND ( ! $item->is_personal))
 			{
-				$val = $rate_weights[$item['rating_id']]['weight'];		// вес рейтинга
+				$val = $rate_weights[$item->rating_id]['weight'];		// вес рейтинга
 				$sum += $val;
 				if ($val != 0)
 					$count++;
@@ -112,32 +149,36 @@ class Zend_View_Helper_AchievsFormCompetences
 
     	$result = 0;
    		if ($count) $result = round($sum / $count);
-   		$rate = new Rp_Db_Table_Ach_Ratings();
-   		$name = $rate->fetchNameWeights();
-   		$ret = null;
 
-   		foreach ($name as $key=>$value)
+   		$ret = null;
+   		foreach ($this->_rates as $key => $value)
 	   {
-		   if ($value['weight']==$result)
+		   if ($value['weight'] == $result)
 			   $ret = $key;
 	   }
 
     	return $ret;
     }
 
-    public function _rowCompetence(array $competence, array $ratings)
+	/**
+	 * @param $competence
+	 * @param array $ratings
+	 * @param $notes
+	 * @return string
+	 */
+    public function _rowCompetence($competence, array $ratings, $notes)
     {
     	static $standsCounter = 0;
     	static $additsCounter = 0;
 
 
-    	$competen = new Rp_Db_Table_Ach_Cards_Competences();
-		$competen = $competen->find($competence['id'])->current();
+//    	$competen = new Rp_Db_Table_Ach_Cards_Competences();
+//		$competen = $competen->find($competence['id'])->current();
 
-		$num  = $competence['additional'] ? ++$additsCounter : ++$standsCounter;
-		$name = 'competences[' . $competence['id'] . ']';
-		$kol = count($competen->fetchNotes($competen->id));
-		$note1  = '<div style="display:none" onclick="openNotesCompetence(' . $competence['id'] . ', 0)" title="Заметки">' . $kol . '</div>';
+		$num  = $competence->additional ? ++$additsCounter : ++$standsCounter;
+		$name = 'competences[' . $competence->id . ']';
+		$kol = count($notes);
+		$note1  = '<div style="display:none" onclick="openNotesCompetence(' . $competence->id . ', 0)" title="Заметки">' . $kol . '</div>';
 
 		return '
 			<tr>
@@ -145,20 +186,20 @@ class Zend_View_Helper_AchievsFormCompetences
 					<div>' . $num . '</div>
 				</td>
 				<td class="compets-field-name">
-					<div>' . $competence['name'] . '<div>' . $competence['target'] . '</div></div>
+					<div>' . $competence->name . '<div>' . $competence->target . '</div></div>
 				</td>
 				<td class="compets-field-description">
-					<textarea readonly="readonly">' . $competence['description'] .  $competence['english_description'] . '</textarea>
+					<textarea readonly="readonly">' . $competence->description .  $competence->english_description . '</textarea>
 				</td>
 				<td class="compets-field-note">
 					' . $note1 . '
 				</td>
 				<td class="compets-field-result">
-					<textarea name="' . $name . '[result]" readonly="readonly">' . $competence['result'] . '</textarea>
+					<textarea name="' . $name . '[result]" readonly="readonly">' . $competence->result . '</textarea>
 				</td>
 				<td class="compets-field-rating">
-					' . $this->view->formSelect($name . '[rating_id]', $competence['rating_id'] , null, $ratings) . '
-					<div>' . $ratings[$competence['rating_id']] . '</div>
+					' . $this->view->formSelect($name . '[rating_id]', $competence->rating_id , null, $ratings) . '
+					<div>' . $ratings[$competence->rating_id] . '</div>
 				</td>
 			</tr>
 		';

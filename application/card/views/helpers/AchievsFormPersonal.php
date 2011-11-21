@@ -95,7 +95,7 @@ class Zend_View_Helper_AchievsFormPersonal
 			</div>';
 
     	// [START] компетенции
-		$competences = $competences->toArray();
+//		$competences = $competences->toArray();
 		$cardRtgCompetensId = $card->rtg_competens_id;
 
 		$stands = array();
@@ -128,15 +128,63 @@ class Zend_View_Helper_AchievsFormPersonal
 					<table class="grid-body-table" id="personalAdditsCompets">
 						<tbody>
 			';
-			foreach ($competences as $item) {
-				if ((!$item['disabled'])) {
-					if ($item['additional']) {
-						$addits[] = $this->_rowCompetence($item, $ratings, $personal);
+
+//			foreach ($competences as $item) {
+//				if ((!$item['disabled'])) {
+//					if ($item['additional']) {
+//						$addits[] = $this->_rowCompetence($item, $ratings, $personal);
+//					} else {
+//						$stands[] = $this->_rowCompetence($item, $ratings, $personal);
+//					}
+//				}
+//			}
+	        $addits_compets_ids = array();
+		    $stands_compets_ids = array();
+	        foreach($competences as $item)
+		    {
+	            if (( ! $item->disabled))
+			    {
+	                if ($item->additional)
+				    {
+						$addits_compets_ids[] = $item->id;
 					} else {
-						$stands[] = $this->_rowCompetence($item, $ratings, $personal);
+						$stands_compets_ids[] = $item->id;
 					}
-				}
-			}
+	            }
+	        }
+
+	        $notes = new Rp_Db_Table_Ach_Competences_Notes();
+		    $_addits_compets_notes = $notes->find_notes_by_compets_id($addits_compets_ids);
+		    $_stands_compets_notes = $notes->find_notes_by_compets_id($stands_compets_ids);
+
+		    $addits_compets_notes = array();
+		    $stands_compets_notes = array();
+		    foreach($_addits_compets_notes as $note)
+		    {
+			    $addits_compets_notes[$note->competence_id] = $note;
+		    }
+		    foreach($_stands_compets_notes as $note)
+		    {
+			    $stands_compets_notes[$note->competence_id] = $note;
+		    }
+
+		    foreach ($competences as $item)
+		    {
+	            if (( ! $item->disabled))
+			    {
+	                if ($item->additional)
+				    {
+					    $notes = isset($addits_compets_notes[$item->id]) ? $addits_compets_notes[$item->id] : array();
+						$addits[] = $this->_rowCompetence($item, $ratings, $notes);
+					}
+				    else
+				    {
+					    $notes = isset($stands_compets_notes[$item->id]) ? $stands_compets_notes[$item->id] : array();
+						$stands[] = $this->_rowCompetence($item, $ratings, $notes);
+					}
+	            }
+	        }
+
 			$stands[] = '
 						</tbody>
 					</table>
@@ -452,23 +500,21 @@ class Zend_View_Helper_AchievsFormPersonal
 		';
 	}
 
-    public function _rowCompetence(array $competence, array $ratings, $in_person = FALSE)
+    public function _rowCompetence($competence, array $ratings, $notes = array())
     {
     	static $standsCounter = 0;
     	static $additsCounter = 0;
 
 
-    	$competen = new Rp_Db_Table_Ach_Cards_Competences();
-		$competen = $competen->find($competence['id'])->current();
+//    	$competen = new Rp_Db_Table_Ach_Cards_Competences();
+//		$competen = $competen->find($competence['id'])->current();
 
-		$num  = $competence['additional'] ? ++$additsCounter : ++$standsCounter;
-		$name = ($in_person === TRUE)
-			?'competences_in_person[' . $competence['id'] . ']'
-			:'competences[' . $competence['id'] . ']';
+		$num  = $competence->additional ? ++$additsCounter : ++$standsCounter;
+		$name = 'competences_in_person[' . $competence->id . ']';
 
 
-		$kol = count($competen->fetchPersonalNotes($competen->id));
-		$note1  = '<div style="display:none" onclick="openNotesCompetence(' . $competence['id'] . ', 1)" title="Заметки">' . $kol . '</div>';
+		$kol = count($notes);
+		$note1  = '<div style="display:none" onclick="openNotesCompetence(' . $competence->id . ', 1)" title="Заметки">' . $kol . '</div>';
 
 		return '
 			<tr>
@@ -476,17 +522,17 @@ class Zend_View_Helper_AchievsFormPersonal
 					<div>' . $num . '</div>
 				</td>
 				<td class="compets-field-name">
-					<div>' . $competence['name'] . '<div>' . $competence['target'] . '</div></div>
+					<div>' . $competence->name . '<div>' . $competence->target . '</div></div>
 				</td>
 				<td class="compets-field-note">
 					' . $note1 . '
 				</td>
 				<td class="compets-field-result">
-					<textarea name="' . $name . '[result_personal]" readonly="readonly">' . $competence['result_personal'] . '</textarea>
+					<textarea name="' . $name . '[result_personal]" readonly="readonly">' . $competence->result_personal . '</textarea>
 				</td>
 				<td class="compets-field-rating">
-					' . $this->view->formSelect($name . '[rating_id_personal]', $competence['rating_id_personal'] , null, $ratings) . '
-					<div>' . $ratings[$competence['rating_id_personal']] . '</div>
+					' . $this->view->formSelect($name . '[rating_id_personal]', $competence->rating_id_personal , null, $ratings) . '
+					<div>' . $ratings[$competence->rating_id_personal] . '</div>
 				</td>
 			</tr>
 		';
