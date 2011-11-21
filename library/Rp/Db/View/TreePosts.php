@@ -54,9 +54,11 @@ class Rp_Db_View_TreePosts extends Rp_Db_View_Abstract
 		$keyValue = $this->_quote($keyValue);
 
 		if (!$columnLast) {
-			$where = "$keyName IN ($keyValue)";
+//			$where = "$keyName IN ($keyValue)";
+			$where = (count($keyValue) == 1) ? $keyName.' = '.$keyValue  : $keyName.' IN ('.$keyValue.')';
 			return $this->fetchAll($where);
 		}
+
 		$sql = "
 			SELECT DISTINCT
 				posts.*,
@@ -70,6 +72,7 @@ class Rp_Db_View_TreePosts extends Rp_Db_View_Abstract
 			ORDER BY
 				posts.name
 		";
+
 		$config = array(
 			'view'     => $this,
 			'data'     => $this->getAdapter()->fetchAll($sql),

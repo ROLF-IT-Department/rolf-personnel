@@ -28,7 +28,7 @@ class Rp_Db_View_TreePosts_Employees extends Rp_Db_View_Abstract
 	public function fetchPostIds($employeeId)
 	{
 		$employeeId = $this->_quote($employeeId);
-		$where = "person_id IN ($employeeId)";
+		$where = (count($employeeId) == 1) ?  'person_id = ' . $employeeId  : 'person_id IN (' . $employeeId . ')';
 		return $this->_fetchCol('post_id', $where);
 	}
 

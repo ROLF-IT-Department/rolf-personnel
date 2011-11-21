@@ -57,6 +57,7 @@ abstract class Zend_Cache
      * @param string $backend backend name
      * @param array $frontendOptions associative array of options for the corresponding frontend constructor
      * @param array $backendOptions associative array of options for the corresponding backend constructor
+     * @return Zend_Cache_Frontend_Class
      */
     public static function factory($frontend, $backend, $frontendOptions = array(), $backendOptions = array())
     {
