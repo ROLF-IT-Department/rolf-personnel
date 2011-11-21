@@ -475,4 +475,8 @@ class Zend_Cache_Core
         $logger->log($message, $priority);
     }
 
+	public function getBackend()
+	{
+		return $this->_backend;
+	}
 }

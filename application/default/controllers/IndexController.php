@@ -5,7 +5,7 @@ class IndexController extends Zend_Controller_Action
 	public function indexAction()
 	{
 		$have_integrate = 0;
-		$is_integrate = "";
+		$is_integrate = NULL;
 
 		$user = Rp_User::getInstance();;
 		$user_id = $user->getPersonId();
@@ -31,10 +31,9 @@ class IndexController extends Zend_Controller_Action
 		}
 
 		$view = $this->initView();
-		$view->title = Rp::getTitle();
+		$view->title          = Rp::getTitle();
 		$view->have_integrate = $have_integrate;
-
-		$view->is_integrate = $is_integrate;
+		$view->is_integrate   = $is_integrate;
 	}
 
 	public function menuAction()
