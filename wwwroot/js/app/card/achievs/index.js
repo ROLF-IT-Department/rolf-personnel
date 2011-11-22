@@ -32,7 +32,7 @@ function init()
 	// Активация последней посещённой вкладки
 	if(active_tab)
 	{
-		Tabs.focus('tabs-item-'+active_tab, 'tabs-body-'+active_tab);
+		Tabs.focus('tabs-item'+active_tab, 'tabs-body'+active_tab);
 	}
 
 	Toolbar = new Js.Toolbar('toolbarBox');

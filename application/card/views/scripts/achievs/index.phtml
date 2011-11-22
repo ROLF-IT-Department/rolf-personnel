@@ -263,7 +263,7 @@
 	?>';
 	var Rate_Weights       = Str_Weight.split(",");
 	var previous_bad_rates = '<?php echo $this->previous_bad_rates?>';
-	var active_tab         = '<?php echo $this->tab?>';
+	var active_tab         = '<?php echo strstr($this->tab, '-')?>';
 	var has_statistics     = <?php echo ($this->statistics) ? 'true' : 'false'?>;
 	var card_id            = <?php echo $this->card->id?>;
 	var is_blocked         = <?php echo ($this->card->is_blocked) ? 'true' : 'false'?>;
