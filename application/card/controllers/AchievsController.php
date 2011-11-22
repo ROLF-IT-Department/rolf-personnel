@@ -49,6 +49,11 @@ class Card_AchievsController extends Zend_Controller_Action
 		{
 			$card = $cards->findByPersonIdAndCard($personId, NULL, $period);
 
+			$card_start_period = strtotime($card->period_start);
+
+			if($card_start_period > mktime(0,0,0,1,1,date('Y')))
+				$check_bad_rates = FALSE;
+
 			// предыдущая карточка
 			$last_year = date('Y') - 1;
 			$previous_card = $cards->findByPersonIdAndPeriod($personId, $last_year);
@@ -216,6 +221,15 @@ class Card_AchievsController extends Zend_Controller_Action
 		$trainsRespons = new Rp_Db_Table_Ach_Trainings_Respons();
 		$careerFlags = new Rp_Db_Table_Ach_Cards_CareerFlags();
 
+		$tab = (isset($_SESSION['tab']))
+			? $_SESSION['tab']
+			: $card->id.'-tasks';
+
+		$_tab_card_id = strstr($tab, '-', TRUE);
+
+		if(($tab == $card->id.'-statistics' AND ! $statistics) OR $_tab_card_id != $card->id)
+			$tab = $card->id.'-tasks';
+
 		$view = $this->initView();
 		$view->title = Rp::getTitle(array($person->fullname, "Карточка достижений {$card->period}"));
 		$view->emp = $emp;
@@ -249,7 +263,7 @@ class Card_AchievsController extends Zend_Controller_Action
 		$view->emails = $this->_getEmails($card, $user);
 		$view->statistics = $statistics;
 
-		$view->tab = (isset($_SESSION['tab'])) ? $_SESSION['tab'] : 'tasks';
+		$view->tab = $tab;
 		$view->previous_bad_rates = $previous_bad_rates;
 	}
 

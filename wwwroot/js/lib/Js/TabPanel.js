@@ -86,10 +86,12 @@ Js.TabPanelItem = function(id, bodyId, classNames)
 
 	_tag.onclick = function(e)
 	{
-		var tab_re = new RegExp("tabs-item-");
+		var tab_re = new RegExp("tabs-item");
+		var card_active_tab = this.id.replace(tab_re, '');
+		var card_id = document.card.id.value;
 		if(document.card)
 		{
-			document.card.tab.value = this.id.replace(tab_re, '');
+			document.card.tab.value = card_id + card_active_tab;
 		}
 
 		_this.activate();
