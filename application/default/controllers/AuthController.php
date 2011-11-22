@@ -10,7 +10,7 @@ class AuthController extends Zend_Controller_Action
 
 		$password = '';
 
-		if ($_POST)
+		if ($_POST OR isset($_GET['force_auth']))
 		{
 			$authtype = Rp_Auth_Adapter_DbTable::AUTH_FORM;
 			$username = $request->getPost('username', NULL);
