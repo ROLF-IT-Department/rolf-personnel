@@ -1,4 +1,3 @@
-
 <?php
 date_default_timezone_set('Europe/Moscow');
 set_include_path('../library');
