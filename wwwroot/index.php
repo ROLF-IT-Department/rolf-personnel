@@ -33,5 +33,4 @@ if(isset($_SERVER['ENVIRONMENT']) AND $_SERVER['ENVIRONMENT'] == 'development')
 	$controller->registerPlugin(new ZFDebug_Controller_Plugin_Debug($options));
 }
 
-
 $controller->dispatch();
