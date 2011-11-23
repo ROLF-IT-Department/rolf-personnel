@@ -257,6 +257,8 @@ var Card = new function()
 		var name  = 'newTasks[' + row.rowIndex + ']';
 		var cells = row.cells;
 
+		row.className = row.className.replace(/\s*\brow-pattern\b/ig, 'row-not-saved');
+
 		_getControl(cells[0]).name = name + '[status]';
 		_getControl(cells[1]).name = name + '[description]';
 		_getControl(cells[3]).name = name + '[weight]';
@@ -269,13 +271,33 @@ var Card = new function()
 			input = input.nextSibling;
 		}
 		input.name = name + '[date_term]';
-		$(_getControl(cells[2])).datepicker({
-			altField: $(_getControl(cells[2])).next(),
-			altFormat: 'yy-mm-dd'
-		});
 		_getControl(cells[6]).parentNode.className =
 		_getControl(cells[6]).parentNode.className.replace(/\s*\bfield-activated\b/ig, '');
-		row.className = row.className.replace(/\s*\brow-pattern\b/ig, 'row-not-saved');
+		_update_datepickers();
+	}
+
+	function _update_datepickers()
+	{
+		var date_inputs = $('input[name=term_display]');
+
+		jQuery.each(date_inputs, function() {
+			var input_field =  $(this);
+			if(input_field.parent().hasClass('field-activated') && ! input_field.parent().parent().hasClass('row-pattern'))
+			{
+				input_field.addClass('datepicker');
+			}
+		});
+
+		_update_datepickers_calendars()
+
+	}
+
+	function _update_datepickers_calendars()
+	{
+		$('.datepicker').datepicker({
+			altField: $(this).parent().find('input[name*="\[date_term\]"]'),
+			altFormat: 'yy-mm-dd'
+		});
 	}
 
 	this.addPersonalTask = function()
@@ -283,6 +305,9 @@ var Card = new function()
 		var row = _cloneLastRow(_personaltasks);
 		var name = 'newTasks[' + row.rowIndex + ']';
 		var cells = row.cells;
+
+		row.className = row.className.replace(/\s*\brow-pattern\b/ig, 'row-not-saved');
+
 		_getControl(cells[0]).name = name + '[status]';
 		_getControl(cells[1]).name = name + '[description]';
 		_getControl(cells[3]).name = name + '[weight]';
@@ -295,13 +320,10 @@ var Card = new function()
 			input = input.nextSibling;
 		}
 		input.name = name + '[date_term]';
-		$(_getControl(cells[2])).datepicker({
-			altField: $(_getControl(cells[2])).next(),
-			altFormat: 'yy-mm-dd'
-		});
 		_getControl(cells[6]).parentNode.className =
 		_getControl(cells[6]).parentNode.className.replace(/\s*\bfield-activated\b/ig, '');
-		row.className = row.className.replace(/\s*\brow-pattern\b/ig, 'row-not-saved');
+
+		_update_datepickers();
 	}
 
 	this.addFuncTask = function()
@@ -326,10 +348,8 @@ var Card = new function()
 		_getControl(cells[6]).parentNode.className =
 		_getControl(cells[6]).parentNode.className.replace(/\s*\bfield-activated\b/ig, '');
 		row.className = row.className.replace(/\s*\brow-pattern\b/ig, 'row-not-saved');
-		$(_getControl(cells[2])).datepicker(
-		{
-			altField: $(_getControl(cells[2])).next(),
-			altFormat: 'yy-mm-dd'});
+
+		_update_datepickers();
 	}
 
 	this.addTrain = function()
@@ -367,8 +387,9 @@ var Card = new function()
 				//cells[6].className += ' field-activated';
 				_getControl(cells[1]).readOnly = false;
 //				_getControl(cells[2]).onclick = this.calendar;
-				if( ! $(row).hasClass('row-pattern'))
-					$(_getControl(cells[2])).datepicker({altField: $(_getControl(cells[2])).next(), altFormat: 'yy-mm-dd'});
+//				if( ! $(row).hasClass('row-pattern'))
+//					$(_getControl(cells[2])).datepicker({altField: $(_getControl(cells[2])).next(), altFormat: 'yy-mm-dd'});
+				_update_datepickers();
 				_getControl(cells[3]).readOnly = false;
 				_getControl(cells[5]).readOnly = false;
 				break;
@@ -420,8 +441,9 @@ var Card = new function()
 				//cells[6].className += ' field-activated';
 				_getControl(cells[1]).readOnly = false;
 //				_getControl(cells[2]).onclick = this.calendar;
-				if( ! $(row).hasClass('row-pattern'))
-					$(_getControl(cells[2])).datepicker({altField: $(_getControl(cells[2])).next(), altFormat: 'yy-mm-dd'});
+//				if( ! $(row).hasClass('row-pattern'))
+//					$(_getControl(cells[2])).datepicker({altField: $(_getControl(cells[2])).next(), altFormat: 'yy-mm-dd'});
+				_update_datepickers();
 				_getControl(cells[3]).readOnly = false;
 				//_getControl(cells[5]).readOnly = false;
 				break;
@@ -1746,22 +1768,16 @@ var Card = new function()
 		return true;
 	}
 
+	/**
+	 * Клонирование паттерна и вставка его перед самим паттерном.
+	 * @param table
+	 */
 	function _cloneLastRow(table)
 	{
-		var pattern = table.rows[table.rows.length - 1];
-		var numCells = pattern.cells.length;
-		var row = table.insertRow(-1);
-		var cell = null;
+		var pattern = $(table).find('.row-pattern').clone();
+		pattern.insertBefore($(table).find('.row-pattern'));
 
-		row.className = pattern.className;
-		for(var i = 0; i < numCells; i++)
-		{
-			cell = row.insertCell(-1);
-			cell.className = pattern.cells[i].className;
-			cell.innerHTML = pattern.cells[i].innerHTML;
-		}
-
-		return pattern;
+		return pattern[0];
 	}
 
 	function _removeLastRow(table)
