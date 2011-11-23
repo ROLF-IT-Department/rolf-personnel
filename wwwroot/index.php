@@ -28,7 +28,9 @@ if(isset($_SERVER['ENVIRONMENT']) AND $_SERVER['ENVIRONMENT'] == 'development')
 			'Time',
 			'Registry',
 			'Cache' => array('backend' => $cache->getBackend()),
-			'Exception')
+			'Exception'),
+		'jquery_path' => '',
+		'image_path'  => '/img/debugbar'
 	);
 	$controller->registerPlugin(new ZFDebug_Controller_Plugin_Debug($options));
 }
