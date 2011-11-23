@@ -43,8 +43,9 @@ class Employees_List
 
 				foreach($_persons as $person)
 				{
-					$employees[$person->surname]['info'] = $person;
+					$employees[$person->surname]['info']    = $person;
 					$employees[$person->surname]['attribs'] = $employee_model->find_full_info($person->id);//$employees_attribs_model->find($person->id)->current();
+					$employees[$person->surname]['cards']   = array();
 
 					$where ='person_id = ' . $person->id . ' AND period IN (' . $periodFirst . ',' . $periodSecond . ')';
 					$cards = $cards_model->fetchAll($where);
@@ -89,8 +90,9 @@ class Employees_List
 
 				foreach($_persons as $person)
 				{
-					$employees[$person->surname]['info'] = $person;
+					$employees[$person->surname]['info']    = $person;
 					$employees[$person->surname]['attribs'] = $employee_model->find_full_info($person->id);//$employees_attribs_model->find($person->id)->current();
+					$employees[$person->surname]['cards']   = array();
 
 					$where ='person_id = ' . $person->id . ' AND period IN (' . $periodFirst . ',' . $periodSecond . ')';
 					$cards = $cards_model->fetchAll($where);
@@ -133,8 +135,9 @@ class Employees_List
 
 				foreach($_persons as $person)
 				{
-					$employees[$person->surname]['info'] = $person;
+					$employees[$person->surname]['info']    = $person;
 					$employees[$person->surname]['attribs'] = $employee_model->find_full_info($person->id);//$employees_attribs_model->find($person->id)->current();
+					$employees[$person->surname]['cards']   = array();
 
 					$where ='person_id = ' . $person->id . ' AND period IN (' . $periodFirst . ',' . $periodSecond . ')';
 					$cards = $cards_model->fetchAll($where);
