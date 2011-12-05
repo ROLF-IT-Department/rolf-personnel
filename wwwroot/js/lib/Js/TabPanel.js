@@ -88,9 +88,10 @@ Js.TabPanelItem = function(id, bodyId, classNames)
 	{
 		var tab_re = new RegExp("tabs-item");
 		var card_active_tab = this.id.replace(tab_re, '');
-		var card_id = document.card.id.value;
+
 		if(document.card)
 		{
+			var card_id = document.card.id.value;
 			document.card.tab.value = card_id + card_active_tab;
 		}
 
