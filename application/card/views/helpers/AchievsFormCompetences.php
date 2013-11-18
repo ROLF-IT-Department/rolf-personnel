@@ -39,18 +39,26 @@ class Zend_View_Helper_AchievsFormCompetences
     		<div class="grid-body">
 		';
 
+	    $period = NULL;
+	    foreach($competences as $competence)
+	    {
+		    $period = $competence['period'];
+		    break;
+	    }
 
+    	$stands[] = ($period < 2013)
+	        ? '<div class="compets-type">Корпоративные компетенции - <span class="translate_category_tasks">Corporate competences</span></div>'
+	        : NULL;
 
     	$stands[] = '
-    			<div class="compets-type">Корпоративные компетенции - <span class="translate_category_tasks">Corporate competences</span></div>
     			<table class="grid-body-table" id="standsCompets">
     				<tbody>
     	';
-    	$addits[] = '
-    			<div class="compets-type">Компетенции группы должностей - <span class="translate_category_tasks">Job families competences</span></div>
+    	$addits[] = ($period < 2013)
+	        ? '<div class="compets-type">Компетенции группы должностей - <span class="translate_category_tasks">Job families competences</span></div>
     			<table class="grid-body-table" id="additsCompets">
-    				<tbody>
-    	';
+    				<tbody>'
+	        : NULL;
     	foreach ($competences as $item) {
     		if ((!$item['disabled']) && (!$item['is_personal'])) {
     			if ($item['additional']) {
@@ -64,10 +72,9 @@ class Zend_View_Helper_AchievsFormCompetences
     				</tbody>
     			</table>
     	';
-    	$addits[] = '
-    				</tbody>
-    			</table>
-    	';
+    	$addits[] = ($period < 2013)
+	        ? '</tbody></table>'
+	        : NULL;
 
 		$name = 'ratings[rtg_competens_id]';
     	$xhtml[] = implode('', $stands) . implode('', $addits);

@@ -42,6 +42,14 @@ class Card_AchievsController extends Zend_Controller_Action
 		$trainsRespons = new Rp_Db_Table_Ach_Trainings_Respons();
 		$careerFlags = new Rp_Db_Table_Ach_Cards_CareerFlags();
 
+		$card_competences = $card->fetchCompetences();
+
+		foreach($card_competences as $card_competence)
+		{
+			if( ! $card_competence->disabled)
+			$active_competences[] = $card_competence;
+		}
+
 		$view = $this->initView();
 		$view->title = Rp::getTitle(array($person->fullname, "Карточка достижений {$card->period}"));
 		$view->emp = $emp;
@@ -53,7 +61,8 @@ class Card_AchievsController extends Zend_Controller_Action
 		$view->status = $status;
 		$view->tasks = $card->fetchTasks();
 		$view->personalTasks = $card->fetchPersonalTasks();
-		$view->competences = $card->fetchCompetences();
+		$view->competences = $card_competences;
+		$view->active_competences = $active_competences;
 		$view->personalCompetences = $card->fetchPersonalCompetences();
 		$view->trainings = $card->fetchTrainings();
 		$view->personalTrainings = $card->fetchPersonalTrainings();
