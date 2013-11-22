@@ -180,13 +180,13 @@ div.panel-statusCLS {
 	text-align: center;
 }
 
-.compets-field-name {
-	width: 230px;
-}
+/*.compets-field-name {*/
+	/*width: 230px;*/
+/*}*/
 .compets-field-description {
 }
 .compets-field-result {
-	width: 30%;
+	width: 30%!important;
 }
 .compets-field-rating {
 	width: 56px;
@@ -204,7 +204,7 @@ td.compets-field-name div div {
 }
 
 .personal-competence-body .compets-field-name {
-	width: 775px;
+	/*width: 775px;*/
 }
 
 .trains-field-num {
