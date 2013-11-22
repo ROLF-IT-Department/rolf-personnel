@@ -19,26 +19,26 @@
 			<input name="userId" type="hidden" value="<?php echo $this->user->getPersonId() ?>" />
 			<input name="person_id" type="hidden" value="<?php echo $this->card->person_id ?>" />
 			<input name="status_id" type="hidden" value="<?php echo $this->card->status_id ?>" />
-			
+
 			<input name="approvals[plan_mng_id]" type="hidden" value="<?php echo $this->card->plan_mng_id ?>" />
 			<input name="approvals[plan_hmg_id]" type="hidden" value="<?php echo $this->card->plan_hmg_id ?>" />
 			<input name="approvals[plan_fnc_id]" type="hidden" value="<?php echo $this->card->plan_fnc_id ?>" />
-			
+
 			<input name="approvals[plan_mng_status]" type="hidden" value="<?php echo $this->card->plan_mng_status ?>" />
 			<input name="approvals[plan_emp_status]" type="hidden" value="<?php echo $this->card->plan_emp_status ?>" />
 			<input name="approvals[plan_hmg_status]" type="hidden" value="<?php echo $this->card->plan_hmg_status ?>" />
 			<input name="approvals[plan_fnc_status]" type="hidden" value="<?php echo $this->card->plan_fnc_status ?>" />
-			
+
 			<input name="approvals[rate_mng_id]" type="hidden" value="<?php echo $this->card->rate_mng_id ?>" />
 			<input name="approvals[rate_hmg_id]" type="hidden" value="<?php echo $this->card->rate_hmg_id ?>" />
 			<input name="approvals[rate_fnc_id]" type="hidden" value="<?php echo $this->card->rate_fnc_id ?>" />
-			
+
 			<input name="approvals[rate_mng_status]" type="hidden" value="<?php echo $this->card->rate_mng_status ?>" />
 			<input name="approvals[rate_emp_status]" type="hidden" value="<?php echo $this->card->rate_emp_status ?>" />
 			<input name="approvals[rate_hmg_status]" type="hidden" value="<?php echo $this->card->rate_hmg_status ?>" />
 			<input name="approvals[rate_fnc_status]" type="hidden" value="<?php echo $this->card->rate_fnc_status ?>" />
 			<input name="tab" type="hidden" value="<?php echo $this->tab?>" />
-			
+
 			<table class="panel">
 				<tbody>
 					<tr>
@@ -48,7 +48,7 @@
 								<?php echo $this->formSelect('period', $this->card->period, null, $this->periods) ?>
 								<br><span class="translate_menu">Period:</span>
 							</div>
-							
+
 						</td>
 						<td class="panel-toolbar" id="toolbarBox"></td>
 						<td class="panel-status">
@@ -65,7 +65,7 @@
 					<tbody>
 						<tr>
 							<td id="tabs-item-tasks" class="tabs-item tabs-item-activated"><div><span style="font-weight: bold; font-size:11px; height: 10px; position: relative; top: -8px; ">Бизнес-цели (<?php echo (count($this->tasks) - count($this->personalTasks)) ?>)</span><span style="color: #888888; font-size:10px; height: 10px; position: absolute; top: 8px; left: 23px;">Business objectives</span></div></td>
-							<td id="tabs-item-compets" class="tabs-item"><div><span style="font-weight: bold; font-size:11px; height: 10px; position: relative; top: -8px; ">Компетенции (<?php echo count($this->competences) ?>)</span><span style="color: #888888; font-size:10px; height: 10px; position: absolute; top: 8px; left: 164px;">Competences</span></div></td>
+							<td id="tabs-item-compets" class="tabs-item"><div><span style="font-weight: bold; font-size:11px; height: 10px; position: relative; top: -8px; ">Компетенции (<?php echo count($this->active_competences) ?>)</span><span style="color: #888888; font-size:10px; height: 10px; position: absolute; top: 8px; left: 164px;">Competences</span></div></td>
 							<td id="tabs-item-trains" class="tabs-item"><div><span style="font-weight: bold; font-size:11px; height: 10px; position: relative; top: -8px; ">План развития (<?php echo count($this->trainings) ?>)</span><span style="color: #888888; font-size:10px; height: 10px; position: absolute; top: 8px; left: 316px;">Development plan</span></div></td>
 							<td id="tabs-item-comments" class="tabs-item"><div><span style="font-weight: bold; font-size:11px; height: 10px; position: relative; top: -8px; ">Комментарии и согласования</span><span style="color: #888888; font-size:10px; height: 10px; position: absolute; top: 8px; left: 470px;">Comments & approvals</span></div></td>
 							<td id="tabs-item-personal" class="tabs-item"><div><span style="font-weight: bold; font-size:11px; height: 10px; position: relative; top: -8px; ">Форма сотрудника</span><span style="color: #888888; font-size:10px; height: 10px; position: absolute; top: 8px; left: 696px;">Personal form</span></div></td>
@@ -73,8 +73,8 @@
 					</tbody>
 				</table>
 				<div class="tabs-body tabs-body-activated" id="tabs-body-tasks">
-					<?php 
-						echo $this->achievsFormTasks($this->tasks, $this->count_func, $this->ratings, $this->rate_weights, $this->card->rtg_tasks_id, $this->userRole & $ROLE_FUNC_MANAGER, $this->card, $this->card->rtg_func_id) 
+					<?php
+						echo $this->achievsFormTasks($this->tasks, $this->count_func, $this->ratings, $this->rate_weights, $this->card->rtg_tasks_id, $this->userRole & $ROLE_FUNC_MANAGER, $this->card, $this->card->rtg_func_id)
 					?>
 				</div>
 				<div class="tabs-body" id="tabs-body-compets">
@@ -111,15 +111,15 @@
 										<textarea name="comments[mng_comment]" readonly><?php echo $this->card->mng_comment ?></textarea>
 									</td>
 								</tr>
-								
-								
+
+
 								<!--<tr><?php //if ($this->count_func > 0) echo '<th>Комментарий функционального руководителя - <span class="translate_category_tasks">Functional manager\'s comment</span></th>' ?></tr>
 								<tr><?php /*if ($this->count_func > 0) echo '
 									<td>
 										<textarea name="comments[fnc_comment]" readonly>' . $this->card->fnc_comment . '</textarea>
 									</td>'*/?>
 								</tr>-->
-								
+
 								<tr><th>Рекомендации по развитию карьеры - <span class="translate_category_tasks">Career Development Recommendations</span></th></tr>
 								<tr>
 									<td class="comments-field-flags">
@@ -131,14 +131,14 @@
 										<textarea name="comments[career_recom]" readonly><?php echo $this->card->career_recom ?></textarea>
 									</td>
 								</tr>
-								
+
 								<tr><th>Карьерные ожидания сотрудника - <span class="translate_category_tasks">Employee’s Career Expectations</span></th></tr>
 								<tr>
 									<td>
 										<textarea name="comments[career_wait]" readonly><?php echo $this->card->career_wait ?></textarea>
 									</td>
 								</tr>
-								
+
 								<!--<tr><th>Комментарий сотрудника - <span class="translate_category_tasks">Employee comment</span></th></tr>
 								<tr>
 									<td>
@@ -173,7 +173,7 @@
 						// $this->ratings, $this->rate_weights, $this->card->rtg_competens_id, TRUE
 						);?>
 				</div>
-				
+
 			</div>
 		</fieldset>
 	</form>

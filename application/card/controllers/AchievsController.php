@@ -44,6 +44,7 @@ class Card_AchievsController extends Zend_Controller_Action
 
 		$card_competences = $card->fetchCompetences();
 
+		$active_competences = array();
 		foreach($card_competences as $card_competence)
 		{
 			if( ! $card_competence->disabled)
