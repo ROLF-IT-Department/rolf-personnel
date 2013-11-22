@@ -65,6 +65,7 @@ BEGIN
 END
 -- Иначе - новый алгоритм
 ELSE
+BEGIN
 	-- Получаем список компетенций по person_id  и period
   select distinct C.id as card_id, CO.id as competence_id
   from user_rp_employees_attribs A, user_rp_ach_cards C, user_rp_ach_competences CO
@@ -84,3 +85,4 @@ ELSE
                 and (A.grade between CO.grade_from and CO.grade_to)
                 and CO.has_subordinates = 1
     END
+END
