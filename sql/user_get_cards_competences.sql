@@ -1,12 +1,16 @@
+USE [lite]
+GO
+/****** Object:  StoredProcedure [dbo].[user_get_cards_competences]    Script Date: 11/22/2013 13:06:22 ******/
 SET ANSI_NULLS ON
+GO
 SET QUOTED_IDENTIFIER ON
 GO
-
-CREATE  procedure dbo.user_get_cards_competences 
+ALTER  procedure [dbo].[user_get_cards_competences] 
 	@person_id int , @period int
 
 as
 
+declare @card_competences table (card_id int, competence_id int)
 declare @cardID int
 declare @subordinates int
 
@@ -67,6 +71,7 @@ END
 ELSE
 BEGIN
 	-- Получаем список компетенций по person_id  и period
+  insert into @card_competences (card_id,competence_id)
   select distinct C.id as card_id, CO.id as competence_id
   from user_rp_employees_attribs A, user_rp_ach_cards C, user_rp_ach_competences CO
 
@@ -77,6 +82,7 @@ BEGIN
         
 	IF @subordinates = 1
     BEGIN
+		insert into @card_competences (card_id,competence_id)
         select distinct C.id as card_id, CO.id as competence_id
         from user_rp_employees_attribs A, user_rp_ach_cards C, user_rp_ach_competences CO
 
@@ -85,4 +91,8 @@ BEGIN
                 and (A.grade between CO.grade_from and CO.grade_to)
                 and CO.has_subordinates = 1
     END
+    
+    select card_competences.* 
+	from 
+    (select * from @card_competences) card_competences
 END

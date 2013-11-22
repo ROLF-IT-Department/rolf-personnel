@@ -1,26 +1,31 @@
+USE [lite]
+GO
+/****** Object:  StoredProcedure [dbo].[user_proc_rp_ach_insert_cards_competences]    Script Date: 11/22/2013 13:12:28 ******/
 SET ANSI_NULLS ON
+GO
 SET QUOTED_IDENTIFIER ON
 GO
-
 /**
  * Обновление компетенций сотрдника
  * 
  * @last_update 15.08.2011 by SMGladkovskiy@rolf.ru
  */
-CREATE  procedure dbo.user_proc_rp_ach_insert_cards_competences @card_id int
+ALTER  procedure [dbo].[user_proc_rp_ach_insert_cards_competences] @card_id int
 
 as
 
 declare @Actual_competences table (id int, competence_id int)
+declare @card_competences table (card_id int, competence_id int)
 declare @new_person_id int
 declare @person_id int
-declare @period smallint
+declare @cardPeriod smallint
+declare @subordinates int
 
 -- проверка на наличие переходов на новую должность.
 -- так как берётся person_id из карточки, то это самый первый person_id в системе.
 -- необходимо искать актуальный и по нему смотреть компетенции
 -- Обозначаем период
-SELECT @new_person_id = MAX(I.ref_id), @period = MAX(Ca.period), @person_id = MAX(Ca.person_id)
+SELECT @new_person_id = MAX(I.ref_id), @cardPeriod = MAX(Ca.period), @person_id = MAX(Ca.person_id)
 FROM 
 	user_rp_persons_integrated_sap I,
 	user_rp_ach_cards Ca
@@ -30,9 +35,13 @@ WHERE
     
 GROUP BY I.person_id;
 
+SELECT @subordinates = CASE WHEN P.pid IS NULL THEN 0 ELSE 1 END
+	FROM user_rp_tree_posts P, user_rp_tree_posts_employees_PM PE
+	WHERE (PE.person_id = @person_id) AND (P.id = PE.post_id)
+	
+	
 
-
-IF @period < 2013
+IF @cardPeriod < 2013
 BEGIN
     -- вставка доп. компетенций - за 2006-й год их не было
     insert into @Actual_competences (id,competence_id)
@@ -84,8 +93,36 @@ END
 ELSE
 BEGIN
 	 -- вставка основных компетенций
+--    insert into @Actual_competences (id,competence_id) 
+--    EXEC user_get_cards_competences @personId, @cardPeriod
+    
+    	-- Получаем список компетенций по person_id  и period
+  insert into @card_competences (card_id,competence_id)
+  select distinct C.id as card_id, CO.id as competence_id
+  from user_rp_employees_attribs A, user_rp_ach_cards C, user_rp_ach_competences CO
+
+	where C.id=@card_id
+    	and  A.person_id = C.person_id 
+        and (A.grade between CO.grade_from and CO.grade_to)
+        and CO.has_subordinates = 0
+        
+	IF @subordinates = 1
+    BEGIN
+		insert into @card_competences (card_id,competence_id)
+        select distinct C.id as card_id, CO.id as competence_id
+        from user_rp_employees_attribs A, user_rp_ach_cards C, user_rp_ach_competences CO
+
+            where C.id=@card_id
+                and  A.person_id = C.person_id 
+                and (A.grade between CO.grade_from and CO.grade_to)
+                and CO.has_subordinates = 1
+    END
+    
     insert into @Actual_competences (id,competence_id) 
-    EXEC user_get_cards_competences @person_id, @period
+    select card_competences.* 
+	from 
+    (select * from @card_competences) card_competences
+    
 END;
         
         
